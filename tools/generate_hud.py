@@ -32,6 +32,7 @@ BAR_W, BAR_H = 182, 5
 BAR_X = (FRAME_W - BAR_W) // 2      # 37
 BAR_Y = 20                           # -> y_position (ascent) = 18
 CX = FRAME_W // 2
+SHIELD_R = 15
 
 # ----------------------------------------------------------------- paleta
 OUT = (34, 20, 8, 255)
@@ -310,7 +311,7 @@ def bossbar_frame():
     laurel_branch(d, CX - 17, x0 + 1, y0 - 3, y1 + 3)
 
     # emblema: escudo + casco
-    shield(img, CX, y0 + 2, 15)
+    shield(img, CX, y0 + 2, SHIELD_R)
     helmet(img, CX, 0)
 
     # placa de marmol con el nombre
@@ -323,8 +324,10 @@ def bossbar_frame():
         d.line([(xx, py0 + 2), (xx, py0 + ph - 3)], fill=GOLD[2] + (255,))
 
     outline(img)
-    # el contorno no debe invadir el hueco de la barra
-    d.rectangle([x0, y0, x1, y1], fill=(0, 0, 0, 0))
+    # el contorno no debe invadir el hueco de la barra (salvo bajo el escudo,
+    # que tiene que quedar opaco)
+    d.rectangle([x0, y0, CX - SHIELD_R - 1, y1], fill=(0, 0, 0, 0))
+    d.rectangle([CX + SHIELD_R + 1, y0, x1, y1], fill=(0, 0, 0, 0))
     paste_text(img, "HERACLES", CX - 27, py0 + 2)
     return img
 
@@ -377,6 +380,12 @@ def bar_sprites():
             sx = round(BAR_W * k / 10)
             for y in range(1, BAR_H - 1):
                 p[sx, y] = notch + (255,)
+        # hueco transparente bajo el escudo: Minecraft 1.21.6+ pinta la barra
+        # ENCIMA del titulo, asi que sin hueco la barra tapa el casco
+        gap = CX - BAR_X
+        for x in range(gap - SHIELD_R, gap + SHIELD_R + 1):
+            for y in range(BAR_H):
+                p[x, y] = (0, 0, 0, 0)
         return img
 
     return make(prog_rows, GOLD[1]), make(back_rows, (24, 16, 8))
@@ -397,9 +406,9 @@ def main():
     scene = Image.new("RGBA", (sw, 120), (120, 116, 112, 255))
     fx = sw // 2 - FRAME_W // 2
     bx = fx + BAR_X
+    scene.alpha_composite(frame, (fx, 8))
     scene.alpha_composite(back, (bx, 8 + BAR_Y))
     scene.alpha_composite(prog.crop((0, 0, round(BAR_W * 0.65), BAR_H)), (bx, 8 + BAR_Y))
-    scene.alpha_composite(frame, (fx, 8))
     scene.alpha_composite(logo, (sw // 2 - logo.width // 2, 76))
     scene.resize((sw * 4, 120 * 4), Image.NEAREST).save(PREVIEW)
     print("OK")
