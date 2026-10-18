@@ -7,7 +7,7 @@ XY_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
     - 'title{title="&d&lXYLAR";subtitle="&5Trono Galactico &8• &7El Señor de las estrellas desciende";fadein=20;stay=300;duration=300;fadeout=20} @Server'
-    - 'message{m="&d&lXYLAR &f: &7“He apagado mil soles. Vuestro mundo es solo uno mas.”"} @Server'
+    - 'message{m="&d&lXYLAR &f: &7He apagado mil soles. Vuestro mundo es solo uno mas."} @Server'
     - effect:sound{s=entity.wither_skeleton.ambient;v=0.9;p=0.8} @self
     - effect:particles{particle=SMOKE_LARGE;amount=25;hS=0.7;vS=0.9;speed=0.03} @self
     - potion{type=DAMAGE_RESISTANCE;duration=60;level=2} @self
@@ -25,35 +25,35 @@ XY_HP75_Check:
   Conditions:
     - health{h=<2999}
   Skills:
-    - 'message{m="&d&lXYLAR &8murmura... &7“Aun brillan tres cuartas partes de mis estrellas.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&d&lXYLAR &8murmura... &7Aun brillan tres cuartas partes de mis estrellas."} @PlayersInRadius{r=60}'
 
 XY_HP50_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<1999}
   Skills:
-    - 'message{m="&d&lXYLAR &8ruge... &7“La mitad de mi galaxia sigue en pie.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&d&lXYLAR &8ruge... &7La mitad de mi galaxia sigue en pie."} @PlayersInRadius{r=60}'
 
 XY_HP25_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<1000}
   Skills:
-    - 'message{m="&d&lXYLAR &8rie... &7“Una sola estrella basta para quemaros.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&d&lXYLAR &8rie... &7Una sola estrella basta para quemaros."} @PlayersInRadius{r=60}'
 
 XY_HP70_Lore:
   Cooldown: 9999
   Conditions:
     - health{h=<2799}
   Skills:
-    - 'message{m="&d&lXYLAR &f: &7“Uno de vosotros sera tragado por el vacio.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&d&lXYLAR &f: &7Uno de vosotros sera tragado por el vacio."} @PlayersInRadius{r=60}'
 
 XY_HP40_Lore:
   Cooldown: 9999
   Conditions:
     - health{h=<1601}
   Skills:
-    - 'message{m="&d&lXYLAR &f: &7“Sentid la gravedad de un dios.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&d&lXYLAR &f: &7Sentid la gravedad de un dios."} @PlayersInRadius{r=60}'
 
 XY_Phase2_Check:
   Conditions:
@@ -251,7 +251,7 @@ XY_Death:
 
 XY_PlayerKill:
   Skills:
-    - 'message{m="&d&lXYLAR &f: &7“Polvo de estrellas. Eso eres ahora.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&d&lXYLAR &f: &7Polvo de estrellas. Eso eres ahora."} @PlayersInRadius{r=60}'
 
 XY_FS_SpawnFX:
   Skills:

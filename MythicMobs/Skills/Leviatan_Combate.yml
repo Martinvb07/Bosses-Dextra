@@ -7,7 +7,7 @@ LV_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
     - 'title{title="&3&lLEVIATAN";subtitle="&bFosa Abisal &8• &7El Rey del Abismo emerge";fadein=20;stay=300;duration=300;fadeout=20} @Server'
-    - 'message{m="&3&lLEVIATAN &f: &7“Las profundidades os reclaman. Nadie respira en mi reino.”"} @Server'
+    - 'message{m="&3&lLEVIATAN &f: &7Las profundidades os reclaman. Nadie respira en mi reino."} @Server'
     - effect:sound{s=entity.skeleton.ambient;v=0.8;p=0.8} @self
     - effect:particles{particle=SOUL;amount=18;hS=1.0;vS=0.9;speed=0.02} @self
     - effect:particles{particle=BLOCK_CRACK;material=PRISMARINE;amount=24;hS=1.2;vS=0.9;speed=0.03} @self
@@ -158,11 +158,11 @@ LV_PullIfFar:
 
 LV_PlayerKill:
   Skills:
-    - 'message{m="&3&lLEVIATAN &f: &7“Otro cuerpo para el fondo del mar.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&3&lLEVIATAN &f: &7Otro cuerpo para el fondo del mar."} @PlayersInRadius{r=60}'
 
 LV_Death:
   Skills:
-    - 'message{m="&3&lLEVIATAN &f: &7“El mar... siempre... regresa...”"} @PlayersInRadius{r=70}'
+    - 'message{m="&3&lLEVIATAN &f: &7El mar... siempre... regresa..."} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.skeleton.death;v=0.8;p=0.9} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 

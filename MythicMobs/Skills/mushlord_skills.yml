@@ -4,7 +4,7 @@ Mushlord_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
     - 'title{title="&2&lMUSHLORD";subtitle="&aMushroom Island &8• &7Señor de las Espiras Corruptas";fadein=20;stay=300;duration=300;fadeout=20} @Server'
-    - 'message{m="&2&lMUSHLORD &f: &7“Bienvenidos… a mi jardín eterno…”"} @Server'
+    - 'message{m="&2&lMUSHLORD &f: &7Bienvenidos… a mi jardín eterno…"} @Server'
     - effect:sound{s=entity.zombie_villager.converted;v=0.7;p=0.7} @self
     - effect:particles{particle=SLIME;amount=28;hS=1.0;vS=0.6;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=40;hS=1.2;vS=1.0;speed=0.0;color=#5aa34b;size=1.3} @self
@@ -24,21 +24,21 @@ Mushlord_HP70_Check:
   Conditions:
     - health{h=<1960}
   Skills:
-    - 'message{m="&2&lMUSHLORD &f: &7“Respirad… mis esporas…”"} @PlayersInRadius{r=60}'
+    - 'message{m="&2&lMUSHLORD &f: &7Respirad… mis esporas…"} @PlayersInRadius{r=60}'
 
 Mushlord_HP40_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<1119}
   Skills:
-    - 'message{m="&2&lMUSHLORD &f: &7“La corrupción florece.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&2&lMUSHLORD &f: &7La corrupción florece."} @PlayersInRadius{r=60}'
 
 Mushlord_HP25_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<701}
   Skills:
-    - 'message{m="&2&lMUSHLORD &f: &7“Todo el jardín caerá con vosotros dentro.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&2&lMUSHLORD &f: &7Todo el jardín caerá con vosotros dentro."} @PlayersInRadius{r=60}'
 
 Mushlord_Phase2_Check:
   Conditions:
@@ -366,11 +366,11 @@ Mushlord_PullIfFar:
 
 Mushlord_PlayerKill:
   Skills:
-    - 'message{m="&2&lMUSHLORD &f: &7“Ahora… eres parte del ciclo.”"} @PlayersInRadius{r=50}'
+    - 'message{m="&2&lMUSHLORD &f: &7Ahora… eres parte del ciclo."} @PlayersInRadius{r=50}'
 
 Mushlord_Death:
   Skills:
-    - 'message{m="&2&lMUSHLORD &f: &7“El ciclo… continúa…”"} @PlayersInRadius{r=70}'
+    - 'message{m="&2&lMUSHLORD &f: &7El ciclo… continúa…"} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.zombie_villager.cure;v=0.8;p=0.5} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 

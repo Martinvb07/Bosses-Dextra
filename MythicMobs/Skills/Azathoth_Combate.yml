@@ -7,7 +7,7 @@ AZ_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
     - 'title{title="&5&lAZATHOTH";subtitle="&dEl Vacio Exterior &8• &7El Caos Ancestral abre los ojos";fadein=20;stay=300;duration=300;fadeout=20} @Server'
-    - 'message{m="&5&lAZATHOTH &f: &7“Soy el sueño que sostiene vuestro mundo... y estoy despertando.”"} @Server'
+    - 'message{m="&5&lAZATHOTH &f: &7Soy el sueño que sostiene vuestro mundo... y estoy despertando."} @Server'
     - effect:sound{s=entity.enderman.scream;v=0.8;p=0.7} @self
     - effect:particles{particle=BLOCK_CRACK;material=OBSIDIAN;amount=35;hS=1.0;vS=0.6;speed=0.08} @self
     - effect:particles{particle=PORTAL;amount=24;hS=1.2;vS=0.6;speed=0.12} @self
@@ -62,14 +62,14 @@ AZ_HP70_Lore:
   Conditions:
     - health{h=<2520}
   Skills:
-    - 'message{m="&5&lAZATHOTH &f: &7“Flautistas... tocad. Que la locura llene sus oidos.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&5&lAZATHOTH &f: &7Flautistas... tocad. Que la locura llene sus oidos."} @PlayersInRadius{r=60}'
 
 AZ_HP40_Lore:
   Cooldown: 9999
   Conditions:
     - health{h=<1440}
   Skills:
-    - 'message{m="&5&lAZATHOTH &f: &7“Vuestra cordura es un grano de arena en mi oceano.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&5&lAZATHOTH &f: &7Vuestra cordura es un grano de arena en mi oceano."} @PlayersInRadius{r=60}'
 
 AZ_Phase2_Check:
   Conditions:
@@ -292,13 +292,13 @@ AZ_SummonWardens:
 
 AZ_Death:
   Skills:
-    - 'message{m="&5&lAZATHOTH &f: &7“Solo... vuelvo a dormir...” &8• &dEl caos se aquieta, por ahora."} @PlayersInRadius{r=80}'
+    - 'message{m="&5&lAZATHOTH &f: &7Solo... vuelvo a dormir... &8• &dEl caos se aquieta, por ahora."} @PlayersInRadius{r=80}'
     - effect:sound{s=entity.enderman.death;v=0.9;p=0.8} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 
 AZ_PlayerKill:
   Skills:
-    - 'message{m="&5&lAZATHOTH &f: &7“Otra mente devorada por el sueño.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&5&lAZATHOTH &f: &7Otra mente devorada por el sueño."} @PlayersInRadius{r=60}'
 
 AZ_SW_SpawnFX:
   Skills:

@@ -22,21 +22,21 @@ Ragnarok_HP75_Check:
   Conditions:
     - health{h=<1987}
   Skills:
-    - 'message{m="&b&lRAGNAROK &f: &7“Aún conservo el 75% de mi poder.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&b&lRAGNAROK &f: &7Aún conservo el 75% de mi poder."} @PlayersInRadius{r=60}'
 
 Ragnarok_HP50_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<1325}
   Skills:
-    - 'message{m="&b&lRAGNAROK &f: &7“Con el 50% de mi vida basta para sellar vuestro destino.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&b&lRAGNAROK &f: &7Con el 50% de mi vida basta para sellar vuestro destino."} @PlayersInRadius{r=60}'
 
 Ragnarok_HP25_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<662}
   Skills:
-    - 'message{m="&b&lRAGNAROK &f: &7“Incluso con el 25%, el fin os alcanzará.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&b&lRAGNAROK &f: &7Incluso con el 25%, el fin os alcanzará."} @PlayersInRadius{r=60}'
 
 Ragnarok_Phase2_Check:
   Conditions:
@@ -45,7 +45,7 @@ Ragnarok_Phase2_Check:
   Skills:
     - skill{s=Ragnarok_PhaseShield} @self
     - setstance{stance=PHASE2} @self
-    - 'message{cooldown=9999;m="&b&lRAGNAROK &f: &7“El frío consumirá todo.”"} @PlayersInRadius{r=60}'
+    - 'message{cooldown=9999;m="&b&lRAGNAROK &f: &7El frío consumirá todo."} @PlayersInRadius{r=60}'
     - potion{type=INCREASE_DAMAGE;duration=220;level=0} @self
     - potion{type=SPEED;duration=220;level=0} @self
     - skill{s=Ragnarok_SummonDraugr} @self
@@ -57,7 +57,7 @@ Ragnarok_Phase3_Check:
   Skills:
     - skill{s=Ragnarok_PhaseShield} @self
     - setstance{stance=PHASE3} @self
-    - 'message{cooldown=9999;m="&b&lRAGNAROK &f: &7“No escaparéis del destino.”"} @PlayersInRadius{r=60}'
+    - 'message{cooldown=9999;m="&b&lRAGNAROK &f: &7No escaparéis del destino."} @PlayersInRadius{r=60}'
     - potion{type=INCREASE_DAMAGE;duration=220;level=1} @self
     - potion{type=SPEED;duration=220;level=1} @self
     - skill{s=Ragnarok_IceStorm} @self
@@ -71,7 +71,7 @@ Ragnarok_Phase4_Check:
   Skills:
     - skill{s=Ragnarok_PhaseShield} @self
     - setstance{stance=LASTBREATH} @self
-    - 'message{cooldown=9999;m="&b&lRAGNAROK &f: &7“El fin os alcanzara. Corred... o pereced.”"} @PlayersInRadius{r=60}'
+    - 'message{cooldown=9999;m="&b&lRAGNAROK &f: &7El fin os alcanzara. Corred... o pereced."} @PlayersInRadius{r=60}'
     - potion{type=INCREASE_DAMAGE;duration=260;level=2} @self
     - potion{type=SPEED;duration=260;level=1} @self
     - effect:sound{s=entity.warden.roar;v=0.55;p=0.7} @self
@@ -231,11 +231,11 @@ Ragnarok_SummonVikings:
 
 Ragnarok_PlayerKill:
   Skills:
-    - 'message{m="&b&lRAGNAROK &f: &7“Vuestro destino está sellado.”"} @PlayersInRadius{r=60}'
+    - 'message{m="&b&lRAGNAROK &f: &7Vuestro destino está sellado."} @PlayersInRadius{r=60}'
 
 Ragnarok_Death:
   Skills:
-    - 'message{m="&b&lRAGNAROK &f: &7“El Valhalla me espera…”"} @PlayersInRadius{r=70}'
+    - 'message{m="&b&lRAGNAROK &f: &7El Valhalla me espera…"} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.wither.death;v=0.8;p=0.9} @self
     - effect:sound{s=block.glass.break;v=1.0;p=0.5} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
