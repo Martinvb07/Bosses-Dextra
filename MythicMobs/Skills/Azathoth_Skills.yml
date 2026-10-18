@@ -15,7 +15,7 @@ Azathoth_Saco_Top1:
     - consumeuseditem{a=1} @self
     - skill{s=Azathoth_Saco_FX} @self
     - command{c="xp give <caster.name> 100"} @self
-    - message{m="&5&lAZATHOTH &8» &e&l1er Lugar&e. El mejor botin es tuyo."} @self
+    - message{m="&5&lAZATHOTH &8» &e&l1er Lugar&e. Miraste al caos a los ojos y saliste entero."} @self
     - command{c="ae givercbook EXALTED <caster.name> 1"} @self
 
 Azathoth_Saco_Top2:
@@ -24,7 +24,7 @@ Azathoth_Saco_Top2:
     - consumeuseditem{a=1} @self
     - skill{s=Azathoth_Saco_FX} @self
     - command{c="xp give <caster.name> 60"} @self
-    - message{m="&5&lAZATHOTH &8» &f&l2do Lugar&f. Casi lo derribas vos solo."} @self
+    - message{m="&5&lAZATHOTH &8» &f&l2do Lugar&f. Rozaste el corazon del caos."} @self
     - command{c="ae givercbook DEXTRA <caster.name> 1"} @self
 
 Azathoth_Saco_Top3:
@@ -33,7 +33,7 @@ Azathoth_Saco_Top3:
     - consumeuseditem{a=1} @self
     - skill{s=Azathoth_Saco_FX} @self
     - command{c="xp give <caster.name> 30"} @self
-    - message{m="&5&lAZATHOTH &8» &6&l3er Lugar&6. Buen trabajo."} @self
+    - message{m="&5&lAZATHOTH &8» &6&l3er Lugar&6. Las estrellas muertas recordaran tu nombre."} @self
     - command{c="ae givercbook DEXTRA <caster.name> 1"} @self
 
 Azathoth_Saco_Consuelo:
@@ -41,7 +41,7 @@ Azathoth_Saco_Consuelo:
   Skills:
     - consumeuseditem{a=1} @self
     - skill{s=Azathoth_Saco_FX} @self
-    - message{m="&5&lAZATHOTH &8» &7Participaste en la caida del Caos Ancestral."} @self
+    - message{m="&5&lAZATHOTH &8» &7Sobreviviste al despertar del dios ciego."} @self
     - command{c="ae givercbook HEROICO <caster.name> 3"} @self
 
 

@@ -379,20 +379,20 @@ AZ_ItemSummon_AtCoords:
     - summon{type=Azathoth;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
     - delay 1
     - consumehelditem{a=1} @self
-    - message{cooldown=2;m="&5&lAZATHOTH &8» &aInvocado."} @self
+    - message{cooldown=2;m="&5&lAZATHOTH &8» &dLa realidad se rasga... &5Azathoth abre los ojos&d."} @self
 
 AZ_ItemSummon_Fail_AlreadyActive:
   Skills:
-    - message{cooldown=2;m="&5&lAZATHOTH &8» &7Ya hay un &5Azathoth &7cerca. Mata al boss antes de invocar otro."} @self
+    - message{cooldown=2;m="&5&lAZATHOTH &8» &7El caos ya respira cerca. Derrota a &5Azathoth &7antes de invocar otro."} @self
 
 AZ_ItemSummon_Fail_NotAtSpot:
   Skills:
-    - message{cooldown=2;m="&5&lAZATHOTH &8» &eNo estas en el &6Altar de Invocacion&e. &7Acercate al altar para usar la estrella."} @self
+    - message{cooldown=2;m="&5&lAZATHOTH &8» &eLa estrella solo vibra junto al &6Altar del Vacio&e. &7Acercate al altar."} @self
 
 AZ_ItemSummon_Fail_WrongWorld:
   Skills:
-    - message{cooldown=2;m="&5&lAZATHOTH &8» &eLa invocacion no responde en este lugar. &7Regresa al &6Altar de Invocacion&7."} @self
+    - message{cooldown=2;m="&5&lAZATHOTH &8» &eEl vacio no te escucha desde aqui. &7Regresa al &6Altar de Invocacion&7."} @self
 
 AZ_ItemSummon_Fail_Cooldown:
   Skills:
-    - message{cooldown=2;m="&5&lAZATHOTH &8» &7La estrella aun se esta recargando. &fEspera un momento&7."} @self
+    - message{cooldown=2;m="&5&lAZATHOTH &8» &7La estrella aun gira en el vacio. &fEspera un momento&7."} @self

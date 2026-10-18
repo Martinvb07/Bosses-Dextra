@@ -276,20 +276,20 @@ KR_ItemSummon_AtCoords:
     - summon{type=Kronos;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
     - delay 1
     - consumehelditem{a=1} @self
-    - message{cooldown=2;m="&5&lKRONOS &8» &aInvocado."} @self
+    - message{cooldown=2;m="&5&lKRONOS &8» &dLas agujas se detienen... &5Kronos ha despertado&d."} @self
 
 KR_ItemSummon_Fail_AlreadyActive:
   Skills:
-    - message{cooldown=2;m="&5&lKRONOS &8» &7Ya hay un &5Kronos &7cerca. Mata al boss antes de invocar otro."} @self
+    - message{cooldown=2;m="&5&lKRONOS &8» &7El reloj ya marca la hora de &5Kronos&7. Derrotalo antes de invocar otro."} @self
 
 KR_ItemSummon_Fail_NotAtSpot:
   Skills:
-    - message{cooldown=2;m="&5&lKRONOS &8» &eNo estas en el &6Altar de Invocacion&e. &7Acercate al altar para usar la estrella."} @self
+    - message{cooldown=2;m="&5&lKRONOS &8» &eLa estrella solo late junto al &6Altar del Reloj Roto&e. &7Acercate al altar."} @self
 
 KR_ItemSummon_Fail_WrongWorld:
   Skills:
-    - message{cooldown=2;m="&5&lKRONOS &8» &eLa invocacion no responde en este lugar. &7Regresa al &6Altar de Invocacion&7."} @self
+    - message{cooldown=2;m="&5&lKRONOS &8» &eAqui el tiempo no responde. &7Regresa al &6Altar de Invocacion&7."} @self
 
 KR_ItemSummon_Fail_Cooldown:
   Skills:
-    - message{cooldown=2;m="&5&lKRONOS &8» &7La estrella aun se esta recargando. &fEspera un momento&7."} @self
+    - message{cooldown=2;m="&5&lKRONOS &8» &7La arena de la estrella aun esta cayendo. &fEspera un momento&7."} @self

@@ -15,7 +15,7 @@ Leviatan_Saco_Top1:
     - consumeuseditem{a=1} @self
     - skill{s=Leviatan_Saco_FX} @self
     - command{c="xp give <caster.name> 100"} @self
-    - message{m="&3&lLEVIATAN &8» &e&l1er Lugar&e. El mejor botin es tuyo."} @self
+    - message{m="&3&lLEVIATAN &8» &e&l1er Lugar&e. Partiste la coraza del Rey del Abismo."} @self
     - command{c="ae givercbook EXALTED <caster.name> 1"} @self
 
 Leviatan_Saco_Top2:
@@ -24,7 +24,7 @@ Leviatan_Saco_Top2:
     - consumeuseditem{a=1} @self
     - skill{s=Leviatan_Saco_FX} @self
     - command{c="xp give <caster.name> 60"} @self
-    - message{m="&3&lLEVIATAN &8» &f&l2do Lugar&f. Casi lo derribas vos solo."} @self
+    - message{m="&3&lLEVIATAN &8» &f&l2do Lugar&f. Casi lo arrastras a la superficie."} @self
     - command{c="ae givercbook DEXTRA <caster.name> 1"} @self
 
 Leviatan_Saco_Top3:
@@ -33,7 +33,7 @@ Leviatan_Saco_Top3:
     - consumeuseditem{a=1} @self
     - skill{s=Leviatan_Saco_FX} @self
     - command{c="xp give <caster.name> 30"} @self
-    - message{m="&3&lLEVIATAN &8» &6&l3er Lugar&6. Buen trabajo."} @self
+    - message{m="&3&lLEVIATAN &8» &6&l3er Lugar&6. La marea guardara tu nombre."} @self
     - command{c="ae givercbook DEXTRA <caster.name> 1"} @self
 
 Leviatan_Saco_Consuelo:
@@ -41,7 +41,7 @@ Leviatan_Saco_Consuelo:
   Skills:
     - consumeuseditem{a=1} @self
     - skill{s=Leviatan_Saco_FX} @self
-    - message{m="&3&lLEVIATAN &8» &7Participaste en la caida del Rey del Abismo."} @self
+    - message{m="&3&lLEVIATAN &8» &7Resististe la presion del abismo."} @self
     - command{c="ae givercbook HEROICO <caster.name> 3"} @self
 
 

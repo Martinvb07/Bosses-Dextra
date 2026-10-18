@@ -504,20 +504,20 @@ TH_ItemSummon_AtCoords:
     - summon{type=Thor;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
     - delay 1
     - consumehelditem{a=1} @self
-    - message{cooldown=2;m="&b&lTHOR &8» &aInvocado."} @self
+    - message{cooldown=2;m="&b&lTHOR &8» &eEl cielo truena... &bThor desciende de Asgard&e."} @self
 
 TH_ItemSummon_Fail_AlreadyActive:
   Skills:
-    - message{cooldown=2;m="&b&lTHOR &8» &7Ya hay un &bThor &7cerca. Mata al boss antes de invocar otro."} @self
+    - message{cooldown=2;m="&b&lTHOR &8» &7La tormenta ya ruge. Derrota a &bThor &7antes de invocar otro."} @self
 
 TH_ItemSummon_Fail_NotAtSpot:
   Skills:
-    - message{cooldown=2;m="&b&lTHOR &8» &eNo estas en el &6Altar de Invocacion&e. &7Acercate al altar para usar la estrella."} @self
+    - message{cooldown=2;m="&b&lTHOR &8» &eLa estrella solo chispea en el &6Altar del Trueno&e. &7Acercate al altar."} @self
 
 TH_ItemSummon_Fail_WrongWorld:
   Skills:
-    - message{cooldown=2;m="&b&lTHOR &8» &eLa invocacion no responde en este lugar. &7Regresa al &6Altar de Invocacion&7."} @self
+    - message{cooldown=2;m="&b&lTHOR &8» &eLos rayos no caen aqui. &7Regresa al &6Altar de Invocacion&7."} @self
 
 TH_ItemSummon_Fail_Cooldown:
   Skills:
-    - message{cooldown=2;m="&b&lTHOR &8» &7La estrella aun se esta recargando. &fEspera un momento&7."} @self
+    - message{cooldown=2;m="&b&lTHOR &8» &7La estrella aun esta cargando electricidad. &fEspera un momento&7."} @self

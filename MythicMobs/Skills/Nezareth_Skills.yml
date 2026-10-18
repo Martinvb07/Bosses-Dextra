@@ -15,7 +15,7 @@ Nezareth_Saco_Top1:
     - consumeuseditem{a=1} @self
     - skill{s=Nezareth_Saco_FX} @self
     - command{c="xp give <caster.name> 100"} @self
-    - message{m="&8&lNEZARETH &8» &e&l1er Lugar&e. El mejor botin es tuyo."} @self
+    - message{m="&8&lNEZARETH &8» &e&l1er Lugar&e. Cortaste mas hilos que nadie."} @self
     - command{c="ae givercbook EXALTED <caster.name> 1"} @self
 
 Nezareth_Saco_Top2:
@@ -24,7 +24,7 @@ Nezareth_Saco_Top2:
     - consumeuseditem{a=1} @self
     - skill{s=Nezareth_Saco_FX} @self
     - command{c="xp give <caster.name> 60"} @self
-    - message{m="&8&lNEZARETH &8» &f&l2do Lugar&f. Casi lo derribas vos solo."} @self
+    - message{m="&8&lNEZARETH &8» &f&l2do Lugar&f. Casi deshaces su telar."} @self
     - command{c="ae givercbook DEXTRA <caster.name> 1"} @self
 
 Nezareth_Saco_Top3:
@@ -33,7 +33,7 @@ Nezareth_Saco_Top3:
     - consumeuseditem{a=1} @self
     - skill{s=Nezareth_Saco_FX} @self
     - command{c="xp give <caster.name> 30"} @self
-    - message{m="&8&lNEZARETH &8» &6&l3er Lugar&6. Buen trabajo."} @self
+    - message{m="&8&lNEZARETH &8» &6&l3er Lugar&6. Tu hilo sigue intacto en su tapiz."} @self
     - command{c="ae givercbook DEXTRA <caster.name> 1"} @self
 
 Nezareth_Saco_Consuelo:
@@ -41,7 +41,7 @@ Nezareth_Saco_Consuelo:
   Skills:
     - consumeuseditem{a=1} @self
     - skill{s=Nezareth_Saco_FX} @self
-    - message{m="&8&lNEZARETH &8» &7Participaste en la caida de la Tejedora Eterna."} @self
+    - message{m="&8&lNEZARETH &8» &7Escapaste de la tela de la Tejedora."} @self
     - command{c="ae givercbook HEROICO <caster.name> 3"} @self
 
 

@@ -319,20 +319,20 @@ SH_ItemSummon_AtCoords:
     - summon{type=Samhain;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
     - delay 1
     - consumehelditem{a=1} @self
-    - message{cooldown=2;m="&6&lSAMHAIN &8» &aInvocado."} @self
+    - message{cooldown=2;m="&6&lSAMHAIN &8» &eLas velas se apagan... &6Samhain cruza el velo&e."} @self
 
 SH_ItemSummon_Fail_AlreadyActive:
   Skills:
-    - message{cooldown=2;m="&6&lSAMHAIN &8» &7Ya hay un &6Samhain &7cerca. Mata al boss antes de invocar otro."} @self
+    - message{cooldown=2;m="&6&lSAMHAIN &8» &7El velo ya esta abierto. Derrota a &6Samhain &7antes de invocar otro."} @self
 
 SH_ItemSummon_Fail_NotAtSpot:
   Skills:
-    - message{cooldown=2;m="&6&lSAMHAIN &8» &eNo estas en el &6Altar de Invocacion&e. &7Acercate al altar para usar la estrella."} @self
+    - message{cooldown=2;m="&6&lSAMHAIN &8» &eLa estrella solo arde junto al &6Altar de las Animas&e. &7Acercate al altar."} @self
 
 SH_ItemSummon_Fail_WrongWorld:
   Skills:
-    - message{cooldown=2;m="&6&lSAMHAIN &8» &eLa invocacion no responde en este lugar. &7Regresa al &6Altar de Invocacion&7."} @self
+    - message{cooldown=2;m="&6&lSAMHAIN &8» &eLas animas no cruzan por aqui. &7Regresa al &6Altar de Invocacion&7."} @self
 
 SH_ItemSummon_Fail_Cooldown:
   Skills:
-    - message{cooldown=2;m="&6&lSAMHAIN &8» &7La estrella aun se esta recargando. &fEspera un momento&7."} @self
+    - message{cooldown=2;m="&6&lSAMHAIN &8» &7La llama de la estrella aun no prende. &fEspera un momento&7."} @self

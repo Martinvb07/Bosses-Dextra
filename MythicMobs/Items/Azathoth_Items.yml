@@ -6,8 +6,8 @@ Saco_Azathoth_Top1:
   Id: YELLOW_DYE
   Display: "&5&lSaco de Azathoth &8• &e&l1er Lugar"
   Lore:
-    - "&7El botin del Caos Ancestral,"
-    - "&7reservado para quien mas lo castigo."
+    - "&7Un fragmento del vacio que miro a Azathoth"
+    - "&7y no enloquecio."
     - ""
     - "&eClick derecho &7para abrirlo."
     - ""
@@ -19,7 +19,7 @@ Saco_Azathoth_Top2:
   Id: WHITE_DYE
   Display: "&5&lSaco de Azathoth &8• &f&l2do Lugar"
   Lore:
-    - "&7Casi lo derribas vos solo."
+    - "&7Rozaste el corazon del caos."
     - ""
     - "&eClick derecho &7para abrirlo."
     - ""
@@ -31,7 +31,7 @@ Saco_Azathoth_Top3:
   Id: ORANGE_DYE
   Display: "&5&lSaco de Azathoth &8• &6&l3er Lugar"
   Lore:
-    - "&7Tu esfuerzo quedo grabado en la batalla."
+    - "&7Las estrellas muertas recordaran tu nombre."
     - ""
     - "&eClick derecho &7para abrirlo."
     - ""
@@ -43,7 +43,7 @@ Saco_Azathoth_Consuelo:
   Id: GRAY_DYE
   Display: "&8&lSaco de Azathoth &8• &7Participante"
   Lore:
-    - "&7Aportaste a la caida del Caos Ancestral,"
+    - "&7Sobreviviste al despertar del dios ciego,"
     - "&7aunque no entraste en el podio."
     - ""
     - "&eClick derecho &7para abrirlo."
@@ -64,3 +64,19 @@ Azathoth_EstrellaInvocacion:
   Skills:
     - skill{s=AZ_ItemSummon} @Self ~onRightClick
     - skill{s=AZ_ItemSummon} @Self ~onUse
+
+# --- Equipo propio de Azathoth (antes usaba el de otro boss) ---
+
+AZ_ArmaduraInvisible:
+  Id: PUMPKIN_SEEDS
+  Display: "&f"
+  Lore:
+    - ""
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:155
+  ItemFlags:
+    - HIDE_ENCHANTS
+    - HIDE_ATTRIBUTES
+    - HIDE_ADDITIONAL_TOOLTIP
+  Options:
+    Unbreakable: true

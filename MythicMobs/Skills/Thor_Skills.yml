@@ -15,7 +15,7 @@ Thor_Saco_Top1:
     - consumeuseditem{a=1} @self
     - skill{s=Thor_Saco_FX} @self
     - command{c="xp give <caster.name> 100"} @self
-    - message{m="&a&lTHOR &8» &e&l1er Lugar&e. El mejor botin es tuyo."} @self
+    - message{m="&b&lTHOR &8» &e&l1er Lugar&e. Resististe la ira de Mjolnir."} @self
     - command{c="ae givercbook EXALTED <caster.name> 1"} @self
 
 Thor_Saco_Top2:
@@ -24,7 +24,7 @@ Thor_Saco_Top2:
     - consumeuseditem{a=1} @self
     - skill{s=Thor_Saco_FX} @self
     - command{c="xp give <caster.name> 60"} @self
-    - message{m="&a&lTHOR &8» &f&l2do Lugar&f. Casi lo derribas vos solo."} @self
+    - message{m="&b&lTHOR &8» &f&l2do Lugar&f. Un relampago mas y caia por tu mano."} @self
     - command{c="ae givercbook DEXTRA <caster.name> 1"} @self
 
 Thor_Saco_Top3:
@@ -33,7 +33,7 @@ Thor_Saco_Top3:
     - consumeuseditem{a=1} @self
     - skill{s=Thor_Saco_FX} @self
     - command{c="xp give <caster.name> 30"} @self
-    - message{m="&a&lTHOR &8» &6&l3er Lugar&6. Buen trabajo."} @self
+    - message{m="&b&lTHOR &8» &6&l3er Lugar&6. El Valhalla escucho tu grito de guerra."} @self
     - command{c="ae givercbook DEXTRA <caster.name> 1"} @self
 
 Thor_Saco_Consuelo:
@@ -41,7 +41,7 @@ Thor_Saco_Consuelo:
   Skills:
     - consumeuseditem{a=1} @self
     - skill{s=Thor_Saco_FX} @self
-    - message{m="&a&lTHOR &8» &7Participaste en la caida del Senor de las Espiras Corruptas."} @self
+    - message{m="&b&lTHOR &8» &7Peleaste bajo la tormenta de Asgard."} @self
     - command{c="ae givercbook HEROICO <caster.name> 3"} @self
 
 

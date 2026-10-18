@@ -12,9 +12,11 @@ Thor:
     ThreatTable: true
 
   Equipment:
-    - IRON_AXE:HAND
-    - "PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGNjOWE0YTdhYWRiMzczYWRjM2JlMDUyNDI5MjRjODk4NWUyZjk5M2RkOGU0ZDk2ZjIwNzIxMDUyZmY3ZTdhOCJ9fX0=}:HEAD"
-    - Mushlord_ArmaduraInvisible:CHEST
+    - MACE:HAND
+    - TH_PetoTrueno:CHEST
+    - TH_PantalonesTrueno:LEGS
+    - TH_BotasTrueno:FEET
+    - TH_CascoAlado:HEAD
 
   BossBar:
     Enabled: true
@@ -127,8 +129,9 @@ Thor_Einherjar:
     FollowRange: 28
 
   Equipment:
-    - STONE_SWORD:HAND
-    - RED_MUSHROOM_BLOCK:HEAD
+    - IRON_AXE:HAND
+    - SHIELD:OFFHAND
+    - TH_CascoEinherjar:HEAD
 
   AITargetSelectors:
     - clear

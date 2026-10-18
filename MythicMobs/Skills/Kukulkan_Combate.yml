@@ -417,20 +417,20 @@ KK_ItemSummon_AtCoords:
     - summon{type=Kukulkan;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
     - delay 1
     - consumehelditem{a=1} @self
-    - message{cooldown=2;m="&a&lKUKULKAN &8» &aInvocado."} @self
+    - message{cooldown=2;m="&a&lKUKULKAN &8» &eLa piramide tiembla... &aKukulkan desciende por la escalinata&e."} @self
 
 KK_ItemSummon_Fail_AlreadyActive:
   Skills:
-    - message{cooldown=2;m="&a&lKUKULKAN &8» &7Ya hay un &aKukulkan &7cerca. Mata al boss antes de invocar otro."} @self
+    - message{cooldown=2;m="&a&lKUKULKAN &8» &7La serpiente ya repta cerca. Derrota a &aKukulkan &7antes de invocar otro."} @self
 
 KK_ItemSummon_Fail_NotAtSpot:
   Skills:
-    - message{cooldown=2;m="&a&lKUKULKAN &8» &eNo estas en el &6Altar de Invocacion&e. &7Acercate al altar para usar la estrella."} @self
+    - message{cooldown=2;m="&a&lKUKULKAN &8» &eLa estrella solo brilla en el &6Altar del Templo Solar&e. &7Acercate al altar."} @self
 
 KK_ItemSummon_Fail_WrongWorld:
   Skills:
-    - message{cooldown=2;m="&a&lKUKULKAN &8» &eLa invocacion no responde en este lugar. &7Regresa al &6Altar de Invocacion&7."} @self
+    - message{cooldown=2;m="&a&lKUKULKAN &8» &eEl sol no ilumina este lugar. &7Regresa al &6Altar de Invocacion&7."} @self
 
 KK_ItemSummon_Fail_Cooldown:
   Skills:
-    - message{cooldown=2;m="&a&lKUKULKAN &8» &7La estrella aun se esta recargando. &fEspera un momento&7."} @self
+    - message{cooldown=2;m="&a&lKUKULKAN &8» &7La estrella aun se esta calentando al sol. &fEspera un momento&7."} @self

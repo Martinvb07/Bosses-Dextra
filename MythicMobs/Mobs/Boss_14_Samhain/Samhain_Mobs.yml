@@ -11,11 +11,11 @@ Samhain:
     ThreatTable: true
 
   Equipment:
-    - DIAMOND_AXE:HAND
-    - Ragnarok_IronChestplate:CHEST
-    - Ragnarok_IronLeggings:LEGS
-    - Ragnarok_IronBoots:FEET
-    - "PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmI4MmRkYTQ1NmZjZTg2YTA4Y2RiZjViOGQ3OWJjMGU0NTU2MzA3YWEzZGY0NmY4ZjljNTVmNzVlMzVhMjM3YyJ9fX0=}:HEAD"
+    - DIAMOND_HOE:HAND
+    - SH_TunicaAnimas:CHEST
+    - SH_PantalonesAnimas:LEGS
+    - SH_BotasAnimas:FEET
+    - JACK_O_LANTERN:HEAD
 
   BossBar:
     Enabled: true
@@ -124,10 +124,11 @@ Samhain_Espantapajaros:
     FollowRange: 28
 
   Equipment:
-    - IRON_AXE:HAND
-    - CHAINMAIL_CHESTPLATE:CHEST
-    - CHAINMAIL_LEGGINGS:LEGS
-    - CHAINMAIL_BOOTS:FEET
+    - IRON_HOE:HAND
+    - SH_CamisaEspantapajaros:CHEST
+    - SH_PantalonEspantapajaros:LEGS
+    - SH_BotasEspantapajaros:FEET
+    - CARVED_PUMPKIN:HEAD
 
   AITargetSelectors:
     - clear
@@ -185,9 +186,9 @@ Samhain_Jinete:
     FollowRange: 30
 
   Equipment:
-    - IRON_AXE:HAND
-    - SHIELD:OFFHAND
-    - IRON_HELMET:HEAD
+    - IRON_SWORD:HAND
+    - JACK_O_LANTERN:OFFHAND
+    - SH_CapaJinete:CHEST
 
   AITargetSelectors:
     - clear

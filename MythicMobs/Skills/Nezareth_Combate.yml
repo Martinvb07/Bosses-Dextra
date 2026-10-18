@@ -300,20 +300,20 @@ NZ_ItemSummon_AtCoords:
     - summon{type=Nezareth;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
     - delay 1
     - consumehelditem{a=1} @self
-    - message{cooldown=2;m="&8&lNEZARETH &8» &aInvocado."} @self
+    - message{cooldown=2;m="&8&lNEZARETH &8» &7Los hilos se tensan... &8Nezareth baja de su telar&7."} @self
 
 NZ_ItemSummon_Fail_AlreadyActive:
   Skills:
-    - message{cooldown=2;m="&8&lNEZARETH &8» &7Ya hay un &8Nezareth &7cerca. Mata al boss antes de invocar otro."} @self
+    - message{cooldown=2;m="&8&lNEZARETH &8» &7La tela ya esta tendida. Derrota a &8Nezareth &7antes de invocar otro."} @self
 
 NZ_ItemSummon_Fail_NotAtSpot:
   Skills:
-    - message{cooldown=2;m="&8&lNEZARETH &8» &eNo estas en el &6Altar de Invocacion&e. &7Acercate al altar para usar la estrella."} @self
+    - message{cooldown=2;m="&8&lNEZARETH &8» &eLa estrella solo se enhebra en el &6Altar del Telar&e. &7Acercate al altar."} @self
 
 NZ_ItemSummon_Fail_WrongWorld:
   Skills:
-    - message{cooldown=2;m="&8&lNEZARETH &8» &eLa invocacion no responde en este lugar. &7Regresa al &6Altar de Invocacion&7."} @self
+    - message{cooldown=2;m="&8&lNEZARETH &8» &eLos hilos no llegan hasta aqui. &7Regresa al &6Altar de Invocacion&7."} @self
 
 NZ_ItemSummon_Fail_Cooldown:
   Skills:
-    - message{cooldown=2;m="&8&lNEZARETH &8» &7La estrella aun se esta recargando. &fEspera un momento&7."} @self
+    - message{cooldown=2;m="&8&lNEZARETH &8» &7La estrella aun se esta tejiendo. &fEspera un momento&7."} @self

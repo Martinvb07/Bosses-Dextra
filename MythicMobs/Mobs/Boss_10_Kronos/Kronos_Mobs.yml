@@ -12,11 +12,11 @@ Kronos:
  #   ThreatTable: true
 
   Equipment:
-    - GOLD_SWORD:HAND
-    - Heracles_PetoOro:CHEST
-    - Heracles_PantalonesOro:LEGS
-    - Heracles_BotasOro:FEET
-    - "PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzg4MmVkN2IyMDdjZDlhN2NmYjIxMTEzMmY2ZWZmMTg0ODM1MzNiOTM3NzExNjk0NWNkZjZhMGJhZmU3ZjM1YSJ9fX0=}:HEAD"
+    - NETHERITE_HOE:HAND
+    - KR_PetoTiempo:CHEST
+    - KR_PantalonesTiempo:LEGS
+    - KR_BotasTiempo:FEET
+    - KR_CoronaTiempo:HEAD
 
   BossBar:
     Enabled: true
@@ -135,8 +135,8 @@ Kronos_Centinela:
 
   Equipment:
     - IRON_SWORD:HAND
-    - SHIELD:OFFHAND
-    - GOLD_HELMET:HEAD
+    - CLOCK:OFFHAND
+    - KR_CascoCentinela:HEAD
 
   Options:
     Despawn: true
@@ -163,9 +163,9 @@ Kronos_Guardian:
   Faction: Boss_Kronos
 
   Equipment:
-    - IRON_SWORD:HAND
+    - NETHERITE_AXE:HAND
     - SHIELD:OFFHAND
-    - IRON_HELMET:HEAD
+    - KR_CascoGuardian:HEAD
 
   Options:
     Despawn: true
@@ -195,7 +195,7 @@ Kronos_Saetero:
 
   Equipment:
     - BOW:HAND
-    - LEATHER_HELMET:HEAD
+    - KR_CapuchaSaetero:HEAD
 
   Options:
     Despawn: true

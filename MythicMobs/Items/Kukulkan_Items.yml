@@ -6,8 +6,8 @@ Saco_Kukulkan_Top1:
   Id: YELLOW_DYE
   Display: "&a&lSaco de Kukulkan &8• &e&l1er Lugar"
   Lore:
-    - "&7El botin de la Serpiente Solar,"
-    - "&7reservado para quien mas lo castigo."
+    - "&7Oro del templo de la Serpiente Solar,"
+    - "&7para quien le arranco mas plumas."
     - ""
     - "&eClick derecho &7para abrirlo."
     - ""
@@ -19,7 +19,7 @@ Saco_Kukulkan_Top2:
   Id: WHITE_DYE
   Display: "&a&lSaco de Kukulkan &8• &f&l2do Lugar"
   Lore:
-    - "&7Casi lo derribas vos solo."
+    - "&7El sol casi se oculta por tu mano."
     - ""
     - "&eClick derecho &7para abrirlo."
     - ""
@@ -31,7 +31,7 @@ Saco_Kukulkan_Top3:
   Id: ORANGE_DYE
   Display: "&a&lSaco de Kukulkan &8• &6&l3er Lugar"
   Lore:
-    - "&7Tu esfuerzo quedo grabado en la batalla."
+    - "&7Tu ofrenda fue aceptada en el templo."
     - ""
     - "&eClick derecho &7para abrirlo."
     - ""
@@ -43,7 +43,7 @@ Saco_Kukulkan_Consuelo:
   Id: GRAY_DYE
   Display: "&8&lSaco de Kukulkan &8• &7Participante"
   Lore:
-    - "&7Aportaste a la caida de la Serpiente Solar,"
+    - "&7Subiste las escaleras del templo,"
     - "&7aunque no entraste en el podio."
     - ""
     - "&eClick derecho &7para abrirlo."
@@ -64,3 +64,67 @@ Kukulkan_EstrellaInvocacion:
   Skills:
     - skill{s=KK_ItemSummon} @Self ~onRightClick
     - skill{s=KK_ItemSummon} @Self ~onUse
+
+# --- Equipo propio de Kukulkan (antes usaba el de otro boss) ---
+
+KK_ArmaduraInvisible:
+  Id: PUMPKIN_SEEDS
+  Display: "&f"
+  Lore:
+    - ""
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:429
+  ItemFlags:
+    - HIDE_ENCHANTS
+    - HIDE_ATTRIBUTES
+    - HIDE_ADDITIONAL_TOOLTIP
+  Options:
+    Unbreakable: true
+
+KK_CascoJaguar:
+  Id: LEATHER_HELMET
+  Display: "&6Casco de Jaguar"
+  Lore:
+    - "&8Equipo de los subditos de &a&lKUKULKAN"
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Color: 225,165,40
+
+KK_PetoJaguar:
+  Id: LEATHER_CHESTPLATE
+  Display: "&6Piel de Jaguar"
+  Lore:
+    - "&8Equipo de los subditos de &a&lKUKULKAN"
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Color: 210,150,35
+
+KK_GrebasJaguar:
+  Id: LEATHER_LEGGINGS
+  Display: "&aFaldon de Jade"
+  Lore:
+    - "&8Equipo de los subditos de &a&lKUKULKAN"
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Color: 60,120,50
+
+KK_SandaliasJaguar:
+  Id: LEATHER_BOOTS
+  Display: "&6Sandalias del Templo"
+  Lore:
+    - "&8Equipo de los subditos de &a&lKUKULKAN"
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Color: 120,80,40

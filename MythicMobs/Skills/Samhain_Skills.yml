@@ -15,7 +15,7 @@ Samhain_Saco_Top1:
     - consumeuseditem{a=1} @self
     - skill{s=Samhain_Saco_FX} @self
     - command{c="xp give <caster.name> 100"} @self
-    - message{m="&6&lSAMHAIN &8» &e&l1er Lugar&e. El mejor botin es tuyo."} @self
+    - message{m="&6&lSAMHAIN &8» &e&l1er Lugar&e. Apagaste la ultima vela de Samhain."} @self
     - command{c="ae givercbook EXALTED <caster.name> 1"} @self
 
 Samhain_Saco_Top2:
@@ -24,7 +24,7 @@ Samhain_Saco_Top2:
     - consumeuseditem{a=1} @self
     - skill{s=Samhain_Saco_FX} @self
     - command{c="xp give <caster.name> 60"} @self
-    - message{m="&6&lSAMHAIN &8» &f&l2do Lugar&f. Casi lo derribas vos solo."} @self
+    - message{m="&6&lSAMHAIN &8» &f&l2do Lugar&f. Las animas ya susurran tu nombre."} @self
     - command{c="ae givercbook DEXTRA <caster.name> 1"} @self
 
 Samhain_Saco_Top3:
@@ -33,7 +33,7 @@ Samhain_Saco_Top3:
     - consumeuseditem{a=1} @self
     - skill{s=Samhain_Saco_FX} @self
     - command{c="xp give <caster.name> 30"} @self
-    - message{m="&6&lSAMHAIN &8» &6&l3er Lugar&6. Buen trabajo."} @self
+    - message{m="&6&lSAMHAIN &8» &6&l3er Lugar&6. Sobreviviste a la noche mas larga."} @self
     - command{c="ae givercbook DEXTRA <caster.name> 1"} @self
 
 Samhain_Saco_Consuelo:
@@ -41,7 +41,7 @@ Samhain_Saco_Consuelo:
   Skills:
     - consumeuseditem{a=1} @self
     - skill{s=Samhain_Saco_FX} @self
-    - message{m="&6&lSAMHAIN &8» &7Participaste en la caida del Senor de las Animas."} @self
+    - message{m="&6&lSAMHAIN &8» &7Pasaste la noche de Samhain con vida."} @self
     - command{c="ae givercbook HEROICO <caster.name> 3"} @self
 
 
