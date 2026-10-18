@@ -106,7 +106,7 @@ Kronos:
     - skill{s=KR_AcquireTarget} @self ~onTimer:10
     - skill{s=KR_Slam} @target ~onAttack 0.35
     - skill{s=KR_Quake} @target ~onTimer:12 0.40
-    - skill{s=KR_OlympusRoar} @self ~onTimer:18 0.35
+    - skill{s=KR_RugidoDelTiempo} @self ~onTimer:18 0.35
     - skill{s=KR_Charge} @target ~onTimer:60 0.60
     - skill{s=KR_AntiRun} @self ~onTimer:160
     - skill{s=KR_HP75_Check} @self ~onTimer:20
@@ -181,8 +181,8 @@ Kronos_Guardian:
     - players
 
   Skills:
-    - skill{s=KR_Spartan_SpawnFX} @self ~onSpawn
-    - skill{s=KR_Spartan_Block} @target ~onAttack
+    - skill{s=KR_Guardian_SpawnFX} @self ~onSpawn
+    - skill{s=KR_Guardian_Block} @target ~onAttack
     - skill{s=KR_FuegoAmigo;sync=true} @self ~onDamaged
 
 Kronos_Saetero:
@@ -211,8 +211,8 @@ Kronos_Saetero:
     - players
 
   Skills:
-    - skill{s=KR_GreekArcher_SpawnFX} @self ~onSpawn
-    - skill{s=KR_GreekArcher_RapidShots} @target ~onTimer:30
+    - skill{s=KR_Saetero_SpawnFX} @self ~onSpawn
+    - skill{s=KR_Saetero_RapidShots} @target ~onTimer:30
     - skill{s=KR_FuegoAmigo;sync=true} @self ~onDamaged
 
 Kronos_Devorador:
@@ -237,6 +237,6 @@ Kronos_Devorador:
     - players
 
   Skills:
-    - skill{s=KR_Minotaur_SpawnFX} @self ~onSpawn
-    - skill{s=KR_Minotaur_Charge} @target ~onAttack
+    - skill{s=KR_Devorador_SpawnFX} @self ~onSpawn
+    - skill{s=KR_Devorador_Charge} @target ~onAttack
     - skill{s=KR_FuegoAmigo;sync=true} @self ~onDamaged

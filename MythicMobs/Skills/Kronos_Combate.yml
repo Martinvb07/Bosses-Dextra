@@ -1,5 +1,4 @@
-# Kronos - Skills de combate PROPIAS (antes usaba las de Heracles tal cual).
-# Mecanicas basadas en Heracles, con lore, subditos y particulas de Kronos.
+# Kronos - Skills de combate propias: lore, subditos y particulas de Kronos.
 # Daño de skills escalado x2.00 y umbrales de vida para 3400 HP (curva de dificultad 01->17).
 # Los sacos / ranking siguen en sus archivos de siempre.
 
@@ -59,7 +58,7 @@ KR_HP70_Lore:
     - health{h=<2380}
   Skills:
     - 'message{m="&5&lKRONOS &f: &7\"Centinelas del reloj, congelad a estos mortales!\""} @PlayersInRadius{r=50}'
-    - skill{s=KR_SpartanCall_Check} @self
+    - skill{s=KR_GuardianCall_Check} @self
 
 KR_HP40_Lore:
   Cooldown: 9999
@@ -67,7 +66,7 @@ KR_HP40_Lore:
     - health{h=<1359}
   Skills:
     - 'message{m="&5&lKRONOS &f: &7\"Devorador de Eras... tragatelos, como yo me trague a mis hijos.\""} @PlayersInRadius{r=50}'
-    - skill{s=KR_MinotaurCall_Check} @self
+    - skill{s=KR_DevoradorCall_Check} @self
 
 # --- Ataques Activos ---
 
@@ -104,9 +103,10 @@ KR_Quake:
     - throw{velocity=4;velocityY=1.2} @PlayersInRadius{r=8}
     - potion{type=WEAKNESS;duration=80;level=1} @PlayersInRadius{r=8}
 
-KR_OlympusRoar:
+KR_RugidoDelTiempo:
   Cooldown: 25
   Skills:
+    - 'message{m="&5&lKRONOS &8» &dEl tiempo se vuelve espeso a tu alrededor..."} @PlayersInRadius{r=20}'
     - effect:sound{s=entity.ender_dragon.growl;v=0.7;p=0.9} @self
     - effect:particles{particle=PORTAL;amount=35;hS=0.9;vS=1.1;speed=0.05} @self
     - potion{type=WEAKNESS;duration=120;level=1} @PlayersInRadius{r=20}
@@ -157,7 +157,7 @@ KR_Phase3_Check:
 
 # --- Invocaciones (Corregidas por HP real) ---
 
-KR_SpartanCall_Check:
+KR_GuardianCall_Check:
   Cooldown: 9999
   Conditions:
     - stance{stance=PHASE1} true
@@ -168,7 +168,7 @@ KR_SpartanCall_Check:
     - summon{type=Kronos_Guardian;amount=2;radius=5} @self
     - summon{type=Kronos_Saetero;amount=1;radius=6} @self
 
-KR_MinotaurCall_Check:
+KR_DevoradorCall_Check:
   Cooldown: 9999
   Conditions:
     - stance{stance=PHASE2} true
@@ -185,6 +185,7 @@ KR_LastBreath:
     - health{h=<341}
   Skills:
     - setstance{stance=LASTBREATH} @self
+    - 'message{m="&5&lKRONOS &f: &7\"Me queda un segundo... y para mi, un segundo es eterno.\""} @PlayersInRadius{r=40}'
     - effect:sound{s=entity.wither.ambient;v=0.7;p=0.8} @self
     - potion{type=REGENERATION;duration=200;level=2} @self
     - damage{a=100} @PlayersInRadius{r=6}
@@ -197,18 +198,18 @@ KR_Death:
 
 # --- Mobs Secundarios ---
 
-KR_Spartan_Block:
+KR_Guardian_Block:
   Skills:
     - potion{type=DAMAGE_RESISTANCE;duration=40;level=2} @self
 
-KR_GreekArcher_RapidShots:
+KR_Saetero_RapidShots:
   Cooldown: 8
   Skills:
     - shoot{type=ARROW;velocity=2.5;damage=30} @target
     - delay 5
     - shoot{type=ARROW;velocity=2.5;damage=30} @target
 
-KR_Minotaur_Charge:
+KR_Devorador_Charge:
   Cooldown: 10
   Skills:
     - effect:sound{s=entity.ravager.roar;v=0.8;p=0.9} @self
@@ -226,20 +227,20 @@ KR_PlayerKill:
     - 'message{m="&5&lKRONOS &f: &7\"Tu reloj se ha detenido.\""} @PlayersInRadius{r=40}'
     - effect:sound{s=entity.wither.shoot;v=0.7;p=1.2} @self
 
-KR_Spartan_SpawnFX:
+KR_Guardian_SpawnFX:
   Skills:
-    - effect:particles{particle=VILLAGER_HAPPY;amount=10;hS=0.5;vS=0.5;speed=0.1} @self
-    - effect:sound{s=entity.player.levelup;v=0.7;p=1.2} @self
+    - effect:particles{particle=REVERSE_PORTAL;amount=20;hS=0.5;vS=0.8;speed=0.05} @self
+    - effect:sound{s=block.respawn_anchor.charge;v=0.7;p=0.8} @self
 
-KR_GreekArcher_SpawnFX:
+KR_Saetero_SpawnFX:
   Skills:
-    - effect:particles{particle=CRIT;amount=10;hS=0.5;vS=0.5;speed=0.1} @self
-    - effect:sound{s=entity.arrow.shoot;v=0.7;p=1.2} @self
+    - effect:particles{particle=PORTAL;amount=25;hS=0.5;vS=0.8;speed=0.3} @self
+    - effect:sound{s=block.amethyst_block.chime;v=1.0;p=0.7} @self
 
-KR_Minotaur_SpawnFX:
+KR_Devorador_SpawnFX:
   Skills:
-    - effect:particles{particle=SMOKE_LARGE;amount=10;hS=0.5;vS=0.5;speed=0.1} @self
-    - effect:sound{s=entity.ravager.roar;v=0.7;p=1.2} @self
+    - effect:particles{particle=SQUID_INK;amount=20;hS=0.7;vS=0.6;speed=0.05} @self
+    - effect:sound{s=entity.wither.ambient;v=0.7;p=0.6} @self
 
 # --- Fuego amigo ---
 KR_FuegoAmigo:
