@@ -14,14 +14,14 @@ Boss 01 del servidor. Es un modelo personalizado para **ModelEngine R4**, prepar
 | `ModelEngine/blueprints/hoplit/`, `spartan_warrior/`, `greek_archer/`, `minotaur/` | Modelos de los súbditos |
 | `MythicMobs/Mobs/Boss_01_Heracles/Heracles_Mobs.yml` | Mob `Heracles`, ahora con `model{mid=heracles}` |
 | `MythicMobs/Skills/heracles_skills.yml` | Skills con animaciones y sonidos sincronizados |
-| `ItemsAdder/contents/heracles_hud/` | Marco de la bossbar y logo del título (font images de ItemsAdder) |
+| `ItemsAdder/contents/heracles_hud/` | Marco de la bossbar y laureles del título (font images de ItemsAdder) |
 | `ResourcePack/HeraclesPack/` | Textura de la barra y sonidos propios (se fusiona con el pack de ItemsAdder) |
 | `preview/*.gif` | Vista previa de cada animación |
 | `../../tools/generate_heracles.py` | Script que genera el `.bbmodel` (sirve para regenerarlo o hacer cambios) |
 | `../../tools/render_preview.py` | Script que renderiza las imágenes y los GIF |
 | `../../tools/generate_minions.py` + `../../tools/bbmodel.py` | Generan los modelos de los súbditos y sus vistas previas |
 | `../../tools/generate_sounds.py` | Sintetiza los sonidos propios y `preview/sonidos_demo.mp3` |
-| `../../tools/generate_hud.py` | Script que genera el marco, el logo, la barra y `preview/hud_preview.png` |
+| `../../tools/generate_hud.py` | Script que genera el marco, los laureles, la barra y `preview/hud_preview.png` |
 
 ## Instalación
 
@@ -39,9 +39,15 @@ Boss 01 del servidor. Es un modelo personalizado para **ModelEngine R4**, prepar
 
 ![HUD](preview/hud_preview.png)
 
-- **Marco de la bossbar:** columnas jónicas, alas, laurel, un escudo con el casco corintio en el centro y una placa con el nombre. Es una *font image* de ItemsAdder que va en el título de la bossbar y se dibuja alrededor de la barra.
-- **Barra:** textura dorada propia (sustituye la barra **amarilla** `YELLOW` de Minecraft).
-- **Logo del título:** "HERACLES" en oro con corona de laurel; aparece en pantalla cuando el boss despierta.
+Funciona **con y sin** el resource pack:
+
+| | Sin texturas | Con texturas |
+|---|---|---|
+| Bossbar | Barra amarilla vanilla con `HERACLES` en dorado | Marco con columnas, alas y laurel; `HERACLES` en el centro y barra dorada |
+| Título al aparecer | `⚔ HERACLES ⚔` | El mismo texto con laureles a los lados |
+| Sonidos | Los sonidos vanilla | Los vanilla más los propios |
+
+El título de la bossbar es `&f\u200c&6&lHERACLES&f\u2001`: `\u200c` y `\u2001` no se ven en vanilla, y con el pack ItemsAdder los convierte en las dos mitades del marco. En el título de aparición, `\u2002` y `\u2003` son los laureles.
 
 Instalación con ItemsAdder:
 
@@ -58,8 +64,8 @@ Instalación con ItemsAdder:
 
 Notas:
 
-- Los caracteres son fijos: `\uE7A0` (marco) y `\uE7A1` (logo). Si otro pack ya usa esos caracteres, cámbialos en `heracles_hud.yml` y en los dos `.yml` de MythicMobs.
-- Si el marco sale 1 px desplazado respecto a la barra, ajusta `y_position` del `bossbar_frame` (18) de uno en uno.
+- No cambies el texto `&6&lHERACLES` de la bossbar: el marco está medido para ese ancho.
+- Si el marco sale 1 px desplazado respecto a la barra, ajusta `y_position` de `bossbar_left` y `bossbar_right` (18) de uno en uno.
 - Cualquier otra bossbar `YELLOW` del servidor también tendrá la textura dorada.
 - El marco mide 48 px de alto: si hay otra bossbar visible a la vez, se solapan.
 - Para cambiar el diseño, edita `tools/generate_hud.py` y ejecútalo: regenera los PNG y la vista previa.
@@ -68,7 +74,7 @@ Títulos en pantalla (todos con `title{}` de MythicMobs):
 
 | Momento | Título | Subtítulo |
 |---|---|---|
-| Aparece (`Heracles_Intro`) | Logo HERACLES (imagen) | Greek Village • El campeón del Olimpo ha despertado |
+| Aparece (`Heracles_Intro`) | ⚔ HERACLES ⚔ (con laureles si tiene el pack) | Greek Village • El campeón del Olimpo ha despertado |
 | Fase 2 | FURIA DIVINA | Heracles ha perdido la paciencia |
 | Fase 3 | LA ÚLTIMA PRUEBA | Los hoplitas acuden a su llamado |
 | Último aliento | ÚLTIMO ALIENTO | Heracles se niega a caer... |

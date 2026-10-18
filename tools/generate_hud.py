@@ -47,7 +47,6 @@ CX = BAR_X + BAR_W // 2              # 119: centro de la barra en el marco
 TEXT_W = 56                          # "&lHERACLES": 8 letras de 6 px + 1 de negrita
 LEFT_W = CX - TEXT_W // 2 - 1        # 90: columnas 0..89 -> mitad izquierda
 RIGHT_X = LEFT_W + 1 + TEXT_W        # 147: desde aqui -> mitad derecha
-SHIELD_R = 15
 
 # ----------------------------------------------------------------- paleta
 OUT = (34, 20, 8, 255)
@@ -242,63 +241,6 @@ def wing(img, x_root, y_root, flip):
         yy = y_root - 4 - round(6 * math.sin(t * math.pi * 0.85))
         d.point((xx, yy), fill=GOLD[3] + (255,))
         d.point((xx, yy + 1), fill=GOLD[2] + (255,))
-
-
-def helmet(img, cx, top):
-    """Casco corintio dorado con penacho rojo (vista frontal)."""
-    d = ImageDraw.Draw(img)
-    # penacho en abanico con crines radiales
-    pcx, pcy, pr = cx, top + 13, 13
-    for y in range(top, top + 13):
-        for x in range(cx - pr, cx + pr):
-            dist = math.hypot(x + 0.5 - pcx, y + 0.5 - pcy)
-            if dist <= pr and dist >= 3:
-                ang = math.degrees(math.atan2(pcy - y, x + 0.5 - pcx))
-                stripe = int(ang // 9) % 2
-                c = RED[3] if dist > pr - 1.5 else RED[2] if stripe else RED[1]
-                d.point((x, y), fill=c + (255,))
-    # soporte del penacho
-    d.rectangle([cx - 2, top + 10, cx + 1, top + 12], fill=GOLD[1] + (255,))
-    # cupula y carrilleras
-    h_top = top + 12
-    for y in range(h_top, h_top + 20):
-        t = y - h_top
-        half = 8 if t > 3 else [5, 7, 8, 8][t]
-        if t > 15:
-            half = 8 - (t - 15)
-        for x in range(cx - half, cx + half):
-            rel = (x - cx + 0.5) / half
-            c = GOLD[4] if rel < -0.5 and t < 8 else GOLD[3] if rel < 0 else GOLD[2] if rel < 0.6 else GOLD[1]
-            d.point((x, y), fill=c + (255,))
-    # ranura en T (ojos + nariz + boca)
-    ey = h_top + 7
-    d.rectangle([cx - 6, ey, cx - 2, ey + 1], fill=OUT)
-    d.rectangle([cx + 1, ey, cx + 5, ey + 1], fill=OUT)
-    d.rectangle([cx - 1, ey + 3, cx, ey + 12], fill=OUT)
-    d.rectangle([cx - 2, ey + 8, cx + 1, ey + 12], fill=OUT)
-    # ojos rojos encendidos
-    d.point((cx - 4, ey), fill=RED[3] + (255,))
-    d.point((cx + 3, ey), fill=RED[3] + (255,))
-    # ceja
-    d.line([(cx - 7, ey - 1), (cx + 6, ey - 1)], fill=GOLD[1] + (255,))
-
-
-SKY = [(18, 28, 70), (30, 52, 120), (52, 86, 168), (96, 140, 214)]
-
-
-def shield(img, cx, cy, r):
-    """Escudo redondo (aspis) azul con borde dorado y puntos de meandro."""
-    d = ImageDraw.Draw(img)
-    shade_disc(d, cx, cy, r, SKY)
-    for a in range(0, 360, 1):
-        rad = math.radians(a)
-        for rr, base in ((r, 3), (r - 1, 2)):
-            x, y = round(cx + rr * math.cos(rad)), round(cy + rr * math.sin(rad))
-            c = GOLD[base] if math.sin(rad) < 0.2 else GOLD[base - 1]
-            d.point((x, y), fill=c + (255,))
-    for a in range(0, 360, 30):
-        rad = math.radians(a)
-        d.point((round(cx + (r - 3) * math.cos(rad)), round(cy + (r - 3) * math.sin(rad))), fill=GOLD[3] + (255,))
 
 
 # ----------------------------------------------------------------- marco
