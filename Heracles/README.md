@@ -13,11 +13,12 @@ Boss 01 del servidor. Es un modelo personalizado para **ModelEngine R4**, prepar
 | `ModelEngine/blueprints/heracles/heracles_texture.png` | La textura, por si quieres retocarla aparte |
 | `MythicMobs/Mobs/Boss_01_Heracles/Heracles_Mobs.yml` | Mob `Heracles`, ahora con `model{mid=heracles}` |
 | `MythicMobs/Skills/heracles_skills.yml` | Skills con animaciones y sonidos sincronizados |
-| `ResourcePack/HeraclesPack/` | Textura griega de la bossbar (se fusiona con el pack de ItemsAdder) |
+| `ItemsAdder/contents/heracles_hud/` | Marco de la bossbar y logo del título (font images de ItemsAdder) |
+| `ResourcePack/HeraclesPack/` | Textura de la barra (se fusiona con el pack de ItemsAdder) |
 | `preview/*.gif` | Vista previa de cada animación |
 | `../tools/generate_heracles.py` | Script que genera el `.bbmodel` (sirve para regenerarlo o hacer cambios) |
 | `../tools/render_preview.py` | Script que renderiza las imágenes y los GIF |
-| `../tools/generate_bossbar.py` | Script que genera la textura de la bossbar y `preview/bossbar.png` |
+| `../tools/generate_hud.py` | Script que genera el marco, el logo, la barra y `preview/hud_preview.png` |
 
 ## Instalación
 
@@ -31,16 +32,18 @@ Boss 01 del servidor. Es un modelo personalizado para **ModelEngine R4**, prepar
 
 > Haz copia de seguridad de los dos `.yml` originales antes de sustituirlos. Solo cambia la parte visual: animaciones, sonidos y partículas. Vida, daño, fases e invocaciones se quedan igual.
 
-## Bossbar y títulos personalizados
+## Bossbar y título olímpicos
 
-![Bossbar](preview/bossbar.png)
+![HUD](preview/hud_preview.png)
 
-La bossbar usa una textura propia: oro con meandro griego y los 10 segmentos ya dibujados. Va en `ResourcePack/HeraclesPack/` y sustituye la textura de la barra **amarilla** (`YELLOW`) de Minecraft.
+- **Marco de la bossbar:** columnas jónicas, alas, laurel, un escudo con el casco corintio en el centro y una placa con el nombre. Es una *font image* de ItemsAdder que va en el título de la bossbar y se dibuja alrededor de la barra.
+- **Barra:** textura dorada propia (sustituye la barra **amarilla** `YELLOW` de Minecraft).
+- **Logo del título:** "HERACLES" en oro con corona de laurel; aparece en pantalla cuando el boss despierta.
 
 Instalación con ItemsAdder:
 
-1. Copia `ResourcePack/HeraclesPack/` en `plugins/HeraclesPack/`.
-2. Añádela en `plugins/ItemsAdder/config.yml`:
+1. Copia `ItemsAdder/contents/heracles_hud/` en `plugins/ItemsAdder/contents/heracles_hud/`.
+2. Copia `ResourcePack/HeraclesPack/` en `plugins/HeraclesPack/` y añádela en `plugins/ItemsAdder/config.yml`:
    ```yaml
    merge_other_plugins_resourcepacks_folders:
      - ModelEngine/resource pack
@@ -50,13 +53,19 @@ Instalación con ItemsAdder:
    ```
 3. `/iazip` y después `/mm reload`. Vuelve a entrar al servidor para recibir el pack.
 
-> Cualquier otra bossbar `YELLOW` del servidor también tendrá esta textura. Si eso molesta, usa otro color en las demás bossbars.
+Notas:
+
+- Los caracteres son fijos: `\uE7A0` (marco) y `\uE7A1` (logo). Si otro pack ya usa esos caracteres, cámbialos en `heracles_hud.yml` y en los dos `.yml` de MythicMobs.
+- Si el marco sale 1 px desplazado respecto a la barra, ajusta `y_position` del `bossbar_frame` (18) de uno en uno.
+- Cualquier otra bossbar `YELLOW` del servidor también tendrá la textura dorada.
+- El marco mide 48 px de alto: si hay otra bossbar visible a la vez, se solapan.
+- Para cambiar el diseño, edita `tools/generate_hud.py` y ejecútalo: regenera los PNG y la vista previa.
 
 Títulos en pantalla (todos con `title{}` de MythicMobs):
 
 | Momento | Título | Subtítulo |
 |---|---|---|
-| Aparece (`Heracles_Intro`) | ⚔ HERACLES ⚔ | Greek Village • El campeón del Olimpo ha despertado |
+| Aparece (`Heracles_Intro`) | Logo HERACLES (imagen) | Greek Village • El campeón del Olimpo ha despertado |
 | Fase 2 | FURIA DIVINA | Heracles ha perdido la paciencia |
 | Fase 3 | LA ÚLTIMA PRUEBA | Los hoplitas acuden a su llamado |
 | Último aliento | ÚLTIMO ALIENTO | Heracles se niega a caer... |

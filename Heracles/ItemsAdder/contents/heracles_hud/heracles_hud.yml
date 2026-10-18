@@ -1,0 +1,28 @@
+# HUD de Heracles: font images de ItemsAdder.
+# El "symbol" es fijo para poder escribirlo tal cual en MythicMobs:
+#     marco de la bossbar   (Heracles_Mobs.yml -> BossBar.Title)
+#     logo HERACLES         (heracles_skills.yml -> Heracles_Intro)
+# Las texturas se generan con tools/generate_hud.py
+info:
+  namespace: heracles_hud
+
+font_images:
+  bossbar_frame:
+    path: font/bossbar_frame.png
+    symbol: ""
+    # 48 = alto del png (escala 1:1). y_position 18 coloca el hueco del
+    # marco justo encima de la barra (el hueco esta en la fila 20 del png).
+    scale_ratio: 48
+    y_position: 18
+    show_in_gui: false
+    shadow:
+      enabled: false
+
+  title_logo:
+    path: font/title_logo.png
+    symbol: ""
+    scale_ratio: 16
+    y_position: 12
+    show_in_gui: false
+    shadow:
+      enabled: false

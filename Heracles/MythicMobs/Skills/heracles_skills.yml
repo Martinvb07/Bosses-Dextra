@@ -29,7 +29,8 @@ Heracles_Intro:
     - state{mid=heracles;s=spawn;li=0;lo=4} @self
     - effect:sound{s=entity.warden.emerge;v=1;p=0.8} @self
     - effect:particles{particle=CAMPFIRE_COSY_SMOKE;amount=20;hS=1.2;vS=0.3;speed=0.02} @self
-    - 'title{title="&6⚔ &e&lHERACLES &6⚔";subtitle="&8« &7Greek Village &8• &6El campeón del Olimpo ha despertado &8»";fadein=10;stay=120;fadeout=10} @Server'
+    # el título es el logo HERACLES (font image de ItemsAdder, symbol U+E7A1)
+    - 'title{title="&f";subtitle="&8« &7Greek Village &8• &6El campeón del Olimpo ha despertado &8»";fadein=10;stay=120;fadeout=10} @Server'
     - 'message{m="&6&lHERACLES &fenfrenta a los &eDesafiantes&f..."} @Server'
     - potion{type=DAMAGE_RESISTANCE;duration=100;level=3} @self
     - setstance{stance=PHASE1} @self
