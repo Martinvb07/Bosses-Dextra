@@ -15,12 +15,16 @@ Heracles:
     - Heracles_BotasOro:FEET
     - "PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzg4MmVkN2IyMDdjZDlhN2NmYjIxMTEzMmY2ZWZmMTg0ODM1MzNiOTM3NzExNjk0NWNkZjZhMGJhZmU3ZjM1YSJ9fX0=}:HEAD"
 
+  # Title = marco olímpico (font image de ItemsAdder, symbol \uE7A0) que se
+  # dibuja alrededor de la barra. No añadas texto: descuadraría el marco.
+  # La barra AMARILLA usa la textura de HeraclesPack. Style SOLID para que
+  # las muescas vanilla no tapen el diseño (los segmentos ya van dibujados).
   BossBar:
     Enabled: true
-    Title: "&6&lHERACLES"
+    Title: "&f\uE7A0"
     Range: 40
     Color: YELLOW
-    Style: SEGMENTED_10
+    Style: SOLID
 
   Options:
     AlwaysShowName: true
@@ -50,9 +54,13 @@ Heracles:
     - Recompensas_llaves
     - OD_EstrellaInvocacion 1 1
 
+  # Modelo de ModelEngine (blueprint: plugins/ModelEngine/blueprints/heracles/heracles.bbmodel)
+  # El cuerpo vanilla (piglin brute) queda invisible; el hitbox lo define el hueso "hitbox" del modelo.
   Skills:
+    - model{mid=heracles} @self ~onSpawn
     - setstance{stance=PHASE1} @self ~onSpawn
     - skill{s=Heracles_Intro} @self ~onSpawn
+    - skill{s=Heracles_Hurt} @self ~onDamaged 0.35
     - skill{s=Heracles_AcquireTarget} @self ~onTimer:10
 
     - skill{s=Heracles_Slam} @target ~onAttack 0.35
@@ -102,7 +110,12 @@ Hoplit:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/hoplit/hoplit.bbmodel
   Skills:
+    - model{mid=hoplit} @self ~onSpawn
+    - state{mid=hoplit;s=spawn;li=0;lo=2} @self ~onSpawn
+    - state{mid=hoplit;s=attack;li=1;lo=2} @self ~onAttack
+    - state{mid=hoplit;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=Heracles_FuegoAmigo;sync=true} @self ~onDamaged
 
 
@@ -132,9 +145,12 @@ SpartanWarrior:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/spartan_warrior/spartan_warrior.bbmodel
   Skills:
+    - model{mid=spartan_warrior} @self ~onSpawn
     - skill{s=Spartan_SpawnFX} @self ~onSpawn
     - skill{s=Spartan_Block} @target ~onAttack
+    - skill{s=Spartan_Guard} @self ~onDamaged 0.25
     - skill{s=Heracles_FuegoAmigo;sync=true} @self ~onDamaged
 
 GreekArcher:
@@ -162,8 +178,12 @@ GreekArcher:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/greek_archer/greek_archer.bbmodel
   Skills:
+    - model{mid=greek_archer} @self ~onSpawn
     - skill{s=GreekArcher_SpawnFX} @self ~onSpawn
+    - state{mid=greek_archer;s=shoot;li=1;lo=2} @self ~onShoot
+    - state{mid=greek_archer;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=GreekArcher_RapidShots} @target ~onTimer:30
     - skill{s=Heracles_FuegoAmigo;sync=true} @self ~onDamaged
 
@@ -188,7 +208,10 @@ Minotaur:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/minotaur/minotaur.bbmodel
   Skills:
+    - model{mid=minotaur} @self ~onSpawn
     - skill{s=Minotaur_SpawnFX} @self ~onSpawn
+    - state{mid=minotaur;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=Minotaur_Charge} @target ~onAttack
     - skill{s=Heracles_FuegoAmigo;sync=true} @self ~onDamaged

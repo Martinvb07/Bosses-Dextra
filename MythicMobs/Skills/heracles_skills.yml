@@ -1,3 +1,24 @@
+# =====================================================================
+#  HERACLES - Skills con ModelEngine (modelo: heracles)
+#  Los "delay" estan sincronizados con los fotogramas de impacto de cada
+#  animacion del .bbmodel (20 ticks = 1 segundo):
+#    attack       impacto 0.50s -> delay 10
+#    quake        impacto 1.00s -> delay 20
+#    roar         rugido  0.40s -> delay 8
+#    charge       embestida 0.25s / impacto 0.50s
+#    phase_change golpe 0.60s / pose 1.35s
+#    summon       garrote arriba 0.40s
+#    spawn        se levanta 1.4-2.1s / alza el garrote 2.45s
+#    last_breath  rodilla 0.80s / se levanta 1.60s
+#    death        rodillas 1.20s / cae 2.60s (ModelEngine la reproduce solo)
+#
+#  Subditos (modelos hoplit, spartan_warrior, greek_archer, minotaur):
+#    hoplit attack lanzazo 0.35s | spartan attack estocada 0.30s
+#    greek_archer shoot suelta 0.40s | minotaur charge salto 0.25s / impacto 0.50s
+#
+#  Sonidos "olympus:*" = sonidos propios del resource pack (HeraclesPack).
+# =====================================================================
+
 Heracles_Strength_On:
   Skills:
     - potion{type=INCREASE_DAMAGE;duration=9999;level=1} @self
@@ -10,14 +31,33 @@ Heracles_Strength_Off:
 
 Heracles_Intro:
   Skills:
-    - 'title{title="&6&lHERACLES";subtitle="&eGreek Village &8• &7El campeón del Olimpo ha despertado";fadein=10;stay=120;fadeout=10} @Server'
+    - setai{ai=false} @self
+    - state{mid=heracles;s=spawn;li=0;lo=4} @self
+    - effect:sound{s=olympus:heracles.intro;v=1;p=1} @self
+    - effect:particles{particle=CAMPFIRE_COSY_SMOKE;amount=20;hS=1.2;vS=0.3;speed=0.02} @self
+    # el título es el logo HERACLES (font image de ItemsAdder, symbol U+E7A1)
+    - 'title{title="&f";subtitle="&8« &7Greek Village &8• &6El campeón del Olimpo ha despertado &8»";fadein=10;stay=120;fadeout=10} @Server'
     - 'message{m="&6&lHERACLES &fenfrenta a los &eDesafiantes&f..."} @Server'
-    - effect:sound{s=entity.wither.spawn;v=0.7;p=1.2} @self
-    - effect:particles{particle=FLASH;amount=1} @self
     - potion{type=DAMAGE_RESISTANCE;duration=100;level=3} @self
     - setstance{stance=PHASE1} @self
-    - delay 20
+    - delay 28
+    # se pone de pie
+    - effect:sound{s=entity.iron_golem.step;v=1;p=0.6} @self
+    - effect:sound{s=item.armor.equip_gold;v=1;p=0.8} @self
+    - delay 21
+    # alza el garrote al cielo
+    - effect:sound{s=olympus:heracles.roar;v=1;p=1} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=END_ROD;amount=30;hS=0.4;vS=1.5;speed=0.05;y=3} @self
+    - delay 11
+    - setai{ai=true} @self
     - settarget @NearestPlayer{r=40}
+
+Heracles_Hurt:
+  Cooldown: 1
+  Skills:
+    - state{mid=heracles;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=olympus:heracles.hurt;v=0.8;p=1} @self
 
 Heracles_AcquireTarget:
   Conditions:
@@ -69,7 +109,11 @@ Heracles_HP40_Lore:
 Heracles_Slam:
   Cooldown: 10
   Skills:
-    - effect:sound{s=entity.generic.explode;v=0.6;p=1.2} @self
+    - state{mid=heracles;s=attack;li=2;lo=3} @self
+    - delay 5
+    - effect:sound{s=olympus:heracles.swing;v=1;p=0.9} @self
+    - delay 5
+    - effect:sound{s=olympus:heracles.slam;v=1;p=1} @self
     - effect:particles{particle=BLOCK_CRACK;material=STONE;amount=70;hS=1.3;vS=0.2;speed=0.15} @self
     - damage{a=40} @PlayersInRadius{r=5}
     - throw{velocity=6;velocityY=2} @PlayersInRadius{r=5}
@@ -80,9 +124,13 @@ Heracles_Charge:
   Conditions:
     - stance{stance=PHASE2} true
   Skills:
-    - effect:sound{s=entity.ravager.roar;v=0.7;p=1.0} @self
+    - state{mid=heracles;s=charge;li=2;lo=3} @self
+    - effect:sound{s=olympus:heracles.charge;v=1;p=1} @self
+    - delay 5
+    - effect:sound{s=entity.horse.gallop;v=1;p=0.6} @self
     - leap{velocity=1.2;velocityY=0.2} @self
-    - delay 10
+    - delay 5
+    - effect:sound{s=olympus:heracles.slam;v=0.8;p=1.15} @self
     - damage{a=60} @PlayersInRadius{r=4}
     - throw{velocity=7;velocityY=1.5} @PlayersInRadius{r=4}
     - effect:particles{particle=CLOUD;amount=40;hS=0.8;vS=0.3;speed=0.2} @self
@@ -92,9 +140,17 @@ Heracles_Quake:
   Conditions:
     - targetwithin{d=20} true
   Skills:
-    - effect:sound{s=entity.iron_golem.attack;v=0.8;p=0.6} @self
+    - state{mid=heracles;s=quake;li=2;lo=4} @self
+    - effect:sound{s=olympus:heracles.hurt;v=0.7;p=0.8} @self
+    - delay 9
+    # salto
+    - effect:sound{s=olympus:heracles.swing;v=1;p=0.7} @self
+    - effect:particles{particle=CLOUD;amount=20;hS=0.8;vS=0.1;speed=0.05} @self
+    - delay 11
+    # impacto contra el suelo
+    - effect:sound{s=olympus:heracles.quake;v=1;p=1} @self
     - effect:particles{particle=BLOCK_CRACK;material=STONE;amount=120;hS=2.3;vS=0.2;speed=0.12} @self
-    - delay 6
+    - effect:particles{particle=EXPLOSION;amount=4;hS=2;vS=0.1} @self
     - damage{a=40} @PlayersInRadius{r=8}
     - throw{velocity=4;velocityY=1.2} @PlayersInRadius{r=8}
     - potion{type=WEAKNESS;duration=80;level=1} @PlayersInRadius{r=8}
@@ -102,7 +158,9 @@ Heracles_Quake:
 Heracles_OlympusRoar:
   Cooldown: 25
   Skills:
-    - effect:sound{s=entity.ender_dragon.growl;v=0.7;p=0.9} @self
+    - state{mid=heracles;s=roar;li=3;lo=4} @self
+    - delay 8
+    - effect:sound{s=olympus:heracles.roar;v=1;p=1} @self
     - effect:particles{particle=TOTEM;amount=35;hS=0.9;vS=1.1;speed=0.05} @self
     - potion{type=WEAKNESS;duration=120;level=1} @PlayersInRadius{r=20}
     - potion{type=SLOW;duration=80;level=1} @PlayersInRadius{r=20}
@@ -112,7 +170,13 @@ Heracles_OlympusRoar:
 
 Heracles_PhaseShield:
   Skills:
-    - effect:sound{s=block.beacon.activate;v=0.8;p=1.2} @self
+    - state{mid=heracles;s=phase_change;li=3;lo=4} @self
+    # el sonido de poder sube 1.3 s y estalla justo en la pose de fuerza (1.35 s)
+    - effect:sound{s=olympus:heracles.phase;v=1;p=1} @self
+    - delay 12
+    - effect:sound{s=olympus:heracles.slam;v=1;p=0.9} @self
+    - effect:particles{particle=BLOCK_CRACK;material=STONE;amount=80;hS=1.6;vS=0.2;speed=0.12} @self
+    - delay 15
     - effect:particles{particle=END_ROD;amount=35;hS=0.8;vS=1.2;speed=0.02} @self
     - potion{type=DAMAGE_RESISTANCE;duration=80;level=3} @self
     - potion{type=SLOW;duration=40;level=2} @self
@@ -131,7 +195,10 @@ Heracles_Phase2_Check:
   Skills:
     - skill{s=Heracles_PhaseShield} @self
     - setstance{stance=PHASE2} @self
+    - defaultstate{mid=heracles;t=idle;s=idle_rage} @self
+    - defaultstate{mid=heracles;t=walk;s=walk_rage} @self
     - message{m="&6&lHERACLES &fentra en &c&lFURIA&f!"} @PlayersInRadius{r=40}
+    - 'title{title="&c&lFURIA DIVINA";subtitle="&8« &6Heracles &7ha perdido la paciencia &8»";fadein=5;stay=50;fadeout=15} @PlayersInRadius{r=40}'
     - potion{type=SPEED;duration=9999;level=1} @self
     - effect:particles{particle=FLAME;amount=25;hS=0.7;vS=0.9;speed=0.02} @self
 
@@ -145,6 +212,8 @@ Heracles_Phase3_Check:
     - skill{s=Heracles_PhaseShield} @self
     - setstance{stance=PHASE3} @self
     - message{m="&eLos &6hoplitas &fresponden al llamado!"} @PlayersInRadius{r=40}
+    - 'title{title="&6&lLA ÚLTIMA PRUEBA";subtitle="&8« &eLos hoplitas acuden a su llamado &8»";fadein=5;stay=50;fadeout=15} @PlayersInRadius{r=40}'
+    - effect:sound{s=olympus:heracles.summon;v=1;p=1} @self
     - potionclear @self
     - potion{type=INCREASE_DAMAGE;duration=9999;level=2} @self
     - potion{type=SPEED;duration=9999;level=2} @self
@@ -159,7 +228,9 @@ Heracles_SpartanCall_Check:
     - mobsinradius{type=SpartanWarrior;amount=<2;radius=35}
     - mobsinradius{type=GreekArcher;amount=<1;radius=35}
   Skills:
-    - effect:sound{s=entity.evoker.prepare_summon;v=0.7;p=1.0} @self
+    - state{mid=heracles;s=summon;li=2;lo=4} @self
+    - delay 8
+    - effect:sound{s=olympus:heracles.summon;v=1;p=1} @self
     - summon{type=SpartanWarrior;amount=2;radius=5} @self
     - summon{type=GreekArcher;amount=1;radius=6} @self
 
@@ -169,7 +240,9 @@ Heracles_MinotaurCall_Check:
     - stance{stance=PHASE2} true
     - mobsinradius{type=Minotaur;amount=<1;radius=35}
   Skills:
-    - effect:sound{s=entity.ravager.roar;v=0.9;p=0.8} @self
+    - state{mid=heracles;s=summon;li=2;lo=4} @self
+    - delay 8
+    - effect:sound{s=olympus:heracles.summon;v=1;p=0.85} @self
     - summon{type=Minotaur;amount=1;radius=5} @self
 
 # --- Final ---
@@ -180,34 +253,62 @@ Heracles_LastBreath:
     - health{h=<205}
   Skills:
     - setstance{stance=LASTBREATH} @self
-    - effect:sound{s=entity.wither.ambient;v=0.7;p=0.8} @self
+    - state{mid=heracles;s=last_breath;li=2;lo=4} @self
+    - 'title{title="&4&lÚLTIMO ALIENTO";subtitle="&8« &7Heracles se niega a caer... &8»";fadein=5;stay=40;fadeout=15} @PlayersInRadius{r=40}'
+    - effect:sound{s=olympus:heracles.last_breath;v=1;p=1} @self
     - potion{type=REGENERATION;duration=200;level=2} @self
+    - delay 32
+    - effect:sound{s=olympus:heracles.roar;v=1;p=1.1} @self
+    - effect:particles{particle=FLAME;amount=40;hS=1.5;vS=0.3;speed=0.05} @self
     - damage{a=50} @PlayersInRadius{r=6}
 
 Heracles_Death:
+  # La animacion "death" la reproduce ModelEngine automaticamente al morir.
   Skills:
     - message{m="&6&lHERACLES &fha caído... &e¡El Dungeon está liberado!"} @PlayersInRadius{r=60}
-    - effect:sound{s=entity.ender_dragon.death;v=0.7;p=1.0} @self
-    - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+    - 'title{title="&e&l⚔ VICTORIA ⚔";subtitle="&8« &6Heracles &7ha caído &8• &e¡El Dungeon está liberado! &8»";fadein=10;stay=80;fadeout=20} @PlayersInRadius{r=60}'
+    - effect:sound{s=olympus:heracles.death;v=1;p=1} @self
+    - delay 52
+    - effect:sound{s=entity.generic.explode;v=0.7;p=0.5} @origin
+    - effect:particles{particle=EXPLOSION_HUGE;amount=1} @origin
+    - effect:particles{particle=TOTEM;amount=60;hS=1;vS=1.5;speed=0.3} @origin
 
 # --- Mobs Secundarios ---
 
 Spartan_Block:
   Skills:
+    - state{mid=spartan_warrior;s=attack;li=1;lo=2} @self
     - potion{type=DAMAGE_RESISTANCE;duration=40;level=2} @self
 
+Spartan_Guard:
+  # alza el escudo al recibir golpes
+  Cooldown: 3
+  Skills:
+    - state{mid=spartan_warrior;s=block;li=1;lo=2} @self
+    - effect:sound{s=item.shield.block;v=0.8;p=0.9} @self
+
 GreekArcher_RapidShots:
+  # dos disparos sincronizados con la animacion "shoot" (suelta en 0.4 s = 8 ticks)
   Cooldown: 8
   Skills:
+    - state{mid=greek_archer;s=shoot;li=1;lo=2} @self
+    - delay 8
     - shoot{type=ARROW;velocity=2.5;damage=15} @target
-    - delay 5
+    - delay 6
+    - state{mid=greek_archer;s=shoot;li=1;lo=2} @self
+    - delay 8
     - shoot{type=ARROW;velocity=2.5;damage=15} @target
 
 Minotaur_Charge:
+  # animacion "charge": baja los cuernos (0.25 s) e impacta (0.5 s)
   Cooldown: 10
   Skills:
-    - effect:sound{s=entity.ravager.roar;v=0.8;p=0.9} @self
+    - state{mid=minotaur;s=charge;li=2;lo=3} @self
+    - effect:sound{s=olympus:minotaur.snort;v=1;p=1} @self
+    - delay 5
+    - effect:sound{s=olympus:minotaur.roar;v=0.9;p=1.1} @self
     - leap{velocity=1.5;velocityY=0.2} @self
+    - delay 5
     - damage{a=50} @PlayersInRadius{r=3}
 
 # --- Skills de relleno para evitar errores de carga ---
@@ -223,18 +324,22 @@ Heracles_PlayerKill:
 
 Spartan_SpawnFX:
   Skills:
+    - state{mid=spartan_warrior;s=spawn;li=0;lo=2} @self
     - effect:particles{particle=VILLAGER_HAPPY;amount=10;hS=0.5;vS=0.5;speed=0.1} @self
     - effect:sound{s=entity.player.levelup;v=0.7;p=1.2} @self
 
 GreekArcher_SpawnFX:
   Skills:
+    - state{mid=greek_archer;s=spawn;li=0;lo=2} @self
     - effect:particles{particle=CRIT;amount=10;hS=0.5;vS=0.5;speed=0.1} @self
     - effect:sound{s=entity.arrow.shoot;v=0.7;p=1.2} @self
 
 Minotaur_SpawnFX:
   Skills:
+    - state{mid=minotaur;s=spawn;li=0;lo=2} @self
     - effect:particles{particle=SMOKE_LARGE;amount=10;hS=0.5;vS=0.5;speed=0.1} @self
-    - effect:sound{s=entity.ravager.roar;v=0.7;p=1.2} @self
+    - delay 26
+    - effect:sound{s=olympus:minotaur.roar;v=1;p=1} @self
 
 Heracles_ItemSummon:
   Conditions:
