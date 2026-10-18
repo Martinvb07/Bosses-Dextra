@@ -1,0 +1,6 @@
+Samhain_Top1:
+  TotalItems: 3
+  Drops:
+    - cmd{c="ae givercbook EXALTED <trigger.name> 1"} 1 1
+    - cmd{c="xp give <trigger.name> 100"} 1 1
+    - cmd{c="scoreboard players set <trigger.name> heroico_denied 1"} 1 1

@@ -1,0 +1,235 @@
+# Thor
+
+Thor:
+  Type: ZOMBIE
+  Display: "&b&lTHOR &8• &eel Dios del Trueno"
+  Health: 4400
+  Damage: 89
+  Armor: 3419
+  Faction: Boss_Thor
+
+  Modules:
+    ThreatTable: true
+
+  Equipment:
+    - IRON_AXE:HAND
+    - "PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGNjOWE0YTdhYWRiMzczYWRjM2JlMDUyNDI5MjRjODk4NWUyZjk5M2RkOGU0ZDk2ZjIwNzIxMDUyZmY3ZTdhOCJ9fX0=}:HEAD"
+    - Mushlord_ArmaduraInvisible:CHEST
+
+  BossBar:
+    Enabled: true
+    Title: "&b&lTHOR"
+    Range: 50
+    Color: BLUE
+    Style: SEGMENTED_10
+
+  Options:
+    Despawn: false
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.31
+    FollowRange: 40
+    KnockbackResistance: 0.78
+    PreventSunburn: true
+    UseThreatTable: true
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  DropOptions:
+    DropMethod: FANCY
+    ShowDeathChatMessage: true
+    ShowDeathHologram: true
+    PerPlayerDrops: true
+    ClientSideDrops: true
+    Lootsplosion: true
+    HologramItemNames: true
+    ItemGlowByDefault: true
+    ItemBeamByDefault: true
+    ItemVFXByDefault: false
+    RequiredDamagePercent: 25
+    HologramTimeout: 15
+    HologramMessage:
+      - "<#F2B600>========================"
+      - "<#FFD600>THOR 4400 HP"
+      - ""
+      - "<#FFA300>1er Lugar | <1.name> | <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> | <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> | <3.damage>"
+      - ""
+      - "Posicion: #<player.rank> | <player.damage>"
+      - "<#F2B600>========================"
+    ChatMessage:
+      - "<#F2B600>===================================="
+      - "<#FFD600>JEFE DERROTADO!"
+      - "<#FFD600>THOR 4400 HP"
+      - ""
+      - "<#ffe259>1er Lugar | <1.name> - <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> - <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> - <3.damage>"
+      - ""
+      - "<#F2B600>Posicion: #<player.rank> - <player.damage>"
+      - "<#F2B600>===================================="
+
+  Drops:
+    - Thor_Nada 1 1
+   # - Recompensas_xp
+   # - Recompensas_runas
+   # - Recompensas_dinero
+   # - Recompensas_llaves
+   # - LL_EstrellaInvocacion 1 1
+
+  Skills:
+    - skill{s=Thor_Rank_Reset} @self ~onSpawn
+    - skill{s=Thor_Rank_Sumar} @self ~onDamaged
+    - skill{s=Thor_Rank_Muerte} @self ~onDeath
+
+    - skill{s=TH_Spawn} @self ~onSpawn
+    - skill{s=TH_AcquireTarget} @self ~onTimer:10
+    - skill{s=TH_HP70_Check} @self ~onTimer:20
+    - skill{s=TH_HP40_Check} @self ~onTimer:20
+    - skill{s=TH_HP25_Check} @self ~onTimer:20
+    - skill{s=TH_Phase2_Check} @self ~onTimer:20
+    - skill{s=TH_Phase3_Check} @self ~onTimer:20
+    - skill{s=TH_Phase4_Check} @self ~onTimer:20
+    - skill{s=TH_Aura} @self ~onTimer:10
+    - skill{s=TH_Attack_Rotation} @self ~onTimer:9
+    - skill{s=TH_FungalRegrowth} @self ~onTimer:40
+    - skill{s=TH_SummonCycle} @self ~onTimer:65
+    - skill{s=TH_MapPressure} @self ~onTimer:50
+    - skill{s=TH_PlagueApocalypse_Check} @self ~onTimer:45
+    - skill{s=TH_AntiKite} @self ~onTimer:35
+    - skill{s=TH_ToxicTouch} @target ~onAttack 0.60
+    - skill{s=TH_PlayerKill} @target ~onKill
+    - skill{s=TH_Death} @self ~onDeath
+    - skill{s=TH_FuegoAmigo;sync=true} @self ~onDamaged
+
+
+# --- Subditos de Thor ---
+
+Thor_Einherjar:
+  Type: ZOMBIE
+  Display: "&bEinherjar"
+  Health: 1467
+  Damage: 18
+  Armor: 1425
+  Faction: Boss_Thor
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    MovementSpeed: 0.24
+    FollowRange: 28
+
+  Equipment:
+    - STONE_SWORD:HAND
+    - RED_MUSHROOM_BLOCK:HEAD
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_MushZombie
+
+  Skills:
+    - skill{s=TH_MZ_SpawnFX} @self ~onSpawn
+    - skill{s=TH_MZ_ToxicHit} @target ~onAttack
+    - skill{s=TH_FuegoAmigo;sync=true} @self ~onDamaged
+
+Thor_CreeperTormenta:
+  Type: CREEPER
+  Display: "&eCreeper de Tormenta"
+  Health: 237
+  Damage: 0
+  Faction: Boss_Thor
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    Silent: false
+    MovementSpeed: 0.27
+    FollowRange: 24
+    ExplosionRadius: 0
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Skills:
+    - skill{s=TH_TSC_SpawnFX} @self ~onSpawn
+    - skill{s=TH_TSC_PrimeCheck} @target ~onTimer:15
+    - skill{s=TH_FuegoAmigo;sync=true} @self ~onDamaged
+
+Thor_Chispa:
+  Type: SILVERFISH
+  Display: "&bChispa Viviente"
+  Health: 1834
+  Damage: 22
+  Armor: 1781
+  Faction: Boss_Thor
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    Silent: false
+    MovementSpeed: 0.34
+    FollowRange: 30
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_LivingSpore
+
+  Skills:
+    - skill{s=TH_LS_SpawnFX} @self ~onSpawn
+    - skill{s=TH_LS_PoisonCloud} @self ~onTimer:40
+    - skill{s=TH_LS_DeathBurst} @self ~onDeath
+    - skill{s=TH_FuegoAmigo;sync=true} @self ~onDamaged
+
+Thor_CampoEstatico:
+  Type: ARMOR_STAND
+  Display: ""
+  Health: 2
+  Damage: 0
+  Faction: Boss_Thor
+
+  Options:
+    Despawn: true
+    Silent: true
+    NoGravity: true
+    Invisible: true
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+
+  Skills:
+    - skill{s=TH_MTZ_Spawn} @self ~onSpawn
+    - skill{s=TH_MTZ_Tick} @self ~onTimer:10
+
+Thor_NubeTormenta:
+  Type: ARMOR_STAND
+  Display: ""
+  Health: 2
+  Damage: 0
+  Faction: Boss_Thor
+
+  Options:
+    Despawn: true
+    Silent: true
+    NoGravity: true
+    Invisible: true
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+
+  Skills:
+    - skill{s=TH_MPB_Spawn} @self ~onSpawn
+    - skill{s=TH_MPB_Tick} @self ~onTimer:10

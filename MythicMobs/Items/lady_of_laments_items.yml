@@ -1,0 +1,60 @@
+# Lady of Laments items
+LadyOfLaments_ArmaduraInvisible:
+  Id: PUMPKIN_SEEDS
+  Display: "&f"
+  Lore:
+    - ""
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:429
+  ItemFlags:
+    - HIDE_ENCHANTS
+    - HIDE_ATTRIBUTES
+    - HIDE_ADDITIONAL_TOOLTIP
+  Options:
+    Unbreakable: true
+
+LL_LagrimaEspectral:
+  Id: GHAST_TEAR
+  Display: "&d&lLagrima espectral"
+  Lore:
+    - "&7Una gota helada nacida del duelo eterno."
+    - "&7Tiembla incluso lejos del castillo purpura."
+    - ""
+    - "&8Recompensa de &5&lLADY OF LAMENTS"
+  Options:
+    Glowing: true
+
+LL_LlavePurpura:
+  Id: TRIPWIRE_HOOK
+  Display: "&5&lLlave purpura"
+  Lore:
+    - "&7Una llave cargada con susurros antiguos."
+    - "&7Abre puertas selladas por la pena."
+    - ""
+    - "&8Recompensa de &5&lLADY OF LAMENTS"
+  Options:
+    Glowing: true
+
+LL_FragmentoDelAlma:
+  Id: AMETHYST_SHARD
+  Display: "&dFragmento del alma"
+  Lore:
+    - "&7Un cristal impregnado de voces rotas."
+    - "&7La tristeza de la reina aun vive aqui."
+    - ""
+    - "&8Recompensa de &5&lLADY OF LAMENTS"
+  Options:
+    Glowing: true
+
+LL_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&5&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &5&lLADY OF LAMENTS&7."
+    - "&8(Usala en su altar de invocacion)"
+
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=LL_ItemSummon} @Self ~onRightClick
+    - skill{s=LL_ItemSummon} @Self ~onUse

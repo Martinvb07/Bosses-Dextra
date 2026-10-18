@@ -1,0 +1,94 @@
+# Heracles items
+
+Heracles_PetoOro:
+  Id: GOLDEN_CHESTPLATE
+  Display: "&bPeto de oro"
+  Lore:
+    - "&8Armadura de &4&lHeracles"
+  Trim: iron.silence
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:140
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+Heracles_PantalonesOro:
+  Id: GOLDEN_LEGGINGS
+  Display: "&bPantalones de oro"
+  Lore:
+    - "&8Armadura de &4&lHeracles"
+  Trim: iron.silence
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:140
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+Heracles_BotasOro:
+  Id: GOLDEN_BOOTS
+  Display: "&bBotas de oro"
+  Lore:
+    - "&8Armadura de &4&lHeracles"
+  Trim: iron.silence
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:140
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+Heracles_Relic:
+  Id: GOLDEN_APPLE
+  Display: "&6&lReliquia de Heracles"
+  Lore:
+    - "&7Forjada por los dioses del Olimpo"
+    - "&7Solo los dignos la poseen"
+    - ""
+    - "&eRecompensa del Dungeon"
+  HideEnchantments: true
+  Options:
+    Unbreakable: true
+    Glowing: true
+    KeepOnDeath: false
+
+Heracles_OlympicKey:
+  Id: TRIPWIRE_HOOK
+  Display: "&e&lLlave olimpica"
+  Lore:
+    - "&7Abre el paso a los dignos del Olimpo."
+    - "&7Su brillo recuerda viejas pruebas."
+    - ""
+    - "&8Recompensa de &6&lHERACLES"
+  Options:
+    Glowing: true
+
+Heracles_Coins:
+  Id: GOLD_NUGGET
+  Display: "&6Monedas"
+  Lore:
+    - "&7Un pago antiguo entregado por los dioses."
+    - "&7Cada pieza pesa mas de lo que parece."
+    - ""
+    - "&8Recompensa de &6&lHERACLES"
+  Options:
+    Glowing: true
+
+Heracles_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&6&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &6&lHERACLES&7."
+    - "&8(Usala en su altar de invocacion)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=Heracles_ItemSummon} @Self ~onRightClick
+    - skill{s=Heracles_ItemSummon} @Self ~onUse

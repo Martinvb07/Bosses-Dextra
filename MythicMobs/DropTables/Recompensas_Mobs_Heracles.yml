@@ -1,0 +1,42 @@
+Recompensas_Heracles:
+  TotalItems: 1
+  MaxItems: 1
+  Drops:
+    #- elemento_carbon 4 0.75
+    #- elemento_hierro 2 0.50
+    - command{c="ae givercbook EXALTED <trigger.name> 3"} 0.003
+    - command{c="ae givercbook EXALTED <trigger.name> 2"} 0.005
+    - command{c="ae givercbook EXALTED <trigger.name> 1"} 0.009
+
+Recompensas_Hoplita:
+  TotalItems: 1
+  MaxItems: 1
+  Drops:
+    - fragmento_carbon 24 0.50
+    - fragmento_hierro 10 0.50
+    - fragmento_oro 6 0.25
+
+Recompensas_SpartanWarrior:
+  TotalItems: 1
+  MaxItems: 1
+  Drops:
+    - fragmento_carbon 24 0.50
+    - fragmento_hierro 10 0.50
+    - fragmento_oro 6 0.25
+
+Recompensas_GreekArcher:
+  TotalItems: 1
+  MaxItems: 1
+  Drops:
+    - fragmento_carbon 24 0.50
+    - fragmento_hierro 10 0.50
+    - fragmento_oro 6 0.25
+
+Recompensas_Minotaur:
+  TotalItems: 1
+  MaxItems: 1
+  Drops:
+    - fragmento_carbon 24 0.50
+    - fragmento_hierro 10 0.50
+    - fragmento_diamante 2 0.05
+    - fragmento_oro 6 0.25

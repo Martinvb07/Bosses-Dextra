@@ -1,0 +1,66 @@
+# Xylar - Sacos de recompensa por puesto en el ranking de dano.
+# Click derecho -> ver Skills/Xylar_Skills.yml
+# El puesto ya viene decidido en el item, asi que cada saco entrega siempre lo mismo.
+
+Saco_Xylar_Top1:
+  Id: YELLOW_DYE
+  Display: "&d&lSaco de Xylar &8• &e&l1er Lugar"
+  Lore:
+    - "&7El botin del Senor Galactico,"
+    - "&7reservado para quien mas lo castigo."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &d&lXYLAR"
+  Skills:
+    - skill{s=Xylar_Saco_Top1} @Self ~onRightClick
+
+Saco_Xylar_Top2:
+  Id: WHITE_DYE
+  Display: "&d&lSaco de Xylar &8• &f&l2do Lugar"
+  Lore:
+    - "&7Casi lo derribas vos solo."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &d&lXYLAR"
+  Skills:
+    - skill{s=Xylar_Saco_Top2} @Self ~onRightClick
+
+Saco_Xylar_Top3:
+  Id: ORANGE_DYE
+  Display: "&d&lSaco de Xylar &8• &6&l3er Lugar"
+  Lore:
+    - "&7Tu esfuerzo quedo grabado en la batalla."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &d&lXYLAR"
+  Skills:
+    - skill{s=Xylar_Saco_Top3} @Self ~onRightClick
+
+Saco_Xylar_Consuelo:
+  Id: GRAY_DYE
+  Display: "&8&lSaco de Xylar &8• &7Participante"
+  Lore:
+    - "&7Aportaste a la caida del Senor Galactico,"
+    - "&7aunque no entraste en el podio."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &d&lXYLAR"
+  Skills:
+    - skill{s=Xylar_Saco_Consuelo} @Self ~onRightClick
+
+# Estrella de invocacion -> skill XY_ItemSummon en Skills/Xylar_Combate.yml
+Xylar_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&d&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &d&lXYLAR&7."
+    - "&8(Usala en su altar de /warp bosses)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=XY_ItemSummon} @Self ~onRightClick
+    - skill{s=XY_ItemSummon} @Self ~onUse

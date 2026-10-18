@@ -1,0 +1,11 @@
+CAVE_SPIDER:
+  Health: 30
+  Damage: 3
+WITHER_SKELETON:
+  Health: 50
+  Damage: 5
+GIANT:
+  Health: 1000
+  Damage: 9
+  Skills:
+    - potion{type=POISON;duration=100;lvl=1} @target ~onAttack

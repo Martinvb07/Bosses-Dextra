@@ -1,0 +1,58 @@
+OldEnder_ArmaduraInvisible:
+  Id: PUMPKIN_SEEDS
+  Display: "&f"
+  Lore:
+    - ""
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:155
+  ItemFlags:
+    - HIDE_ENCHANTS
+    - HIDE_ATTRIBUTES
+    - HIDE_ADDITIONAL_TOOLTIP
+  Options:
+    Unbreakable: true
+
+OD_EsenciaAntigua:
+  Id: ENDER_PEARL
+  Display: "&5&lEsencia ancestral"
+  Lore:
+    - "&7Fragmento de magia errante atrapada en la arena."
+    - "&7Vibra con el poder del ender eterno."
+    - ""
+    - "&8Recompensa de &5&lOLD ENDER"
+  Options:
+    Glowing: true
+
+OD_LlaveDelDesierto:
+  Id: TRIPWIRE_HOOK
+  Display: "&d&lLlave del portal de arena"
+  Lore:
+    - "&7Abre portales ocultos entre las dunas."
+    - "&7Aun brilla con energía mágica."
+    - ""
+    - "&8Recompensa de &5&lOLD ENDER"
+  Options:
+    Glowing: true
+
+OD_OroDelDesierto:
+  Id: GOLD_INGOT
+  Display: "&e&lOro de las arenas eternas"
+  Lore:
+    - "&7Metal pulido por la arena y el tiempo."
+    - "&7Su brillo sobrevivió al errante ancestral."
+    - ""
+    - "&8Recompensa de &5&lOLD ENDER"
+  Options:
+    Glowing: true
+
+OD_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&5&lEstrella de invocación"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &5&lOLD ENDER&7."
+    - "&8(Usala en su altar de invocación mágico)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=OD_ItemSummon} @Self ~onRightClick
+    - skill{s=OD_ItemSummon} @Self ~onUse

@@ -1,0 +1,55 @@
+# Kukulkan - Apertura de los sacos de recompensa.
+#
+# Cada saco entrega lo mismo que entregaba la tabla del puesto antes de pasar
+# al ranking por dano. El saco es solo la envoltura: no se agrego nada.
+#
+# Los comandos usan <caster.name>, no <trigger.name>: en una skill de item el
+# caster es el jugador que hace click, y no existe contexto de trigger.
+#
+# ORDEN: el 'ae' va SIEMPRE ULTIMO. Un comando que lanza excepcion corta el
+# resto de la skill, y AdvancedEnchantments es el candidato.
+
+Kukulkan_Saco_Top1:
+  Cooldown: 1
+  Skills:
+    - consumeuseditem{a=1} @self
+    - skill{s=Kukulkan_Saco_FX} @self
+    - command{c="xp give <caster.name> 100"} @self
+    - message{m="&a&lKUKULKAN &8» &e&l1er Lugar&e. El mejor botin es tuyo."} @self
+    - command{c="ae givercbook EXALTED <caster.name> 1"} @self
+
+Kukulkan_Saco_Top2:
+  Cooldown: 1
+  Skills:
+    - consumeuseditem{a=1} @self
+    - skill{s=Kukulkan_Saco_FX} @self
+    - command{c="xp give <caster.name> 60"} @self
+    - message{m="&a&lKUKULKAN &8» &f&l2do Lugar&f. Casi lo derribas vos solo."} @self
+    - command{c="ae givercbook DEXTRA <caster.name> 1"} @self
+
+Kukulkan_Saco_Top3:
+  Cooldown: 1
+  Skills:
+    - consumeuseditem{a=1} @self
+    - skill{s=Kukulkan_Saco_FX} @self
+    - command{c="xp give <caster.name> 30"} @self
+    - message{m="&a&lKUKULKAN &8» &6&l3er Lugar&6. Buen trabajo."} @self
+    - command{c="ae givercbook DEXTRA <caster.name> 1"} @self
+
+Kukulkan_Saco_Consuelo:
+  Cooldown: 1
+  Skills:
+    - consumeuseditem{a=1} @self
+    - skill{s=Kukulkan_Saco_FX} @self
+    - message{m="&a&lKUKULKAN &8» &7Participaste en la caida de la Serpiente Solar."} @self
+    - command{c="ae givercbook HEROICO <caster.name> 3"} @self
+
+
+# --- Auxiliares ---
+
+Kukulkan_Saco_FX:
+  Skills:
+    - effect:sound{s=block.bundle.drop_contents;v=1.0;p=1.1} @self
+    - effect:sound{s=entity.experience_orb.pickup;v=0.8;p=1.2} @self
+    - effect:particles{particle=HAPPY_VILLAGER;amount=30;hS=0.5;vS=0.7;speed=0.05} @self
+    - effect:particles{particle=TOTEM;amount=20;hS=0.4;vS=0.6;speed=0.08} @self

@@ -1,0 +1,391 @@
+# OldEnder + SandWarden skills
+OD_Spawn:
+  Skills:
+    - setstance{stance=PHASE1} @self
+    - 'title{title="&5&lOLD ENDER";subtitle="&eDesert Biome &8• &7El ancestral emerge entre arenas";fadein=10;stay=180;duration=180;fadeout=10} @Server'
+    - 'message{m="&5&lOLD ENDER &fse materializa entre las arenas..."} @Server'
+    - effect:sound{s=entity.enderman.scream;v=0.8;p=0.7} @self
+    - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=35;hS=1.0;vS=0.6;speed=0.08} @self
+    - effect:particles{particle=PORTAL;amount=24;hS=1.2;vS=0.6;speed=0.12} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=80;level=1} @self
+    - potion{type=FIRE_RESISTANCE;duration=999999;level=0} @self
+    - delay 2
+    - settarget @NearestPlayer{r=50}
+
+OD_Skyfall:
+  Skills:
+    - message{m="&5&lOLD ENDER &8» &c¡El cielo se desploma!"} @PlayersInRadius{r=60}
+    - orbital{onTick=OD_Skyfall_Tick;onHit=OD_Skyfall_Hit;points=20;interval=1;duration=100;charges=5} @PlayersInRadius{r=30}
+
+OD_Skyfall_Tick:
+  Skills:
+    - effect:particles{particle=BLOCK_CRACK;material=SANDSTONE;amount=5;speed=0.1} @origin
+
+OD_Skyfall_Hit:
+  Skills:
+    - damage{a=32}
+    - effect:particles{particle=EXPLOSION_LARGE;amount=1} @target
+
+OD_AcquireTarget:
+  Conditions:
+    - targetwithin{d=9999} false
+  Skills:
+    - settarget @NearestPlayer{r=50}
+
+OD_HP75_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1650}
+  Skills:
+    - message{m="&5&lOLD ENDER &faún domina la tormenta con el &e75% &fde su vida..."} @PlayersInRadius{r=60}
+
+OD_HP50_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1100}
+  Skills:
+    - message{m="&5&lOLD ENDER &fse agita con el &e50% &fde su vida restante!"} @PlayersInRadius{r=60}
+
+OD_HP25_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<550}
+  Skills:
+    - message{m="&5&lOLD ENDER &fse aferra al &c25% &fde su vida... &eLa arena tiembla&f!"} @PlayersInRadius{r=60}
+
+OD_HP70_Lore:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1540}
+  Skills:
+    - 'message{m="&5&lOLD ENDER &f: &7\"Las arenas os devorarán...\""} @PlayersInRadius{r=60}'
+
+OD_HP40_Lore:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<880}
+  Skills:
+    - 'message{m="&5&lOLD ENDER &f: &7\"El desierto reclama vuestras almas...\""} @PlayersInRadius{r=60}'
+
+OD_Phase2_Check:
+  Conditions:
+    - stance{stance=PHASE1}
+    - health{h=<1540}
+  Skills:
+    - skill{s=OD_PhaseShield} @self
+    - setstance{stance=PHASE2} @self
+    - message{cooldown=9999;m="&5&lOLD ENDER &fentra en &e&lFURIA DE ARENA&f!"} @PlayersInRadius{r=60}
+    - potion{type=INCREASE_DAMAGE;duration=260;level=0} @self
+    - potion{type=SPEED;duration=260;level=0} @self
+    - effect:particles{particle=CLOUD;amount=30;hS=1.2;vS=0.4;speed=0.05} @self
+    - effect:particles{particle=PORTAL;amount=20;hS=1.4;vS=0.6;speed=0.12} @self
+    - effect:sound{s=entity.enderman.stare;v=0.7;p=0.9} @self
+
+OD_Phase3_Check:
+  Conditions:
+    - stance{stance=PHASE2}
+    - health{h=<880}
+  Skills:
+    - skill{s=OD_PhaseShield} @self
+    - setstance{stance=PHASE3} @self
+    - message{cooldown=9999;m="&5&lOLD ENDER &fdesata la &c&lIRA ANCESTRAL&f!"} @PlayersInRadius{r=60}
+    - potion{type=INCREASE_DAMAGE;duration=240;level=1} @self
+    - potion{type=SPEED;duration=240;level=1} @self
+    - effect:particles{particle=FLAME;amount=25;hS=1.0;vS=0.6;speed=0.03} @self
+    - effect:particles{particle=BLOCK_CRACK;material=SANDSTONE;amount=35;hS=1.2;vS=0.6;speed=0.08} @self
+    - effect:particles{particle=PORTAL;amount=28;hS=1.6;vS=0.8;speed=0.12} @self
+    - effect:sound{s=entity.enderman.scream;v=0.9;p=0.5} @self
+    - skill{s=OD_SummonWardens} @self
+
+OD_Phase4_Check:
+  Conditions:
+    - stance{stance=PHASE3}
+    - health{h=<330}
+  Skills:
+    - skill{s=OD_PhaseShield} @self
+    - setstance{stance=LASTBREATH} @self
+    - message{cooldown=9999;m="&5&lOLD ENDER &fentra en &c&lCATACLISMO ANCESTRAL&f!"} @PlayersInRadius{r=70}
+    - potion{type=INCREASE_DAMAGE;duration=220;level=2} @self
+    - potion{type=SPEED;duration=220;level=1} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=120;level=1} @self
+    - effect:sound{s=entity.enderman.scream;v=1.0;p=0.5} @self
+    - effect:sound{s=entity.enderman.stare;v=0.9;p=0.7} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=FLAME;amount=28;hS=1.4;vS=0.8;speed=0.04} @self
+    - effect:particles{particle=PORTAL;amount=36;hS=2.0;vS=1.0;speed=0.12} @self
+    - skill{s=OD_SummonWardens} @self
+    - skill{s=OD_Skyfall} @self
+
+OD_DesertSummons_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1540}
+  Skills:
+    - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=36;hS=1.4;vS=0.5;speed=0.10} @self
+    - summon{type=MummyGuardian;amount=2;radius=8;noise=2} @self
+    - summon{type=DesertPriest;amount=1;radius=8;noise=2} @self
+
+OD_IntenseSandstorm_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<880}
+  Skills:
+    - skill{s=OD_Sandstorm} @self
+    - effect:sound{s=entity.phantom.flap;v=0.8;p=0.5} @self
+    - effect:particles{particle=CLOUD;amount=70;hS=3.5;vS=0.9;speed=0.04} @self
+    - summon{type=GiantScarab;amount=2;radius=8;noise=3} @self
+
+OD_PhaseShield:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=60;level=4} @self
+    - effect:particles{particle=SPELL_MOB_AMBIENT;amount=25;hS=1.0;vS=0.5;speed=0.02} @self
+
+OD_EnderPresence:
+  Skills:
+    - effect:particles{particle=PORTAL;amount=8;hS=1.3;vS=0.6;speed=0.08} @self ?stance{stance=PHASE2}
+    - effect:particles{particle=PORTAL;amount=14;hS=1.7;vS=0.7;speed=0.10} @self ?stance{stance=PHASE3}
+    - effect:particles{particle=FLAME;amount=10;hS=1.5;vS=0.7;speed=0.02} @self ?stance{stance=LASTBREATH}
+    - effect:particles{particle=PORTAL;amount=18;hS=2.0;vS=0.9;speed=0.12} @self ?stance{stance=LASTBREATH}
+
+OD_KeepFight:
+  Conditions:
+    - targetwithin{d=9999} true
+  Skills:
+    - skill{s=OD_PullBack} @target
+
+OD_PullBack:
+  Conditions:
+    - distance{d=>75}
+  Skills:
+    - message{cooldown=60;m="&eLa arena te arrastra hacia el &6Old Dragon&f..."} @target
+    - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=25;hS=0.7;vS=0.4;speed=0.06} @target
+    - pull{velocity=1.2} @target
+
+OD_Attack_Rotation:
+  Skills:
+    - skill{s=OD_TeleportStrike} @target 0.30 ?stance{stance=PHASE1}
+    - skill{s=OD_SandPulse} @self 0.35 ?stance{stance=PHASE1}
+    - skill{s=OD_EnderGaze} @target 0.35 ?stance{stance=PHASE1}
+
+    - skill{s=OD_Sandstorm} @self 0.25 ?stance{stance=PHASE2}
+    - skill{s=OD_SummonWardens} @self 0.20 ?stance{stance=PHASE2}
+    - skill{s=OD_SandWarp} @target 0.25 ?stance{stance=PHASE2}
+    - skill{s=OD_EnderGaze} @target 0.30 ?stance{stance=PHASE2}
+
+    - skill{s=OD_SandPulse} @self 0.20 ?stance{stance=PHASE3}
+    - skill{s=OD_EnderGaze} @target 0.25 ?stance{stance=PHASE3}
+    - skill{s=OD_Sandstorm} @self 0.20 ?stance{stance=PHASE3}
+    - skill{s=OD_DesertCollapse} @self 0.20 ?stance{stance=PHASE3}
+    - skill{s=OD_SummonWardens} @self 0.15 ?stance{stance=PHASE3}
+
+    - skill{s=OD_SandWarp} @target 0.25 ?stance{stance=LASTBREATH}
+    - skill{s=OD_SandstormRift} @self 0.25 ?stance{stance=LASTBREATH}
+    - skill{s=OD_EnderGaze} @target 0.20 ?stance{stance=LASTBREATH}
+    - skill{s=OD_SandPulse} @self 0.15 ?stance{stance=LASTBREATH}
+    - skill{s=OD_Sandstorm} @self 0.15 ?stance{stance=LASTBREATH}
+
+# TeleportStrike: Teleporta y golpea con confusión y rayo de partículas mágicas
+OD_TeleportStrike:
+  Conditions:
+    - targetwithin{d=18}
+  Skills:
+    - effect:sound{s=entity.enderman.teleport;v=1.0;p=1.2} @self
+    - leap{velocity=200;noise=1} @target
+    - delay 12
+    - effect:particles{particle=ENCHANT;amount=18;hS=0.2;vS=0.7;speed=0.5} @self
+    - effect:particles{particle=PORTAL;amount=24;hS=0.7;vS=0.3;speed=0.15} @target
+    - damage{a=45;pk=true} @target ?distance{d=<3}
+    - potion{type=CONFUSION;duration=60;level=0} @target
+
+# SandPulse: Onda de arena mágica que empuja y ralentiza
+OD_SandPulse:
+  Cooldown: 12
+  Conditions:
+    - targetwithin{d=12}
+  Skills:
+    - message{cooldown=8;m="&5Old Ender &fdesata una onda de arena mágica!"} @PlayersInRadius{r=45}
+    - effect:sound{s=entity.enderman.stare;v=0.95;p=0.7} @self
+    - effect:particles{particle=ENCHANT;amount=24;hS=1.2;vS=0.7;speed=0.7} @self
+    - effect:particles{particle=CLOUD;amount=55;hS=2.4;vS=0.7;speed=0.04} @self
+    - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=65;hS=2.6;vS=0.6;speed=0.11} @self
+    - damage{a=34;pk=true} @PlayersInRadius{r=8}
+    - throw{velocity=1.35;velocityY=0.45} @PlayersInRadius{r=8}
+    - potion{type=SLOW;duration=60;level=1} @PlayersInRadius{r=8}
+
+# DesertCollapse: Golpe de suelo, daño en área y lanzamiento
+OD_DesertCollapse:
+  Skills:
+    - message{cooldown=10;m="&5Old Ender &fgolpea el suelo, la arena colapsa mágicamente!"} @PlayersInRadius{r=45}
+    - effect:sound{s=entity.generic.explode;v=0.65;p=0.85} @self
+    - effect:sound{s=entity.enderman.scream;v=0.7;p=1.0} @self
+    - effect:particles{particle=ENCHANT;amount=30;hS=1.0;vS=0.8;speed=0.8} @self
+    - effect:particles{particle=BLOCK_CRACK;material=SANDSTONE;amount=60;hS=1.6;vS=0.5;speed=0.12} @self
+    - delay 10
+    - damage{a=49;pk=true} @PlayersInRadius{r=9}
+    - throw{velocity=1.5;velocityY=0.7} @PlayersInRadius{r=9}
+
+# EnderGaze: Mirada mágica, ceguera y daño, rayos de partículas
+OD_EnderGaze:
+  Conditions:
+    - targetwithin{d=35}
+  Skills:
+    - message{cooldown=6;m="&5Old Ender &fclava su mirada mágica!"} @PlayersInRadius{r=45}
+    - effect:sound{s=entity.enderman.stare;v=0.9;p=1.1} @self
+    - effect:particles{particle=ENCHANT;amount=22;hS=0.5;vS=0.7;speed=0.7} @self
+    - effect:particles{particle=PORTAL;amount=26;hS=0.6;vS=0.5;speed=0.13} @target
+    - delay 10
+    - damage{a=36;pk=true} @target
+    - potion{type=BLINDNESS;duration=45;level=0} @target
+
+# OD_EnderGaze cubre ambos ataques de mirada mágica
+
+OD_Sandstorm:
+  Skills:
+    - effect:sound{s=entity.ender_dragon.flap;v=0.7;p=0.55} @self
+    - effect:particles{particle=CLOUD;amount=50;hS=2.4;vS=0.8;speed=0.03} @self
+    - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=70;hS=2.8;vS=0.7;speed=0.10} @self
+    - potion{type=SLOW;duration=90;level=1} @PlayersInRadius{r=16}
+    - potion{type=WEAKNESS;duration=90;level=0} @PlayersInRadius{r=16}
+
+# SandWarp: Teleport múltiple, daño y empuje
+OD_SandWarp:
+  Cooldown: 20
+  Conditions:
+    - targetwithin{d=45}
+  Skills:
+    - message{cooldown=10;m="&5Old Ender &fse desliza entre sus presas!"} @PlayersInRadius{r=50}
+    - effect:sound{s=entity.enderman.teleport;v=1.0;p=1.2} @self
+    - pull{velocity=1.25} @PlayersInRadius{r=10}
+    - effect:particles{particle=ENCHANT;amount=18;hS=1.0;vS=0.7;speed=0.7} @self
+    - delay 8
+    - effect:sound{s=entity.enderman.scream;v=0.85;p=0.7} @self
+    - damage{a=47;pk=true} @PlayersInRadius{r=10}
+    - throw{velocity=1.5;velocityY=0.4} @PlayersInRadius{r=10}
+
+# SandstormRift: Grietas mágicas, daño y ralentización en área
+OD_SandstormRift:
+  Cooldown: 24
+  Skills:
+    - message{cooldown=10;m="&5&lRIFT &8» &fEl Old Ender abre grietas mágicas en la tormenta de arena."} @PlayersInRadius{r=60}
+    - effect:sound{s=entity.enderman.stare;v=0.95;p=0.55} @self
+    - effect:particles{particle=ENCHANT;amount=36;hS=1.5;vS=1.0;speed=1.0} @self
+    - effect:particles{particle=PORTAL;amount=34;hS=1.6;vS=1.2;speed=0.09} @self
+    - effect:particles{particle=CLOUD;amount=38;hS=1.9;vS=1.0;speed=0.03} @self
+    - delay 18
+    - effect:sound{s=entity.generic.explode;v=0.85;p=0.7} @self
+    - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+    - effect:particles{particle=BLOCK_CRACK;material=SANDSTONE;amount=110;hS=3.0;vS=0.9;speed=0.14} @self
+    - damage{a=50;pk=true} @PlayersInRadius{r=12}
+    - potion{type=SLOW;duration=80;level=1} @PlayersInRadius{r=12}
+
+OD_SummonWardens:
+  Conditions:
+    - mobsinradius{type=SandWarden;amount=<5;radius=35}
+  Skills:
+    - message{cooldown=10;m="&eLa arena toma forma... &6Guardianes &eaparecen&f!"} @PlayersInRadius{r=50}
+    - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=40;hS=2.0;vS=0.6;speed=0.10} @self
+    - summon{type=SandWarden;amount=2;radius=10;noise=3} @self
+
+OD_Death:
+  Skills:
+    - message{m="&5&lOLD ENDER &fha sido derrotado. &eLa arena vuelve a dormir..."} @PlayersInRadius{r=80}
+    - effect:sound{s=entity.enderman.death;v=0.9;p=0.8} @self
+    - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+
+OD_PlayerKill:
+  Skills:
+    - 'message{m="&5&lOLD ENDER &f: &7\"Nadie escapa del tiempo...\""} @PlayersInRadius{r=60}'
+
+SW_SpawnFX:
+  Skills:
+    - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=18;hS=0.6;vS=0.2;speed=0.10} @self
+    - effect:sound{s=block.sand.place;v=0.7;p=0.8} @self
+    - potion{type=FIRE_RESISTANCE;duration=999999;level=0} @self
+
+SW_Attack:
+  Skills:
+    - potion{type=SLOW;duration=30;level=0} @target
+
+MG_SpawnFX:
+  Skills:
+    - effect:particles{particle=BLOCK_CRACK;material=SANDSTONE;amount=16;hS=0.6;vS=0.3;speed=0.08} @self
+    - effect:sound{s=entity.husk.ambient;v=0.7;p=0.8} @self
+
+MG_Curse:
+  Skills:
+    - potion{type=SLOW;duration=60;level=1} @target
+
+GS_SpawnFX:
+  Skills:
+    - effect:particles{particle=CRIT;amount=12;hS=0.5;vS=0.3;speed=0.08} @self
+    - effect:sound{s=entity.spider.ambient;v=0.7;p=1.1} @self
+
+GS_Venom:
+  Skills:
+    - potion{type=POISON;duration=70;level=0} @target
+
+DP_SpawnFX:
+  Skills:
+    - effect:particles{particle=ENCHANTMENT_TABLE;amount=10;hS=0.5;vS=0.8;speed=0.2} @self
+    - effect:sound{s=entity.skeleton.ambient;v=0.7;p=0.9} @self
+
+DP_HealAllies:
+  Skills:
+    - heal{a=6} @MobsInRadius{r=8;type=OldEnder}
+    - heal{a=6} @MobsInRadius{r=8;type=SandWarden}
+    - heal{a=6} @MobsInRadius{r=8;type=MummyGuardian}
+    - heal{a=6} @MobsInRadius{r=8;type=GiantScarab}
+    - heal{a=6} @MobsInRadius{r=8;type=DesertPriest}
+    - effect:particles{particle=VILLAGER_HAPPY;amount=12;hS=0.8;vS=0.6;speed=0.03} @self
+
+# Item summon
+OD_ItemSummon:
+  Conditions:
+    - skilloncooldown{skill=OD_ItemSummon_AtCoords} castinstead OD_ItemSummon_Fail_Cooldown
+    - world{w=Spawn} orElseCast OD_ItemSummon_Fail_WrongWorld
+    - distancefromlocation{x=-1200.5;y=65;z=-490.5;world=Spawn;distance=<6} orElseCast OD_ItemSummon_Fail_NotAtSpot
+  Skills:
+    - skill{s=OD_ItemSummon_AtCoords} @Location{x=-1200.5;y=65;z=-490.5;world=Spawn}
+
+OD_ItemSummon_AtCoords:
+  Cooldown: 60
+  TargetConditions:
+    - mobsinradius{type=OldEnder;amount=<1;r=100} orElseCast OD_ItemSummon_Fail_AlreadyActive
+  Skills:
+    - effect:sound{s=entity.evoker.prepare_summon;v=0.9;p=0.8} @self
+    - particlering{particle=REDSTONE;radius=3.0;points=48;amount=1;hS=0;vS=0;speed=0.0;color=#d6b25a;size=1.25} @targetlocation{y=0.1}
+    - particlering{particle=REDSTONE;radius=1.6;points=28;amount=1;hS=0;vS=0;speed=0.0;color=#f2d27a;size=1.15} @targetlocation{y=0.1}
+    - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=30;hS=0.9;vS=0.2;speed=0.10} @targetlocation{y=0.2}
+    - delay 8
+    - effect:particles{particle=PORTAL;amount=80;hS=1.0;vS=0.25;speed=0.15} @targetlocation{y=1}
+    - effect:particles{particle=SMOKE_LARGE;amount=14;hS=0.8;vS=0.6;speed=0.02} @targetlocation{y=1}
+    - effect:particles{particle=FLASH;amount=1} @targetlocation{y=1}
+    - summon{type=OldEnder;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
+    - delay 1
+    - consumehelditem{a=1} @self
+    - message{cooldown=2;m="&5&lOLD ENDER &8» &aInvocado."} @self
+
+OD_ItemSummon_Fail_AlreadyActive:
+  Skills:
+    - message{cooldown=2;m="&5&lOLD ENDER &8» &7Ya hay un &5OldEnder &7cerca. Mata al boss antes de invocar otro."} @self
+
+OD_ItemSummon_Fail_NotAtSpot:
+  Skills:
+    - message{cooldown=2;m="&5&lOLD ENDER &8» &7No estas en el &5Altar de Invocacion&7. &fAcercate al altar para usar la estrella."} @self
+
+OD_ItemSummon_Fail_WrongWorld:
+  Skills:
+    - message{cooldown=2;m="&5&lOLD ENDER &8» &7La invocacion no responde en este lugar. &fRegresa al &5Altar de Invocacion&7."} @self
+
+OD_ItemSummon_Fail_Cooldown:
+  Skills:
+    - message{cooldown=2;m="&5&lOLD ENDER &8» &7La estrella aun se esta recargando. &fEspera un momento&7."} @self
+
+# --- Fuego amigo ---
+OD_FuegoAmigo:
+  # Anula el daño que recibe este mob si viene de otro mob de su misma faccion
+  # (flechas de los arqueros aliados, explosiones de creepers aliados, etc).
+  TriggerConditions:
+    - faction{f=Boss_OldEnder} true
+  Skills:
+    - cancelevent @self

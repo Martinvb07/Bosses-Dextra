@@ -1,0 +1,66 @@
+# Azathoth - Sacos de recompensa por puesto en el ranking de dano.
+# Click derecho -> ver Skills/Azathoth_Skills.yml
+# El puesto ya viene decidido en el item, asi que cada saco entrega siempre lo mismo.
+
+Saco_Azathoth_Top1:
+  Id: YELLOW_DYE
+  Display: "&5&lSaco de Azathoth &8• &e&l1er Lugar"
+  Lore:
+    - "&7El botin del Caos Ancestral,"
+    - "&7reservado para quien mas lo castigo."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &5&lAZATHOTH"
+  Skills:
+    - skill{s=Azathoth_Saco_Top1} @Self ~onRightClick
+
+Saco_Azathoth_Top2:
+  Id: WHITE_DYE
+  Display: "&5&lSaco de Azathoth &8• &f&l2do Lugar"
+  Lore:
+    - "&7Casi lo derribas vos solo."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &5&lAZATHOTH"
+  Skills:
+    - skill{s=Azathoth_Saco_Top2} @Self ~onRightClick
+
+Saco_Azathoth_Top3:
+  Id: ORANGE_DYE
+  Display: "&5&lSaco de Azathoth &8• &6&l3er Lugar"
+  Lore:
+    - "&7Tu esfuerzo quedo grabado en la batalla."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &5&lAZATHOTH"
+  Skills:
+    - skill{s=Azathoth_Saco_Top3} @Self ~onRightClick
+
+Saco_Azathoth_Consuelo:
+  Id: GRAY_DYE
+  Display: "&8&lSaco de Azathoth &8• &7Participante"
+  Lore:
+    - "&7Aportaste a la caida del Caos Ancestral,"
+    - "&7aunque no entraste en el podio."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &5&lAZATHOTH"
+  Skills:
+    - skill{s=Azathoth_Saco_Consuelo} @Self ~onRightClick
+
+# Estrella de invocacion -> skill AZ_ItemSummon en Skills/Azathoth_Combate.yml
+Azathoth_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&5&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &5&lAZATHOTH&7."
+    - "&8(Usala en su altar de /warp bosses)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=AZ_ItemSummon} @Self ~onRightClick
+    - skill{s=AZ_ItemSummon} @Self ~onUse

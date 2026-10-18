@@ -1,0 +1,54 @@
+Samhain_Rank_Reset:
+  Skills:
+    - modifyscore{o=samhain_dmg;e=#samhain;a=set;v=0} @self
+    - modifyscore{o=samhain_pool;e=#samhain;a=set;v=0} @self
+    - modifyscore{o=samhain_rank;e=#samhain;a=set;v=0} @self
+    - 'command{c="minecraft:scoreboard players reset * samhain_dmg"} @self'
+    - 'command{c="minecraft:scoreboard players reset * samhain_pool"} @self'
+    - 'command{c="minecraft:scoreboard players reset * samhain_rank"} @self'
+    - 'command{c="minecraft:execute as @a[tag=samhain_top] run minecraft:tag @s remove samhain_top"} @self'
+
+Samhain_Rank_Sumar:
+  TriggerConditions:
+    - entitytype{t=PLAYER}
+  Skills:
+    - setvariable{var=skill.kdmg;type=INTEGER;value="<skill.var.damage-amount>"} @self
+    - modifyscore{o=samhain_dmg;e=<trigger.name>;a=add;v=<skill.var.kdmg>} @self
+
+Samhain_Rank_Calcular:
+  Skills:
+    - 'command{c="minecraft:execute as @a if score @s samhain_dmg matches 1.. run minecraft:scoreboard players operation @s samhain_pool = @s samhain_dmg"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #samhain samhain_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s samhain_pool matches 1.. run minecraft:scoreboard players operation #samhain samhain_pool > @s samhain_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s samhain_pool matches 1.. if score @s samhain_pool = #samhain samhain_pool run minecraft:tag @s add samhain_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=samhain_top,limit=1] run minecraft:scoreboard players set @s samhain_rank 3"} @self'
+    - 'command{c="minecraft:execute as @a[tag=samhain_top] run minecraft:tag @s remove samhain_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s samhain_rank matches 3 run minecraft:scoreboard players reset @s samhain_pool"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #samhain samhain_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s samhain_pool matches 1.. run minecraft:scoreboard players operation #samhain samhain_pool > @s samhain_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s samhain_pool matches 1.. if score @s samhain_pool = #samhain samhain_pool run minecraft:tag @s add samhain_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=samhain_top,limit=1] run minecraft:scoreboard players set @s samhain_rank 2"} @self'
+    - 'command{c="minecraft:execute as @a[tag=samhain_top] run minecraft:tag @s remove samhain_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s samhain_rank matches 2 run minecraft:scoreboard players reset @s samhain_pool"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #samhain samhain_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s samhain_pool matches 1.. run minecraft:scoreboard players operation #samhain samhain_pool > @s samhain_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s samhain_pool matches 1.. if score @s samhain_pool = #samhain samhain_pool run minecraft:tag @s add samhain_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=samhain_top,limit=1] run minecraft:scoreboard players set @s samhain_rank 1"} @self'
+    - 'command{c="minecraft:execute as @a[tag=samhain_top] run minecraft:tag @s remove samhain_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s samhain_rank matches 1 run minecraft:scoreboard players reset @s samhain_pool"} @self'
+
+
+Samhain_Rank_Entregar:
+  Skills:
+    - 'command{c="minecraft:execute if score <target.name> samhain_rank matches 3 run mm items give -d <target.name> Saco_Samhain_Top1 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> samhain_rank matches 2 run mm items give -d <target.name> Saco_Samhain_Top2 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> samhain_rank matches 1 run mm items give -d <target.name> Saco_Samhain_Top3 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> samhain_dmg matches 1.. unless score <target.name> samhain_rank matches 1..3 run mm items give -d <target.name> Saco_Samhain_Consuelo 1"} @PlayersInWorld'
+
+Samhain_Rank_Muerte:
+  Skills:
+    - skill{s=Samhain_Rank_Calcular} @self
+    - skill{s=Samhain_Rank_Entregar} @self

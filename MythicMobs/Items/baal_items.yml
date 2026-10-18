@@ -1,0 +1,59 @@
+# Baal items
+Baal_ArmaduraInvisible:
+  Id: PUMPKIN_SEEDS
+  Display: "&f"
+  Lore:
+    - ""
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:175
+  ItemFlags:
+    - HIDE_ENCHANTS
+    - HIDE_ATTRIBUTES
+    - HIDE_ADDITIONAL_TOOLTIP
+  Options:
+    Unbreakable: true
+
+Baal_KatanaEspiritual:
+  Id: IRON_SWORD
+  Display: "&d&lKatana espiritual"
+  Lore:
+    - "&7Una hoja atravesada por maldiciones antiguas."
+    - "&7El templo aun murmura a traves de ella."
+    - ""
+    - "&8Recompensa de &d&lBAAL"
+  Options:
+    Glowing: true
+
+Baal_LlaveSakura:
+  Id: TRIPWIRE_HOOK
+  Display: "&d&lLlave Sakura"
+  Lore:
+    - "&7Abre senderos ocultos bajo los cerezos."
+    - "&7El metal huele a incienso viejo."
+    - ""
+    - "&8Recompensa de &d&lBAAL"
+  Options:
+    Glowing: true
+
+Baal_Amuleto:
+  Id: TOTEM_OF_UNDYING
+  Display: "&5&lAmuleto"
+  Lore:
+    - "&7Un sello espiritual nacido del rencor."
+    - "&7Late con energia inquieta."
+    - ""
+    - "&8Recompensa de &d&lBAAL"
+  Options:
+    Glowing: true
+
+Baal_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&d&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &d&lBAAL&7."
+    - "&8(Usala en su altar de invocacion)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=Baal_ItemSummon} @Self ~onRightClick
+    - skill{s=Baal_ItemSummon} @Self ~onUse

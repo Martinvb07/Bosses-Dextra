@@ -1,0 +1,6 @@
+Nezareth_HeroicoConsolacion:
+  Conditions:
+    - score{objective=heroico_denied;value=<1}
+  TotalItems: 1
+  Drops:
+    - cmd{c="ae givercbook HEROICO <trigger.name> 3"} 1 1

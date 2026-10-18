@@ -1,0 +1,222 @@
+# Xylar
+
+Xylar:
+  Type: WITHER_SKELETON
+  Display: "&d&lXYLAR &8• &del Senor Galactico"
+  Health: 4000
+  Damage: 83
+  Armor: 2735
+  Faction: Boss_Xylar
+
+  Modules:
+    ThreatTable: true
+
+  Equipment:
+    - NETHERITE_SWORD:HAND
+    - RH_PetoNetherita:CHEST
+    - RH_PantalonesNetherita:LEGS
+    - RH_BotasNetherita:FEET
+    - "PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTI4ZDJlZGYwZTlhMTFhNDkyZDM2YjU3ZjkyM2U5M2E2MGU4MDQ4NjM3MmIyNGZmMGY1MmY0NjBiZDM5YjlkNiJ9fX0=}:HEAD"
+
+  BossBar:
+    Enabled: true
+    Title: "&d&lXYLAR"
+    Range: 50
+    Color: RED
+    Style: SOLID
+
+  Options:
+    Despawn: false
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 40
+    KnockbackResistance: 0.80
+    PreventSunburn: true
+    UseThreatTable: true
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  DropOptions:
+    DropMethod: FANCY
+    ShowDeathChatMessage: true
+    ShowDeathHologram: true
+    PerPlayerDrops: true
+    ClientSideDrops: true
+    Lootsplosion: true
+    HologramItemNames: true
+    ItemGlowByDefault: true
+    ItemBeamByDefault: true
+    ItemVFXByDefault: false
+    RequiredDamagePercent: 25
+    HologramTimeout: 15
+    HologramMessage:
+      - "<#F2B600>========================"
+      - "<#FFD600>XYLAR 4000 HP"
+      - ""
+      - "<#FFA300>1er Lugar | <1.name> | <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> | <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> | <3.damage>"
+      - ""
+      - "Posicion: #<player.rank> | <player.damage>"
+      - "<#F2B600>========================"
+    ChatMessage:
+      - "<#F2B600>===================================="
+      - "<#FFD600>JEFE DERROTADO!"
+      - "<#FFD600>XYLAR 4000 HP"
+      - ""
+      - "<#ffe259>1er Lugar | <1.name> - <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> - <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> - <3.damage>"
+      - ""
+      - "<#F2B600>Posicion: #<player.rank> - <player.damage>"
+      - "<#F2B600>===================================="
+
+  Drops:
+    - Recompensas_xp
+    - Recompensas_runas
+    - Recompensas_dinero
+    - Recompensas_llaves
+    - Ragnarok_EstrellaInvocacion 1 1
+
+  Skills:
+    - skill{s=Xylar_Rank_Reset} @self ~onSpawn
+    - skill{s=Xylar_Rank_Sumar} @self ~onDamaged
+    - skill{s=Xylar_Rank_Muerte} @self ~onDeath
+
+    - skill{s=XY_Spawn} @self ~onSpawn
+    - skill{s=XY_AcquireTarget} @self ~onTimer:10
+    - skill{s=XY_HP75_Check} @self ~onTimer:20
+    - skill{s=XY_HP50_Check} @self ~onTimer:20
+    - skill{s=XY_HP25_Check} @self ~onTimer:20
+    - skill{s=XY_HP70_Lore} @self ~onTimer:20
+    - skill{s=XY_HP40_Lore} @self ~onTimer:20
+    - skill{s=XY_Phase2_Check} @self ~onTimer:20
+    - skill{s=XY_Phase3_Check} @self ~onTimer:20
+    - skill{s=XY_CondemnedSouls_Check} @self ~onTimer:20
+    - skill{s=XY_Execution} @self ~onTimer:10
+    - skill{s=XY_Aura} @self ~onTimer:10
+    - skill{s=XY_Attack_Rotation} @self ~onTimer:9
+    - skill{s=XY_AntiKite} @self ~onTimer:35
+    - skill{s=XY_PlayerKill} @target ~onKill
+    - skill{s=XY_Death} @self ~onDeath
+    - skill{s=XY_FuegoAmigo;sync=true} @self ~onDamaged
+
+
+# --- Subditos de Xylar ---
+
+Xylar_Soldado:
+  Type: ZOMBIE
+  Display: "&dSoldado Estelar"
+  Health: 1331
+  Damage: 17
+  Armor: 68
+  Faction: Boss_Xylar
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    MovementSpeed: 0.28
+    FollowRange: 25
+
+  Equipment:
+    - IRON_SWORD:HAND
+    - CHAINMAIL_HELMET:HEAD
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_FallenSquire
+
+  Skills:
+    - skill{s=XY_FS_SpawnFX} @self ~onSpawn
+    - skill{s=XY_FS_Attack} @target ~onAttack
+    - skill{s=XY_FuegoAmigo;sync=true} @self ~onDamaged
+
+Xylar_Caballero:
+  Type: WITHER_SKELETON
+  Display: "&5Caballero del Vacio"
+  Health: 1665
+  Damage: 21
+  Armor: 85
+  Faction: Boss_Xylar
+
+  Equipment:
+    - IRON_SWORD:HAND
+    - SHIELD:OFFHAND
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    MovementSpeed: 0.27
+    FollowRange: 28
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_CorruptKnight
+
+  Skills:
+    - skill{s=XY_CK_SpawnFX} @self ~onSpawn
+    - skill{s=XY_CK_DarkShield} @target ~onAttack
+    - skill{s=XY_FuegoAmigo;sync=true} @self ~onDamaged
+
+Xylar_Fragmento:
+  Type: VEX
+  Display: "&dFragmento Estelar"
+  Health: 109
+  Damage: 17
+  armor: 30
+  Faction: Boss_Xylar
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.36
+    FollowRange: 30
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_CondemnedSoul
+
+  Skills:
+    - skill{s=XY_CS_SpawnFX} @self ~onSpawn
+    - skill{s=XY_CS_Weaken} @target ~onAttack
+    - skill{s=XY_FuegoAmigo;sync=true} @self ~onDamaged
+
+Xylar_PozoGravitatorio:
+  Type: ARMOR_STAND
+  Display: ""
+  Health: 2
+  Damage: 0
+  Faction: Boss_Xylar
+
+  Options:
+    Despawn: true
+    Silent: true
+    NoGravity: true
+    Invisible: true
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+
+  Skills:
+    - skill{s=XY_BloodPool_Spawn} @self ~onSpawn
+    - skill{s=XY_BloodPool_Tick} @self ~onTimer:10

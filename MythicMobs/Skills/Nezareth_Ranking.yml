@@ -1,0 +1,54 @@
+Nezareth_Rank_Reset:
+  Skills:
+    - modifyscore{o=nezareth_dmg;e=#nezareth;a=set;v=0} @self
+    - modifyscore{o=nezareth_pool;e=#nezareth;a=set;v=0} @self
+    - modifyscore{o=nezareth_rank;e=#nezareth;a=set;v=0} @self
+    - 'command{c="minecraft:scoreboard players reset * nezareth_dmg"} @self'
+    - 'command{c="minecraft:scoreboard players reset * nezareth_pool"} @self'
+    - 'command{c="minecraft:scoreboard players reset * nezareth_rank"} @self'
+    - 'command{c="minecraft:execute as @a[tag=nezareth_top] run minecraft:tag @s remove nezareth_top"} @self'
+
+Nezareth_Rank_Sumar:
+  TriggerConditions:
+    - entitytype{t=PLAYER}
+  Skills:
+    - setvariable{var=skill.kdmg;type=INTEGER;value="<skill.var.damage-amount>"} @self
+    - modifyscore{o=nezareth_dmg;e=<trigger.name>;a=add;v=<skill.var.kdmg>} @self
+
+Nezareth_Rank_Calcular:
+  Skills:
+    - 'command{c="minecraft:execute as @a if score @s nezareth_dmg matches 1.. run minecraft:scoreboard players operation @s nezareth_pool = @s nezareth_dmg"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #nezareth nezareth_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s nezareth_pool matches 1.. run minecraft:scoreboard players operation #nezareth nezareth_pool > @s nezareth_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s nezareth_pool matches 1.. if score @s nezareth_pool = #nezareth nezareth_pool run minecraft:tag @s add nezareth_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=nezareth_top,limit=1] run minecraft:scoreboard players set @s nezareth_rank 3"} @self'
+    - 'command{c="minecraft:execute as @a[tag=nezareth_top] run minecraft:tag @s remove nezareth_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s nezareth_rank matches 3 run minecraft:scoreboard players reset @s nezareth_pool"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #nezareth nezareth_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s nezareth_pool matches 1.. run minecraft:scoreboard players operation #nezareth nezareth_pool > @s nezareth_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s nezareth_pool matches 1.. if score @s nezareth_pool = #nezareth nezareth_pool run minecraft:tag @s add nezareth_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=nezareth_top,limit=1] run minecraft:scoreboard players set @s nezareth_rank 2"} @self'
+    - 'command{c="minecraft:execute as @a[tag=nezareth_top] run minecraft:tag @s remove nezareth_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s nezareth_rank matches 2 run minecraft:scoreboard players reset @s nezareth_pool"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #nezareth nezareth_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s nezareth_pool matches 1.. run minecraft:scoreboard players operation #nezareth nezareth_pool > @s nezareth_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s nezareth_pool matches 1.. if score @s nezareth_pool = #nezareth nezareth_pool run minecraft:tag @s add nezareth_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=nezareth_top,limit=1] run minecraft:scoreboard players set @s nezareth_rank 1"} @self'
+    - 'command{c="minecraft:execute as @a[tag=nezareth_top] run minecraft:tag @s remove nezareth_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s nezareth_rank matches 1 run minecraft:scoreboard players reset @s nezareth_pool"} @self'
+
+
+Nezareth_Rank_Entregar:
+  Skills:
+    - 'command{c="minecraft:execute if score <target.name> nezareth_rank matches 3 run mm items give -d <target.name> Saco_Nezareth_Top1 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> nezareth_rank matches 2 run mm items give -d <target.name> Saco_Nezareth_Top2 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> nezareth_rank matches 1 run mm items give -d <target.name> Saco_Nezareth_Top3 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> nezareth_dmg matches 1.. unless score <target.name> nezareth_rank matches 1..3 run mm items give -d <target.name> Saco_Nezareth_Consuelo 1"} @PlayersInWorld'
+
+Nezareth_Rank_Muerte:
+  Skills:
+    - skill{s=Nezareth_Rank_Calcular} @self
+    - skill{s=Nezareth_Rank_Entregar} @self

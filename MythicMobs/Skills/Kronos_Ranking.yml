@@ -1,0 +1,54 @@
+Kronos_Rank_Reset:
+  Skills:
+    - modifyscore{o=kronos_dmg;e=#kronos;a=set;v=0} @self
+    - modifyscore{o=kronos_pool;e=#kronos;a=set;v=0} @self
+    - modifyscore{o=kronos_rank;e=#kronos;a=set;v=0} @self
+    - 'command{c="minecraft:scoreboard players reset * kronos_dmg"} @self'
+    - 'command{c="minecraft:scoreboard players reset * kronos_pool"} @self'
+    - 'command{c="minecraft:scoreboard players reset * kronos_rank"} @self'
+    - 'command{c="minecraft:execute as @a[tag=kronos_top] run minecraft:tag @s remove kronos_top"} @self'
+
+Kronos_Rank_Sumar:
+  TriggerConditions:
+    - entitytype{t=PLAYER}
+  Skills:
+    - setvariable{var=skill.kdmg;type=INTEGER;value="<skill.var.damage-amount>"} @self
+    - modifyscore{o=kronos_dmg;e=<trigger.name>;a=add;v=<skill.var.kdmg>} @self
+
+Kronos_Rank_Calcular:
+  Skills:
+    - 'command{c="minecraft:execute as @a if score @s kronos_dmg matches 1.. run minecraft:scoreboard players operation @s kronos_pool = @s kronos_dmg"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #kronos kronos_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s kronos_pool matches 1.. run minecraft:scoreboard players operation #kronos kronos_pool > @s kronos_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s kronos_pool matches 1.. if score @s kronos_pool = #kronos kronos_pool run minecraft:tag @s add kronos_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=kronos_top,limit=1] run minecraft:scoreboard players set @s kronos_rank 3"} @self'
+    - 'command{c="minecraft:execute as @a[tag=kronos_top] run minecraft:tag @s remove kronos_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s kronos_rank matches 3 run minecraft:scoreboard players reset @s kronos_pool"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #kronos kronos_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s kronos_pool matches 1.. run minecraft:scoreboard players operation #kronos kronos_pool > @s kronos_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s kronos_pool matches 1.. if score @s kronos_pool = #kronos kronos_pool run minecraft:tag @s add kronos_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=kronos_top,limit=1] run minecraft:scoreboard players set @s kronos_rank 2"} @self'
+    - 'command{c="minecraft:execute as @a[tag=kronos_top] run minecraft:tag @s remove kronos_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s kronos_rank matches 2 run minecraft:scoreboard players reset @s kronos_pool"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #kronos kronos_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s kronos_pool matches 1.. run minecraft:scoreboard players operation #kronos kronos_pool > @s kronos_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s kronos_pool matches 1.. if score @s kronos_pool = #kronos kronos_pool run minecraft:tag @s add kronos_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=kronos_top,limit=1] run minecraft:scoreboard players set @s kronos_rank 1"} @self'
+    - 'command{c="minecraft:execute as @a[tag=kronos_top] run minecraft:tag @s remove kronos_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s kronos_rank matches 1 run minecraft:scoreboard players reset @s kronos_pool"} @self'
+
+
+Kronos_Rank_Entregar:
+  Skills:
+    - 'command{c="minecraft:execute if score <target.name> kronos_rank matches 3 run mm items give -d <target.name> Saco_Kronos_Top1 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> kronos_rank matches 2 run mm items give -d <target.name> Saco_Kronos_Top2 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> kronos_rank matches 1 run mm items give -d <target.name> Saco_Kronos_Top3 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> kronos_dmg matches 1.. unless score <target.name> kronos_rank matches 1..3 run mm items give -d <target.name> Saco_Kronos_Consuelo 1"} @PlayersInWorld'
+
+Kronos_Rank_Muerte:
+  Skills:
+    - skill{s=Kronos_Rank_Calcular} @self
+    - skill{s=Kronos_Rank_Entregar} @self

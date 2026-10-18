@@ -1,0 +1,332 @@
+# Ragnarok skills
+
+Ragnarok_Spawn:
+  Skills:
+    - setstance{stance=PHASE1} @self
+    - 'title{title="&b&lRAGNAROK";subtitle="&bVolcano &8• &7El fin ha llegado";fadein=10;stay=180;duration=180;fadeout=10} @Server'
+    - 'message{m="&b&lRAGNAROK &7Surge de las profundidades del volcán"} @Server'
+    - effect:sound{s=entity.wither.spawn;v=0.6;p=0.8} @self
+    - effect:particles{particle=SNOWFLAKE;amount=45;hS=1.2;vS=1.0;speed=0.03} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=70;level=2} @self
+    - delay 2
+    - settarget @NearestPlayer{r=40}
+
+Ragnarok_AcquireTarget:
+  Conditions:
+    - targetwithin{d=9999} false
+  Skills:
+    - settarget @NearestPlayer{r=40}
+
+Ragnarok_HP75_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1987}
+  Skills:
+    - 'message{m="&b&lRAGNAROK &f: &7\"Aún conservo el 75% de mi poder.\""} @PlayersInRadius{r=60}'
+
+Ragnarok_HP50_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1325}
+  Skills:
+    - 'message{m="&b&lRAGNAROK &f: &7\"Con el 50% de mi vida basta para sellar vuestro destino.\""} @PlayersInRadius{r=60}'
+
+Ragnarok_HP25_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<662}
+  Skills:
+    - 'message{m="&b&lRAGNAROK &f: &7\"Incluso con el 25%, el fin os alcanzará.\""} @PlayersInRadius{r=60}'
+
+Ragnarok_Phase2_Check:
+  Conditions:
+    - stance{stance=PHASE1}
+    - health{h=<1723}
+  Skills:
+    - skill{s=Ragnarok_PhaseShield} @self
+    - setstance{stance=PHASE2} @self
+    - 'message{cooldown=9999;m="&b&lRAGNAROK &f: &7\"El frío consumirá todo.\""} @PlayersInRadius{r=60}'
+    - potion{type=INCREASE_DAMAGE;duration=220;level=0} @self
+    - potion{type=SPEED;duration=220;level=0} @self
+    - skill{s=Ragnarok_SummonDraugr} @self
+
+Ragnarok_Phase3_Check:
+  Conditions:
+    - stance{stance=PHASE2}
+    - health{h=<993}
+  Skills:
+    - skill{s=Ragnarok_PhaseShield} @self
+    - setstance{stance=PHASE3} @self
+    - 'message{cooldown=9999;m="&b&lRAGNAROK &f: &7\"No escaparéis del destino.\""} @PlayersInRadius{r=60}'
+    - potion{type=INCREASE_DAMAGE;duration=220;level=1} @self
+    - potion{type=SPEED;duration=220;level=1} @self
+    - skill{s=Ragnarok_IceStorm} @self
+    - skill{s=Ragnarok_LightningStorm} @self
+    - skill{s=Ragnarok_SummonVikings} @self
+
+Ragnarok_Phase4_Check:
+  Conditions:
+    - stance{stance=PHASE3}
+    - health{h=<662}
+  Skills:
+    - skill{s=Ragnarok_PhaseShield} @self
+    - setstance{stance=LASTBREATH} @self
+    - 'message{cooldown=9999;m="&b&lRAGNAROK &f: &7\"El fin os alcanzara. Corred... o pereced.\""} @PlayersInRadius{r=60}'
+    - potion{type=INCREASE_DAMAGE;duration=260;level=2} @self
+    - potion{type=SPEED;duration=260;level=1} @self
+    - effect:sound{s=entity.warden.roar;v=0.55;p=0.7} @self
+    - effect:particles{particle=SOUL;amount=30;hS=1.0;vS=1.1;speed=0.02} @self
+    - effect:particles{particle=SNOWFLAKE;amount=45;hS=1.4;vS=1.0;speed=0.04} @self
+    - skill{s=Ragnarok_RunOrDie} @self
+
+Ragnarok_PhaseShield:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
+    - effect:particles{particle=END_ROD;amount=25;hS=0.9;vS=1.0;speed=0.02} @self
+
+Ragnarok_Attack_Rotation:
+  Skills:
+    - randomskill{skills=Ragnarok_HeavyStrike,Ragnarok_SummonVex;weights=4,2} @target ?stance{stance=PHASE1}
+    - randomskill{skills=Ragnarok_HeavyStrike,Ragnarok_FreezeBurst,Ragnarok_SummonDraugr,Ragnarok_SummonVex;weights=3,3,2,3} @target ?stance{stance=PHASE2}
+    - randomskill{skills=Ragnarok_HeavyStrike,Ragnarok_FreezeBurst,Ragnarok_IceStorm,Ragnarok_LightningStorm,Ragnarok_SummonVex,Ragnarok_SummonVikings;weights=3,3,2,2,3,2} @target ?stance{stance=PHASE3}
+    - randomskill{skills=Ragnarok_RunOrDie,Ragnarok_LightningStorm,Ragnarok_HeavyStrike;weights=3,2,2} @target ?stance{stance=LASTBREATH}
+
+Ragnarok_HeavyStrike:
+  Conditions:
+    - targetwithin{d=6}
+  Skills:
+    - effect:sound{s=entity.player.attack.sweep;v=0.8;p=0.7} @self
+    - effect:particles{particle=SWEEP_ATTACK;amount=1} @self
+    - damage{a=111;pk=true} @target
+    - throw{velocity=1.0;velocityY=0.25} @target
+
+Ragnarok_DevastatingBlow:
+  Conditions:
+    - targetwithin{d=4}
+  Skills:
+    - message{cooldown=8;m="&3Golpe devastador de &bRagnarok&f!"} @PlayersInRadius{r=40}
+    - effect:sound{s=entity.iron_golem.attack;v=0.9;p=0.5} @self
+    - effect:particles{particle=BLOCK_CRACK;material=ICE;amount=45;hS=1.1;vS=0.3;speed=0.10} @self
+    - delay 6
+    - damage{a=137;pk=true} @PlayersInRadius{r=4}
+    - throw{velocity=1.2;velocityY=0.3} @PlayersInRadius{r=4}
+
+Ragnarok_FreezeAura:
+  Skills:
+    - effect:particles{particle=SNOWFLAKE;amount=12;hS=1.6;vS=0.8;speed=0.03} @self
+    - potion{type=SLOW;duration=45;level=2} @PlayersInRadius{r=5}
+    - potion{type=WEAKNESS;duration=40;level=0} @PlayersInRadius{r=5}
+
+Ragnarok_FreezeBurst:
+  Cooldown: 12
+  Skills:
+    - effect:sound{s=block.glass.break;v=0.8;p=0.7} @self
+    - effect:particles{particle=SNOWFLAKE;amount=60;hS=2.0;vS=0.8;speed=0.05} @self
+    - damage{a=69;pk=true} @PlayersInRadius{r=7}
+    - potion{type=SLOW;duration=70;level=3} @PlayersInRadius{r=7}
+
+Ragnarok_IceStorm:
+  Cooldown: 20
+  Skills:
+    - message{cooldown=10;m="&bTormenta de hielo&f en curso..."} @PlayersInRadius{r=50}
+    - effect:sound{s=entity.snow_golem.shoot;v=0.8;p=0.6} @self
+    - effect:particles{particle=CLOUD;amount=80;hS=3.2;vS=1.2;speed=0.02;yOffset=1.4} @self
+    - effect:particles{particle=SNOWFLAKE;amount=120;hS=3.0;vS=1.1;speed=0.08} @self
+    - effect:particles{particle=BLOCK_CRACK;material=PACKED_ICE;amount=60;hS=2.8;vS=0.15;speed=0.08;yOffset=0.1} @self
+    - delay 8
+    - damage{a=103;pk=true} @PlayersInRadius{r=9}
+    - potion{type=SLOW;duration=90;level=2} @PlayersInRadius{r=9}
+
+Ragnarok_LightningStorm:
+  Cooldown: 35
+  Skills:
+    - message{cooldown=10;m="&bRagnarok invoca una &fTormenta de Rayos&b!"} @PlayersInRadius{r=50}
+    - effect:sound{s=entity.lightning_bolt.thunder;v=0.9;p=0.8} @self
+    - potion{type=BLINDNESS;duration=100;level=0} @PlayersInRadius{r=12}
+    - potion{type=CONFUSION;duration=100;level=0} @PlayersInRadius{r=12}
+    - effect:particles{particle=CLOUD;amount=90;hS=3.0;vS=1.7;speed=0.02;yOffset=1.6} @self
+    - effect:particles{particle=ELECTRIC_SPARK;amount=60;hS=2.8;vS=1.3;speed=0.03} @self
+    - effect:lightning @PlayersInRadius{r=12}
+    - effect:lightning @PlayersInRadius{r=12}
+    - damage{a=43;pk=true} @PlayersInRadius{r=12}
+    - delay 10
+    - effect:sound{s=entity.lightning_bolt.impact;v=0.8;p=1.0} @self
+    - effect:particles{particle=ELECTRIC_SPARK;amount=50;hS=2.8;vS=1.1;speed=0.03} @self
+    - effect:lightning @PlayersInRadius{r=12}
+    - effect:lightning @PlayersInRadius{r=12}
+    - delay 10
+    - effect:sound{s=entity.lightning_bolt.thunder;v=0.8;p=0.9} @self
+    - effect:particles{particle=ELECTRIC_SPARK;amount=50;hS=2.8;vS=1.1;speed=0.03} @self
+    - effect:lightning @PlayersInRadius{r=12}
+    - effect:lightning @PlayersInRadius{r=12}
+    - damage{a=43;pk=true} @PlayersInRadius{r=12}
+
+Ragnarok_RunOrDie:
+  Cooldown: 22
+  Skills:
+    - message{cooldown=8;m="&c&lRAGNAROK &fcomienza a cargar el fin... &e¡CORRE!"} @PlayersInRadius{r=60}
+    - effect:sound{s=block.beacon.power_select;v=0.9;p=0.45} @self
+    - effect:sound{s=entity.wither.ambient;v=0.5;p=0.6} @self
+    - potion{type=SLOW;duration=40;level=6} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=40;level=3} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=END_ROD;amount=35;hS=1.0;vS=1.2;speed=0.01} @self
+    - effect:particles{particle=SNOWFLAKE;amount=110;hS=4.6;vS=0.5;speed=0.05} @self
+    - effect:particles{particle=REDSTONE;amount=60;hS=4.3;vS=0.3;speed=0;color=#bfefff;size=1.35} @self
+    - delay 40
+    - effect:sound{s=entity.generic.explode;v=0.8;p=0.65} @self
+    - effect:sound{s=entity.lightning_bolt.thunder;v=0.8;p=0.7} @self
+    - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+    - effect:particles{particle=BLOCK_CRACK;material=BLUE_ICE;amount=150;hS=6.0;vS=0.4;speed=0.12} @self
+    - effect:particles{particle=SNOWFLAKE;amount=190;hS=6.2;vS=1.0;speed=0.08} @self
+    - damage{a=154;pk=true} @PlayersInRadius{r=12}
+    - throw{velocity=1.6;velocityY=0.45} @PlayersInRadius{r=12}
+    - potion{type=SLOW;duration=80;level=2} @PlayersInRadius{r=12}
+
+Ragnarok_AntiKite:
+  Conditions:
+    - targetwithin{d=9999} true
+  Skills:
+    - skill{s=Ragnarok_PullIfFar} @target
+
+Ragnarok_PullIfFar:
+  Cooldown: 12
+  Conditions:
+    - distance{d=>36}
+  Skills:
+    - message{cooldown=20;m="&bEl invierno te reclama..."} @target
+    - pull{velocity=1.25} @target
+    - effect:particles{particle=SNOWFLAKE;amount=20;hS=0.9;vS=0.7;speed=0.04} @target
+
+Ragnarok_SummonDraugr:
+  Cooldown: 25
+  Conditions:
+    - mobsinradius{type=Draugr_Ragnarok;amount=<5;radius=35}
+  Skills:
+    - effect:sound{s=entity.zombie.ambient;v=0.8;p=0.6} @self
+    - effect:particles{particle=SOUL;amount=20;hS=1.0;vS=0.8;speed=0.02} @self
+    - effect:particles{particle=SPELL_MOB_AMBIENT;amount=18;hS=0.9;vS=0.7;speed=0.02} @self
+    - summon{type=Draugr_Ragnarok;amount=2;radius=8;noise=3} @self
+
+Ragnarok_SummonVex:
+  Cooldown: 16
+  Conditions:
+    - mobsinradius{type=SpectralVex_Ragnarok;amount=<4;radius=35}
+  Skills:
+    - effect:sound{s=entity.vex.ambient;v=0.9;p=1.1} @self
+    - effect:particles{particle=SOUL;amount=20;hS=1.0;vS=0.6;speed=0.02} @self
+    - effect:particles{particle=CLOUD;amount=16;hS=0.9;vS=0.4;speed=0.02;yOffset=0.6} @self
+    - effect:particles{particle=ELECTRIC_SPARK;amount=10;hS=0.7;vS=0.7;speed=0.02} @self
+    - summon{type=SpectralVex_Ragnarok;amount=2;radius=7;noise=2} @self
+
+Ragnarok_SummonVikings:
+  Cooldown: 24
+  Conditions:
+    - mobsinradius{type=VikingWarrior_Ragnarok;amount=<4;radius=35}
+  Skills:
+    - effect:sound{s=entity.husk.ambient;v=0.8;p=0.8} @self
+    - effect:sound{s=entity.player.attack.sweep;v=0.7;p=0.6} @self
+    - effect:particles{particle=BLOCK_CRACK;material=BLUE_ICE;amount=30;hS=1.2;vS=0.3;speed=0.08} @self
+    - summon{type=VikingWarrior_Ragnarok;amount=2;radius=8;noise=3} @self
+
+Ragnarok_PlayerKill:
+  Skills:
+    - 'message{m="&b&lRAGNAROK &f: &7\"Vuestro destino está sellado.\""} @PlayersInRadius{r=60}'
+
+Ragnarok_Death:
+  Skills:
+    - 'message{m="&b&lRAGNAROK &f: &7\"El Valhalla me espera…\""} @PlayersInRadius{r=70}'
+    - effect:sound{s=entity.wither.death;v=0.8;p=0.9} @self
+    - effect:sound{s=block.glass.break;v=1.0;p=0.5} @self
+    - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+    - effect:particles{particle=SNOWFLAKE;amount=120;hS=2.5;vS=1.2;speed=0.08} @self
+    - effect:particles{particle=SOUL;amount=30;hS=1.2;vS=1.0;speed=0.02} @self
+    - effect:particles{particle=BLOCK_CRACK;material=BLUE_ICE;amount=70;hS=2.2;vS=0.4;speed=0.10} @self
+
+Draugr_Resilience:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=160;level=1} @self
+    - potion{type=REGENERATION;duration=80;level=0} @self
+    - effect:particles{particle=SPELL_MOB_AMBIENT;amount=12;hS=0.6;vS=0.6;speed=0.02} @self
+
+SpectralVex_SpawnFX:
+  Skills:
+    - effect:particles{particle=SOUL;amount=14;hS=0.5;vS=0.5;speed=0.02} @self
+    - effect:particles{particle=CLOUD;amount=8;hS=0.4;vS=0.4;speed=0.02} @self
+    - effect:particles{particle=REDSTONE;amount=10;hS=0.35;vS=0.45;speed=0;color=#9fe6ff;size=1.15} @self
+
+SpectralVex_BlueAura:
+  Skills:
+    - effect:particles{particle=REDSTONE;amount=5;hS=0.25;vS=0.45;speed=0;color=#9fe6ff;size=1.1} @self
+    - effect:particles{particle=SOUL;amount=2;hS=0.2;vS=0.35;speed=0.01} @self
+
+SpectralVex_QuickStrike:
+  Skills:
+    - potion{type=SPEED;duration=40;level=1} @self
+    - effect:sound{s=entity.vex.charge;v=0.7;p=1.2} @self
+    - damage{a=43;ia=true} @target
+
+SpectralVex_DeathFX:
+  Skills:
+    - effect:sound{s=block.glass.break;v=0.8;p=1.2} @self
+    - effect:particles{particle=BLOCK_CRACK;material=BLUE_ICE;amount=28;hS=0.8;vS=0.35;speed=0.08} @self
+    - effect:particles{particle=SNOWFLAKE;amount=20;hS=0.7;vS=0.5;speed=0.04} @self
+
+VikingWarrior_DoubleAxe:
+  Skills:
+    - effect:sound{s=entity.player.attack.sweep;v=0.7;p=0.7} @self
+    - damage{a=51;pk=true} @target
+    - delay 4
+    - damage{a=51;pk=true} @target
+
+# Item summon
+Ragnarok_ItemSummon:
+  Conditions:
+    - skilloncooldown{skill=Ragnarok_ItemSummon_AtCoords} castinstead Ragnarok_ItemSummon_Fail_Cooldown
+    - world{w=Spawn} orElseCast Ragnarok_ItemSummon_Fail_WrongWorld
+    - distancefromlocation{x=836.5;y=72;z=-598.5;world=Spawn;distance=<2} orElseCast Ragnarok_ItemSummon_Fail_NotAtSpot
+  Skills:
+    - skill{s=Ragnarok_ItemSummon_AtCoords} @Location{x=836.5;y=72;z=-598.5;world=Spawn}
+
+Ragnarok_ItemSummon_AtCoords:
+  Cooldown: 60
+  TargetConditions:
+    - mobsinradius{type=Ragnarok;amount=<1;r=100} orElseCast Ragnarok_ItemSummon_Fail_AlreadyActive
+  Skills:
+    - effect:sound{s=entity.evoker.prepare_summon;v=0.9;p=0.85} @self
+    - particlering{particle=REDSTONE;radius=3.0;points=48;amount=1;hS=0;vS=0;speed=0.0;color=#9fe6ff;size=1.25} @targetlocation{y=0.1}
+    - particlering{particle=REDSTONE;radius=1.6;points=28;amount=1;hS=0;vS=0;speed=0.0;color=#bfefff;size=1.15} @targetlocation{y=0.1}
+    - effect:particles{particle=SNOWFLAKE;amount=30;hS=0.9;vS=0.2;speed=0.06} @targetlocation{y=0.25}
+    - effect:particles{particle=SOUL;amount=12;hS=0.6;vS=0.05;speed=0.02} @targetlocation{y=0.2}
+    - delay 8
+    - effect:particles{particle=PORTAL;amount=60;hS=0.7;vS=0.2;speed=0.15} @targetlocation{y=1}
+    - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.7;vS=0.6;speed=0.02} @targetlocation{y=1}
+    - effect:particles{particle=FLASH;amount=1} @targetlocation{y=1}
+    - summon{type=Ragnarok;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
+    - delay 1
+    - consumehelditem{a=1} @self
+    - message{cooldown=2;m="&b&lRAGNAROK &8» &aInvocado."} @self
+Ragnarok_ItemSummon_Fail_AlreadyActive:
+  Skills:
+    - message{cooldown=2;m="&b&lRAGNAROK &8» &7Ya hay un &bRagnarok &7cerca. Mata al boss antes de invocar otro."} @self
+
+Ragnarok_ItemSummon_Fail_NotAtSpot:
+  Skills:
+    - message{cooldown=2;m="&b&lRAGNAROK &8» &eNo estas en el &6Altar de Invocacion&e. &7Acercate al altar para usar la estrella."} @self
+
+Ragnarok_ItemSummon_Fail_WrongWorld:
+  Skills:
+    - message{cooldown=2;m="&b&lRAGNAROK &8» &eLa invocacion no responde en este lugar. &7Regresa al &6Altar de Invocacion&7."} @self
+
+Ragnarok_ItemSummon_Fail_Cooldown:
+  Skills:
+    - message{cooldown=2;m="&b&lRAGNAROK &8» &7La estrella aun se esta recargando. &fEspera un momento&7."} @self
+
+# --- Fuego amigo ---
+Ragnarok_FuegoAmigo:
+  # Anula el daño que recibe este mob si viene de otro mob de su misma faccion
+  # (flechas de los arqueros aliados, explosiones de creepers aliados, etc).
+  TriggerConditions:
+    - faction{f=Boss_Ragnarok} true
+  Skills:
+    - cancelevent @self

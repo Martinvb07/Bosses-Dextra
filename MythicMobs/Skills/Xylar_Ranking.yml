@@ -1,0 +1,54 @@
+Xylar_Rank_Reset:
+  Skills:
+    - modifyscore{o=xylar_dmg;e=#xylar;a=set;v=0} @self
+    - modifyscore{o=xylar_pool;e=#xylar;a=set;v=0} @self
+    - modifyscore{o=xylar_rank;e=#xylar;a=set;v=0} @self
+    - 'command{c="minecraft:scoreboard players reset * xylar_dmg"} @self'
+    - 'command{c="minecraft:scoreboard players reset * xylar_pool"} @self'
+    - 'command{c="minecraft:scoreboard players reset * xylar_rank"} @self'
+    - 'command{c="minecraft:execute as @a[tag=xylar_top] run minecraft:tag @s remove xylar_top"} @self'
+
+Xylar_Rank_Sumar:
+  TriggerConditions:
+    - entitytype{t=PLAYER}
+  Skills:
+    - setvariable{var=skill.kdmg;type=INTEGER;value="<skill.var.damage-amount>"} @self
+    - modifyscore{o=xylar_dmg;e=<trigger.name>;a=add;v=<skill.var.kdmg>} @self
+
+Xylar_Rank_Calcular:
+  Skills:
+    - 'command{c="minecraft:execute as @a if score @s xylar_dmg matches 1.. run minecraft:scoreboard players operation @s xylar_pool = @s xylar_dmg"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #xylar xylar_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s xylar_pool matches 1.. run minecraft:scoreboard players operation #xylar xylar_pool > @s xylar_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s xylar_pool matches 1.. if score @s xylar_pool = #xylar xylar_pool run minecraft:tag @s add xylar_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=xylar_top,limit=1] run minecraft:scoreboard players set @s xylar_rank 3"} @self'
+    - 'command{c="minecraft:execute as @a[tag=xylar_top] run minecraft:tag @s remove xylar_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s xylar_rank matches 3 run minecraft:scoreboard players reset @s xylar_pool"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #xylar xylar_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s xylar_pool matches 1.. run minecraft:scoreboard players operation #xylar xylar_pool > @s xylar_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s xylar_pool matches 1.. if score @s xylar_pool = #xylar xylar_pool run minecraft:tag @s add xylar_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=xylar_top,limit=1] run minecraft:scoreboard players set @s xylar_rank 2"} @self'
+    - 'command{c="minecraft:execute as @a[tag=xylar_top] run minecraft:tag @s remove xylar_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s xylar_rank matches 2 run minecraft:scoreboard players reset @s xylar_pool"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #xylar xylar_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s xylar_pool matches 1.. run minecraft:scoreboard players operation #xylar xylar_pool > @s xylar_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s xylar_pool matches 1.. if score @s xylar_pool = #xylar xylar_pool run minecraft:tag @s add xylar_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=xylar_top,limit=1] run minecraft:scoreboard players set @s xylar_rank 1"} @self'
+    - 'command{c="minecraft:execute as @a[tag=xylar_top] run minecraft:tag @s remove xylar_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s xylar_rank matches 1 run minecraft:scoreboard players reset @s xylar_pool"} @self'
+
+
+Xylar_Rank_Entregar:
+  Skills:
+    - 'command{c="minecraft:execute if score <target.name> xylar_rank matches 3 run mm items give -d <target.name> Saco_Xylar_Top1 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> xylar_rank matches 2 run mm items give -d <target.name> Saco_Xylar_Top2 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> xylar_rank matches 1 run mm items give -d <target.name> Saco_Xylar_Top3 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> xylar_dmg matches 1.. unless score <target.name> xylar_rank matches 1..3 run mm items give -d <target.name> Saco_Xylar_Consuelo 1"} @PlayersInWorld'
+
+Xylar_Rank_Muerte:
+  Skills:
+    - skill{s=Xylar_Rank_Calcular} @self
+    - skill{s=Xylar_Rank_Entregar} @self

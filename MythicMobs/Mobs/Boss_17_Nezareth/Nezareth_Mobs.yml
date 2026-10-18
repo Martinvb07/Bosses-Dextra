@@ -1,0 +1,195 @@
+# Nezareth
+
+Nezareth:
+  Type: IRON_GOLEM
+  Display: "&8&lNEZARETH &8• &8la Tejedora Eterna"
+  Health: 4800
+  Damage: 95
+  Armor: 6679
+  Faction: Boss_Nezareth
+  Modules:
+    ThreatTable: true
+
+  Equipment:
+    - Yeti_ArmaduraInvisible:CHEST
+
+  BossBar:
+    Enabled: true
+    Title: "&8&lNEZARETH"
+    Range: 55
+    Color: BLUE
+    Style: SEGMENTED_10
+
+  Options:
+    Despawn: false
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 42
+    KnockbackResistance: 0.85
+    UseThreatTable: true
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  DropOptions:
+    DropMethod: FANCY
+    ShowDeathChatMessage: true
+    ShowDeathHologram: true
+    PerPlayerDrops: true
+    ClientSideDrops: true
+    Lootsplosion: true
+    HologramItemNames: true
+    ItemGlowByDefault: true
+    ItemBeamByDefault: true
+    ItemVFXByDefault: false
+    RequiredDamagePercent: 25
+    HologramTimeout: 15
+    HologramMessage:
+      - "<#F2B600>========================"
+      - "<#FFD600>NEZARETH 4800 HP"
+      - ""
+      - "<#FFA300>1er Lugar | <1.name> | <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> | <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> | <3.damage>"
+      - ""
+      - "Posicion: #<player.rank> | <player.damage>"
+      - "<#F2B600>========================"
+    ChatMessage:
+      - "<#F2B600>===================================="
+      - "<#FFD600>JEFE DERROTADO!"
+      - "<#FFD600>NEZARETH 4800 HP"
+      - ""
+      - "<#ffe259>1er Lugar | <1.name> - <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> - <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> - <3.damage>"
+      - ""
+      - "<#F2B600>Posicion: #<player.rank> - <player.damage>"
+      - "<#F2B600>===================================="
+
+  Drops:
+    - Nezareth_Nada 1 1
+   # - Recompensas_xp
+   # - Recompensas_runas
+   # - Recompensas_dinero
+   # - Recompensas_llaves
+
+  Skills:
+    - skill{s=Nezareth_Rank_Reset} @self ~onSpawn
+    - skill{s=Nezareth_Rank_Sumar} @self ~onDamaged
+    - skill{s=Nezareth_Rank_Muerte} @self ~onDeath
+
+    - skill{s=NZ_Spawn} @self ~onSpawn
+    - skill{s=NZ_AcquireTarget} @self ~onTimer:10
+    - skill{s=NZ_HP70_Check} @self ~onTimer:20
+    - skill{s=NZ_HP40_Check} @self ~onTimer:20
+    - skill{s=NZ_Phase2_Check} @self ~onTimer:20
+    - skill{s=NZ_Phase3_Check} @self ~onTimer:20
+    - skill{s=NZ_SubjugationShield} @self ~onTimer:10
+    - skill{s=NZ_FrozenAura} @self ~onTimer:12
+    - skill{s=NZ_SnowPresence} @self ~onTimer:8
+    - skill{s=NZ_Roar} @self ~onTimer:80
+    - skill{s=NZ_Attack_Rotation} @self ~onTimer:10
+    - skill{s=NZ_SummonCycle} @self ~onTimer:55
+    - skill{s=NZ_AntiKite} @self ~onTimer:35
+    - skill{s=NZ_PlayerKill} @target ~onKill
+    - skill{s=NZ_Death} @self ~onDeath
+    - skill{s=NZ_FuegoAmigo;sync=true} @self ~onDamaged
+
+
+# --- Subditos de Nezareth ---
+
+Nezareth_Marioneta:
+  Type: HUSK
+  Display: "&7Marioneta de Seda"
+  Health: 1023
+  Damage: 19
+  Armor: 2226
+  Faction: Boss_Nezareth
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 30
+
+  Equipment:
+    - STONE_AXE:HAND
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_FrostBrute_Yeti
+
+  Skills:
+    - skill{s=NZ_FBY_SpawnFX} @self ~onSpawn
+    - skill{s=NZ_FBY_FrozenMaul} @target ~onAttack
+    - skill{s=NZ_FuegoAmigo;sync=true} @self ~onDamaged
+
+Nezareth_Hilandera:
+  Type: VINDICATOR
+  Display: "&8Hilandera del Destino"
+  Health: 1280
+  Damage: 24
+  Armor: 2783
+  Faction: Boss_Nezareth
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.31
+    FollowRange: 30
+
+  Equipment:
+    - IRON_AXE:HAND
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_GlacierRaider_Yeti
+
+  Skills:
+    - skill{s=NZ_GRY_SpawnFX} @self ~onSpawn
+    - skill{s=NZ_GRY_CrystalCleave} @target ~onAttack
+    - skill{s=NZ_FuegoAmigo;sync=true} @self ~onDamaged
+
+Nezareth_Polilla:
+  Type: VEX
+  Display: "&7Polilla Sombria"
+  Health: 102
+  Damage: 19
+  Faction: Boss_Nezareth
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.34
+    FollowRange: 28
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_BlizzardSpirit_Yeti
+
+  Skills:
+    - skill{s=NZ_BSY_SpawnFX} @self ~onSpawn
+    - skill{s=NZ_BSY_FrostClaws} @target ~onAttack
+    - skill{s=NZ_FuegoAmigo;sync=true} @self ~onDamaged

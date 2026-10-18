@@ -1,0 +1,60 @@
+# Mushlord items
+Mushlord_ArmaduraInvisible:
+  Id: PUMPKIN_SEEDS
+  Display: "&f"
+  Lore:
+    - ""
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:343
+  ItemFlags:
+    - HIDE_ENCHANTS
+    - HIDE_ATTRIBUTES
+    - HIDE_ADDITIONAL_TOOLTIP
+  Options:
+    Unbreakable: true
+
+MH_NucleoFungico:
+  Id: SLIME_BALL
+  Display: "&2&lNúcleo fúngico"
+  Lore:
+    - "&7Un corazón blando que late con esporas."
+    - "&7La corrupción sigue viva dentro de él."
+    - ""
+    - "&8Recompensa de &2&lMUSHLORD"
+  Options:
+    Glowing: true
+
+MH_LlaveEspora:
+  Id: TRIPWIRE_HOOK
+  Display: "&a&lLlave espora"
+  Lore:
+    - "&7Una llave recubierta por moho antiguo."
+    - "&7Abre senderos donde crece la plaga."
+    - ""
+    - "&8Recompensa de &2&lMUSHLORD"
+  Options:
+    Glowing: true
+
+MH_PolvoVenenoso:
+  Id: GREEN_DYE
+  Display: "&aPolvo venenoso"
+  Lore:
+    - "&7Una nube en reposo."
+    - "&7Basta una chispa para volverla letal."
+    - ""
+    - "&8Recompensa de &2&lMUSHLORD"
+  Options:
+    Glowing: true
+
+MH_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&2&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &2&lMUSHLORD&7."
+    - "&8(Usala en su altar de invocacion)"
+
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=Mushlord_ItemSummon} @Self ~onRightClick
+    - skill{s=Mushlord_ItemSummon} @Self ~onUse

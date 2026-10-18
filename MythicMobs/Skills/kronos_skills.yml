@@ -1,0 +1,185 @@
+# Kronos - Apertura de los sacos de recompensa (OneBlock)
+#
+# TRAMOS SIN SUPERPOSICION. Cada puesto sortea dentro de su propia franja y las
+# franjas no comparten ningun valor, asi un 2do lugar afortunado NUNCA puede
+# igualar a un 1er lugar con mala suerte:
+#
+#   eco/xp   Top1 {60k,70k,80k}  Top2 {40k,45k,55k}  Top3 {25k,30k,35k}
+#            Consuelo {5k,8k}
+#   runas    Top1 {4,5}  Top2 {2,3}  Top3 {1}
+#
+# Los comandos usan <caster.name>, no <trigger.name>: en una skill de item el
+# caster es el jugador que hace click, y no existe contexto de trigger.
+#
+# ORDEN: el 'ae' va SIEMPRE ULTIMO.
+# Un comando que simplemente FALLA (una llave inexistente) NO corta la skill.
+# Lo que si la corta es un comando que lanza EXCEPCION, como los de un plugin
+# deshabilitado. AdvancedEnchantments es el candidato, por eso va al final.
+
+# Las skills de combate de Kronos estan en Skills/Kronos_Combate.yml
+
+#############
+
+# Sacos
+
+Kronos_Saco_Top1:
+  Cooldown: 1
+  Skills:
+    - consumeuseditem{a=1} @self
+    - skill{s=Kronos_Saco_FX} @self
+    - giveexplevels{a=15} @self
+    - randomskill{skills=OB_Eco_60k 50,OB_Eco_70k 30,OB_Eco_80k 20} @self
+    - randomskill{skills=OB_Xp_60k 50,OB_Xp_70k 30,OB_Xp_80k 20} @self
+    - skill{s=OB_Llave_DexParty} @self
+    - message{m="&6&lKRONOS &8» &e&l1er Lugar&e. El mejor botin es tuyo."} @self
+    - randomskill{skills=OB_RunaExa_1 60,OB_RunaExa_2 40} @self
+
+Kronos_Saco_Top2:
+  Cooldown: 1
+  Skills:
+    - consumeuseditem{a=1} @self
+    - skill{s=Kronos_Saco_FX} @self
+    - giveexplevels{a=10} @self
+    - randomskill{skills=OB_Eco_40k 50,OB_Eco_50k 30,OB_Eco_60k 20} @self
+    - randomskill{skills=OB_Xp_50k 50,OB_Xp_60k 30,OB_Xp_70k 20} @self
+    - skill{s=OB_Llave_Usuario3} @self
+    - message{m="&6&lKRONOS &8» &f&l2do Lugar&f. Casi lo derribas vos solo."} @self
+    - randomskill{skills=OB_RunaDextra_2 60,OB_RunaExa_1 40} @self
+
+Kronos_Saco_Top3:
+  Cooldown: 1
+  Skills:
+    - consumeuseditem{a=1} @self
+    - skill{s=Kronos_Saco_FX} @self
+    - giveexplevels{a=6} @self
+    - randomskill{skills=OB_Eco_20k 50,OB_Eco_30k 30,OB_Eco_40k 20} @self
+    - randomskill{skills=OB_Xp_40k 50,OB_Xp_50k 30,OB_Xp_60k 20} @self
+    - skill{s=OB_Llave_Usuario1} @self
+    - message{m="&6&lKRONOS &8» &6&l3er Lugar&6. Buen trabajo."} @self
+    - randomskill{skills=OB_RunaEterno_2 60,OB_RunaDextra_1 40} @self
+
+Kronos_Saco_Consuelo:
+  Cooldown: 1
+  Skills:
+    - consumeuseditem{a=1} @self
+    - skill{s=Kronos_Saco_FX} @self
+    - giveexplevels{a=1} @self
+    - randomskill{skills=OB_Eco_10k 70,OB_Eco_12k 30} @self
+    - randomskill{skills=OB_Xp_5k 70,OB_Xp_10k 30} @self
+    - message{m="&6&lKRONOS &8» &7Participaste en la caida del Tirano."} @self
+    - randomskill{skills=OB_RunaArcano_1 15,OB_Runa_Nada 85} @self
+
+# --- Recompensas base ---
+
+OB_Eco_80k:
+  Skills:
+    - command{c="eco give <caster.name> 80000"} @self
+OB_Eco_70k:
+  Skills:
+    - command{c="eco give <caster.name> 70000"} @self
+OB_Eco_60k:
+  Skills:
+    - command{c="eco give <caster.name> 60000"} @self
+OB_Eco_50k:
+  Skills:
+    - command{c="eco give <caster.name> 50000"} @self
+OB_Eco_40k:
+  Skills:
+    - command{c="eco give <caster.name> 40000"} @self
+OB_Eco_30k:
+  Skills:
+    - command{c="eco give <caster.name> 30000"} @self
+OB_Eco_20k:
+  Skills:
+    - command{c="eco give <caster.name> 20000"} @self
+OB_Eco_15k:
+  Skills:
+    - command{c="eco give <caster.name> 15000"} @self
+OB_Eco_12k:
+  Skills:
+    - command{c="eco give <caster.name> 12000"} @self
+OB_Eco_10k:
+  Skills:
+    - command{c="eco give <caster.name> 10000"} @self
+
+OB_Xp_80k:
+  Skills:
+    - command{c="xp give <caster.name> 80000"} @self
+OB_Xp_70k:
+  Skills:
+    - command{c="xp give <caster.name> 70000"} @self
+OB_Xp_60k:
+  Skills:
+    - command{c="xp give <caster.name> 60000"} @self
+OB_Xp_50k:
+  Skills:
+    - command{c="xp give <caster.name> 50000"} @self
+OB_Xp_40k:
+  Skills:
+    - command{c="xp give <caster.name> 40000"} @self
+OB_Xp_30k:
+  Skills:
+    - command{c="xp give <caster.name> 30000"} @self
+OB_Xp_20k:
+  Skills:
+    - command{c="xp give <caster.name> 20000"} @self
+OB_Xp_10k:
+  Skills:
+    - command{c="xp give <caster.name> 10000"} @self
+OB_Xp_5k:
+  Skills:
+    - command{c="xp give <caster.name> 5000"} @self
+
+OB_Llave_DexParty:
+  Skills:
+    - command{c="phoenixc giveKey Oneblock_DexParty <caster.name> 1"} @self
+OB_Llave_Usuario3:
+  Skills:
+    - command{c="phoenixc giveKey Oneblock_Usuario <caster.name> 3"} @self
+OB_Llave_Usuario1:
+  Skills:
+    - command{c="phoenixc giveKey Oneblock_Usuario <caster.name> 1"} @self
+
+OB_RunaExa_1:
+  Skills:
+    - command{c="ae givercbook EXALTED <caster.name> 1"} @self
+OB_RunaExa_2:
+  Skills:
+    - command{c="ae givercbook EXALTED <caster.name> 2"} @self
+
+OB_RunaDextra_1:
+  Skills:
+    - command{c="ae givercbook DEXTRA <caster.name> 1"} @self
+OB_RunaDextra_2:
+  Skills:
+    - command{c="ae givercbook DEXTRA <caster.name> 2"} @self
+
+OB_RunaEterno_2:
+  Skills:
+    - command{c="ae givercbook ETERNO <caster.name> 2"} @self
+
+OB_RunaVulcano_1:
+  Skills:
+    - command{c="ae givercbook VULCANO <caster.name> 2"} @self
+
+OB_RunaArcano_1:
+  Skills:
+    - command{c="ae givercbook ARCANO <caster.name> 2"} @self
+    
+# Rama vacia del sorteo. randomskill SIEMPRE elige una opcion, asi que para que
+# exista la posibilidad de "no sale nada" hace falta una skill que no haga nada.
+OB_Runa_Nada:
+  Skills:
+    - delay 1
+
+
+# --- Auxiliares ---
+
+Kronos_Saco_FX:
+  Skills:
+    - effect:sound{s=block.bundle.drop_contents;v=1.0;p=1.1} @self
+    - effect:sound{s=entity.experience_orb.pickup;v=0.8;p=1.2} @self
+    - effect:particles{particle=HAPPY_VILLAGER;amount=30;hS=0.5;vS=0.7;speed=0.05} @self
+    - effect:particles{particle=TOTEM;amount=20;hS=0.4;vS=0.6;speed=0.08} @self
+
+

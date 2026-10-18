@@ -1,0 +1,242 @@
+# Kronos
+
+Kronos:
+  Type: WITHER_SKELETON
+  Display: "&5&lKronos"
+  Health: 3400
+  Damage: 74
+  Armor: 1400
+  Faction: Boss_Kronos
+
+  #Modules:
+ #   ThreatTable: true
+
+  Equipment:
+    - GOLD_SWORD:HAND
+    - Heracles_PetoOro:CHEST
+    - Heracles_PantalonesOro:LEGS
+    - Heracles_BotasOro:FEET
+    - "PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzg4MmVkN2IyMDdjZDlhN2NmYjIxMTEzMmY2ZWZmMTg0ODM1MzNiOTM3NzExNjk0NWNkZjZhMGJhZmU3ZjM1YSJ9fX0=}:HEAD"
+
+  BossBar:
+    Enabled: true
+    Title: "&5&lKronos &8• &r&fEl Tirano del Tiempo"
+    Range: 40
+    Color: PURPLE
+    Style: SEGMENTED_10
+
+  Options:
+    AlwaysShowName: true
+    Despawn: false
+    PreventOtherDrops: true
+    Silent: true
+    MovementSpeed: 0.30
+    KnockbackResistance: 1
+    FollowRange: 40
+    PreventSunburn: true
+    PreventRandomEquipment: true
+    UseThreatTable: true
+
+  AIGoalSelectors:
+    - clear
+    - meleeattack
+    - movetowardstarget
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  DropOptions:
+    DropMethod: FANCY
+    ShowDeathChatMessage: true
+    ShowDeathHologram: true
+    PerPlayerDrops: true
+    ClientSideDrops: true
+    Lootsplosion: true
+    HologramItemNames: true
+    ItemGlowByDefault: true
+    ItemBeamByDefault: true
+    ItemVFXByDefault: false
+    # Bajado de 25 -> 10: con 25% solo podian calificar 4 personas en teoria,
+    # y en la practica el 4to puesto casi nunca llegaba al umbral.
+    RequiredDamagePercent: 10
+    HologramTimeout: 2000
+    HologramMessage:
+      - "<#F2B600>========================"
+      - "<#FFD600>KRONOS 3400 HP"
+      - ""
+      - "<#FFA300>1er Lugar | <1.name> | <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> | <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> | <3.damage>"
+      - ""
+      - "Posicion: #<player.rank> | <player.damage>"
+      - "<#F2B600>========================"
+    ChatMessage:
+      - "<#F2B600>===================================="
+      - "<#FFD600>JEFE DERROTADO!"
+      - "<#FFD600>KRONOS 3400 HP"
+      - ""
+      - "<#ffe259>1er Lugar | <1.name> - <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> - <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> - <3.damage>"
+      - ""
+      - "<#F2B600>Posicion: #<player.rank> - <player.damage>"
+      - "<#F2B600>===================================="
+
+  Drops:
+    - Kronos_Nada 1 1
+#    - Kronos_Top1{top=1} 1 1
+   # - Kronos_Top2{top=2} 1 1
+   # - Kronos_Top3{top=3} 1 1
+  #  - Kronos_HeroicoConsolacion 1 1
+   # - Recompensas_xp
+   # - Recompensas_runas
+   # - Recompensas_dinero
+   # - Recompensas_llaves
+   # - OD_EstrellaInvocacion 1 1
+   # - command{c="ae givercbook HEROICO <target.name> 3"} 1 1.0
+
+  Skills:
+    - skill{s=Kronos_Rank_Reset} @self ~onSpawn
+    - skill{s=Kronos_Rank_Sumar} @self ~onDamaged
+    - skill{s=Kronos_Rank_Muerte} @self ~onDeath
+
+    - setstance{stance=PHASE1} @self ~onSpawn
+    - skill{s=KR_Intro} @self ~onSpawn
+    - skill{s=KR_AcquireTarget} @self ~onTimer:10
+    - skill{s=KR_Slam} @target ~onAttack 0.35
+    - skill{s=KR_Quake} @target ~onTimer:12 0.40
+    - skill{s=KR_OlympusRoar} @self ~onTimer:18 0.35
+    - skill{s=KR_Charge} @target ~onTimer:60 0.60
+    - skill{s=KR_AntiRun} @self ~onTimer:160
+    - skill{s=KR_HP75_Check} @self ~onTimer:20
+    - skill{s=KR_HP50_Check} @self ~onTimer:20
+    - skill{s=KR_HP25_Check} @self ~onTimer:20
+    - skill{s=KR_HP70_Lore} @self ~onTimer:20
+    - skill{s=KR_HP40_Lore} @self ~onTimer:20
+    - skill{s=KR_Phase2_Check} @self ~onTimer:20
+    - skill{s=KR_Phase3_Check} @self ~onTimer:20
+    - skill{s=KR_LastBreath} @self ~onTimer:20
+    - skill{s=KR_LowHP_Buff} @self ~onTimer:40
+    - skill{s=KR_PlayerKill} @target ~onKill
+    - skill{s=KR_Death} @self ~onDeath
+    - skill{s=KR_FuegoAmigo;sync=true} @self ~onDamaged
+
+
+# --- Subditos de Kronos ---
+
+Kronos_Centinela:
+  Type: ZOMBIE
+  Display: "&5Centinela del Reloj"
+  Health: 1133
+  Damage: 15
+  Armor: 35
+  Faction: Boss_Kronos
+
+  Equipment:
+    - IRON_SWORD:HAND
+    - SHIELD:OFFHAND
+    - GOLD_HELMET:HEAD
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    MovementSpeed: 0.26
+    FollowRange: 25
+
+  #Drops:
+  AITargetSelectors:
+    - clear
+    - players
+
+  Skills:
+    - skill{s=KR_FuegoAmigo;sync=true} @self ~onDamaged
+
+
+Kronos_Guardian:
+  Type: ZOMBIE
+  Display: "&5Guardian de las Eras"
+  Health: 1417
+  Damage: 19
+  Armor: 44
+  Faction: Boss_Kronos
+
+  Equipment:
+    - IRON_SWORD:HAND
+    - SHIELD:OFFHAND
+    - IRON_HELMET:HEAD
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    MovementSpeed: 0.25
+    FollowRange: 26
+
+  #Drops:
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Skills:
+    - skill{s=KR_Spartan_SpawnFX} @self ~onSpawn
+    - skill{s=KR_Spartan_Block} @target ~onAttack
+    - skill{s=KR_FuegoAmigo;sync=true} @self ~onDamaged
+
+Kronos_Saetero:
+  Type: SKELETON
+  Display: "&dSaetero del Ocaso"
+  Health: 1771
+  Damage: 24
+  Armor: 55
+  Faction: Boss_Kronos
+
+  Equipment:
+    - BOW:HAND
+    - LEATHER_HELMET:HEAD
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    MovementSpeed: 0.27
+    FollowRange: 30
+
+  # Drops:
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Skills:
+    - skill{s=KR_GreekArcher_SpawnFX} @self ~onSpawn
+    - skill{s=KR_GreekArcher_RapidShots} @target ~onTimer:30
+    - skill{s=KR_FuegoAmigo;sync=true} @self ~onDamaged
+
+Kronos_Devorador:
+  Type: RAVAGER
+  Display: "&5Devorador de Eras"
+  Health: 2215
+  Damage: 30
+  Armor: 69
+  Faction: Boss_Kronos
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    MovementSpeed: 0.28
+    FollowRange: 28
+
+  #Drops:
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Skills:
+    - skill{s=KR_Minotaur_SpawnFX} @self ~onSpawn
+    - skill{s=KR_Minotaur_Charge} @target ~onAttack
+    - skill{s=KR_FuegoAmigo;sync=true} @self ~onDamaged

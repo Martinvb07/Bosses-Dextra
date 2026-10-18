@@ -1,0 +1,189 @@
+# Mushlord + secuaces + zona tóxica
+
+Mushlord:
+  Type: ZOMBIE
+  Display: "&2&lMUSHLORD &8• &aSeñor de las Espiras Corruptas"
+  Health: 2800
+  Damage: 65
+  Armor: 3419
+  Faction: Boss_Mushlord
+
+  Equipment:
+    - WOODEN_HOE:HAND
+    - "PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGNjOWE0YTdhYWRiMzczYWRjM2JlMDUyNDI5MjRjODk4NWUyZjk5M2RkOGU0ZDk2ZjIwNzIxMDUyZmY3ZTdhOCJ9fX0=}:HEAD"
+    - Mushlord_ArmaduraInvisible:CHEST
+
+  BossBar:
+    Enabled: true
+    Title: "&2&lMUSHLORD"
+    Range: 50
+    Color: GREEN
+    Style: SEGMENTED_10
+
+  Options:
+    Despawn: false
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.31
+    FollowRange: 40
+    KnockbackResistance: 0.78
+    PreventSunburn: true
+    UseThreatTable: true
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    - Recompensas_xp
+    - Recompensas_runas
+    - Recompensas_dinero
+    - Recompensas_llaves
+    - LL_EstrellaInvocacion 1 1
+
+  Skills:
+    - skill{s=Mushlord_Spawn} @self ~onSpawn
+    - skill{s=Mushlord_AcquireTarget} @self ~onTimer:10
+    - skill{s=Mushlord_HP70_Check} @self ~onTimer:20
+    - skill{s=Mushlord_HP40_Check} @self ~onTimer:20
+    - skill{s=Mushlord_HP25_Check} @self ~onTimer:20
+    - skill{s=Mushlord_Phase2_Check} @self ~onTimer:20
+    - skill{s=Mushlord_Phase3_Check} @self ~onTimer:20
+    - skill{s=Mushlord_Phase4_Check} @self ~onTimer:20
+    - skill{s=Mushlord_Aura} @self ~onTimer:10
+    - skill{s=Mushlord_Attack_Rotation} @self ~onTimer:9
+    - skill{s=Mushlord_FungalRegrowth} @self ~onTimer:40
+    - skill{s=Mushlord_SummonCycle} @self ~onTimer:65
+    - skill{s=Mushlord_MapPressure} @self ~onTimer:50
+    - skill{s=Mushlord_PlagueApocalypse_Check} @self ~onTimer:45
+    - skill{s=Mushlord_AntiKite} @self ~onTimer:35
+    - skill{s=Mushlord_ToxicTouch} @target ~onAttack 0.60
+    - skill{s=Mushlord_PlayerKill} @target ~onKill
+    - skill{s=Mushlord_Death} @self ~onDeath
+    - skill{s=Mushlord_FuegoAmigo;sync=true} @self ~onDamaged
+
+MushZombie:
+  Type: ZOMBIE
+  Display: "&2Zombie hongo"
+  Health: 682
+  Damage: 13
+  Armor: 1425
+  Faction: Boss_Mushlord
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    MovementSpeed: 0.24
+    FollowRange: 28
+
+  Equipment:
+    - STONE_SWORD:HAND
+    - RED_MUSHROOM_BLOCK:HEAD
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_MushZombie
+
+  Skills:
+    - skill{s=MZ_SpawnFX} @self ~onSpawn
+    - skill{s=MZ_ToxicHit} @target ~onAttack
+    - skill{s=Mushlord_FuegoAmigo;sync=true} @self ~onDamaged
+
+ToxicShroomCreeper:
+  Type: CREEPER
+  Display: "&aCreeper espora corrupto"
+  Health: 110
+  Damage: 0
+  Faction: Boss_Mushlord
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    Silent: false
+    MovementSpeed: 0.27
+    FollowRange: 24
+    ExplosionRadius: 0
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Skills:
+    - skill{s=TSC_SpawnFX} @self ~onSpawn
+    - skill{s=TSC_PrimeCheck} @target ~onTimer:15
+    - skill{s=Mushlord_FuegoAmigo;sync=true} @self ~onDamaged
+
+LivingSpore:
+  Type: SILVERFISH
+  Display: "&aEspora viviente"
+  Health: 853
+  Damage: 16
+  Armor: 1781
+  Faction: Boss_Mushlord
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    Silent: false
+    MovementSpeed: 0.34
+    FollowRange: 30
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_LivingSpore
+
+  Skills:
+    - skill{s=LS_SpawnFX} @self ~onSpawn
+    - skill{s=LS_PoisonCloud} @self ~onTimer:40
+    - skill{s=LS_DeathBurst} @self ~onDeath
+    - skill{s=Mushlord_FuegoAmigo;sync=true} @self ~onDamaged
+
+Mushlord_ToxicZone:
+  Type: ARMOR_STAND
+  Display: ""
+  Health: 2
+  Damage: 0
+  Faction: Boss_Mushlord
+
+  Options:
+    Despawn: true
+    Silent: true
+    NoGravity: true
+    Invisible: true
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+
+  Skills:
+    - skill{s=MTZ_Spawn} @self ~onSpawn
+    - skill{s=MTZ_Tick} @self ~onTimer:10
+
+Mushlord_PersistentBreath:
+  Type: ARMOR_STAND
+  Display: ""
+  Health: 2
+  Damage: 0
+  Faction: Boss_Mushlord
+
+  Options:
+    Despawn: true
+    Silent: true
+    NoGravity: true
+    Invisible: true
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+
+  Skills:
+    - skill{s=MPB_Spawn} @self ~onSpawn
+    - skill{s=MPB_Tick} @self ~onTimer:10

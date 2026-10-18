@@ -1,0 +1,295 @@
+# Kronos - Skills de combate PROPIAS (antes usaba las de Heracles tal cual).
+# Mecanicas basadas en Heracles, con lore, subditos y particulas de Kronos.
+# Daño de skills escalado x2.00 y umbrales de vida para 3400 HP (curva de dificultad 01->17).
+# Los sacos / ranking siguen en sus archivos de siempre.
+
+KR_Strength_On:
+  Skills:
+    - potion{type=INCREASE_DAMAGE;duration=9999;level=1} @self
+    - effect:sound{s=block.beacon.activate;v=0.7;p=1.4} @self
+
+KR_Strength_Off:
+  Skills:
+    - potion{type=INCREASE_DAMAGE;duration=1;level=0} @self
+    - effect:sound{s=block.beacon.deactivate;v=0.7;p=1.2} @self
+
+KR_Intro:
+  Skills:
+    - 'title{title="&5&lKRONOS";subtitle="&dSala del Reloj Roto &8• &7El Tirano del Tiempo despierta";fadein=10;stay=120;fadeout=10} @Server'
+    - 'message{m="&5&lKRONOS &f: &7\"El tiempo se detiene... para vosotros.\""} @Server'
+    - effect:sound{s=entity.wither.spawn;v=0.7;p=1.2} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=100;level=3} @self
+    - setstance{stance=PHASE1} @self
+    - delay 20
+    - settarget @NearestPlayer{r=40}
+
+KR_AcquireTarget:
+  Conditions:
+    - targetwithin{d=9999} false
+  Skills:
+    - settarget @NearestPlayer{r=40}
+
+KR_HP75_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<2551}
+  Skills:
+    - 'message{m="&5&lKRONOS &8» &fLas arenas de su reloj aun guardan el &d75% &fde su eternidad."} @PlayersInRadius{r=40}'
+
+KR_HP50_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1700}
+  Skills:
+    - 'message{m="&5&lKRONOS &8» &fEl reloj marca la mitad: &d50% &fde vida. &5El tiempo se acelera&f."} @PlayersInRadius{r=40}'
+
+KR_HP25_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<851}
+  Skills:
+    - 'message{m="&5&lKRONOS &8» &fApenas le queda un &c25% &fde arena... &5y eso lo vuelve peligroso&f."} @PlayersInRadius{r=40}'
+
+# --- Lore y Diálogos ---
+
+KR_HP70_Lore:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<2380}
+  Skills:
+    - 'message{m="&5&lKRONOS &f: &7\"Centinelas del reloj, congelad a estos mortales!\""} @PlayersInRadius{r=50}'
+    - skill{s=KR_SpartanCall_Check} @self
+
+KR_HP40_Lore:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1359}
+  Skills:
+    - 'message{m="&5&lKRONOS &f: &7\"Devorador de Eras... tragatelos, como yo me trague a mis hijos.\""} @PlayersInRadius{r=50}'
+    - skill{s=KR_MinotaurCall_Check} @self
+
+# --- Ataques Activos ---
+
+KR_Slam:
+  Cooldown: 10
+  Skills:
+    - effect:sound{s=entity.generic.explode;v=0.6;p=1.2} @self
+    - effect:particles{particle=BLOCK_CRACK;material=CRYING_OBSIDIAN;amount=70;hS=1.3;vS=0.2;speed=0.15} @self
+    - damage{a=80} @PlayersInRadius{r=5}
+    - throw{velocity=6;velocityY=2} @PlayersInRadius{r=5}
+    - potion{type=SLOW;duration=60;level=1} @PlayersInRadius{r=5}
+
+KR_Charge:
+  Cooldown: 8
+  Conditions:
+    - stance{stance=PHASE2} true
+  Skills:
+    - effect:sound{s=entity.ravager.roar;v=0.7;p=1.0} @self
+    - leap{velocity=1.2;velocityY=0.2} @self
+    - delay 10
+    - damage{a=120} @PlayersInRadius{r=4}
+    - throw{velocity=7;velocityY=1.5} @PlayersInRadius{r=4}
+    - effect:particles{particle=CLOUD;amount=40;hS=0.8;vS=0.3;speed=0.2} @self
+
+KR_Quake:
+  Cooldown: 15
+  Conditions:
+    - targetwithin{d=20} true
+  Skills:
+    - effect:sound{s=entity.iron_golem.attack;v=0.8;p=0.6} @self
+    - effect:particles{particle=BLOCK_CRACK;material=CRYING_OBSIDIAN;amount=120;hS=2.3;vS=0.2;speed=0.12} @self
+    - delay 6
+    - damage{a=80} @PlayersInRadius{r=8}
+    - throw{velocity=4;velocityY=1.2} @PlayersInRadius{r=8}
+    - potion{type=WEAKNESS;duration=80;level=1} @PlayersInRadius{r=8}
+
+KR_OlympusRoar:
+  Cooldown: 25
+  Skills:
+    - effect:sound{s=entity.ender_dragon.growl;v=0.7;p=0.9} @self
+    - effect:particles{particle=PORTAL;amount=35;hS=0.9;vS=1.1;speed=0.05} @self
+    - potion{type=WEAKNESS;duration=120;level=1} @PlayersInRadius{r=20}
+    - potion{type=SLOW;duration=80;level=1} @PlayersInRadius{r=20}
+    - potion{type=CONFUSION;duration=100;level=0} @PlayersInRadius{r=20}
+
+# --- Mecánicas de Fase ---
+
+KR_PhaseShield:
+  Skills:
+    - effect:sound{s=block.beacon.activate;v=0.8;p=1.2} @self
+    - effect:particles{particle=END_ROD;amount=35;hS=0.8;vS=1.2;speed=0.02} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=80;level=3} @self
+    - potion{type=SLOW;duration=40;level=2} @self
+
+KR_AntiRun:
+  Cooldown: 5
+  Skills:
+    - effect:sound{s=entity.evoker.prepare_attack;v=0.7;p=1.0} @self
+    - damage{a=80;ia=true} @PlayersInRadius{r=60;rm=25}
+    - potion{type=SLOW;duration=60;level=2} @PlayersInRadius{r=60;rm=25}
+
+KR_Phase2_Check:
+  Conditions:
+    - stance{stance=PHASE1} true
+    - health{h=<1700}
+  Skills:
+    - skill{s=KR_PhaseShield} @self
+    - setstance{stance=PHASE2} @self
+    - 'message{m="&5&lKRONOS &fquiebra el flujo del tiempo: &d&lACELERACION&f!"} @PlayersInRadius{r=40}'
+    - potion{type=SPEED;duration=9999;level=1} @self
+    - effect:particles{particle=REVERSE_PORTAL;amount=25;hS=0.7;vS=0.9;speed=0.02} @self
+
+KR_Phase3_Check:
+  Cooldown: 9999
+  Conditions:
+    - stance{stance=PHASE2} true
+    - health{h=<851}
+    - mobsinradius{type=Kronos_Centinela;amount=<5;radius=35}
+  Skills:
+    - skill{s=KR_PhaseShield} @self
+    - setstance{stance=PHASE3} @self
+    - 'message{m="&5Los &dCentinelas del Reloj &5emergen de un instante congelado!"} @PlayersInRadius{r=40}'
+    - potionclear @self
+    - potion{type=INCREASE_DAMAGE;duration=9999;level=2} @self
+    - potion{type=SPEED;duration=9999;level=2} @self
+    - summon{type=Kronos_Centinela;amount=5;radius=3;noise=2} @self
+
+# --- Invocaciones (Corregidas por HP real) ---
+
+KR_SpartanCall_Check:
+  Cooldown: 9999
+  Conditions:
+    - stance{stance=PHASE1} true
+    - mobsinradius{type=Kronos_Guardian;amount=<2;radius=35}
+    - mobsinradius{type=Kronos_Saetero;amount=<1;radius=35}
+  Skills:
+    - effect:sound{s=entity.evoker.prepare_summon;v=0.7;p=1.0} @self
+    - summon{type=Kronos_Guardian;amount=2;radius=5} @self
+    - summon{type=Kronos_Saetero;amount=1;radius=6} @self
+
+KR_MinotaurCall_Check:
+  Cooldown: 9999
+  Conditions:
+    - stance{stance=PHASE2} true
+    - mobsinradius{type=Kronos_Devorador;amount=<1;radius=35}
+  Skills:
+    - effect:sound{s=entity.ravager.roar;v=0.9;p=0.8} @self
+    - summon{type=Kronos_Devorador;amount=1;radius=5} @self
+
+# --- Final ---
+
+KR_LastBreath:
+  Conditions:
+    - stance{stance=PHASE3} true
+    - health{h=<341}
+  Skills:
+    - setstance{stance=LASTBREATH} @self
+    - effect:sound{s=entity.wither.ambient;v=0.7;p=0.8} @self
+    - potion{type=REGENERATION;duration=200;level=2} @self
+    - damage{a=100} @PlayersInRadius{r=6}
+
+KR_Death:
+  Skills:
+    - 'message{m="&5&lKRONOS &f: &7\"El tiempo... me alcanzo... al fin.\" &8• &dEl reloj vuelve a correr."} @PlayersInRadius{r=60}'
+    - effect:sound{s=entity.ender_dragon.death;v=0.7;p=1.0} @self
+    - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+
+# --- Mobs Secundarios ---
+
+KR_Spartan_Block:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=40;level=2} @self
+
+KR_GreekArcher_RapidShots:
+  Cooldown: 8
+  Skills:
+    - shoot{type=ARROW;velocity=2.5;damage=30} @target
+    - delay 5
+    - shoot{type=ARROW;velocity=2.5;damage=30} @target
+
+KR_Minotaur_Charge:
+  Cooldown: 10
+  Skills:
+    - effect:sound{s=entity.ravager.roar;v=0.8;p=0.9} @self
+    - leap{velocity=1.5;velocityY=0.2} @self
+    - damage{a=100} @PlayersInRadius{r=3}
+
+# --- Skills de relleno para evitar errores de carga ---
+KR_LowHP_Buff:
+  Skills:
+    - potion{type=REGENERATION;duration=100;level=2} @self
+    - effect:sound{s=entity.player.levelup;v=0.7;p=1.2} @self
+
+KR_PlayerKill:
+  Skills:
+    - 'message{m="&5&lKRONOS &f: &7\"Tu reloj se ha detenido.\""} @PlayersInRadius{r=40}'
+    - effect:sound{s=entity.wither.shoot;v=0.7;p=1.2} @self
+
+KR_Spartan_SpawnFX:
+  Skills:
+    - effect:particles{particle=VILLAGER_HAPPY;amount=10;hS=0.5;vS=0.5;speed=0.1} @self
+    - effect:sound{s=entity.player.levelup;v=0.7;p=1.2} @self
+
+KR_GreekArcher_SpawnFX:
+  Skills:
+    - effect:particles{particle=CRIT;amount=10;hS=0.5;vS=0.5;speed=0.1} @self
+    - effect:sound{s=entity.arrow.shoot;v=0.7;p=1.2} @self
+
+KR_Minotaur_SpawnFX:
+  Skills:
+    - effect:particles{particle=SMOKE_LARGE;amount=10;hS=0.5;vS=0.5;speed=0.1} @self
+    - effect:sound{s=entity.ravager.roar;v=0.7;p=1.2} @self
+
+# --- Fuego amigo ---
+KR_FuegoAmigo:
+  # Anula el daño que recibe este mob si viene de otro mob de su misma faccion
+  # (flechas de los arqueros aliados, explosiones de creepers aliados, etc).
+  TriggerConditions:
+    - faction{f=Boss_Kronos} true
+  Skills:
+    - cancelevent @self
+
+# --- Invocacion con estrella (/warp bosses) ---
+# TODO: poner las coordenadas reales del altar de Kronos. Hay que cambiarlas en
+#       las DOS lineas marcadas con <<< (distancefromlocation y @Location).
+KR_ItemSummon:
+  Conditions:
+    - skilloncooldown{skill=KR_ItemSummon_AtCoords} castinstead KR_ItemSummon_Fail_Cooldown
+    - world{w=Spawn} orElseCast KR_ItemSummon_Fail_WrongWorld
+    - distancefromlocation{x=0.5;y=100;z=0.5;world=Spawn;distance=<6} orElseCast KR_ItemSummon_Fail_NotAtSpot   # <<<
+  Skills:
+    - skill{s=KR_ItemSummon_AtCoords} @Location{x=0.5;y=100;z=0.5;world=Spawn}   # <<<
+
+KR_ItemSummon_AtCoords:
+  Cooldown: 60
+  TargetConditions:
+    - mobsinradius{type=Kronos;amount=<1;r=100} orElseCast KR_ItemSummon_Fail_AlreadyActive
+  Skills:
+    - effect:sound{s=entity.evoker.prepare_summon;v=0.9;p=0.85} @self
+    - particlering{particle=REDSTONE;radius=3.0;points=48;amount=1;hS=0;vS=0;speed=0.0;color=#7a2bd6;size=1.25} @targetlocation{y=0.1}
+    - particlering{particle=REDSTONE;radius=1.6;points=28;amount=1;hS=0;vS=0;speed=0.0;color=#c58cff;size=1.15} @targetlocation{y=0.1}
+    - delay 8
+    - effect:particles{particle=PORTAL;amount=60;hS=0.7;vS=0.2;speed=0.15} @targetlocation{y=1}
+    - effect:particles{particle=SMOKE_LARGE;amount=14;hS=0.7;vS=0.6;speed=0.02} @targetlocation{y=1}
+    - effect:particles{particle=FLASH;amount=1} @targetlocation{y=1}
+    - summon{type=Kronos;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
+    - delay 1
+    - consumehelditem{a=1} @self
+    - message{cooldown=2;m="&5&lKRONOS &8» &aInvocado."} @self
+
+KR_ItemSummon_Fail_AlreadyActive:
+  Skills:
+    - message{cooldown=2;m="&5&lKRONOS &8» &7Ya hay un &5Kronos &7cerca. Mata al boss antes de invocar otro."} @self
+
+KR_ItemSummon_Fail_NotAtSpot:
+  Skills:
+    - message{cooldown=2;m="&5&lKRONOS &8» &eNo estas en el &6Altar de Invocacion&e. &7Acercate al altar para usar la estrella."} @self
+
+KR_ItemSummon_Fail_WrongWorld:
+  Skills:
+    - message{cooldown=2;m="&5&lKRONOS &8» &eLa invocacion no responde en este lugar. &7Regresa al &6Altar de Invocacion&7."} @self
+
+KR_ItemSummon_Fail_Cooldown:
+  Skills:
+    - message{cooldown=2;m="&5&lKRONOS &8» &7La estrella aun se esta recargando. &fEspera un momento&7."} @self

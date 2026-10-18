@@ -1,0 +1,353 @@
+# RedHand skills
+
+RH_Spawn:
+  Skills:
+    - setstance{stance=PHASE1} @self
+    - 'title{title="&4&lRED HAND";subtitle="&4Red Castle &8• &7Un caballero caído busca sangre";fadein=10;stay=180;duration=180;fadeout=10} @Server'
+    - 'message{m="&4&lRED HAND &8• &7Un caballero caído busca sangre."} @Server'
+    - effect:sound{s=entity.wither_skeleton.ambient;v=0.9;p=0.8} @self
+    - effect:particles{particle=SMOKE_LARGE;amount=25;hS=0.7;vS=0.9;speed=0.03} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=60;level=2} @self
+    - delay 2
+    - settarget @NearestPlayer{r=40}
+
+RH_AcquireTarget:
+  Conditions:
+    - targetwithin{d=9999} false
+  Skills:
+    - settarget @NearestPlayer{r=40}
+
+RH_HP75_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1874}
+  Skills:
+    - message{m="&4&lRED HAND &8susurra... &7\"Aún me queda el 75% de vida.\""} @PlayersInRadius{r=60}
+
+RH_HP50_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1249}
+  Skills:
+    - message{m="&4&lRED HAND &8gruñe... &7\"Todavía conservo el 50% de mi sangre.\""} @PlayersInRadius{r=60}
+
+RH_HP25_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<625}
+  Skills:
+    - message{m="&4&lRED HAND &8ríe... &7\"Con el 25% basta para hundiros.\""} @PlayersInRadius{r=60}
+
+RH_HP70_Lore:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1750}
+  Skills:
+    - 'message{m="&4&lRED HAND &f: &7\"Uno de vosotros caerá.\""} @PlayersInRadius{r=60}'
+
+RH_HP40_Lore:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1000}
+  Skills:
+    - 'message{m="&4&lRED HAND &f: &7\"La oscuridad os consumirá.\""} @PlayersInRadius{r=60}'
+
+RH_Phase2_Check:
+  Conditions:
+    - stance{stance=PHASE1}
+    - health{h=<1874}
+  Skills:
+    - skill{s=RH_PhaseShield} @self
+    - setstance{stance=PHASE2} @self
+    - message{cooldown=9999;m="&4&lRED HAND &fentra en &c&lSED DE SANGRE&f!"} @PlayersInRadius{r=60}
+    - potion{type=INCREASE_DAMAGE;duration=240;level=0} @self
+    - potion{type=SPEED;duration=240;level=0} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=REDSTONE;amount=45;hS=1.0;vS=1.0;speed=0.02;color=#b00000;size=1.3} @self
+    - effect:sound{s=entity.wither.ambient;v=0.35;p=1.2} @self
+
+RH_Phase3_Check:
+  Conditions:
+    - stance{stance=PHASE2}
+    - health{h=<1000}
+  Skills:
+    - skill{s=RH_PhaseShield} @self
+    - setstance{stance=PHASE3} @self
+    - message{cooldown=9999;m="&4&lRED HAND &fdesata la &4&lMANO ROJA&f..."} @PlayersInRadius{r=60}
+    - potion{type=INCREASE_DAMAGE;duration=220;level=1} @self
+    - potion{type=SPEED;duration=220;level=1} @self
+    - potion{type=FIRE_RESISTANCE;duration=220;level=0} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=SOUL;amount=24;hS=1.1;vS=1.0;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=35;hS=1.1;vS=1.0;speed=0.02;color=#ff0000;size=1.35} @self
+    - effect:sound{s=entity.warden.roar;v=0.25;p=1.6} @self
+
+RH_CondemnedSouls_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<749}
+  Skills:
+    - effect:sound{s=entity.vex.ambient;v=0.8;p=0.8} @self
+    - effect:particles{particle=SOUL;amount=30;hS=1.2;vS=1.0;speed=0.03} @self
+    - summon{type=CondemnedSoul;amount=2;radius=7;noise=2} @self
+    - summon{type=CorruptKnight;amount=1;radius=6;noise=2} @self
+
+RH_Aura:
+  Skills:
+    - effect:particles{particle=SMOKE_LARGE;amount=2;hS=0.35;vS=0.55;speed=0.01;yOffset=1.0} @self ?stance{stance=PHASE1}
+    - effect:particles{particle=REDSTONE;amount=4;hS=0.45;vS=0.75;speed=0.0;yOffset=1.0;color=#7a0000;size=1.15} @self ?stance{stance=PHASE1}
+    - effect:particles{particle=REDSTONE;amount=6;hS=0.55;vS=0.85;speed=0.0;yOffset=1.0;color=#b00000;size=1.25} @self ?stance{stance=PHASE2}
+    - effect:particles{particle=SMOKE_LARGE;amount=2;hS=0.45;vS=0.65;speed=0.01;yOffset=1.0} @self ?stance{stance=PHASE2}
+    - effect:particles{particle=SOUL;amount=3;hS=0.6;vS=0.95;speed=0.01;yOffset=1.0} @self ?stance{stance=PHASE3}
+    - effect:particles{particle=DRIPPING_LAVA;amount=2;hS=0.55;vS=0.2;speed=0.0;yOffset=1.2} @self ?stance{stance=PHASE3}
+
+RH_PhaseShield:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
+    - effect:particles{particle=SPELL_MOB_AMBIENT;amount=18;hS=0.8;vS=0.6;speed=0.02} @self
+
+RH_AntiKite:
+  Conditions:
+    - targetwithin{d=9999} true
+  Skills:
+    - skill{s=RH_PullIfFar} @target
+
+RH_PullIfFar:
+  Cooldown: 12
+  Conditions:
+    - distance{d=>35}
+  Skills:
+    - message{cooldown=30;m="&4&lRED HAND &fte arrastra..."} @target
+    - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.6;vS=0.6;speed=0.02} @target
+    - pull{velocity=1.35} @target
+
+RH_Attack_Rotation:
+  Skills:
+    - randomskill{skills=RH_SlashCombo,RH_RedMark,RH_ShadowDash;weights=4,3,3} @target ?stance{stance=PHASE1}
+    - randomskill{skills=RH_RedMark,RH_HandCrush,RH_SummonSquires,RH_BloodPools;weights=3,3,3,2} @target ?stance{stance=PHASE2}
+    - randomskill{skills=RH_ShadowDash,RH_HandCrush,RH_BloodNova,RH_BloodPools;weights=3,3,3,2} @target ?stance{stance=PHASE3}
+
+RH_SlashCombo:
+  Conditions:
+    - targetwithin{d=6}
+  Skills:
+    - effect:sound{s=entity.player.attack.sweep;v=0.8;p=0.7} @self
+    - damage{a=55;pk=true} @target
+    - delay 6
+    - damage{a=55;pk=true} @target
+    - delay 6
+    - damage{a=55;pk=true} @target
+    - potion{type=WEAKNESS;duration=60;level=0} @target
+
+RH_RedMark:
+  Conditions:
+    - targetwithin{d=20}
+  Skills:
+    - message{cooldown=14;m="&4&lRED HAND &fmarca a &c<target.name>&f..."} @PlayersInRadius{r=45}
+    - effect:particles{particle=REDSTONE;amount=28;hS=0.45;vS=0.9;speed=0.0;color=#ff0000;size=1.4} @target
+    - potion{type=GLOWING;duration=60;level=0} @target
+    - potion{type=SLOW;duration=30;level=0} @target
+
+RH_ShadowDash:
+  Cooldown: 14
+  Conditions:
+    - targetwithin{d=25}
+  Skills:
+    - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.6;vS=0.6;speed=0.02} @target
+    - effect:sound{s=entity.enderman.teleport;v=0.7;p=0.6} @self
+    - delay 8
+    - teleport @target
+    - delay 2
+    - skill{s=RH_SlashCombo} @target
+
+RH_BloodPools:
+  Cooldown: 18
+  Conditions:
+    - targetwithin{d=25}
+  Skills:
+    - message{cooldown=12;m="&4&lRED HAND &7deja charcos de &csangre&7... &f¡no los pises!"} @PlayersInRadius{r=45}
+    - effect:sound{s=block.slime_block.place;v=0.65;p=0.75} @self
+    - effect:particles{particle=REDSTONE;amount=18;hS=0.8;vS=0.2;speed=0.0;color=#8b0000;size=1.25} @target
+    - summon{type=RH_BloodPool;amount=3;radius=4;noise=2} @target
+
+RH_BloodPool_Spawn:
+  Skills:
+    - effect:particles{particle=REDSTONE;amount=30;hS=1.3;vS=0.1;speed=0.0;color=#5a0000;size=1.35} @self
+    - delay 140
+    - remove @self
+
+RH_BloodPool_Tick:
+  Skills:
+    - effect:particles{particle=REDSTONE;amount=10;hS=1.2;vS=0.05;speed=0.0;color=#8b0000;size=1.25} @self
+    - effect:particles{particle=DRIPPING_LAVA;amount=2;hS=0.8;vS=0.1;speed=0.0;yOffset=0.1} @self
+    - damage{a=22;ia=true} @PlayersInRadius{r=3}
+    - potion{type=WITHER;duration=40;level=0} @PlayersInRadius{r=3}
+
+RH_Execution:
+  Cooldown: 9999
+  Conditions:
+    - stance{stance=PHASE3}
+    - health{h=<268}
+  Skills:
+    - message{cooldown=9999;m="&4&lEJECUCIÓN &8» &f¡Aléjate del boss o te borra!"} @PlayersInRadius{r=60}
+    - effect:sound{s=entity.warden.roar;v=0.6;p=0.8} @self
+    - effect:sound{s=entity.wither.spawn;v=0.35;p=0.7} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=60;level=3} @self
+    - potion{type=SLOW;duration=50;level=6} @self
+    - effect:particles{particle=REDSTONE;amount=55;hS=2.6;vS=0.25;speed=0.0;color=#b00000;size=1.35} @self
+    - effect:particles{particle=SOUL;amount=18;hS=1.4;vS=1.0;speed=0.02} @self
+    - delay 40
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=REDSTONE;amount=110;hS=3.2;vS=0.7;speed=0.0;color=#ff0000;size=1.5} @self
+    - effect:sound{s=entity.generic.explode;v=0.55;p=0.8} @self
+    - damage{a=55;pk=true} @PlayersInRadius{r=7}
+    - throw{velocity=1.15;velocityY=0.35} @PlayersInRadius{r=7}
+    - potion{type=WITHER;duration=80;level=0} @PlayersInRadius{r=7}
+
+RH_HandCrush:
+  Cooldown: 16
+  Skills:
+    - message{cooldown=8;m="&4&lRED HAND &faprieta el suelo..."} @PlayersInRadius{r=45}
+    - effect:sound{s=entity.iron_golem.attack;v=0.8;p=0.6} @self
+    - effect:particles{particle=REDSTONE;amount=30;hS=1.4;vS=0.2;speed=0.0;color=#b00000;size=1.25} @self
+    - effect:particles{particle=BLOCK_CRACK;material=RED_NETHER_BRICKS;amount=35;hS=1.2;vS=0.4;speed=0.10} @self
+    - pull{velocity=1.4} @PlayersInRadius{r=10}
+    - delay 10
+    - effect:particles{particle=REDSTONE;amount=55;hS=1.8;vS=0.35;speed=0.0;color=#ff0000;size=1.35} @self
+    - damage{a=55;pk=true} @PlayersInRadius{r=7}
+    - potion{type=WITHER;duration=70;level=0} @PlayersInRadius{r=7}
+
+RH_BloodNova:
+  Cooldown: 22
+  Skills:
+    - message{cooldown=10;m="&c&l¡NOVA SANGRIENTA!"} @PlayersInRadius{r=50}
+    - effect:sound{s=entity.wither.shoot;v=0.6;p=0.7} @self
+    - effect:particles{particle=REDSTONE;amount=45;hS=1.2;vS=0.25;speed=0.0;color=#b00000;size=1.25} @self
+    - effect:particles{particle=SOUL;amount=18;hS=1.0;vS=0.8;speed=0.02} @self
+    - delay 8
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=REDSTONE;amount=70;hS=2.2;vS=0.75;speed=0.0;color=#ff0000;size=1.4} @self
+    - damage{a=55;pk=true} @PlayersInRadius{r=9}
+    - throw{velocity=1.2;velocityY=0.35} @PlayersInRadius{r=9}
+    - potion{type=SLOW;duration=60;level=1} @PlayersInRadius{r=9}
+
+RH_SummonSquires:
+  Cooldown: 30
+  Conditions:
+    - mobsinradius{type=FallenSquire;amount=<4;radius=30}
+  Skills:
+    - message{cooldown=12;m="&8Los &7Escuderos Caídos &8responden al llamado..."} @PlayersInRadius{r=45}
+    - effect:particles{particle=SMOKE_LARGE;amount=30;hS=1.0;vS=0.7;speed=0.02} @self
+    - summon{type=FallenSquire;amount=2;radius=8;noise=3} @self
+
+RH_Death:
+  Skills:
+    - message{m="&4&lRED HAND &fha caído. &7La maldición se debilita..."} @PlayersInRadius{r=70}
+    - effect:sound{s=entity.wither.death;v=0.7;p=1.0} @self
+    - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+
+RH_PlayerKill:
+  Skills:
+    - 'message{m="&4&lRED HAND &f: &7\"Tu alma me pertenece.\""} @PlayersInRadius{r=60}'
+
+FS_SpawnFX:
+  Skills:
+    - effect:particles{particle=SMOKE_LARGE;amount=10;hS=0.5;vS=0.5;speed=0.02} @self
+    - effect:sound{s=entity.zombie.step;v=0.6;p=0.8} @self
+
+FS_Attack:
+  Skills:
+    - potion{type=SLOW;duration=25;level=0} @target
+
+CK_SpawnFX:
+  Skills:
+    - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.5;vS=0.5;speed=0.02} @self
+    - effect:sound{s=entity.wither_skeleton.ambient;v=0.7;p=0.8} @self
+
+CK_DarkShield:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=30;level=1} @self
+    - potion{type=WEAKNESS;duration=40;level=0} @target
+
+CS_SpawnFX:
+  Skills:
+    - effect:particles{particle=SOUL;amount=14;hS=0.5;vS=0.7;speed=0.03} @self
+    - effect:sound{s=entity.vex.ambient;v=0.8;p=0.9} @self
+
+CS_Weaken:
+  Skills:
+    - potion{type=WEAKNESS;duration=60;level=0} @target
+    - potion{type=CONFUSION;duration=40;level=0} @target
+
+# Item summon
+RH_ItemSkillPing:
+  Skills:
+    - message{m="&a[DEBUG] RH_ItemSkillPing OK (skill{} funciona)"} @self
+
+RH_ItemSummon:
+  Conditions:
+    - skilloncooldown{skill=RH_ItemSummon_AtCoords} castinstead RH_ItemSummon_Fail_Cooldown
+    - world{w=Spawn} orElseCast RH_ItemSummon_Fail_WrongWorld
+    - distancefromlocation{x=-1075.5;y=72;z=-272.5;world=Spawn;distance=<2} orElseCast RH_ItemSummon_Fail_NotAtSpot
+  Skills:
+    - skill{s=RH_ItemSummon_AtCoords} @Location{x=-1075.5;y=72;z=-272.5;world=Spawn}
+
+RH_ItemSummon_AtCoords:
+  Cooldown: 60
+  TargetConditions:
+    - mobsinradius{type=RedHand;amount=<1;r=100} orElseCast RH_ItemSummon_Fail_AlreadyActive
+  Skills:
+    - effect:sound{s=entity.evoker.prepare_summon;v=0.9;p=0.9} @self
+    - particlering{particle=REDSTONE;radius=3.0;points=48;amount=1;hS=0;vS=0;speed=0.0;color=#7a0000;size=1.25} @targetlocation{y=0.1}
+    - particlering{particle=REDSTONE;radius=1.6;points=28;amount=1;hS=0;vS=0;speed=0.0;color=#ff0000;size=1.15} @targetlocation{y=0.1}
+    - effect:particles{particle=SOUL;amount=14;hS=0.6;vS=0.05;speed=0.02} @targetlocation{y=0.2}
+    - delay 8
+    - effect:particles{particle=PORTAL;amount=60;hS=0.7;vS=0.2;speed=0.15} @targetlocation{y=1}
+    - effect:particles{particle=SMOKE_LARGE;amount=18;hS=0.7;vS=0.6;speed=0.02} @targetlocation{y=1}
+    - effect:particles{particle=FLASH;amount=1} @targetlocation{y=1}
+    - summon{type=RedHand;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
+    - delay 1
+    - consumehelditem{a=1} @self
+    - message{cooldown=2;m="&c&lRED HAND &8» &aInvocado."} @self
+
+RH_ItemSummon_AtBlock:
+  Cooldown: 60
+  TargetConditions:
+    - blocktype{t=EMERALD_BLOCK} orElseCast RH_ItemSummon_Fail_NotEmerald
+    - mobsinradius{type=RedHand;amount=<1;r=100} orElseCast RH_ItemSummon_Fail_AlreadyActive
+  Skills:
+    - effect:sound{s=entity.evoker.prepare_summon;v=0.9;p=0.9} @self
+    - effect:particles{particle=PORTAL;amount=60;hS=0.7;vS=0.2;speed=0.15} @targetlocation{y=1}
+    - effect:particles{particle=SMOKE_LARGE;amount=18;hS=0.7;vS=0.6;speed=0.02} @targetlocation{y=1}
+    - summon{type=RedHand;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
+    - delay 1
+    - message{cooldown=2;m="&c&lRED HAND &8» &aInvocado."} @self
+
+RH_ItemSummon_Fail_NotEmerald:
+  Skills:
+    - message{cooldown=2;m="&c&lRED HAND &8» &7Usa la estrella apuntando a un &aBLOQUE DE ESMERALDA&7 (altar)."} @self
+
+RH_ItemSummon_Fail_AlreadyActive:
+  Skills:
+    - message{cooldown=2;m="&c&lRED HAND &8» &7Ya hay un &cRedHand &7cerca. Mata al boss antes de invocar otro."} @self
+
+RH_ItemSummon_Fail_NotAtSpot:
+  Skills:
+    - message{cooldown=2;m="&c&lRED HAND &8» &eNo estas en el &6Altar de Invocacion&e. &7Acercate al altar para usar la estrella."} @self
+
+RH_ItemSummon_Fail_WrongWorld:
+  Skills:
+    - message{cooldown=2;m="&c&lRED HAND &8» &eLa invocacion no responde en este lugar. &7Regresa al &6Altar de Invocacion&7."} @self
+
+RH_ItemSummon_Fail_Cooldown:
+  Skills:
+    - message{cooldown=2;m="&c&lRED HAND &8» &7La estrella aun se esta recargando. &fEspera un momento&7."} @self
+
+# --- Fuego amigo ---
+RH_FuegoAmigo:
+  # Anula el daño que recibe este mob si viene de otro mob de su misma faccion
+  # (flechas de los arqueros aliados, explosiones de creepers aliados, etc).
+  TriggerConditions:
+    - faction{f=Boss_RedHand} true
+  Skills:
+    - cancelevent @self

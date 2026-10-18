@@ -1,0 +1,146 @@
+# Baal + Samurai + Yokai + Shadow Ninja
+
+Baal:
+  Type: SKELETON
+  Display: "&d&lBAAL &8• &5Espiritu del Templo Sakura"
+  Health: 2350
+  Damage: 56
+  Armor: 1750
+  Faction: Boss_Baal
+
+  Equipment:
+    - NETHERITE_SWORD:HAND
+    - Baal_ArmaduraInvisible:CHEST
+
+  BossBar:
+    Enabled: true
+    Title: "&d&lBAAL"
+    Range: 50
+    Color: PINK
+    Style: SEGMENTED_10
+
+  Options:
+    Despawn: false
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 40
+    KnockbackResistance: 0.65
+    PreventSunburn: true
+    UseThreatTable: true
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    - Recompensas_xp
+    - Recompensas_runas
+    - Recompensas_dinero
+    - Recompensas_llaves
+    - RH_EstrellaInvocacion 1 1
+
+  Skills:
+    - skill{s=Baal_Spawn} @self ~onSpawn
+    - skill{s=Baal_AcquireTarget} @self ~onTimer:10
+    - skill{s=Baal_HP70_Check} @self ~onTimer:20
+    - skill{s=Baal_HP40_Check} @self ~onTimer:20
+    - skill{s=Baal_Phase2_Check} @self ~onTimer:20
+    - skill{s=Baal_Phase3_Check} @self ~onTimer:20
+    - skill{s=Baal_Aura} @self ~onTimer:10
+    - skill{s=Baal_Attack_Rotation} @self ~onTimer:10
+    - skill{s=Baal_SummonCycle} @self ~onTimer:60
+    - skill{s=Baal_AntiKite} @self ~onTimer:35
+    - skill{s=Baal_PlayerKill} @target ~onKill
+    - skill{s=Baal_Death} @self ~onDeath
+    - skill{s=Baal_FuegoAmigo;sync=true} @self ~onDamaged
+
+UndeadSamurai:
+  Type: WITHER_SKELETON
+  Display: "&7Samurai no muerto"
+  Health: 104
+  Damage: 14
+  Armor: 3
+  Faction: Boss_Baal
+
+  Equipment:
+    - IRON_SWORD:HAND
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    MovementSpeed: 0.28
+    FollowRange: 28
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_UndeadSamurai
+
+  Skills:
+    - skill{s=US_SpawnFX} @self ~onSpawn
+    - skill{s=US_KatanaBlock} @target ~onAttack
+    - skill{s=Baal_FuegoAmigo;sync=true} @self ~onDamaged
+
+Yokai:
+  Type: ALLAY
+  Display: "&dYokai"
+  Health: 60
+  Damage: 10
+  Faction: Boss_Baal
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 28
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_Yokai
+
+  Skills:
+    - skill{s=Yokai_SpawnFX} @self ~onSpawn
+    - skill{s=Yokai_Curse} @self ~onTimer:35
+    - skill{s=Baal_FuegoAmigo;sync=true} @self ~onDamaged
+
+ShadowNinja:
+  Type: VEX
+  Display: "&8Ninja sombra"
+  Health: 52
+  Damage: 14
+  Faction: Boss_Baal
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.36
+    FollowRange: 30
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_ShadowNinja
+
+  Skills:
+    - skill{s=SN_SpawnFX} @self ~onSpawn
+    - skill{s=SN_Invisibility} @self ~onTimer:30
+    - skill{s=SN_Assassinate} @target ~onAttack
+    - skill{s=Baal_FuegoAmigo;sync=true} @self ~onDamaged

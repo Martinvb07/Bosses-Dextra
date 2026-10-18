@@ -1,0 +1,66 @@
+# Kukulkan - Sacos de recompensa por puesto en el ranking de dano.
+# Click derecho -> ver Skills/Kukulkan_Skills.yml
+# El puesto ya viene decidido en el item, asi que cada saco entrega siempre lo mismo.
+
+Saco_Kukulkan_Top1:
+  Id: YELLOW_DYE
+  Display: "&a&lSaco de Kukulkan &8• &e&l1er Lugar"
+  Lore:
+    - "&7El botin de la Serpiente Solar,"
+    - "&7reservado para quien mas lo castigo."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &a&lKUKULKAN"
+  Skills:
+    - skill{s=Kukulkan_Saco_Top1} @Self ~onRightClick
+
+Saco_Kukulkan_Top2:
+  Id: WHITE_DYE
+  Display: "&a&lSaco de Kukulkan &8• &f&l2do Lugar"
+  Lore:
+    - "&7Casi lo derribas vos solo."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &a&lKUKULKAN"
+  Skills:
+    - skill{s=Kukulkan_Saco_Top2} @Self ~onRightClick
+
+Saco_Kukulkan_Top3:
+  Id: ORANGE_DYE
+  Display: "&a&lSaco de Kukulkan &8• &6&l3er Lugar"
+  Lore:
+    - "&7Tu esfuerzo quedo grabado en la batalla."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &a&lKUKULKAN"
+  Skills:
+    - skill{s=Kukulkan_Saco_Top3} @Self ~onRightClick
+
+Saco_Kukulkan_Consuelo:
+  Id: GRAY_DYE
+  Display: "&8&lSaco de Kukulkan &8• &7Participante"
+  Lore:
+    - "&7Aportaste a la caida de la Serpiente Solar,"
+    - "&7aunque no entraste en el podio."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &a&lKUKULKAN"
+  Skills:
+    - skill{s=Kukulkan_Saco_Consuelo} @Self ~onRightClick
+
+# Estrella de invocacion -> skill KK_ItemSummon en Skills/Kukulkan_Combate.yml
+Kukulkan_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&a&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &a&lKUKULKAN&7."
+    - "&8(Usala en su altar de /warp bosses)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=KK_ItemSummon} @Self ~onRightClick
+    - skill{s=KK_ItemSummon} @Self ~onUse

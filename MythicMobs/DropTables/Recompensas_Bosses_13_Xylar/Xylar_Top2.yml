@@ -1,0 +1,6 @@
+Xylar_Top2:
+  TotalItems: 3
+  Drops:
+    - cmd{c="ae givercbook DEXTRA <trigger.name> 1"} 1 1
+    - cmd{c="xp give <trigger.name> 60"} 1 1
+    - cmd{c="scoreboard players set <trigger.name> heroico_denied 1"} 1 1

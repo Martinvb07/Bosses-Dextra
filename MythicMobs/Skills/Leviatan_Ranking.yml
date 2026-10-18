@@ -1,0 +1,54 @@
+Leviatan_Rank_Reset:
+  Skills:
+    - modifyscore{o=leviatan_dmg;e=#leviatan;a=set;v=0} @self
+    - modifyscore{o=leviatan_pool;e=#leviatan;a=set;v=0} @self
+    - modifyscore{o=leviatan_rank;e=#leviatan;a=set;v=0} @self
+    - 'command{c="minecraft:scoreboard players reset * leviatan_dmg"} @self'
+    - 'command{c="minecraft:scoreboard players reset * leviatan_pool"} @self'
+    - 'command{c="minecraft:scoreboard players reset * leviatan_rank"} @self'
+    - 'command{c="minecraft:execute as @a[tag=leviatan_top] run minecraft:tag @s remove leviatan_top"} @self'
+
+Leviatan_Rank_Sumar:
+  TriggerConditions:
+    - entitytype{t=PLAYER}
+  Skills:
+    - setvariable{var=skill.kdmg;type=INTEGER;value="<skill.var.damage-amount>"} @self
+    - modifyscore{o=leviatan_dmg;e=<trigger.name>;a=add;v=<skill.var.kdmg>} @self
+
+Leviatan_Rank_Calcular:
+  Skills:
+    - 'command{c="minecraft:execute as @a if score @s leviatan_dmg matches 1.. run minecraft:scoreboard players operation @s leviatan_pool = @s leviatan_dmg"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #leviatan leviatan_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s leviatan_pool matches 1.. run minecraft:scoreboard players operation #leviatan leviatan_pool > @s leviatan_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s leviatan_pool matches 1.. if score @s leviatan_pool = #leviatan leviatan_pool run minecraft:tag @s add leviatan_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=leviatan_top,limit=1] run minecraft:scoreboard players set @s leviatan_rank 3"} @self'
+    - 'command{c="minecraft:execute as @a[tag=leviatan_top] run minecraft:tag @s remove leviatan_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s leviatan_rank matches 3 run minecraft:scoreboard players reset @s leviatan_pool"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #leviatan leviatan_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s leviatan_pool matches 1.. run minecraft:scoreboard players operation #leviatan leviatan_pool > @s leviatan_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s leviatan_pool matches 1.. if score @s leviatan_pool = #leviatan leviatan_pool run minecraft:tag @s add leviatan_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=leviatan_top,limit=1] run minecraft:scoreboard players set @s leviatan_rank 2"} @self'
+    - 'command{c="minecraft:execute as @a[tag=leviatan_top] run minecraft:tag @s remove leviatan_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s leviatan_rank matches 2 run minecraft:scoreboard players reset @s leviatan_pool"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #leviatan leviatan_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s leviatan_pool matches 1.. run minecraft:scoreboard players operation #leviatan leviatan_pool > @s leviatan_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s leviatan_pool matches 1.. if score @s leviatan_pool = #leviatan leviatan_pool run minecraft:tag @s add leviatan_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=leviatan_top,limit=1] run minecraft:scoreboard players set @s leviatan_rank 1"} @self'
+    - 'command{c="minecraft:execute as @a[tag=leviatan_top] run minecraft:tag @s remove leviatan_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s leviatan_rank matches 1 run minecraft:scoreboard players reset @s leviatan_pool"} @self'
+
+
+Leviatan_Rank_Entregar:
+  Skills:
+    - 'command{c="minecraft:execute if score <target.name> leviatan_rank matches 3 run mm items give -d <target.name> Saco_Leviatan_Top1 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> leviatan_rank matches 2 run mm items give -d <target.name> Saco_Leviatan_Top2 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> leviatan_rank matches 1 run mm items give -d <target.name> Saco_Leviatan_Top3 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> leviatan_dmg matches 1.. unless score <target.name> leviatan_rank matches 1..3 run mm items give -d <target.name> Saco_Leviatan_Consuelo 1"} @PlayersInWorld'
+
+Leviatan_Rank_Muerte:
+  Skills:
+    - skill{s=Leviatan_Rank_Calcular} @self
+    - skill{s=Leviatan_Rank_Entregar} @self

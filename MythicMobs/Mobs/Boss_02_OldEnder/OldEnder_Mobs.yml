@@ -1,0 +1,188 @@
+OldEnder:
+  Type: ENDERMAN
+  Display: "&5&lOLD ENDER"
+  Health: 2200
+  Damage: 53
+  Armor: 1750
+  Faction: Boss_OldEnder
+  Equipment:
+    - OldEnder_ArmaduraInvisible:CHEST
+
+  BossBar:
+    Enabled: true
+    Title: "&5&lOLD ENDER"
+    Range: 60
+    Color: PURPLE
+    Style: SOLID
+
+  Options:
+    Despawn: false
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventTeleport: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 60
+    KnockbackResistance: 1.0
+    UseThreatTable: true
+    Collidable: true
+
+  AIGoalSelectors:
+    - clear
+    - meleeattack
+    - movetowardstarget
+    - LookAtTarget
+    - randomlookaround
+
+  DamageModifiers:
+    - FIRE 0
+    - FIRE_TICK 0
+    - LAVA 0
+    - HOT_FLOOR 0
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    - Recompensas_xp
+    - Recompensas_runas
+    - Recompensas_dinero
+    - Recompensas_llaves
+    - Baal_EstrellaInvocacion 1 1
+
+  Modules:
+    ImmunityTable: true
+  Skills:
+    - skill{s=OD_Spawn} @self ~onSpawn
+    - skill{s=OD_AcquireTarget} @self ~onTimer:10
+    - skill{s=OD_HP75_Check} @self ~onTimer:20
+    - skill{s=OD_HP50_Check} @self ~onTimer:20
+    - skill{s=OD_HP25_Check} @self ~onTimer:20
+    - skill{s=OD_HP70_Lore} @self ~onTimer:20
+    - skill{s=OD_HP40_Lore} @self ~onTimer:20
+    - skill{s=OD_Phase2_Check} @self ~onTimer:20
+    - skill{s=OD_Phase3_Check} @self ~onTimer:20
+    - skill{s=OD_Phase4_Check} @self ~onTimer:20
+    - skill{s=OD_DesertSummons_Check} @self ~onTimer:20
+    - skill{s=OD_IntenseSandstorm_Check} @self ~onTimer:20
+    - skill{s=OD_EnderPresence} @self ~onTimer:12
+    - skill{s=OD_KeepFight} @self ~onTimer:40
+    - skill{s=OD_Attack_Rotation} @self ~onTimer:55
+    - skill{s=OD_PlayerKill} @target ~onKill
+    - skill{s=OD_Death} @self ~onDeath
+    - skill{s=OD_FuegoAmigo;sync=true} @self ~onDamaged
+
+SandWarden:
+  Type: HUSK
+  Display: "&eSand Warden"
+  Health: 682
+  Damage: 35
+  Faction: Boss_OldEnder
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.28
+    FollowRange: 30
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_SandWarden
+
+  Skills:
+    - skill{s=SW_SpawnFX} @self ~onSpawn
+    - skill{s=SW_Attack} @target ~onAttack
+    - skill{s=OD_FuegoAmigo;sync=true} @self ~onDamaged
+
+MummyGuardian:
+  Type: HUSK
+  Display: "&6Momia"
+  Health: 853
+  Damage: 13
+  Armor: 44
+  Faction: Boss_OldEnder
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.24
+    FollowRange: 28
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_MummyGuardian
+
+  Skills:
+    - skill{s=MG_SpawnFX} @self ~onSpawn
+    - skill{s=MG_Curse} @target ~onAttack
+    - skill{s=OD_FuegoAmigo;sync=true} @self ~onDamaged
+
+GiantScarab:
+  Type: SPIDER
+  Display: "&eEscarabajo gigante"
+  Health: 1066
+  Damage: 16
+  Armor: 55
+  Faction: Boss_OldEnder
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.31
+    FollowRange: 28
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_GiantScarab
+
+  Skills:
+    - skill{s=GS_SpawnFX} @self ~onSpawn
+    - skill{s=GS_Venom} @target ~onAttack
+    - skill{s=OD_FuegoAmigo;sync=true} @self ~onDamaged
+
+DesertPriest:
+  Type: STRAY
+  Display: "&eSacerdote del desierto"
+  Health: 80
+  Damage: 8
+  Faction: Boss_OldEnder
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.24
+    FollowRange: 30
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_DesertPriest
+
+  Skills:
+    - skill{s=DP_SpawnFX} @self ~onSpawn
+    - skill{s=DP_HealAllies} @self ~onTimer:45
+    - skill{s=OD_FuegoAmigo;sync=true} @self ~onDamaged

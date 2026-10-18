@@ -1,0 +1,66 @@
+# Kronos - Sacos de recompensa por puesto en el ranking de dano.
+# Item de Crucible: click derecho -> ver Skills/kronos_skills.yml
+# El puesto ya viene decidido en el item, asi que cada saco entrega siempre lo mismo.
+
+Saco_Kronos_Top1:
+  Id: YELLOW_DYE
+  Display: "&6&lSaco de Kronos &8• &e&l1er Lugar"
+  Lore:
+    - "&7El botin del Tirano del Tiempo,"
+    - "&7reservado para quien mas lo castigo."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &6&lKRONOS"
+  Skills:
+    - skill{s=Kronos_Saco_Top1} @Self ~onRightClick
+
+Saco_Kronos_Top2:
+  Id: WHITE_DYE
+  Display: "&6&lSaco de Kronos &8• &f&l2do Lugar"
+  Lore:
+    - "&7Casi lo derribas vos solo."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &6&lKRONOS"
+  Skills:
+    - skill{s=Kronos_Saco_Top2} @Self ~onRightClick
+
+Saco_Kronos_Top3:
+  Id: ORANGE_DYE
+  Display: "&6&lSaco de Kronos &8• &6&l3er Lugar"
+  Lore:
+    - "&7Tu esfuerzo quedo grabado en el tiempo."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &6&lKRONOS"
+  Skills:
+    - skill{s=Kronos_Saco_Top3} @Self ~onRightClick
+
+Saco_Kronos_Consuelo:
+  Id: GRAY_DYE
+  Display: "&8&lSaco de Kronos &8• &7Participante"
+  Lore:
+    - "&7Aportaste a la caida del Tirano,"
+    - "&7aunque no entraste en el podio."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &6&lKRONOS"
+  Skills:
+    - skill{s=Kronos_Saco_Consuelo} @Self ~onRightClick
+
+# Estrella de invocacion -> skill KR_ItemSummon en Skills/Kronos_Combate.yml
+Kronos_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&5&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &5&lKRONOS&7."
+    - "&8(Usala en su altar de /warp bosses)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=KR_ItemSummon} @Self ~onRightClick
+    - skill{s=KR_ItemSummon} @Self ~onUse
