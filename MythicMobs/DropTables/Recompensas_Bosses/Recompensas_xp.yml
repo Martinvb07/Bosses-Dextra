@@ -1,7 +1,12 @@
+# 50 a 80 niveles de experiencia (siempre da una de estas cantidades)
 Recompensas_xp:
   TotalItems: 1
   MaxItems: 1
   Drops:
-    - command{c="xp give <trigger.name> 20000"} 0.009
-    - command{c="xp give <trigger.name> 40000"} 0.005
-    - command{c="xp give <trigger.name> 60000"} 0.003
+    - command{c="minecraft:xp add <trigger.name> 50 levels"} 1
+    - command{c="minecraft:xp add <trigger.name> 55 levels"} 1
+    - command{c="minecraft:xp add <trigger.name> 60 levels"} 1
+    - command{c="minecraft:xp add <trigger.name> 65 levels"} 1
+    - command{c="minecraft:xp add <trigger.name> 70 levels"} 1
+    - command{c="minecraft:xp add <trigger.name> 75 levels"} 1
+    - command{c="minecraft:xp add <trigger.name> 80 levels"} 1
