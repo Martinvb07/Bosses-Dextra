@@ -822,12 +822,10 @@ LunaNegra:
   - sound{s=entity.ghast.scream;v=50;p=0.1} @Server ~onSpawn
   - sound{s=entity.evoker.prepare_summon;v=100;p=1} @Server ~onSpawn
   - message{m="&c&l[!] &8¡Luna &5Negra &8[&5<&heart>&8] &cHa aparecido en el desierto!"} @Server ~onSpawn
-  - skill{s=HEROICO} @Self ~onDeath 0.33
-  - skill{s=CELESTIAL} @Self ~onDeath 0.2
-  - skill{s=ARCANO} @Self ~onDeath 0.1
-  - skill{s=VULCANO} @Self ~onDeath 0.04
-  - skill{s=ETERNO} @Self ~onDeath 0.02
-  - skill{s=DEXTRA} @Self ~onDeath 0.013
+  - command{c="ae givercbook HEROICO <trigger.name> 2"} @Target ~onDeath
+  - command{c="ae givercbook CELESTIAL <trigger.name> 2"} @Target ~onDeath
+  - command{c="ae givercbook ARCANO <trigger.name> 2"} @Target ~onDeath
+  - command{c="ae givercbook VULCANO <trigger.name> 1"} @Target ~onDeath
   DropOptions:
     DropMethod: FANCY
     ShowDeathChatMessage: true
