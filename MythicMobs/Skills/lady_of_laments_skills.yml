@@ -418,3 +418,12 @@ LL_FuegoAmigo:
     - faction{f=Boss_LadyOfLaments} true
   Skills:
     - cancelevent @self
+
+LL_InmuneColmillos:
+  # Los colmillos del evocador no le hacen dano a los aliados de su faccion.
+  # (El dano de los colmillos no viene de un mob con faccion, asi que
+  # LL_FuegoAmigo no lo frena.)
+  TriggerConditions:
+    - entitytype{types=EVOKER_FANGS} true
+  Skills:
+    - cancelevent @self

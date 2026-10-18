@@ -99,6 +99,7 @@ Kukulkan:
     - skill{s=KK_PlayerKill} @target ~onKill
     - skill{s=KK_Death} @self ~onDeath
     - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=KK_InmuneColmillos;sync=true} @self ~onDamaged
 
 
 # --- Subditos de Kukulkan ---
@@ -130,6 +131,7 @@ Kukulkan_Quetzal:
     - skill{s=KK_BL_SpawnFX} @self ~onSpawn
     - skill{s=KK_BL_Wail} @target ~onAttack
     - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=KK_InmuneColmillos;sync=true} @self ~onDamaged
 
 Kukulkan_Sierpe:
   Type: ENDERMITE
@@ -158,6 +160,7 @@ Kukulkan_Sierpe:
     - skill{s=KK_LSH_SpawnFX} @self ~onSpawn
     - skill{s=KK_LSH_ShadowCut} @target ~onAttack
     - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=KK_InmuneColmillos;sync=true} @self ~onDamaged
 
 Kukulkan_Ofrenda:
   Type: ALLAY
@@ -186,6 +189,7 @@ Kukulkan_Ofrenda:
     - skill{s=KK_TS_SpawnFX} @self ~onSpawn
     - skill{s=KK_TS_LifeDrain} @self ~onTimer:35
     - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=KK_InmuneColmillos;sync=true} @self ~onDamaged
 
 Kukulkan_Jaguar:
   Type: VINDICATOR
@@ -223,3 +227,4 @@ Kukulkan_Jaguar:
     - skill{s=KK_CV_SpawnFX} @self ~onSpawn
     - skill{s=KK_CV_CrushingStrike} @target ~onAttack 0.45
     - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=KK_InmuneColmillos;sync=true} @self ~onDamaged

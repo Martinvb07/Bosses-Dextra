@@ -56,6 +56,7 @@ LadyOfLaments:
     - skill{s=LL_PlayerKill} @target ~onKill
     - skill{s=LL_Death} @self ~onDeath
     - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=LL_InmuneColmillos;sync=true} @self ~onDamaged
 
 BansheeOfLaments:
   Type: VEX
@@ -84,6 +85,7 @@ BansheeOfLaments:
     - skill{s=BL_SpawnFX} @self ~onSpawn
     - skill{s=BL_Wail} @target ~onAttack
     - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=LL_InmuneColmillos;sync=true} @self ~onDamaged
 
 LamentShadow:
   Type: ENDERMITE
@@ -112,6 +114,7 @@ LamentShadow:
     - skill{s=LSH_SpawnFX} @self ~onSpawn
     - skill{s=LSH_ShadowCut} @target ~onAttack
     - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=LL_InmuneColmillos;sync=true} @self ~onDamaged
 
 TormentedSpirit:
   Type: ALLAY
@@ -140,6 +143,7 @@ TormentedSpirit:
     - skill{s=TS_SpawnFX} @self ~onSpawn
     - skill{s=TS_LifeDrain} @self ~onTimer:35
     - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=LL_InmuneColmillos;sync=true} @self ~onDamaged
 
 CastleVindicator_Laments:
   Type: VINDICATOR
@@ -177,3 +181,4 @@ CastleVindicator_Laments:
     - skill{s=CV_SpawnFX} @self ~onSpawn
     - skill{s=CV_CrushingStrike} @target ~onAttack 0.45
     - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=LL_InmuneColmillos;sync=true} @self ~onDamaged

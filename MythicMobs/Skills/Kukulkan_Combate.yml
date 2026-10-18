@@ -382,6 +382,15 @@ KK_FuegoAmigo:
   Skills:
     - cancelevent @self
 
+KK_InmuneColmillos:
+  # Los colmillos del evocador no le hacen dano a los aliados de su faccion.
+  # (El dano de los colmillos no viene de un mob con faccion, asi que
+  # KK_FuegoAmigo no lo frena.)
+  TriggerConditions:
+    - entitytype{types=EVOKER_FANGS} true
+  Skills:
+    - cancelevent @self
+
 # --- Invocacion con estrella (/warp bosses) ---
 # TODO: poner las coordenadas reales del altar de Kukulkan. Hay que cambiarlas en
 #       las DOS lineas marcadas con <<< (distancefromlocation y @Location).
