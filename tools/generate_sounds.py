@@ -8,7 +8,7 @@ y los guarda como .ogg mono para el resource pack.
 
 En MythicMobs:  effect:sound{s=olympus:heracles.roar;v=1;p=1}
 
-Tambien deja una demo con todos seguidos en Heracles/preview/sonidos_demo.mp3
+Tambien deja una demo con todos seguidos en Modelos/01_Heracles/preview/sonidos_demo.mp3
 
 Uso: python3 tools/generate_sounds.py      (necesita numpy y ffmpeg con libvorbis)
 """
@@ -21,7 +21,7 @@ from pathlib import Path
 import numpy as np
 
 SR = 44100
-ROOT = Path(__file__).resolve().parent.parent / "Heracles"
+ROOT = Path(__file__).resolve().parent.parent / "Modelos" / "01_Heracles"
 ASSETS = ROOT / "ResourcePack/HeraclesPack/assets/olympus"
 DEMO = ROOT / "preview/sonidos_demo.mp3"
 RNG = np.random.default_rng(7)

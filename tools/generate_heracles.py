@@ -1049,7 +1049,7 @@ def build(out_path):
 
 
 if __name__ == "__main__":
-    out = sys.argv[1] if len(sys.argv) > 1 else "Heracles/ModelEngine/blueprints/heracles/heracles.bbmodel"
+    out = sys.argv[1] if len(sys.argv) > 1 else "Modelos/01_Heracles/ModelEngine/blueprints/heracles/heracles.bbmodel"
     model, img = build(out)
     img.save(Path(out).with_name("heracles_texture.png"))
     print(f"OK -> {out}")

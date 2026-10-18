@@ -22,7 +22,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw
 
-ROOT = Path(__file__).resolve().parent.parent / "Heracles"
+ROOT = Path(__file__).resolve().parent.parent / "Modelos" / "01_Heracles"
 FONT_DIR = ROOT / "ItemsAdder/contents/heracles_hud/textures/font"
 BAR_DIR = ROOT / "ResourcePack/HeraclesPack/assets/minecraft/textures/gui/sprites/boss_bar"
 PREVIEW = ROOT / "preview/hud_preview.png"

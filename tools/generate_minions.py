@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw
 import bbmodel
 from bbmodel import Model, mul
 
-ROOT = Path(__file__).resolve().parent.parent / "Heracles"
+ROOT = Path(__file__).resolve().parent.parent / "Modelos" / "01_Heracles"
 BLUEPRINTS = ROOT / "ModelEngine/blueprints"
 PREVIEW = ROOT / "preview/minions"
 

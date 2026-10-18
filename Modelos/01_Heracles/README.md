@@ -17,11 +17,11 @@ Boss 01 del servidor. Es un modelo personalizado para **ModelEngine R4**, prepar
 | `ItemsAdder/contents/heracles_hud/` | Marco de la bossbar y logo del título (font images de ItemsAdder) |
 | `ResourcePack/HeraclesPack/` | Textura de la barra y sonidos propios (se fusiona con el pack de ItemsAdder) |
 | `preview/*.gif` | Vista previa de cada animación |
-| `../tools/generate_heracles.py` | Script que genera el `.bbmodel` (sirve para regenerarlo o hacer cambios) |
-| `../tools/render_preview.py` | Script que renderiza las imágenes y los GIF |
-| `../tools/generate_minions.py` + `../tools/bbmodel.py` | Generan los modelos de los súbditos y sus vistas previas |
-| `../tools/generate_sounds.py` | Sintetiza los sonidos propios y `preview/sonidos_demo.mp3` |
-| `../tools/generate_hud.py` | Script que genera el marco, el logo, la barra y `preview/hud_preview.png` |
+| `../../tools/generate_heracles.py` | Script que genera el `.bbmodel` (sirve para regenerarlo o hacer cambios) |
+| `../../tools/render_preview.py` | Script que renderiza las imágenes y los GIF |
+| `../../tools/generate_minions.py` + `../../tools/bbmodel.py` | Generan los modelos de los súbditos y sus vistas previas |
+| `../../tools/generate_sounds.py` | Sintetiza los sonidos propios y `preview/sonidos_demo.mp3` |
+| `../../tools/generate_hud.py` | Script que genera el marco, el logo, la barra y `preview/hud_preview.png` |
 
 ## Instalación
 
