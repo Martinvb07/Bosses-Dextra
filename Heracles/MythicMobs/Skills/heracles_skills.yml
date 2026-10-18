@@ -29,7 +29,7 @@ Heracles_Intro:
     - state{mid=heracles;s=spawn;li=0;lo=4} @self
     - effect:sound{s=entity.warden.emerge;v=1;p=0.8} @self
     - effect:particles{particle=CAMPFIRE_COSY_SMOKE;amount=20;hS=1.2;vS=0.3;speed=0.02} @self
-    - 'title{title="&6&lHERACLES";subtitle="&eGreek Village &8• &7El campeón del Olimpo ha despertado";fadein=10;stay=120;fadeout=10} @Server'
+    - 'title{title="&6⚔ &e&lHERACLES &6⚔";subtitle="&8« &7Greek Village &8• &6El campeón del Olimpo ha despertado &8»";fadein=10;stay=120;fadeout=10} @Server'
     - 'message{m="&6&lHERACLES &fenfrenta a los &eDesafiantes&f..."} @Server'
     - potion{type=DAMAGE_RESISTANCE;duration=100;level=3} @self
     - setstance{stance=PHASE1} @self
@@ -194,6 +194,7 @@ Heracles_Phase2_Check:
     - defaultstate{mid=heracles;t=idle;s=idle_rage} @self
     - defaultstate{mid=heracles;t=walk;s=walk_rage} @self
     - message{m="&6&lHERACLES &fentra en &c&lFURIA&f!"} @PlayersInRadius{r=40}
+    - 'title{title="&c&lFURIA DIVINA";subtitle="&8« &6Heracles &7ha perdido la paciencia &8»";fadein=5;stay=50;fadeout=15} @PlayersInRadius{r=40}'
     - potion{type=SPEED;duration=9999;level=1} @self
     - effect:particles{particle=FLAME;amount=25;hS=0.7;vS=0.9;speed=0.02} @self
 
@@ -207,6 +208,7 @@ Heracles_Phase3_Check:
     - skill{s=Heracles_PhaseShield} @self
     - setstance{stance=PHASE3} @self
     - message{m="&eLos &6hoplitas &fresponden al llamado!"} @PlayersInRadius{r=40}
+    - 'title{title="&6&lLA ÚLTIMA PRUEBA";subtitle="&8« &eLos hoplitas acuden a su llamado &8»";fadein=5;stay=50;fadeout=15} @PlayersInRadius{r=40}'
     - effect:sound{s=event.raid.horn;v=0.8;p=1.0} @self
     - potionclear @self
     - potion{type=INCREASE_DAMAGE;duration=9999;level=2} @self
@@ -249,6 +251,7 @@ Heracles_LastBreath:
   Skills:
     - setstance{stance=LASTBREATH} @self
     - state{mid=heracles;s=last_breath;li=2;lo=4} @self
+    - 'title{title="&4&lÚLTIMO ALIENTO";subtitle="&8« &7Heracles se niega a caer... &8»";fadein=5;stay=40;fadeout=15} @PlayersInRadius{r=40}'
     - effect:sound{s=entity.wither.ambient;v=0.7;p=0.8} @self
     - potion{type=REGENERATION;duration=200;level=2} @self
     - delay 16
@@ -262,6 +265,7 @@ Heracles_Death:
   # La animacion "death" la reproduce ModelEngine automaticamente al morir.
   Skills:
     - message{m="&6&lHERACLES &fha caído... &e¡El Dungeon está liberado!"} @PlayersInRadius{r=60}
+    - 'title{title="&e&l⚔ VICTORIA ⚔";subtitle="&8« &6Heracles &7ha caído &8• &e¡El Dungeon está liberado! &8»";fadein=10;stay=80;fadeout=20} @PlayersInRadius{r=60}'
     - effect:sound{s=entity.ender_dragon.death;v=0.7;p=1.0} @self
     - delay 24
     - effect:sound{s=entity.iron_golem.death;v=1;p=0.6} @origin
