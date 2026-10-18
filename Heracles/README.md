@@ -1,4 +1,4 @@
-# HERACLES: modelo de ModelEngine (Java 1.21.10)
+# HERACLES: boss con modelos de ModelEngine (Java 1.21.10)
 
 Boss 01 del servidor. Es un modelo personalizado para **ModelEngine R4**, preparado para **MythicMobs** (y compatible con el pack de **Mythic Crucible**).
 
@@ -11,18 +11,21 @@ Boss 01 del servidor. Es un modelo personalizado para **ModelEngine R4**, prepar
 |---|---|
 | `ModelEngine/blueprints/heracles/heracles.bbmodel` | Modelo de Blockbench (formato *Generic Model*) con la textura incrustada y 14 animaciones |
 | `ModelEngine/blueprints/heracles/heracles_texture.png` | La textura, por si quieres retocarla aparte |
+| `ModelEngine/blueprints/hoplit/`, `spartan_warrior/`, `greek_archer/`, `minotaur/` | Modelos de los súbditos |
 | `MythicMobs/Mobs/Boss_01_Heracles/Heracles_Mobs.yml` | Mob `Heracles`, ahora con `model{mid=heracles}` |
 | `MythicMobs/Skills/heracles_skills.yml` | Skills con animaciones y sonidos sincronizados |
 | `ItemsAdder/contents/heracles_hud/` | Marco de la bossbar y logo del título (font images de ItemsAdder) |
-| `ResourcePack/HeraclesPack/` | Textura de la barra (se fusiona con el pack de ItemsAdder) |
+| `ResourcePack/HeraclesPack/` | Textura de la barra y sonidos propios (se fusiona con el pack de ItemsAdder) |
 | `preview/*.gif` | Vista previa de cada animación |
 | `../tools/generate_heracles.py` | Script que genera el `.bbmodel` (sirve para regenerarlo o hacer cambios) |
 | `../tools/render_preview.py` | Script que renderiza las imágenes y los GIF |
+| `../tools/generate_minions.py` + `../tools/bbmodel.py` | Generan los modelos de los súbditos y sus vistas previas |
+| `../tools/generate_sounds.py` | Sintetiza los sonidos propios y `preview/sonidos_demo.mp3` |
 | `../tools/generate_hud.py` | Script que genera el marco, el logo, la barra y `preview/hud_preview.png` |
 
 ## Instalación
 
-1. Copia `ModelEngine/blueprints/heracles/` en `plugins/ModelEngine/blueprints/heracles/`.
+1. Copia las carpetas de `ModelEngine/blueprints/` (`heracles`, `hoplit`, `spartan_warrior`, `greek_archer` y `minotaur`) en `plugins/ModelEngine/blueprints/`.
 2. Sustituye los archivos de MythicMobs:
    - `plugins/MythicMobs/Mobs/Boss_01_Heracles/Heracles_Mobs.yml`
    - `plugins/MythicMobs/Skills/heracles_skills.yml`
@@ -70,6 +73,41 @@ Títulos en pantalla (todos con `title{}` de MythicMobs):
 | Fase 3 | LA ÚLTIMA PRUEBA | Los hoplitas acuden a su llamado |
 | Último aliento | ÚLTIMO ALIENTO | Heracles se niega a caer... |
 | Muere | ⚔ VICTORIA ⚔ | Heracles ha caído • ¡El Dungeon está liberado! |
+
+## Súbditos
+
+| Mob | Modelo | Aspecto | Animaciones |
+|---|---|---|---|
+| `Hoplit` | `hoplit` | Linotórax blanco, casco corintio con penacho, lanza y escudo azul con sol | idle, walk, attack (lanzazo 0.35 s), hurt, spawn, death |
+| `SpartanWarrior` | `spartan_warrior` | Coraza de bronce, capa roja, penacho transversal, xiphos y escudo Λ | idle, walk, attack (estocada 0.30 s), block, hurt, spawn, death |
+| `GreekArcher` | `greek_archer` | Túnica verde, gorro frigio, carcaj y arco | idle, walk, shoot (suelta 0.40 s), hurt, spawn, death |
+| `Minotaur` | `minotaur` | Cabeza de toro, cuernos, aro dorado y hacha doble (labrys) | idle, walk, attack, charge (impacto 0.50 s), roar, spawn, hurt, death |
+
+![Hoplita](preview/minions/hoplit.png)
+![Espartano](preview/minions/spartan_warrior.png)
+![Arquero](preview/minions/greek_archer.png)
+![Minotauro](preview/minions/minotaur.png)
+
+## Sonidos propios
+
+Están en `ResourcePack/HeraclesPack/assets/olympus/` y llegan a los jugadores con el resource pack (por eso `HeraclesPack` tiene que estar en la lista de ItemsAdder). Se usan como `effect:sound{s=olympus:heracles.roar}`.
+
+| Sonido | Dónde suena |
+|---|---|
+| `olympus:heracles.intro` | Al aparecer: coro divino y trueno |
+| `olympus:heracles.roar` | Al alzar el garrote en la intro, `Heracles_OlympusRoar` y `Heracles_LastBreath` |
+| `olympus:heracles.hurt` | Al recibir daño y al prepararse para `Heracles_Quake` |
+| `olympus:heracles.swing` | Golpe del garrote y salto del terremoto |
+| `olympus:heracles.slam` | Impactos de `Heracles_Slam`, `Heracles_Charge` y del cambio de fase |
+| `olympus:heracles.quake` | Impacto de `Heracles_Quake` |
+| `olympus:heracles.charge` | Grito de guerra de `Heracles_Charge` |
+| `olympus:heracles.phase` | Cambio de fase (estalla en la pose de fuerza) |
+| `olympus:heracles.summon` | Cuerno de guerra al llamar a espartanos, minotauro y hoplitas |
+| `olympus:heracles.last_breath` | `Heracles_LastBreath` |
+| `olympus:heracles.death` | Al morir |
+| `olympus:minotaur.roar` / `olympus:minotaur.snort` | Aparición y embestida del Minotauro |
+
+Escúchalos todos seguidos en `preview/sonidos_demo.mp3`. Son sintetizados por código, así que puedes cambiar tono y duración en `tools/generate_sounds.py`, o sustituir cualquier `.ogg` por uno tuyo con el mismo nombre.
 
 ## Huesos (bones)
 

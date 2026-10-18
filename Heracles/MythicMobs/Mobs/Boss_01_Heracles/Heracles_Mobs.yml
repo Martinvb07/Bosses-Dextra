@@ -110,7 +110,12 @@ Hoplit:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/hoplit/hoplit.bbmodel
   Skills:
+    - model{mid=hoplit} @self ~onSpawn
+    - state{mid=hoplit;s=spawn;li=0;lo=2} @self ~onSpawn
+    - state{mid=hoplit;s=attack;li=1;lo=2} @self ~onAttack
+    - state{mid=hoplit;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=Heracles_FuegoAmigo;sync=true} @self ~onDamaged
 
 
@@ -140,9 +145,12 @@ SpartanWarrior:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/spartan_warrior/spartan_warrior.bbmodel
   Skills:
+    - model{mid=spartan_warrior} @self ~onSpawn
     - skill{s=Spartan_SpawnFX} @self ~onSpawn
     - skill{s=Spartan_Block} @target ~onAttack
+    - skill{s=Spartan_Guard} @self ~onDamaged 0.25
     - skill{s=Heracles_FuegoAmigo;sync=true} @self ~onDamaged
 
 GreekArcher:
@@ -170,8 +178,12 @@ GreekArcher:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/greek_archer/greek_archer.bbmodel
   Skills:
+    - model{mid=greek_archer} @self ~onSpawn
     - skill{s=GreekArcher_SpawnFX} @self ~onSpawn
+    - state{mid=greek_archer;s=shoot;li=1;lo=2} @self ~onShoot
+    - state{mid=greek_archer;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=GreekArcher_RapidShots} @target ~onTimer:30
     - skill{s=Heracles_FuegoAmigo;sync=true} @self ~onDamaged
 
@@ -196,7 +208,10 @@ Minotaur:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/minotaur/minotaur.bbmodel
   Skills:
+    - model{mid=minotaur} @self ~onSpawn
     - skill{s=Minotaur_SpawnFX} @self ~onSpawn
+    - state{mid=minotaur;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=Minotaur_Charge} @target ~onAttack
     - skill{s=Heracles_FuegoAmigo;sync=true} @self ~onDamaged
