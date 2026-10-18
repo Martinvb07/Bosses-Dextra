@@ -6,7 +6,7 @@
 SH_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&6&lSAMHAIN";subtitle="&eLa Noche de las Animas &8• &7El velo entre mundos se rompe";fadein=10;stay=180;duration=180;fadeout=10} @Server'
+    - 'title{title="&6&lSAMHAIN";subtitle="&eLa Noche de las Animas &8• &7El velo entre mundos se rompe";fadein=20;stay=300;duration=300;fadeout=20} @Server'
     - 'message{m="&6&lSAMHAIN &f: &7\"Esta noche los muertos caminan... y vosotros os unireis a ellos.\""} @Server'
     - effect:sound{s=entity.wither.spawn;v=0.6;p=0.8} @self
     - effect:particles{particle=FLAME;amount=45;hS=1.2;vS=1.0;speed=0.03} @self

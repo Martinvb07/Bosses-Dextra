@@ -6,7 +6,7 @@
 NZ_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&8&lNEZARETH";subtitle="&7La Telaraña del Destino &8• &7La Tejedora Eterna despierta";fadein=10;stay=180;duration=180;fadeout=10} @Server'
+    - 'title{title="&8&lNEZARETH";subtitle="&7La Telaraña del Destino &8• &7La Tejedora Eterna despierta";fadein=20;stay=300;duration=300;fadeout=20} @Server'
     - 'message{m="&8&lNEZARETH &f: &7\"Cada hilo es una vida... y los vuestros ya estan cortados.\""} @Server'
     - effect:sound{s=entity.iron_golem.damage;v=0.8;p=0.6} @self
     - effect:sound{s=entity.polar_bear.warning;v=0.9;p=0.6} @self

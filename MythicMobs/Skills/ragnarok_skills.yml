@@ -3,7 +3,7 @@
 Ragnarok_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&b&lRAGNAROK";subtitle="&bVolcano &8• &7El fin ha llegado";fadein=10;stay=180;duration=180;fadeout=10} @Server'
+    - 'title{title="&b&lRAGNAROK";subtitle="&bVolcano &8• &7El fin ha llegado";fadein=20;stay=300;duration=300;fadeout=20} @Server'
     - 'message{m="&b&lRAGNAROK &7Surge de las profundidades del volcán"} @Server'
     - effect:sound{s=entity.wither.spawn;v=0.6;p=0.8} @self
     - effect:particles{particle=SNOWFLAKE;amount=45;hS=1.2;vS=1.0;speed=0.03} @self

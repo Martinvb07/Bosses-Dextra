@@ -3,7 +3,7 @@
 Mushlord_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&2&lMUSHLORD";subtitle="&aMushroom Island &8• &7Señor de las Espiras Corruptas";fadein=10;stay=180;duration=180;fadeout=10} @Server'
+    - 'title{title="&2&lMUSHLORD";subtitle="&aMushroom Island &8• &7Señor de las Espiras Corruptas";fadein=20;stay=300;duration=300;fadeout=20} @Server'
     - 'message{m="&2&lMUSHLORD &f: &7\"Bienvenidos… a mi jardín eterno…\""} @Server'
     - effect:sound{s=entity.zombie_villager.converted;v=0.7;p=0.7} @self
     - effect:particles{particle=SLIME;amount=28;hS=1.0;vS=0.6;speed=0.02} @self

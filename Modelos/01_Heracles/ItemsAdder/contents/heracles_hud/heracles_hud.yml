@@ -1,15 +1,20 @@
-# HUD de Heracles: font images de ItemsAdder.
-# El "symbol" es fijo para poder escribirlo tal cual en MythicMobs:
-#     marco de la bossbar   (Heracles_Mobs.yml -> BossBar.Title)
-#     logo HERACLES         (heracles_skills.yml -> Heracles_Intro)
-# Las texturas se generan con tools/generate_hud.py
+# HUD de Heracles: font images de ItemsAdder. Funciona CON y SIN resource pack.
+#
+#   Bossbar (Heracles_Mobs.yml -> BossBar.Title):   "&f‌&6&lHERACLES&f "
+#   Titulo  (heracles_skills.yml -> Heracles_Intro): "&f &6⚔ &e&lHERACLES &6⚔&f "
+#
+# ‌ (ancho cero) y   /   /   (espacios) no se ven en
+# vanilla: SIN pack los titulos se ven exactamente como antes. CON pack se
+# convierten en las mitades del marco y en los laureles.
+# Las texturas se generan con tools/generate_hud.py (no las recortes: el
+# ancho de cada png esta calculado para que el marco cuadre con la barra).
 info:
   namespace: heracles_hud
 
 font_images:
-  bossbar_frame:
-    path: font/bossbar_frame.png
-    symbol: ""
+  bossbar_left:
+    path: font/bossbar_left.png
+    symbol: "‌"
     # 48 = alto del png (escala 1:1). y_position 18 coloca el hueco del
     # marco justo encima de la barra (el hueco esta en la fila 20 del png).
     scale_ratio: 48
@@ -18,11 +23,29 @@ font_images:
     shadow:
       enabled: false
 
-  title_logo:
-    path: font/title_logo.png
-    symbol: ""
-    scale_ratio: 16
-    y_position: 12
+  bossbar_right:
+    path: font/bossbar_right.png
+    symbol: " "
+    scale_ratio: 48
+    y_position: 18
+    show_in_gui: false
+    shadow:
+      enabled: false
+
+  title_laurel_left:
+    path: font/title_laurel_left.png
+    symbol: " "
+    scale_ratio: 12
+    y_position: 9
+    show_in_gui: false
+    shadow:
+      enabled: false
+
+  title_laurel_right:
+    path: font/title_laurel_right.png
+    symbol: " "
+    scale_ratio: 12
+    y_position: 9
     show_in_gui: false
     shadow:
       enabled: false

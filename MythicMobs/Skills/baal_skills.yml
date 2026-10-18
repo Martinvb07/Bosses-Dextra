@@ -3,7 +3,7 @@
 Baal_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&d&lBAAL";subtitle="&5Blossom Temple &8• &7Espiritu vengativo";fadein=10;stay=180;duration=180;fadeout=10} @Server'
+    - 'title{title="&d&lBAAL";subtitle="&5Blossom Temple &8• &7Espiritu vengativo";fadein=20;stay=300;duration=300;fadeout=20} @Server'
     - 'message{m="&d&lBAAL &8ha despertado... &7el espiritu del templo no acepta intrusos."} @Server'
     - effect:sound{s=entity.skeleton.ambient;v=0.8;p=0.8} @self
     - effect:particles{particle=SOUL;amount=18;hS=1.0;vS=0.9;speed=0.02} @self

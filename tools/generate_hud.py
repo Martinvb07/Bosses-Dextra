@@ -2,18 +2,30 @@
 """
 Genera el HUD olimpico de Heracles (pixel art a 1x):
 
-  - bossbar_frame.png  marco de la bossbar (font image de ItemsAdder que va en
-                       el titulo de la bossbar y se dibuja ALREDEDOR de la barra)
-  - title_logo.png     logo "HERACLES" para el titulo en pantalla
+  - bossbar_left.png / bossbar_right.png   las dos mitades del marco de la
+                       bossbar (font images de ItemsAdder)
+  - title_laurel_left.png / title_laurel_right.png   laureles del titulo
   - yellow_progress.png / yellow_background.png  barra vanilla (182x5)
   - preview/hud_preview.png  vista previa
 
+Funciona CON y SIN resource pack:
+  Titulo de la bossbar:  "&f\u200c&6&lHERACLES&f\u2001"
+  Titulo en pantalla:    "&f\u2002&6⚔ &e&lHERACLES &6⚔&f\u2003"
+  \u200c (ancho cero) y \u2001/\u2002/\u2003 (espacios) no se ven en vanilla,
+  asi que SIN pack el texto se ve exactamente igual que antes. CON pack,
+  ItemsAdder convierte esos caracteres en imagenes: las dos mitades del marco
+  a los lados del nombre y los laureles a los lados del titulo.
+
 Como encaja el marco con la barra (Minecraft 1.21):
-  la barra se dibuja en (centro - 91, y) y el titulo en y - 9, centrado.
-  Un glyph con ascent A se dibuja con su borde superior en y - 2 - A.
-  El hueco de la barra esta en la fila BAR_Y del png -> A = BAR_Y - 2.
-  El png mide FRAME_W (par) y el glyph avanza FRAME_W + 1, asi que el hueco
-  empieza en x = (FRAME_W - 182) / 2.
+  la barra se dibuja en (centro - 91, y) y el titulo en y - 9, centrado
+  (x = centro - ancho/2). Un glyph con ascent A se dibuja con su borde
+  superior en y - 2 - A; el hueco de la barra esta en la fila BAR_Y del png
+  -> A = BAR_Y - 2. Un glyph avanza (ultima columna visible + 1) + 1, por eso
+  cada mitad lleva un pixel casi transparente en su ultima columna.
+  "HERACLES" en negrita mide TEXT_W = 8 x 7 = 56 px:
+    [mitad izq. 90 px, avanza 91][HERACLES 56][mitad der. 91 px, avanza 92]
+    total 239 -> empieza en centro - 119 = columna 0 del marco completo,
+    asi que la barra (columna BAR_X = 28) cae en centro - 91.
 
 Uso: python3 tools/generate_hud.py
 """
@@ -31,7 +43,10 @@ FRAME_W, FRAME_H = 256, 48
 BAR_W, BAR_H = 182, 5
 BAR_X = (FRAME_W - BAR_W) // 2      # 37
 BAR_Y = 20                           # -> y_position (ascent) = 18
-CX = FRAME_W // 2
+CX = BAR_X + BAR_W // 2              # 119: centro de la barra en el marco
+TEXT_W = 56                          # "&lHERACLES": 8 letras de 6 px + 1 de negrita
+LEFT_W = CX - TEXT_W // 2 - 1        # 90: columnas 0..89 -> mitad izquierda
+RIGHT_X = LEFT_W + 1 + TEXT_W        # 147: desde aqui -> mitad derecha
 SHIELD_R = 15
 
 # ----------------------------------------------------------------- paleta
@@ -306,63 +321,47 @@ def bossbar_frame():
     d.rectangle([x0 - 1, y0 - 1, x1 + 1, y1 + 1], fill=OUT)
     d.rectangle([x0, y0, x1, y1], fill=(0, 0, 0, 0))
 
-    # laureles desde el emblema hacia las columnas
-    laurel_branch(d, CX + 16, x1 - 1, y0 - 3, y1 + 3)
-    laurel_branch(d, CX - 17, x0 + 1, y0 - 3, y1 + 3)
-
-    # emblema: escudo + casco
-    shield(img, CX, y0 + 2, SHIELD_R)
-    helmet(img, CX, 0)
-
-    # placa de marmol con el nombre
-    pw, ph = 61, 13
-    px0, py0 = CX - pw // 2, FRAME_H - ph - 1
-    d.rectangle([px0, py0, px0 + pw - 1, py0 + ph - 1], fill=MARBLE[2] + (255,))
-    d.line([(px0, py0), (px0 + pw - 1, py0)], fill=MARBLE[4] + (255,))
-    d.line([(px0, py0 + ph - 1), (px0 + pw - 1, py0 + ph - 1)], fill=MARBLE[0] + (255,))
-    for xx in (px0 + 1, px0 + pw - 2):
-        d.line([(xx, py0 + 2), (xx, py0 + ph - 3)], fill=GOLD[2] + (255,))
+    # laureles desde el nombre hacia las columnas
+    laurel_branch(d, RIGHT_X + 2, x1 - 1, y0 - 3, y1 + 3)
+    laurel_branch(d, LEFT_W - 3, x0 + 1, y0 - 3, y1 + 3)
 
     outline(img)
-    # el contorno no debe invadir el hueco de la barra (salvo bajo el escudo,
-    # que tiene que quedar opaco)
-    d.rectangle([x0, y0, CX - SHIELD_R - 1, y1], fill=(0, 0, 0, 0))
-    d.rectangle([CX + SHIELD_R + 1, y0, x1, y1], fill=(0, 0, 0, 0))
-    paste_text(img, "HERACLES", CX - 27, py0 + 2)
+    # el contorno no debe invadir el hueco de la barra
+    d.rectangle([x0, y0, x1, y1], fill=(0, 0, 0, 0))
+    # hueco central para el nombre (lo escribe Minecraft) con remates dorados
+    d.rectangle([LEFT_W, 0, RIGHT_X - 1, FRAME_H - 1], fill=(0, 0, 0, 0))
+    for x in (LEFT_W - 2, RIGHT_X):
+        d.rectangle([x, y0 - 3, x + 1, y1 + 3], fill=GOLD[3] + (255,))
+        d.rectangle([x, y0 - 3, x + 1, y0 - 3], fill=GOLD[4] + (255,))
     return img
 
 
-def title_logo():
-    """Logo para title{} (se ve 4x mas grande en pantalla)."""
-    w, h = 176, 32
+def half(img, x0, x1):
+    """Recorta una mitad del marco y fija su ancho con un pixel casi invisible."""
+    out = img.crop((x0, 0, x1, img.height))
+    out.putpixel((out.width - 1, out.height - 1), (0, 0, 0, 1))
+    return out
+
+
+def laurel_side(side):
+    """Media corona de laurel para un lado del titulo (side -1 izq., 1 der.)."""
+    w, h = 24, 24
     img = Image.new("RGBA", (w, h))
     d = ImageDraw.Draw(img)
-    tw = 8 * 12 + 7 * 2
-    tx = (w - tw) // 2
-    # meandro debajo
-    for x in range(tx - 4, tx + tw + 4):
-        k = (x - tx) % 8
-        col = [5, 1, 1, 1, 5, 5, 5, 5][k]
-        for y in range(25, 31):
-            on = y in (25, 30) or (k == 0) or (k == 4 and y > 26) or (y == 27 and k in (1, 2, 3, 4)) or (k == 2 and y == 28)
-            if on:
-                d.point((x, y), fill=GOLD[3 if y < 28 else 2] + (255,))
-    # media corona de laurel a cada lado: tallo en arco y hojas en pareja
-    for side in (-1, 1):
-        wx = w // 2 + side * (tw // 2 + 1)
-        R = 11
-        for i in range(40):
-            phi = math.radians(-75 + 150 * i / 39)
-            d.point((wx + side * round(R * math.cos(phi)), 15 + round(R * math.sin(phi))), fill=LEAF[0] + (255,))
-        for i in range(6):
-            phi = math.radians(-60 + 140 * i / 5)
-            x = wx + side * R * math.cos(phi)
-            y = 15 + R * math.sin(phi)
-            up = math.degrees(math.atan2(-math.cos(phi), side * math.sin(phi)))   # tangente hacia arriba
-            leaf_poly(d, x, y, up + side * 35, 7, 3)
-            leaf_poly(d, x, y, up - side * 35, 6, 3)
+    wx = w - 4 if side < 0 else 3
+    R = 9
+    for i in range(40):
+        phi = math.radians(-75 + 150 * i / 39)
+        d.point((wx + side * round(R * math.cos(phi)), 12 + round(R * math.sin(phi))), fill=LEAF[0] + (255,))
+    for i in range(6):
+        phi = math.radians(-60 + 140 * i / 5)
+        x = wx + side * R * math.cos(phi)
+        y = 12 + R * math.sin(phi)
+        up = math.degrees(math.atan2(-math.cos(phi), side * math.sin(phi)))
+        leaf_poly(d, x, y, up + side * 35, 6, 3)
+        leaf_poly(d, x, y, up - side * 35, 5, 3)
     outline(img)
-    paste_text(img, "HERACLES", tx, 4, scale=2)
+    img.putpixel((w - 1, h - 1), (0, 0, 0, 1))
     return img
 
 
@@ -380,12 +379,6 @@ def bar_sprites():
             sx = round(BAR_W * k / 10)
             for y in range(1, BAR_H - 1):
                 p[sx, y] = notch + (255,)
-        # hueco transparente bajo el escudo: Minecraft 1.21.6+ pinta la barra
-        # ENCIMA del titulo, asi que sin hueco la barra tapa el casco
-        gap = CX - BAR_X
-        for x in range(gap - SHIELD_R, gap + SHIELD_R + 1):
-            for y in range(BAR_H):
-                p[x, y] = (0, 0, 0, 0)
         return img
 
     return make(prog_rows, GOLD[1]), make(back_rows, (24, 16, 8))
@@ -394,22 +387,36 @@ def bar_sprites():
 def main():
     FONT_DIR.mkdir(parents=True, exist_ok=True)
     BAR_DIR.mkdir(parents=True, exist_ok=True)
-    frame, logo = bossbar_frame(), title_logo()
+    frame = bossbar_frame()
+    left, right = half(frame, 0, LEFT_W), half(frame, RIGHT_X, FRAME_W)
     prog, back = bar_sprites()
-    frame.save(FONT_DIR / "bossbar_frame.png")
-    logo.save(FONT_DIR / "title_logo.png")
+    left.save(FONT_DIR / "bossbar_left.png")
+    right.save(FONT_DIR / "bossbar_right.png")
+    laurel_side(-1).save(FONT_DIR / "title_laurel_left.png")
+    laurel_side(1).save(FONT_DIR / "title_laurel_right.png")
     prog.save(BAR_DIR / "yellow_progress.png")
     back.save(BAR_DIR / "yellow_background.png")
 
-    # vista previa (escala x4): bossbar al 65 % + logo
+    # comprobacion de la alineacion (ver docstring)
+    total = (left.width + 1) + TEXT_W + (right.width + 1)
+    assert -(total // 2) + BAR_X == -91, "el marco no cuadra con la barra"
+    assert left.width + 1 + TEXT_W == RIGHT_X, "la mitad derecha no empieza tras el nombre"
+
+    # vista previa (escala x4): bossbar al 65 % con el nombre + titulo
     sw = 300
     scene = Image.new("RGBA", (sw, 120), (120, 116, 112, 255))
-    fx = sw // 2 - FRAME_W // 2
-    bx = fx + BAR_X
-    scene.alpha_composite(frame, (fx, 8))
+    bx = sw // 2 - 91
+    fx = bx - BAR_X
+    scene.alpha_composite(left, (fx, 8))
+    scene.alpha_composite(right, (fx + RIGHT_X, 8))
     scene.alpha_composite(back, (bx, 8 + BAR_Y))
     scene.alpha_composite(prog.crop((0, 0, round(BAR_W * 0.65), BAR_H)), (bx, 8 + BAR_Y))
-    scene.alpha_composite(logo, (sw // 2 - logo.width // 2, 76))
+    paste_text(scene, "HERACLES", fx + LEFT_W + 2, 8 + BAR_Y - 10)     # lo que escribe Minecraft
+    tl, tr = laurel_side(-1), laurel_side(1)
+    tx = sw // 2 - 34
+    paste_text(scene, "HERACLES", tx + 6, 82)
+    scene.alpha_composite(tl, (tx - tl.width + 2, 76))
+    scene.alpha_composite(tr, (tx + 72, 76))
     scene.resize((sw * 4, 120 * 4), Image.NEAREST).save(PREVIEW)
     print("OK")
 

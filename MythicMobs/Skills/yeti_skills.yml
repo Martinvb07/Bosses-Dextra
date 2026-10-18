@@ -1,7 +1,7 @@
 Yeti_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&b&lYETI";subtitle="&fIce Biome &8• &7Bestia del Invierno Eterno";fadein=10;stay=180;duration=180;fadeout=10} @Server'
+    - 'title{title="&b&lYETI";subtitle="&fIce Biome &8• &7Bestia del Invierno Eterno";fadein=20;stay=300;duration=300;fadeout=20} @Server'
     - 'message{m="&b&lYETI &f: &7Intrusos... en mi montana..."} @Server'
     - effect:sound{s=entity.iron_golem.damage;v=0.8;p=0.6} @self
     - effect:sound{s=entity.polar_bear.warning;v=0.9;p=0.6} @self
