@@ -773,23 +773,6 @@ TitanGolem:
   Drops:
   - elemento_lapis 2 0.5
   - fragmento_lapis 3 0.6
-SweepArmor:
-  Type: ARMOR_STAND
-  Options:
-    Marker: true
-    Small: true
-    HasArms: false
-    Invisible: true
-    Invincible: true
-    NoGravity: true
-  Equipment:
-  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDA1ZWU5YzY0ZDRiNjYyMTE5ZjVjNTczNTU2MjMyNzQwMDE4NTgyMjM5YjA5OTNlZTZjYTMyNTJmZmVlMWY2NyJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:100,THORNS:8} HEAD
-  Skills:  
-  - remove{delay=160} @self ~onSpawn
-  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9} @self ~onSpawn
-  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9;ry=3.14} @self ~onSpawn
-  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9;ry=6.28} @self ~onSpawn
-  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9;ry=7.85} @self ~onSpawn
 ## JEFES MAZMORRA DROPS NUEVOS
 LunaNegra:
   Type: PIGLIN
@@ -1213,22 +1196,6 @@ Esbirro1:
   Skills:
   - skill{s=esbirro1} @target ~onAttack 1
   - potion{type=DAMAGE_RESISTANCE;duration=9999;level=2} @self ~onTimer:20
-SweepArmor:
-  Type: ARMOR_STAND
-  Options:
-    Marker: true
-    Small: true
-    HasArms: false
-    Invisible: true
-    Invincible: true
-    NoGravity: true
-  Skills:  
-  - remove{delay=160} @self ~onSpawn
-  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9} @self ~onSpawn
-  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9;ry=3.14} @self ~onSpawn
-  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9;ry=6.28} @self ~onSpawn
-  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9;ry=7.85} @self ~onSpawn
-  - potion{type=DAMAGE_RESISTANCE;duration=9999;level=3} @self ~onTimer:20
 Esbirro2:
   Type: EVOKER
   Display: '&5&lEsbirro &f<caster.hp> <red><&heart></red>'
@@ -1262,23 +1229,6 @@ Esbirro2:
   - elemento_carbon 1 0.08
   - fragmento_carbon 2 0.15
 #############  
-SweepArmor:
-  Type: ARMOR_STAND
-  Options:
-    Marker: true
-    Small: true
-    HasArms: false
-    Invisible: true
-    Invincible: true
-    NoGravity: true
-  Equipment:
-  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDA1ZWU5YzY0ZDRiNjYyMTE5ZjVjNTczNTU2MjMyNzQwMDE4NTgyMjM5YjA5OTNlZTZjYTMyNTJmZmVlMWY2NyJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:100,THORNS:8} HEAD
-  Skills:  
-  - remove{delay=160} @self ~onSpawn
-  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9} @self ~onSpawn
-  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9;ry=3.14} @self ~onSpawn
-  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9;ry=6.28} @self ~onSpawn
-  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9;ry=7.85} @self ~onSpawn
 Esbirro3:
   Type: PILLAGER
   Display: '&5&lEsbirro &f<caster.hp> <red><&heart></red>'

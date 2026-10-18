@@ -133,12 +133,6 @@ ExplosionRey:
   - effect:explosion @Self
   - damage{amount=30} @PlayersInRadius{r=5}
   - throw{velocity=10;velocityY=3} @PlayersInRadius{r=5}
-TickNegroSS:
-  Skills:
-  - effect:particles{p=reddust;c=#000000;a=8;hs=0.1;vs=0.1;s=0.01} @origin
-TickNegroS:
-  Skills:
-  - effect:particles{p=reddust;c=#000000;a=6;hs=0.1;vs=0.1;s=0.01} @origin
 Ataque1:
   Skills:
   - orbital{i=1;r=2;points=18;OnStart=SonidoP;OnTick=TickDoradoSS;d=10;vy=1;vz=1;vx=1;oy=1;rX=80} @self
@@ -242,13 +236,6 @@ TickNegroSP:
 TickNegroSSP:
   Skills:
   - effect:particles{p=reddust;c=#000000;a=8;hs=0.1;vs=0.1;s=0.01} @origin
-SonidoP:
-  Skills:
-  - sound{s=item.shield.block;v=1.0;p=1.0} @self @PIR{r=10}
-SonidoPP:
-  Skills:
-  - effect:particles{particle=block_crack{block=stone}, count=1000, offset=3} @PIR{r=10}
-  - sound{s=ambient.weather.thunder;v=1.0;p=1.0} @PIR{r=10} ~onTrigger
 CharcoLava:
   Skills:
   - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=3;radius=1;y=0.5} @TargetLocation
@@ -392,13 +379,6 @@ p2-Hit:
   - damage{a=10}
   - potion{type=SLOW;duration=100;lvl=2} 
 #SKills Golem
-GolemAtaque:
-  Cooldown: 15
-  Skills:
-  - sound{s=block.anvil.land;v=0.5;p=2} @PIR{r=20}
-  - effect:particles{particle=snow_shovel;amount=100;hS=2;vS=1;speed=0.3} @self
-  - potion{type=SLOW;duration=200;level=99} @PIR{r=20}
-  - message{m="&e&lEl Gran Golem &fte ha &cturdido!"} @PlayersInRadius{r=20}
 Terremoto:
   Skills:
   - jump{velocity=0.75}
