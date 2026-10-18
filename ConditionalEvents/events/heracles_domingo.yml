@@ -1,0 +1,13 @@
+# Heracles: domingos a las 5:35 p. m. (hora de Peru/Colombia)
+# El servidor esta en UTC (5 h por delante): 17:35 Peru/Colombia = 22:35 UTC.
+Events:
+  heracles_domingo:
+    type: repetitive_server
+    repetitive_time: 200              # revisa cada 10 segundos
+    conditions:
+    - '%server_time_E% == Sun'        # domingo (dia del servidor, en UTC)
+    - '%server_time_HH:mm% == 22:35'  # 22:35 UTC = 5:35 p. m. Peru/Colombia
+    - '%server_time_ss% < 10'         # solo los primeros 10 s: sale una sola vez
+    actions:
+      default:
+      - 'console_command: mm mobs spawn Heracles 1 world_test,0.5,65,-0.5'
