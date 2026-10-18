@@ -157,7 +157,7 @@ OD_PullBack:
   Conditions:
     - distance{d=>75}
   Skills:
-    - message{cooldown=60;m="&eLa arena te arrastra hacia el &6Old Ender&f..."} @target
+    - message{cooldown=60;m="&eLa arena te arrastra hacia el &6Old Dragon&f..."} @target
     - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=25;hS=0.7;vS=0.4;speed=0.06} @target
     - pull{velocity=1.2} @target
 
@@ -367,7 +367,7 @@ OD_ItemSummon_AtCoords:
 
 OD_ItemSummon_Fail_AlreadyActive:
   Skills:
-    - message{cooldown=2;m="&5&lOLD ENDER &8» &7Ya hay un &5Old Ender &7cerca. Mata al boss antes de invocar otro."} @self
+    - message{cooldown=2;m="&5&lOLD ENDER &8» &7Ya hay un &5OldEnder &7cerca. Mata al boss antes de invocar otro."} @self
 
 OD_ItemSummon_Fail_NotAtSpot:
   Skills:
