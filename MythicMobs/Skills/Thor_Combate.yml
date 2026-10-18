@@ -7,7 +7,7 @@ TH_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
     - 'title{title="&b&lTHOR";subtitle="&eCumbre de Asgard &8• &7El Dios del Trueno desciende";fadein=20;stay=300;duration=300;fadeout=20} @Server'
-    - 'message{m="&b&lTHOR &f: &7\"¿Osais desafiar al hijo de Odin? ¡Que retumbe el cielo!\""} @Server'
+    - 'message{m="&b&lTHOR &f: &7“¿Osais desafiar al hijo de Odin? ¡Que retumbe el cielo!”"} @Server'
     - effect:sound{s=entity.zombie_villager.converted;v=0.7;p=0.7} @self
     - effect:particles{particle=ELECTRIC_SPARK;amount=28;hS=1.0;vS=0.6;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=40;hS=1.2;vS=1.0;speed=0.0;color=#ffe066;size=1.3} @self
@@ -27,21 +27,21 @@ TH_HP70_Check:
   Conditions:
     - health{h=<3080}
   Skills:
-    - 'message{m="&b&lTHOR &f: &7\"¿Sentis el cosquilleo? Es la tormenta que viene.\""} @PlayersInRadius{r=60}'
+    - 'message{m="&b&lTHOR &f: &7“¿Sentis el cosquilleo? Es la tormenta que viene.”"} @PlayersInRadius{r=60}'
 
 TH_HP40_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<1759}
   Skills:
-    - 'message{m="&b&lTHOR &f: &7\"¡Mjolnir aun no ha dicho su ultima palabra!\""} @PlayersInRadius{r=60}'
+    - 'message{m="&b&lTHOR &f: &7“¡Mjolnir aun no ha dicho su ultima palabra!”"} @PlayersInRadius{r=60}'
 
 TH_HP25_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<1101}
   Skills:
-    - 'message{m="&b&lTHOR &f: &7\"¡Si caigo, caere con el cielo entero!\""} @PlayersInRadius{r=60}'
+    - 'message{m="&b&lTHOR &f: &7“¡Si caigo, caere con el cielo entero!”"} @PlayersInRadius{r=60}'
 
 TH_Phase2_Check:
   Conditions:
@@ -369,11 +369,11 @@ TH_PullIfFar:
 
 TH_PlayerKill:
   Skills:
-    - 'message{m="&b&lTHOR &f: &7\"¡Al Valhalla contigo, guerrero!\""} @PlayersInRadius{r=50}'
+    - 'message{m="&b&lTHOR &f: &7“¡Al Valhalla contigo, guerrero!”"} @PlayersInRadius{r=50}'
 
 TH_Death:
   Skills:
-    - 'message{m="&b&lTHOR &f: &7\"El trueno... se apaga... pero volvera a sonar...\""} @PlayersInRadius{r=70}'
+    - 'message{m="&b&lTHOR &f: &7“El trueno... se apaga... pero volvera a sonar...”"} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.zombie_villager.cure;v=0.8;p=0.5} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 

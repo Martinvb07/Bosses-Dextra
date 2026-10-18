@@ -15,7 +15,7 @@ KR_Strength_Off:
 KR_Intro:
   Skills:
     - 'title{title="&5&lKRONOS";subtitle="&dSala del Reloj Roto &8• &7El Tirano del Tiempo despierta";fadein=20;stay=300;fadeout=20} @Server'
-    - 'message{m="&5&lKRONOS &f: &7\"El tiempo se detiene... para vosotros.\""} @Server'
+    - 'message{m="&5&lKRONOS &f: &7“El tiempo se detiene... para vosotros.”"} @Server'
     - effect:sound{s=entity.wither.spawn;v=0.7;p=1.2} @self
     - effect:particles{particle=FLASH;amount=1} @self
     - potion{type=DAMAGE_RESISTANCE;duration=100;level=3} @self
@@ -57,7 +57,7 @@ KR_HP70_Lore:
   Conditions:
     - health{h=<2380}
   Skills:
-    - 'message{m="&5&lKRONOS &f: &7\"Centinelas del reloj, congelad a estos mortales!\""} @PlayersInRadius{r=50}'
+    - 'message{m="&5&lKRONOS &f: &7“Centinelas del reloj, congelad a estos mortales!”"} @PlayersInRadius{r=50}'
     - skill{s=KR_GuardianCall_Check} @self
 
 KR_HP40_Lore:
@@ -65,7 +65,7 @@ KR_HP40_Lore:
   Conditions:
     - health{h=<1359}
   Skills:
-    - 'message{m="&5&lKRONOS &f: &7\"Devorador de Eras... tragatelos, como yo me trague a mis hijos.\""} @PlayersInRadius{r=50}'
+    - 'message{m="&5&lKRONOS &f: &7“Devorador de Eras... tragatelos, como yo me trague a mis hijos.”"} @PlayersInRadius{r=50}'
     - skill{s=KR_DevoradorCall_Check} @self
 
 # --- Ataques Activos ---
@@ -185,14 +185,14 @@ KR_LastBreath:
     - health{h=<341}
   Skills:
     - setstance{stance=LASTBREATH} @self
-    - 'message{m="&5&lKRONOS &f: &7\"Me queda un segundo... y para mi, un segundo es eterno.\""} @PlayersInRadius{r=40}'
+    - 'message{m="&5&lKRONOS &f: &7“Me queda un segundo... y para mi, un segundo es eterno.”"} @PlayersInRadius{r=40}'
     - effect:sound{s=entity.wither.ambient;v=0.7;p=0.8} @self
     - potion{type=REGENERATION;duration=200;level=2} @self
     - damage{a=100} @PlayersInRadius{r=6}
 
 KR_Death:
   Skills:
-    - 'message{m="&5&lKRONOS &f: &7\"El tiempo... me alcanzo... al fin.\" &8• &dEl reloj vuelve a correr."} @PlayersInRadius{r=60}'
+    - 'message{m="&5&lKRONOS &f: &7“El tiempo... me alcanzo... al fin.” &8• &dEl reloj vuelve a correr."} @PlayersInRadius{r=60}'
     - effect:sound{s=entity.ender_dragon.death;v=0.7;p=1.0} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 
@@ -224,7 +224,7 @@ KR_LowHP_Buff:
 
 KR_PlayerKill:
   Skills:
-    - 'message{m="&5&lKRONOS &f: &7\"Tu reloj se ha detenido.\""} @PlayersInRadius{r=40}'
+    - 'message{m="&5&lKRONOS &f: &7“Tu reloj se ha detenido.”"} @PlayersInRadius{r=40}'
     - effect:sound{s=entity.wither.shoot;v=0.7;p=1.2} @self
 
 KR_Guardian_SpawnFX:

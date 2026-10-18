@@ -7,7 +7,7 @@ SH_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
     - 'title{title="&6&lSAMHAIN";subtitle="&eLa Noche de las Animas &8• &7El velo entre mundos se rompe";fadein=20;stay=300;duration=300;fadeout=20} @Server'
-    - 'message{m="&6&lSAMHAIN &f: &7\"Esta noche los muertos caminan... y vosotros os unireis a ellos.\""} @Server'
+    - 'message{m="&6&lSAMHAIN &f: &7“Esta noche los muertos caminan... y vosotros os unireis a ellos.”"} @Server'
     - effect:sound{s=entity.wither.spawn;v=0.6;p=0.8} @self
     - effect:particles{particle=FLAME;amount=45;hS=1.2;vS=1.0;speed=0.03} @self
     - potion{type=DAMAGE_RESISTANCE;duration=70;level=2} @self
@@ -25,21 +25,21 @@ SH_HP75_Check:
   Conditions:
     - health{h=<3149}
   Skills:
-    - 'message{m="&6&lSAMHAIN &f: &7\"Las animas aun me dan tres cuartas partes de su fuerza.\""} @PlayersInRadius{r=60}'
+    - 'message{m="&6&lSAMHAIN &f: &7“Las animas aun me dan tres cuartas partes de su fuerza.”"} @PlayersInRadius{r=60}'
 
 SH_HP50_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<2100}
   Skills:
-    - 'message{m="&6&lSAMHAIN &f: &7\"Con la mitad de mis almas me sobra para cosechar las vuestras.\""} @PlayersInRadius{r=60}'
+    - 'message{m="&6&lSAMHAIN &f: &7“Con la mitad de mis almas me sobra para cosechar las vuestras.”"} @PlayersInRadius{r=60}'
 
 SH_HP25_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<1049}
   Skills:
-    - 'message{m="&6&lSAMHAIN &f: &7\"Aunque me quede una sola vela encendida, la noche sera mia.\""} @PlayersInRadius{r=60}'
+    - 'message{m="&6&lSAMHAIN &f: &7“Aunque me quede una sola vela encendida, la noche sera mia.”"} @PlayersInRadius{r=60}'
 
 SH_Phase2_Check:
   Conditions:
@@ -48,7 +48,7 @@ SH_Phase2_Check:
   Skills:
     - skill{s=SH_PhaseShield} @self
     - setstance{stance=PHASE2} @self
-    - 'message{cooldown=9999;m="&6&lSAMHAIN &f: &7\"¡Levantaos, guardianes de los campos!\""} @PlayersInRadius{r=60}'
+    - 'message{cooldown=9999;m="&6&lSAMHAIN &f: &7“¡Levantaos, guardianes de los campos!”"} @PlayersInRadius{r=60}'
     - potion{type=INCREASE_DAMAGE;duration=220;level=0} @self
     - potion{type=SPEED;duration=220;level=0} @self
     - skill{s=SH_SummonDraugr} @self
@@ -60,7 +60,7 @@ SH_Phase3_Check:
   Skills:
     - skill{s=SH_PhaseShield} @self
     - setstance{stance=PHASE3} @self
-    - 'message{cooldown=9999;m="&6&lSAMHAIN &f: &7\"El velo se rasga. Ya no hay vuelta atras.\""} @PlayersInRadius{r=60}'
+    - 'message{cooldown=9999;m="&6&lSAMHAIN &f: &7“El velo se rasga. Ya no hay vuelta atras.”"} @PlayersInRadius{r=60}'
     - potion{type=INCREASE_DAMAGE;duration=220;level=1} @self
     - potion{type=SPEED;duration=220;level=1} @self
     - skill{s=SH_IceStorm} @self
@@ -74,7 +74,7 @@ SH_Phase4_Check:
   Skills:
     - skill{s=SH_PhaseShield} @self
     - setstance{stance=LASTBREATH} @self
-    - 'message{cooldown=9999;m="&6&lSAMHAIN &f: &7\"Apagad las velas... la ultima cosecha comienza.\""} @PlayersInRadius{r=60}'
+    - 'message{cooldown=9999;m="&6&lSAMHAIN &f: &7“Apagad las velas... la ultima cosecha comienza.”"} @PlayersInRadius{r=60}'
     - potion{type=INCREASE_DAMAGE;duration=260;level=2} @self
     - potion{type=SPEED;duration=260;level=1} @self
     - effect:sound{s=entity.warden.roar;v=0.55;p=0.7} @self
@@ -234,11 +234,11 @@ SH_SummonVikings:
 
 SH_PlayerKill:
   Skills:
-    - 'message{m="&6&lSAMHAIN &f: &7\"Una vela mas se apaga.\""} @PlayersInRadius{r=60}'
+    - 'message{m="&6&lSAMHAIN &f: &7“Una vela mas se apaga.”"} @PlayersInRadius{r=60}'
 
 SH_Death:
   Skills:
-    - 'message{m="&6&lSAMHAIN &f: &7\"El velo... se cierra... hasta el proximo año...\""} @PlayersInRadius{r=70}'
+    - 'message{m="&6&lSAMHAIN &f: &7“El velo... se cierra... hasta el proximo año...”"} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.wither.death;v=0.8;p=0.9} @self
     - effect:sound{s=block.glass.break;v=1.0;p=0.5} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self

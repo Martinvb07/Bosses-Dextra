@@ -58,14 +58,14 @@ OD_HP70_Lore:
   Conditions:
     - health{h=<1540}
   Skills:
-    - 'message{m="&5&lOLD ENDER &f: &7\"Las arenas os devorarán...\""} @PlayersInRadius{r=60}'
+    - 'message{m="&5&lOLD ENDER &f: &7“Las arenas os devorarán...”"} @PlayersInRadius{r=60}'
 
 OD_HP40_Lore:
   Cooldown: 9999
   Conditions:
     - health{h=<880}
   Skills:
-    - 'message{m="&5&lOLD ENDER &f: &7\"El desierto reclama vuestras almas...\""} @PlayersInRadius{r=60}'
+    - 'message{m="&5&lOLD ENDER &f: &7“El desierto reclama vuestras almas...”"} @PlayersInRadius{r=60}'
 
 OD_Phase2_Check:
   Conditions:
@@ -294,7 +294,7 @@ OD_Death:
 
 OD_PlayerKill:
   Skills:
-    - 'message{m="&5&lOLD ENDER &f: &7\"Nadie escapa del tiempo...\""} @PlayersInRadius{r=60}'
+    - 'message{m="&5&lOLD ENDER &f: &7“Nadie escapa del tiempo...”"} @PlayersInRadius{r=60}'
 
 SW_SpawnFX:
   Skills:

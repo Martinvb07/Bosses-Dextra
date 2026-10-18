@@ -155,11 +155,11 @@ Baal_PullIfFar:
 
 Baal_PlayerKill:
   Skills:
-    - 'message{m="&d&lBAAL &f: &7\"Vuestras almas me pertenecen.\""} @PlayersInRadius{r=60}'
+    - 'message{m="&d&lBAAL &f: &7“Vuestras almas me pertenecen.”"} @PlayersInRadius{r=60}'
 
 Baal_Death:
   Skills:
-    - 'message{m="&d&lBAAL &f: &7\"El equilibrio... se rompe...\""} @PlayersInRadius{r=70}'
+    - 'message{m="&d&lBAAL &f: &7“El equilibrio... se rompe...”"} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.skeleton.death;v=0.8;p=0.9} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 

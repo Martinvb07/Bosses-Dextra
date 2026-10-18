@@ -4,7 +4,7 @@ LL_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
     - 'title{title="&5&lLADY OF LAMENTS";subtitle="&dPurple Castle &8• &7Reina del Lamento Eterno";fadein=20;stay=300;duration=300;fadeout=20} @Server'
-    - 'message{m="&5&lLADY OF LAMENTS &f: &7\"Vuestras almas... lloraran conmigo...\""} @Server'
+    - 'message{m="&5&lLADY OF LAMENTS &f: &7“Vuestras almas... lloraran conmigo...”"} @Server'
     - effect:sound{s=entity.ghast.ambient;v=0.8;p=0.7} @self
     - effect:sound{s=block.amethyst_block.resonate;v=0.9;p=0.9} @self
     - effect:particles{particle=SOUL;amount=20;hS=1.0;vS=1.0;speed=0.02} @self
@@ -25,14 +25,14 @@ LL_HP70_Check:
   Conditions:
     - health{h=<2065}
   Skills:
-    - 'message{m="&5&lLADY OF LAMENTS &f: &7\"Escuchad mi lamento...\""} @PlayersInRadius{r=60}'
+    - 'message{m="&5&lLADY OF LAMENTS &f: &7“Escuchad mi lamento...”"} @PlayersInRadius{r=60}'
 
 LL_HP40_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<1179}
   Skills:
-    - 'message{m="&5&lLADY OF LAMENTS &f: &7\"El dolor os consumira.\""} @PlayersInRadius{r=60}'
+    - 'message{m="&5&lLADY OF LAMENTS &f: &7“El dolor os consumira.”"} @PlayersInRadius{r=60}'
 
 LL_Phase2_Check:
   Conditions:
@@ -309,11 +309,11 @@ LL_EchoOfGrief:
 
 LL_PlayerKill:
   Skills:
-    - 'message{m="&5&lLADY OF LAMENTS &f: &7\"Ahora conoces mi sufrimiento.\""} @PlayersInRadius{r=60}'
+    - 'message{m="&5&lLADY OF LAMENTS &f: &7“Ahora conoces mi sufrimiento.”"} @PlayersInRadius{r=60}'
 
 LL_Death:
   Skills:
-    - 'message{m="&5&lLADY OF LAMENTS &f: &7\"El silencio... al fin...\""} @PlayersInRadius{r=70}'
+    - 'message{m="&5&lLADY OF LAMENTS &f: &7“El silencio... al fin...”"} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.allay.death;v=1.0;p=0.6} @self
     - effect:sound{s=entity.ghast.death;v=0.5;p=1.2} @self
     - effect:particles{particle=SOUL;amount=40;hS=1.4;vS=1.2;speed=0.03} @self

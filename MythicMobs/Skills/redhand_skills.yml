@@ -22,35 +22,35 @@ RH_HP75_Check:
   Conditions:
     - health{h=<1874}
   Skills:
-    - message{m="&4&lRED HAND &8susurra... &7\"Aún me queda el 75% de vida.\""} @PlayersInRadius{r=60}
+    - message{m="&4&lRED HAND &8susurra... &7“Aún me queda el 75% de vida.”"} @PlayersInRadius{r=60}
 
 RH_HP50_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<1249}
   Skills:
-    - message{m="&4&lRED HAND &8gruñe... &7\"Todavía conservo el 50% de mi sangre.\""} @PlayersInRadius{r=60}
+    - message{m="&4&lRED HAND &8gruñe... &7“Todavía conservo el 50% de mi sangre.”"} @PlayersInRadius{r=60}
 
 RH_HP25_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<625}
   Skills:
-    - message{m="&4&lRED HAND &8ríe... &7\"Con el 25% basta para hundiros.\""} @PlayersInRadius{r=60}
+    - message{m="&4&lRED HAND &8ríe... &7“Con el 25% basta para hundiros.”"} @PlayersInRadius{r=60}
 
 RH_HP70_Lore:
   Cooldown: 9999
   Conditions:
     - health{h=<1750}
   Skills:
-    - 'message{m="&4&lRED HAND &f: &7\"Uno de vosotros caerá.\""} @PlayersInRadius{r=60}'
+    - 'message{m="&4&lRED HAND &f: &7“Uno de vosotros caerá.”"} @PlayersInRadius{r=60}'
 
 RH_HP40_Lore:
   Cooldown: 9999
   Conditions:
     - health{h=<1000}
   Skills:
-    - 'message{m="&4&lRED HAND &f: &7\"La oscuridad os consumirá.\""} @PlayersInRadius{r=60}'
+    - 'message{m="&4&lRED HAND &f: &7“La oscuridad os consumirá.”"} @PlayersInRadius{r=60}'
 
 RH_Phase2_Check:
   Conditions:
@@ -248,7 +248,7 @@ RH_Death:
 
 RH_PlayerKill:
   Skills:
-    - 'message{m="&4&lRED HAND &f: &7\"Tu alma me pertenece.\""} @PlayersInRadius{r=60}'
+    - 'message{m="&4&lRED HAND &f: &7“Tu alma me pertenece.”"} @PlayersInRadius{r=60}'
 
 FS_SpawnFX:
   Skills:

@@ -98,7 +98,7 @@ Heracles_HP70_Lore:
   Conditions:
     - health{h=<1432}
   Skills:
-    - 'message{m="&6&lHERACLES &f: &7\"¡Guerreros de Esparta, luchad por el Olimpo!\""} @PlayersInRadius{r=50}'
+    - 'message{m="&6&lHERACLES &f: &7“¡Guerreros de Esparta, luchad por el Olimpo!”"} @PlayersInRadius{r=50}'
     - skill{s=Heracles_SpartanCall_Check} @self
 
 Heracles_HP40_Lore:
@@ -106,7 +106,7 @@ Heracles_HP40_Lore:
   Conditions:
     - health{h=<818}
   Skills:
-    - 'message{m="&6&lHERACLES &f: &7\"¡Bestias del laberinto, aplastad a estos intrusos!\""} @PlayersInRadius{r=50}'
+    - 'message{m="&6&lHERACLES &f: &7“¡Bestias del laberinto, aplastad a estos intrusos!”"} @PlayersInRadius{r=50}'
     - skill{s=Heracles_MinotaurCall_Check} @self
 
 # --- Ataques Activos ---

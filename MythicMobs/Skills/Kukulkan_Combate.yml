@@ -7,7 +7,7 @@ KK_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
     - 'title{title="&a&lKUKULKAN";subtitle="&ePiramide del Sol &8• &7La Serpiente Emplumada despliega sus alas";fadein=20;stay=300;duration=300;fadeout=20} @Server'
-    - 'message{m="&a&lKUKULKAN &f: &7\"El sol exige sangre... y hoy la ofrenda sois vosotros.\""} @Server'
+    - 'message{m="&a&lKUKULKAN &f: &7“El sol exige sangre... y hoy la ofrenda sois vosotros.”"} @Server'
     - effect:sound{s=entity.ghast.ambient;v=0.8;p=0.7} @self
     - effect:sound{s=block.amethyst_block.resonate;v=0.9;p=0.9} @self
     - effect:particles{particle=END_ROD;amount=20;hS=1.0;vS=1.0;speed=0.02} @self
@@ -28,14 +28,14 @@ KK_HP70_Check:
   Conditions:
     - health{h=<3220}
   Skills:
-    - 'message{m="&a&lKUKULKAN &f: &7\"Escuchad el canto de las plumas...\""} @PlayersInRadius{r=60}'
+    - 'message{m="&a&lKUKULKAN &f: &7“Escuchad el canto de las plumas...”"} @PlayersInRadius{r=60}'
 
 KK_HP40_Check:
   Cooldown: 9999
   Conditions:
     - health{h=<1839}
   Skills:
-    - 'message{m="&a&lKUKULKAN &f: &7\"El sol os quemara hasta los huesos.\""} @PlayersInRadius{r=60}'
+    - 'message{m="&a&lKUKULKAN &f: &7“El sol os quemara hasta los huesos.”"} @PlayersInRadius{r=60}'
 
 KK_Phase2_Check:
   Conditions:
@@ -312,11 +312,11 @@ KK_EchoOfGrief:
 
 KK_PlayerKill:
   Skills:
-    - 'message{m="&a&lKUKULKAN &f: &7\"Tu corazon alimentara al sol.\""} @PlayersInRadius{r=60}'
+    - 'message{m="&a&lKUKULKAN &f: &7“Tu corazon alimentara al sol.”"} @PlayersInRadius{r=60}'
 
 KK_Death:
   Skills:
-    - 'message{m="&a&lKUKULKAN &f: &7\"El sol... se pone... pero siempre vuelve a salir...\""} @PlayersInRadius{r=70}'
+    - 'message{m="&a&lKUKULKAN &f: &7“El sol... se pone... pero siempre vuelve a salir...”"} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.allay.death;v=1.0;p=0.6} @self
     - effect:sound{s=entity.ghast.death;v=0.5;p=1.2} @self
     - effect:particles{particle=END_ROD;amount=40;hS=1.4;vS=1.2;speed=0.03} @self
