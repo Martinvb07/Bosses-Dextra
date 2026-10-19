@@ -46,8 +46,14 @@ def a_papi(dia, hora):
 HORA = "%server_time_E-HH:mm%"              # un solo placeholder: ver la nota de la cabecera
 
 
+# Chunks de la arena (3x3 alrededor del punto de aparicion) que se dejan siempre cargados.
+# Sin esto, si no hay nadie cerca, `mm mobs kill` no ve al boss anterior y se van acumulando.
+ARENA = "execute in minecraft:warps run forceload add 60032 60032 60079 60079"
+
+
 def turno(boss):
-    acciones = [f"console_command: mm mobs kill {b}" for b in ROTACION]
+    acciones = [f"console_command: {ARENA}"]
+    acciones += [f"console_command: mm mobs kill {b}" for b in ROTACION]
     if boss:
         acciones.append(f"console_command: mm mobs spawn {boss} 1 {LUGAR}")
     return acciones

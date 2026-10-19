@@ -14,6 +14,9 @@ Requisitos: ConditionalEvents y PlaceholderAPI con la expansion **Server** (`/pa
   (la lista completa de turnos esta al principio del archivo).
 - **Donde:** mundo `Warps`, 60053.5 73 60059.5.
 - **Si nadie lo mata en 2 horas:** en cada turno se ejecuta `mm mobs kill` de los 8 bosses antes de sacar al siguiente.
+- **Arena siempre cargada:** cada turno hace `forceload` de los 3x3 chunks de la arena (60032..60079).
+  Si la zona esta descargada, `mm mobs kill` no ve al boss anterior y se acumulan varios a la vez.
+  Para quitarlo: `/execute in minecraft:warps run forceload remove all`.
 - **Como funciona:** es un solo evento (`bosses_rotacion`) que cada 60 s lee `%server_time_E-HH:mm%`
   (por ejemplo `lun-05:00`) y ejecuta el grupo de acciones del turno que coincide.
   No lo partas en un evento por turno: muchos eventos leyendo `%server_time_...%` a la vez hacen que la

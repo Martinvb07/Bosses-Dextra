@@ -183,6 +183,7 @@ Events:
     - '%server_time_E-HH:mm% == dom-23:00 execute domingo_2200'
     actions:
       lunes_0000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -193,6 +194,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
       lunes_0200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -203,6 +205,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
       lunes_0400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -213,6 +216,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
       lunes_0600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -223,6 +227,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
       lunes_0800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -233,6 +238,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
       lunes_1000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -243,6 +249,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
       lunes_1200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -253,6 +260,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
       lunes_1400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -263,6 +271,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
       lunes_1600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -273,6 +282,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
       lunes_1800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -283,6 +293,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
       lunes_2000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -293,6 +304,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
       lunes_2200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -303,6 +315,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
       martes_0000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -313,6 +326,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
       martes_0200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -323,6 +337,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
       martes_0400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -333,6 +348,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
       martes_0600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -343,6 +359,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
       martes_0800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -353,6 +370,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
       martes_1000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -363,6 +381,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
       martes_1200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -373,6 +392,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
       martes_1400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -383,6 +403,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
       martes_1600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -393,6 +414,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
       martes_1800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -403,6 +425,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
       martes_2000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -413,6 +436,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
       martes_2200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -423,6 +447,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
       miercoles_0000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -433,6 +458,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
       miercoles_0200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -443,6 +469,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
       miercoles_0400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -453,6 +480,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
       miercoles_0600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -463,6 +491,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
       miercoles_0800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -473,6 +502,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
       miercoles_1000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -483,6 +513,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
       miercoles_1200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -493,6 +524,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
       miercoles_1400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -503,6 +535,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
       miercoles_1600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -513,6 +546,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
       miercoles_1800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -523,6 +557,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
       miercoles_2000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -533,6 +568,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
       miercoles_2200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -543,6 +579,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
       jueves_0000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -553,6 +590,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
       jueves_0200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -563,6 +601,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
       jueves_0400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -573,6 +612,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
       jueves_0600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -583,6 +623,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
       jueves_0800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -593,6 +634,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
       jueves_1000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -603,6 +645,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
       jueves_1200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -613,6 +656,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
       jueves_1400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -623,6 +667,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
       jueves_1600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -633,6 +678,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
       jueves_1800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -643,6 +689,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
       jueves_2000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -653,6 +700,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
       jueves_2200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -663,6 +711,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
       viernes_0000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -673,6 +722,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
       viernes_0200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -683,6 +733,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
       viernes_0400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -693,6 +744,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
       viernes_0600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -703,6 +755,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
       viernes_0800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -713,6 +766,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
       viernes_1000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -723,6 +777,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
       viernes_1200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -733,6 +788,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
       viernes_1400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -743,6 +799,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
       viernes_1600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -753,6 +810,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
       viernes_1800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -763,6 +821,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
       viernes_2000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -773,6 +832,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
       viernes_2200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -783,6 +843,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
       sabado_0000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -793,6 +854,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
       sabado_0200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -803,6 +865,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
       sabado_0400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -813,6 +876,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
       sabado_0600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -823,6 +887,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
       sabado_0800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -833,6 +898,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
       sabado_1000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -843,6 +909,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
       sabado_1200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -853,6 +920,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
       sabado_1400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -863,6 +931,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
       sabado_1600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -873,6 +942,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
       sabado_1800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -883,6 +953,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
       sabado_2000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -893,6 +964,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
       sabado_2200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -903,6 +975,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
       domingo_0000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -913,6 +986,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
       domingo_0200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -923,6 +997,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
       domingo_0400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -933,6 +1008,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
       domingo_0600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -943,6 +1019,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
       domingo_0800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -953,6 +1030,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
       domingo_1000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -963,6 +1041,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
       domingo_1200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -973,6 +1052,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
       domingo_1400:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -982,6 +1062,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       domingo_1600:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -992,6 +1073,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
       domingo_1800:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1002,6 +1084,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
       domingo_2000:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1012,6 +1095,7 @@ Events:
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
       domingo_2200:
+      - 'console_command: execute in minecraft:warps run forceload add 60032 60032 60079 60079'
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
