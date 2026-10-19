@@ -2,11 +2,23 @@
 # Mecanicas basadas en OldEnder, con lore, subditos y particulas de Azathoth.
 # Daño de skills escalado x1.70 y umbrales de vida para 3600 HP (curva de dificultad 01->17).
 # Los sacos / ranking siguen en sus archivos de siempre.
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=azathoth;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:azathoth.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=..._FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "AZATHOTH" como siempre; con pack se ve el logo.
 
 AZ_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&5&lAZATHOTH";subtitle="&dEl Vacio Exterior &8• &7El Caos Ancestral abre los ojos";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=azathoth;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§dEl Vacio Exterior §8• §7El Caos Ancestral abre los ojos''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.azathoth'',fallback:''§5§lAZATHOTH'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:azathoth.intro;v=1;p=1} @self
+    - summon{type=AZ_FX_Phase;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&5&lAZATHOTH &f: &7Soy el sueño que sostiene vuestro mundo... y estoy despertando."} @Server'
     - effect:sound{s=entity.enderman.scream;v=0.8;p=0.7} @self
     - effect:particles{particle=BLOCK_CRACK;material=OBSIDIAN;amount=35;hS=1.0;vS=0.6;speed=0.08} @self
@@ -19,6 +31,9 @@ AZ_Spawn:
 AZ_Skyfall:
   Skills:
     - 'message{m="&5&lAZATHOTH &8» &d¡Las estrellas caen de un cielo que ya no existe!"} @PlayersInRadius{r=60}'
+    - state{mid=azathoth;s=storm;li=2;lo=3} @self
+    - effect:sound{s=dextra:azathoth.skyfall;v=1;p=1} @self
+    - summon{type=AZ_FX_Skyfall;amount=1;radius=0;noise=0} @PlayersInRadius{r=30}
     - orbital{onTick=AZ_Skyfall_Tick;onHit=AZ_Skyfall_Hit;points=20;interval=1;duration=100;charges=5} @PlayersInRadius{r=30}
 
 AZ_Skyfall_Tick:
@@ -126,6 +141,9 @@ AZ_DesertSummons_Check:
     - health{h=<2520}
   Skills:
     - effect:particles{particle=BLOCK_CRACK;material=OBSIDIAN;amount=36;hS=1.4;vS=0.5;speed=0.10} @self
+    - state{mid=azathoth;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:azathoth.summon;v=1;p=1} @self
+    - summon{type=AZ_FX_Tentacles;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Azathoth_Flautista;amount=2;radius=8;noise=2} @self
     - summon{type=Azathoth_Sacerdote;amount=1;radius=8;noise=2} @self
 
@@ -137,10 +155,15 @@ AZ_IntenseSandstorm_Check:
     - skill{s=AZ_Sandstorm} @self
     - effect:sound{s=entity.phantom.flap;v=0.8;p=0.5} @self
     - effect:particles{particle=CLOUD;amount=70;hS=3.5;vS=0.9;speed=0.04} @self
+    - effect:sound{s=dextra:azathoth.summon;v=1;p=1} @self
+    - summon{type=AZ_FX_Tentacles;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Azathoth_Larva;amount=2;radius=8;noise=3} @self
 
 AZ_PhaseShield:
   Skills:
+    - state{mid=azathoth;s=phase_change;li=3;lo=4} @self
+    - effect:sound{s=dextra:azathoth.phase;v=1;p=1} @self
+    - summon{type=AZ_FX_Phase;amount=1;radius=0;noise=0} @selflocation
     - potion{type=DAMAGE_RESISTANCE;duration=60;level=4} @self
     - effect:particles{particle=SPELL_MOB_AMBIENT;amount=25;hS=1.0;vS=0.5;speed=0.02} @self
 
@@ -193,9 +216,13 @@ AZ_TeleportStrike:
   Conditions:
     - targetwithin{d=18}
   Skills:
+    - state{mid=azathoth;s=teleport;li=1;lo=2} @self
+    - effect:sound{s=dextra:azathoth.blink;v=1;p=1} @self
+    - summon{type=AZ_FX_Blink;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=entity.enderman.teleport;v=1.0;p=1.2} @self
     - leap{velocity=200;noise=1} @target
     - delay 12
+    - summon{type=AZ_FX_Blink;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=ENCHANT;amount=18;hS=0.2;vS=0.7;speed=0.5} @self
     - effect:particles{particle=PORTAL;amount=24;hS=0.7;vS=0.3;speed=0.15} @target
     - damage{a=85;pk=true} @target ?distance{d=<3}
@@ -208,7 +235,10 @@ AZ_SandPulse:
     - targetwithin{d=12}
   Skills:
     - 'message{cooldown=8;m="&5Azathoth &fdesata una onda de pura entropia!"} @PlayersInRadius{r=45}'
+    - state{mid=azathoth;s=pulse;li=1;lo=3} @self
     - effect:sound{s=entity.enderman.stare;v=0.95;p=0.7} @self
+    - effect:sound{s=dextra:azathoth.pulse;v=1;p=1} @self
+    - summon{type=AZ_FX_Pulse;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=ENCHANT;amount=24;hS=1.2;vS=0.7;speed=0.7} @self
     - effect:particles{particle=CLOUD;amount=55;hS=2.4;vS=0.7;speed=0.04} @self
     - effect:particles{particle=BLOCK_CRACK;material=OBSIDIAN;amount=65;hS=2.6;vS=0.6;speed=0.11} @self
@@ -220,7 +250,10 @@ AZ_SandPulse:
 AZ_DesertCollapse:
   Skills:
     - 'message{cooldown=10;m="&5Azathoth &fgolpea el tejido de la realidad... ¡el suelo se deshace!"} @PlayersInRadius{r=45}'
+    - state{mid=azathoth;s=collapse;li=2;lo=3} @self
     - effect:sound{s=entity.generic.explode;v=0.65;p=0.85} @self
+    - effect:sound{s=dextra:azathoth.collapse;v=1;p=1} @self
+    - summon{type=AZ_FX_Collapse;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=entity.enderman.scream;v=0.7;p=1.0} @self
     - effect:particles{particle=ENCHANT;amount=30;hS=1.0;vS=0.8;speed=0.8} @self
     - effect:particles{particle=BLOCK_CRACK;material=CRYING_OBSIDIAN;amount=60;hS=1.6;vS=0.5;speed=0.12} @self
@@ -234,7 +267,10 @@ AZ_EnderGaze:
     - targetwithin{d=35}
   Skills:
     - 'message{cooldown=6;m="&5Azathoth &fte mira sin ojos... &dy tu mente se quiebra!"} @PlayersInRadius{r=45}'
+    - state{mid=azathoth;s=gaze;li=2;lo=3} @self
     - effect:sound{s=entity.enderman.stare;v=0.9;p=1.1} @self
+    - effect:sound{s=dextra:azathoth.gaze;v=1;p=1} @self
+    - summon{type=AZ_FX_Gaze;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=ENCHANT;amount=22;hS=0.5;vS=0.7;speed=0.7} @self
     - effect:particles{particle=PORTAL;amount=26;hS=0.6;vS=0.5;speed=0.13} @target
     - delay 10
@@ -245,7 +281,10 @@ AZ_EnderGaze:
 
 AZ_Sandstorm:
   Skills:
+    - state{mid=azathoth;s=storm;li=2;lo=3} @self
     - effect:sound{s=entity.ender_dragon.flap;v=0.7;p=0.55} @self
+    - effect:sound{s=dextra:azathoth.storm;v=1;p=1} @self
+    - summon{type=AZ_FX_Storm;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=CLOUD;amount=50;hS=2.4;vS=0.8;speed=0.03} @self
     - effect:particles{particle=BLOCK_CRACK;material=OBSIDIAN;amount=70;hS=2.8;vS=0.7;speed=0.10} @self
     - potion{type=SLOW;duration=90;level=1} @PlayersInRadius{r=16}
@@ -258,6 +297,9 @@ AZ_SandWarp:
     - targetwithin{d=45}
   Skills:
     - 'message{cooldown=10;m="&5Azathoth &fse pliega entre dimensiones hacia sus presas!"} @PlayersInRadius{r=50}'
+    - state{mid=azathoth;s=warp;li=2;lo=3} @self
+    - effect:sound{s=dextra:azathoth.warp;v=1;p=1} @self
+    - summon{type=AZ_FX_Warp;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=entity.enderman.teleport;v=1.0;p=1.2} @self
     - pull{velocity=1.25} @PlayersInRadius{r=10}
     - effect:particles{particle=ENCHANT;amount=18;hS=1.0;vS=0.7;speed=0.7} @self
@@ -271,7 +313,10 @@ AZ_SandstormRift:
   Cooldown: 24
   Skills:
     - 'message{cooldown=10;m="&5&lGRIETA &8» &fAzathoth rasga el espacio y el vacio se filtra."} @PlayersInRadius{r=60}'
+    - state{mid=azathoth;s=rift;li=2;lo=4} @self
     - effect:sound{s=entity.enderman.stare;v=0.95;p=0.55} @self
+    - effect:sound{s=dextra:azathoth.rift;v=1;p=1} @self
+    - summon{type=AZ_FX_Rift;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=ENCHANT;amount=36;hS=1.5;vS=1.0;speed=1.0} @self
     - effect:particles{particle=PORTAL;amount=34;hS=1.6;vS=1.2;speed=0.09} @self
     - effect:particles{particle=CLOUD;amount=38;hS=1.9;vS=1.0;speed=0.03} @self
@@ -288,12 +333,16 @@ AZ_SummonWardens:
   Skills:
     - 'message{cooldown=10;m="&dEl vacio se condensa... &5Engendros &dtoman forma&f!"} @PlayersInRadius{r=50}'
     - effect:particles{particle=BLOCK_CRACK;material=OBSIDIAN;amount=40;hS=2.0;vS=0.6;speed=0.10} @self
+    - state{mid=azathoth;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:azathoth.summon;v=1;p=1} @self
+    - summon{type=AZ_FX_Tentacles;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Azathoth_Engendro;amount=2;radius=10;noise=3} @self
 
 AZ_Death:
   Skills:
     - 'message{m="&5&lAZATHOTH &f: &7Solo... vuelvo a dormir... &8• &dEl caos se aquieta, por ahora."} @PlayersInRadius{r=80}'
     - effect:sound{s=entity.enderman.death;v=0.9;p=0.8} @self
+    - effect:sound{s=dextra:azathoth.death;v=1;p=1} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 
 AZ_PlayerKill:
@@ -303,38 +352,54 @@ AZ_PlayerKill:
 AZ_SW_SpawnFX:
   Skills:
     - effect:particles{particle=BLOCK_CRACK;material=OBSIDIAN;amount=18;hS=0.6;vS=0.2;speed=0.10} @self
+    - state{mid=az_spawn;s=spawn;li=0;lo=2} @self
     - effect:sound{s=block.amethyst_block.place;v=0.7;p=0.8} @self
+    - effect:sound{s=dextra:azathoth.spawn_gurgle;v=0.8;p=1} @self
     - potion{type=FIRE_RESISTANCE;duration=999999;level=0} @self
 
 AZ_SW_Attack:
   Skills:
+    - state{mid=az_spawn;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:azathoth.spawn_lash;v=0.8;p=1} @self
     - potion{type=SLOW;duration=30;level=0} @target
 
 AZ_MG_SpawnFX:
   Skills:
     - effect:particles{particle=BLOCK_CRACK;material=CRYING_OBSIDIAN;amount=16;hS=0.6;vS=0.3;speed=0.08} @self
+    - state{mid=az_piper;s=spawn;li=0;lo=2} @self
     - effect:sound{s=entity.husk.ambient;v=0.7;p=0.8} @self
+    - effect:sound{s=dextra:azathoth.piper_tune;v=0.8;p=1} @self
 
 AZ_MG_Curse:
   Skills:
+    - state{mid=az_piper;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:azathoth.piper_curse;v=0.8;p=1} @self
     - potion{type=SLOW;duration=60;level=1} @target
 
 AZ_GS_SpawnFX:
   Skills:
     - effect:particles{particle=CRIT;amount=12;hS=0.5;vS=0.3;speed=0.08} @self
+    - state{mid=az_larva;s=spawn;li=0;lo=2} @self
     - effect:sound{s=entity.spider.ambient;v=0.7;p=1.1} @self
+    - effect:sound{s=dextra:azathoth.larva_chitter;v=0.8;p=1} @self
 
 AZ_GS_Venom:
   Skills:
+    - state{mid=az_larva;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:azathoth.larva_bite;v=0.8;p=1} @self
     - potion{type=POISON;duration=70;level=0} @target
 
 AZ_DP_SpawnFX:
   Skills:
     - effect:particles{particle=ENCHANTMENT_TABLE;amount=10;hS=0.5;vS=0.8;speed=0.2} @self
+    - state{mid=az_priest;s=spawn;li=0;lo=2} @self
     - effect:sound{s=entity.skeleton.ambient;v=0.7;p=0.9} @self
+    - effect:sound{s=dextra:azathoth.priest_chant;v=0.8;p=1} @self
 
 AZ_DP_HealAllies:
   Skills:
+    - state{mid=az_priest;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:azathoth.priest_heal;v=0.8;p=1} @self
     - heal{a=6} @MobsInRadius{r=8;type=Azathoth}
     - heal{a=6} @MobsInRadius{r=8;type=Azathoth_Engendro}
     - heal{a=6} @MobsInRadius{r=8;type=Azathoth_Flautista}
@@ -343,6 +408,20 @@ AZ_DP_HealAllies:
     - effect:particles{particle=VILLAGER_HAPPY;amount=12;hS=0.8;vS=0.6;speed=0.03} @self
 
 # Item summon
+
+AZ_FX_Remove:
+  Skills:
+    - remove @self
+
+AZ_Melee:
+  Skills:
+    - state{mid=azathoth;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:azathoth.lash;v=0.8;p=1} @self
+
+AZ_Hurt:
+  Skills:
+    - state{mid=azathoth;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:azathoth.hurt;v=0.8;p=1} @self
 
 # --- Fuego amigo ---
 AZ_FuegoAmigo:

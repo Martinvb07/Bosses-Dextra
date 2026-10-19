@@ -10,7 +10,9 @@ Azathoth:
 
   BossBar:
     Enabled: true
-    Title: "&5&lAZATHOTH"
+    # \u205f no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/azathoth.yml)
+    # es la moldura del vacio a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f &5&lAZATHOTH&f "
     Range: 60
     Color: PURPLE
     Style: SOLID
@@ -90,7 +92,9 @@ Azathoth:
   Modules:
     ThreatTable: true
     ImmunityTable: true
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/azathoth/azathoth.bbmodel
   Skills:
+    - model{mid=azathoth} @self ~onSpawn
     - skill{s=Azathoth_Rank_Reset} @self ~onSpawn
     - skill{s=Azathoth_Rank_Sumar} @self ~onDamaged
     - skill{s=Azathoth_Rank_Muerte} @self ~onDeath
@@ -113,6 +117,8 @@ Azathoth:
     - skill{s=AZ_PlayerKill} @target ~onKill
     - skill{s=AZ_Death} @self ~onDeath
     - skill{s=AZ_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=AZ_Melee} @self ~onAttack
+    - skill{s=AZ_Hurt} @self ~onDamaged 0.35
 
 
 # --- Subditos de Azathoth ---
@@ -140,7 +146,10 @@ Azathoth_Engendro:
   Drops:
     #- Recompensas_SandWarden
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/az_spawn/az_spawn.bbmodel
   Skills:
+    - model{mid=az_spawn} @self ~onSpawn
+    - state{mid=az_spawn;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=AZ_SW_SpawnFX} @self ~onSpawn
     - skill{s=AZ_SW_Attack} @target ~onAttack
     - skill{s=AZ_FuegoAmigo;sync=true} @self ~onDamaged
@@ -169,7 +178,10 @@ Azathoth_Flautista:
   Drops:
     #- Recompensas_MummyGuardian
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/az_piper/az_piper.bbmodel
   Skills:
+    - model{mid=az_piper} @self ~onSpawn
+    - state{mid=az_piper;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=AZ_MG_SpawnFX} @self ~onSpawn
     - skill{s=AZ_MG_Curse} @target ~onAttack
     - skill{s=AZ_FuegoAmigo;sync=true} @self ~onDamaged
@@ -198,7 +210,10 @@ Azathoth_Larva:
   Drops:
     #- Recompensas_GiantScarab
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/az_larva/az_larva.bbmodel
   Skills:
+    - model{mid=az_larva} @self ~onSpawn
+    - state{mid=az_larva;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=AZ_GS_SpawnFX} @self ~onSpawn
     - skill{s=AZ_GS_Venom} @target ~onAttack
     - skill{s=AZ_FuegoAmigo;sync=true} @self ~onDamaged
@@ -226,7 +241,194 @@ Azathoth_Sacerdote:
   Drops:
     #- Recompensas_DesertPriest
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/az_priest/az_priest.bbmodel
   Skills:
+    - model{mid=az_priest} @self ~onSpawn
+    - state{mid=az_priest;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=AZ_DP_SpawnFX} @self ~onSpawn
     - skill{s=AZ_DP_HealAllies} @self ~onTimer:45
     - skill{s=AZ_FuegoAmigo;sync=true} @self ~onDamaged
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde Azathoth_Combate.yml con summon{type=AZ_FX_...}.
+
+AZ_FX_Blink:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=az_fx_blink;hitbox=false} @self ~onSpawn
+    - state{mid=az_fx_blink;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=AZ_FX_Remove;delay=24} @self ~onSpawn
+
+AZ_FX_Pulse:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=az_fx_pulse;hitbox=false} @self ~onSpawn
+    - state{mid=az_fx_pulse;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=AZ_FX_Remove;delay=24} @self ~onSpawn
+
+AZ_FX_Collapse:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=az_fx_collapse;hitbox=false} @self ~onSpawn
+    - state{mid=az_fx_collapse;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=AZ_FX_Remove;delay=34} @self ~onSpawn
+
+AZ_FX_Gaze:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=az_fx_gaze;hitbox=false} @self ~onSpawn
+    - state{mid=az_fx_gaze;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=AZ_FX_Remove;delay=32} @self ~onSpawn
+
+AZ_FX_Storm:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=az_fx_storm;hitbox=false} @self ~onSpawn
+    - state{mid=az_fx_storm;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=AZ_FX_Remove;delay=44} @self ~onSpawn
+
+AZ_FX_Warp:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=az_fx_warp;hitbox=false} @self ~onSpawn
+    - state{mid=az_fx_warp;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=AZ_FX_Remove;delay=28} @self ~onSpawn
+
+AZ_FX_Rift:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=az_fx_rift;hitbox=false} @self ~onSpawn
+    - state{mid=az_fx_rift;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=AZ_FX_Remove;delay=40} @self ~onSpawn
+
+AZ_FX_Skyfall:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=az_fx_skyfall;hitbox=false} @self ~onSpawn
+    - state{mid=az_fx_skyfall;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=AZ_FX_Remove;delay=36} @self ~onSpawn
+
+AZ_FX_Tentacles:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=az_fx_tentacles;hitbox=false} @self ~onSpawn
+    - state{mid=az_fx_tentacles;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=AZ_FX_Remove;delay=40} @self ~onSpawn
+
+AZ_FX_Phase:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=az_fx_phase;hitbox=false} @self ~onSpawn
+    - state{mid=az_fx_phase;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=AZ_FX_Remove;delay=56} @self ~onSpawn

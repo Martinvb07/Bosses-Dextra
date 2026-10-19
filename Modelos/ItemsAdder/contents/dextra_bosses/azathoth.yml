@@ -1,0 +1,15 @@
+# Marco de la bossbar de azathoth (generado por tools/; no lo edites a mano).
+# En MythicMobs: BossBar.Title = "&f\u205f<nombre>&f\u205f"
+# Sin pack el caracter \u205f es un espacio en blanco; con pack es esta imagen.
+info:
+  namespace: dextra_bosses
+
+font_images:
+  azathoth_bossbar:
+    path: font/azathoth/bossbar.png
+    symbol: "\u205f"
+    scale_ratio: 32
+    y_position: 12
+    show_in_gui: false
+    shadow:
+      enabled: false
