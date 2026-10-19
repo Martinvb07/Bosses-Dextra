@@ -2,11 +2,23 @@
 # Mecanicas basadas en LadyOfLaments, con lore, subditos y particulas de Kukulkan.
 # Daño de skills escalado x6.47 y umbrales de vida para 4600 HP (curva de dificultad 01->17).
 # Los sacos / ranking siguen en sus archivos de siempre.
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=kukulkan;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:kukulkan.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=..._FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "KUKULKAN" como siempre; con pack se ve el logo.
 
 KK_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&a&lKUKULKAN";subtitle="&ePiramide del Sol &8• &7La Serpiente Emplumada despliega sus alas";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=kukulkan;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§ePiramide del Sol §8• §7La Serpiente Emplumada despliega sus alas''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.kukulkan'',fallback:''§a§lKUKULKAN'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:kukulkan.intro;v=1;p=1} @self
+    - summon{type=KK_FX_Pyramid;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&a&lKUKULKAN &f: &7El sol exige sangre... y hoy la ofrenda sois vosotros."} @Server'
     - effect:sound{s=entity.ghast.ambient;v=0.8;p=0.7} @self
     - effect:sound{s=block.amethyst_block.resonate;v=0.9;p=0.9} @self
@@ -96,6 +108,9 @@ KK_Phase4_Check:
 
 KK_PhaseShield:
   Skills:
+    - state{mid=kukulkan;s=phase_change;li=3;lo=4} @self
+    - effect:sound{s=dextra:kukulkan.phase;v=1;p=1} @self
+    - summon{type=KK_FX_Pyramid;amount=1;radius=0;noise=0} @selflocation
     - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
     - effect:particles{particle=SPELL_MOB_AMBIENT;amount=20;hS=0.8;vS=0.7;speed=0.02} @self
     - effect:particles{particle=TOTEM;amount=8;hS=0.6;vS=0.8;speed=0.02} @self
@@ -127,7 +142,10 @@ KK_Wail:
   Cooldown: 14
   Skills:
     - 'message{cooldown=10;m="&eUn chillido de serpiente debilita a quienes permanecen juntos..."} @PlayersInRadius{r=40}'
+    - state{mid=kukulkan;s=screech;li=1;lo=2} @self
     - effect:sound{s=entity.ghast.scream;v=0.7;p=1.1} @self
+    - effect:sound{s=dextra:kukulkan.screech;v=1;p=1} @self
+    - summon{type=KK_FX_Screech;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=END_ROD;amount=22;hS=1.3;vS=0.8;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=35;hS=1.5;vS=0.7;speed=0.0;color=#ffd23f;size=1.25} @self
     - damage{a=129;pk=true} @PlayersInRadius{r=7}
@@ -140,7 +158,10 @@ KK_ShroudOfNight:
     - targetwithin{d=24}
   Skills:
     - 'message{cooldown=12;m="&a&lKUKULKAN &7extiende la &8sombra del eclipse&7..."} @PlayersInRadius{r=45}'
+    - state{mid=kukulkan;s=eclipse;li=1;lo=2} @self
     - effect:sound{s=entity.enderman.ambient;v=0.8;p=0.5} @self
+    - effect:sound{s=dextra:kukulkan.eclipse;v=1;p=1} @self
+    - summon{type=KK_FX_Eclipse;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SMOKE_LARGE;amount=22;hS=0.9;vS=0.5;speed=0.03} @target
     - effect:particles{particle=REDSTONE;amount=28;hS=0.8;vS=0.7;speed=0.0;color=#ffd23f;size=1.2} @target
     - delay 8
@@ -154,7 +175,10 @@ KK_SpiritSiphon:
     - targetwithin{d=22}
   Skills:
     - 'message{cooldown=10;m="&a&lKUKULKAN &farranca la energia vital de &e<target.name>&f."} @PlayersInRadius{r=45}'
+    - state{mid=kukulkan;s=siphon;li=1;lo=2} @self
     - effect:sound{s=block.amethyst_cluster.break;v=0.7;p=0.7} @self
+    - effect:sound{s=dextra:kukulkan.siphon;v=1;p=1} @self
+    - summon{type=KK_FX_Siphon;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=END_ROD;amount=12;hS=0.4;vS=0.8;speed=0.03} @target
     - effect:particles{particle=REDSTONE;amount=18;hS=0.5;vS=0.8;speed=0.0;color=#ffd23f;size=1.1} @target
     - delay 8
@@ -171,7 +195,10 @@ KK_GriefMark:
     - 'message{cooldown=12;m="&e&lMARCA DEL SACRIFICIO &8» &f<target.name> ha sido elegido como ofrenda."} @PlayersInRadius{r=50}'
     - potion{type=GLOWING;duration=50;level=0} @target
     - potion{type=SLOW;duration=30;level=0} @target
+    - state{mid=kukulkan;s=mark;li=1;lo=2} @self
     - effect:sound{s=block.amethyst_block.hit;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:kukulkan.altar;v=1;p=1} @self
+    - summon{type=KK_FX_Altar;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=REDSTONE;amount=26;hS=0.7;vS=0.8;speed=0.0;color=#ffd23f;size=1.25} @target
     - delay 24
     - effect:particles{particle=FLASH;amount=1} @target
@@ -185,7 +212,10 @@ KK_SharedSorrow:
     - targetwithin{d=24}
   Skills:
     - 'message{cooldown=10;m="&eNo os agrupeis: el veneno de la serpiente salta entre presas cercanas."} @PlayersInRadius{r=50}'
+    - state{mid=kukulkan;s=venom;li=1;lo=2} @self
     - effect:sound{s=entity.allay.hurt;v=0.8;p=0.5} @self
+    - effect:sound{s=dextra:kukulkan.venom;v=1;p=1} @self
+    - summon{type=KK_FX_Venom;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=END_ROD;amount=18;hS=0.8;vS=0.8;speed=0.03} @target
     - delay 10
     - damage{a=142;pk=true} @PlayersInRadius{r=5}
@@ -198,7 +228,10 @@ KK_ShadowHunt:
     - targetwithin{d=24}
   Skills:
     - 'message{cooldown=12;m="&2Las sierpes surgen de entre las piedras de la piramide..."} @PlayersInRadius{r=45}'
+    - state{mid=kukulkan;s=summon;li=1;lo=2} @self
     - effect:sound{s=entity.enderman.teleport;v=0.7;p=0.6} @self
+    - effect:sound{s=dextra:kukulkan.serpent_hiss;v=1;p=1} @self
+    - summon{type=KK_FX_Serpents;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=SMOKE_LARGE;amount=16;hS=0.7;vS=0.7;speed=0.02} @target
     - delay 6
     - summon{type=Kukulkan_Sierpe;amount=2;radius=2;noise=1} @target
@@ -210,7 +243,10 @@ KK_SummonBanshees:
     - mobsinradius{type=Kukulkan_Quetzal;amount=<4;radius=30}
   Skills:
     - 'message{cooldown=12;m="&aLos quetzales responden al canto de su dios."} @PlayersInRadius{r=45}'
+    - state{mid=kukulkan;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.allay.ambient_with_item;v=0.9;p=0.6} @self
+    - effect:sound{s=dextra:kukulkan.summon;v=1;p=1} @self
+    - summon{type=KK_FX_Serpents;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=FLAME;amount=16;hS=0.8;vS=0.8;speed=0.03} @self
     - summon{type=Kukulkan_Quetzal;amount=2;radius=7;noise=2} @self
 
@@ -229,7 +265,10 @@ KK_MassLament:
   Cooldown: 24
   Skills:
     - 'message{cooldown=10;m="&e&lECLIPSE SOLAR &8» &fSeparados resistireis mejor la luz abrasadora."} @PlayersInRadius{r=60}'
+    - state{mid=kukulkan;s=solar;li=2;lo=4} @self
     - effect:sound{s=entity.ghast.scream;v=0.9;p=0.6} @self
+    - effect:sound{s=dextra:kukulkan.solar;v=1;p=1} @self
+    - summon{type=KK_FX_Solar;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=END_ROD;amount=26;hS=1.2;vS=1.0;speed=0.03} @self
     - effect:particles{particle=SMOKE_LARGE;amount=32;hS=1.6;vS=0.7;speed=0.03} @self
     - delay 12
@@ -243,7 +282,10 @@ KK_StormOfSorrow:
   Cooldown: 24
   Skills:
     - 'message{cooldown=10;m="&e&lFURIA DEL SOL &8» &fRayos solares caen sobre la piramide."} @PlayersInRadius{r=60}'
+    - state{mid=kukulkan;s=storm;li=2;lo=3} @self
     - effect:sound{s=entity.lightning_bolt.thunder;v=0.9;p=0.8} @self
+    - effect:sound{s=dextra:kukulkan.sunrays;v=1;p=1} @self
+    - summon{type=KK_FX_Sunrays;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=CLOUD;amount=34;hS=2.0;vS=1.4;speed=0.03;yOffset=1.5} @self
     - effect:particles{particle=ELECTRIC_SPARK;amount=26;hS=1.8;vS=1.3;speed=0.03} @self
     - delay 10
@@ -258,7 +300,10 @@ KK_TormentedProcession:
   Cooldown: 26
   Skills:
     - 'message{cooldown=12;m="&fLos espiritus de las ofrendas suben las escaleras del templo."} @PlayersInRadius{r=50}'
+    - state{mid=kukulkan;s=summon;li=2;lo=4} @self
     - effect:sound{s=block.respawn_anchor.set_spawn;v=0.8;p=0.8} @self
+    - effect:sound{s=dextra:kukulkan.summon;v=1;p=1} @self
+    - summon{type=KK_FX_Serpents;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=END_ROD;amount=22;hS=1.1;vS=1.0;speed=0.03} @self
     - summon{type=Kukulkan_Ofrenda;amount=2;radius=6;noise=2} @self
     - summon{type=Kukulkan_Sierpe;amount=1;radius=5;noise=2} @self
@@ -269,7 +314,10 @@ KK_SummonCastleVindicators:
     - mobsinradius{type=Kukulkan_Jaguar;amount=<3;radius=30}
   Skills:
     - 'message{cooldown=12;m="&a&lKUKULKAN &finvoca a los &6Guerreros Jaguar&f."} @PlayersInRadius{r=50}'
+    - state{mid=kukulkan;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.vindicator.celebrate;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:kukulkan.summon;v=1;p=1} @self
+    - summon{type=KK_FX_Pyramid;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=block.anvil.place;v=0.6;p=0.75} @self
     - effect:particles{particle=END_ROD;amount=22;hS=1.0;vS=0.9;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=30;hS=1.2;vS=0.8;speed=0.0;color=#ffd23f;size=1.2} @self
@@ -304,7 +352,10 @@ KK_EchoOfGrief:
   Conditions:
     - targetwithin{d=40}
   Skills:
+    - state{mid=kukulkan;s=screech;li=1;lo=2} @self
     - effect:sound{s=entity.ghast.warn;v=0.7;p=1.0} @self
+    - effect:sound{s=dextra:kukulkan.screech;v=0.8;p=1.2} @self
+    - summon{type=KK_FX_Screech;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=END_ROD;amount=16;hS=0.6;vS=0.9;speed=0.03} @target
     - delay 8
     - damage{a=104;pk=true} @target
@@ -318,51 +369,68 @@ KK_Death:
   Skills:
     - 'message{m="&a&lKUKULKAN &f: &7El sol... se pone... pero siempre vuelve a salir..."} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.allay.death;v=1.0;p=0.6} @self
+    - effect:sound{s=dextra:kukulkan.death;v=1;p=1} @self
     - effect:sound{s=entity.ghast.death;v=0.5;p=1.2} @self
     - effect:particles{particle=END_ROD;amount=40;hS=1.4;vS=1.2;speed=0.03} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 
 KK_BL_SpawnFX:
   Skills:
+    - state{mid=kk_quetzal;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:kukulkan.quetzal_call;v=0.8;p=1} @self
     - effect:particles{particle=FLAME;amount=10;hS=0.5;vS=0.7;speed=0.03} @self
     - effect:sound{s=entity.vex.ambient;v=0.7;p=0.8} @self
 
 KK_BL_Wail:
   Skills:
+    - state{mid=kk_quetzal;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:kukulkan.quetzal_peck;v=0.8;p=1} @self
     - effect:particles{particle=END_ROD;amount=8;hS=0.4;vS=0.6;speed=0.02} @target
     - potion{type=WEAKNESS;duration=60;level=0} @target
     - potion{type=CONFUSION;duration=40;level=0} @target
 
 KK_LSH_SpawnFX:
   Skills:
+    - state{mid=kk_serpent;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:kukulkan.serpent_hiss;v=0.8;p=1} @self
     - effect:particles{particle=SMOKE_NORMAL;amount=10;hS=0.4;vS=0.3;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=8;hS=0.4;vS=0.3;speed=0.0;color=#ffd23f;size=1.0} @self
 
 KK_LSH_ShadowCut:
   Skills:
+    - state{mid=kk_serpent;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:kukulkan.serpent_bite;v=0.8;p=1} @self
     - effect:particles{particle=SMOKE_LARGE;amount=8;hS=0.4;vS=0.4;speed=0.02} @target
     - potion{type=BLINDNESS;duration=40;level=0} @target
     - potion{type=SLOW;duration=30;level=0} @target
 
 KK_TS_SpawnFX:
   Skills:
+    - state{mid=kk_offering;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:kukulkan.offering_chant;v=0.8;p=1} @self
     - effect:particles{particle=END_ROD;amount=10;hS=0.5;vS=0.8;speed=0.02} @self
     - effect:sound{s=entity.allay.ambient_without_item;v=0.8;p=0.6} @self
 
 KK_TS_LifeDrain:
   Skills:
+    - state{mid=kk_offering;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:kukulkan.offering_drain;v=0.8;p=1} @self
     - effect:particles{particle=END_ROD;amount=8;hS=0.8;vS=0.8;speed=0.02} @self
     - damage{a=65;pk=true} @PlayersInRadius{r=5}
     - heal{a=4} @self
 
 KK_CV_SpawnFX:
   Skills:
+    - state{mid=kk_jaguar;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:kukulkan.jaguar_roar;v=0.8;p=1} @self
     - effect:sound{s=entity.vindicator.ambient;v=0.7;p=0.8} @self
     - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.5;vS=0.8;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=10;hS=0.45;vS=0.8;speed=0.0;color=#ffd23f;size=1.1} @self
 
 KK_CV_CrushingStrike:
   Skills:
+    - state{mid=kk_jaguar;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:kukulkan.jaguar_slash;v=0.8;p=1} @self
     - effect:sound{s=entity.vindicator.hurt;v=0.75;p=0.6} @self
     - effect:sound{s=entity.player.attack.crit;v=0.7;p=0.75} @self
     - effect:particles{particle=SWEEP_ATTACK;amount=1} @self
@@ -372,6 +440,20 @@ KK_CV_CrushingStrike:
     - potion{type=SLOW;duration=35;level=0} @target
 
 # Item summon
+
+KK_FX_Remove:
+  Skills:
+    - remove @self
+
+KK_Melee:
+  Skills:
+    - state{mid=kukulkan;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:kukulkan.strike;v=0.8;p=1} @self
+
+KK_Hurt:
+  Skills:
+    - state{mid=kukulkan;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:kukulkan.hurt;v=0.8;p=1} @self
 
 # --- Fuego amigo ---
 KK_FuegoAmigo:

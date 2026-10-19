@@ -253,6 +253,9 @@ class Model:
             w, h, d = c.size
             items.append((c, 2 * (d + w), d + h))
         items.sort(key=lambda t: -t[2])
+        widest = max((rw for _, rw, _ in items), default=0)
+        while widest > self.ATLAS_W:          # un cubo enorme no cabe en una fila: atlas mas ancho
+            self.ATLAS_W *= 2
         x = y = row_h = 0.0
         for c, rw, rh in items:
             if x + rw > self.ATLAS_W:

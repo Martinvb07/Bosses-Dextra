@@ -15,7 +15,9 @@ Kukulkan:
 
   BossBar:
     Enabled: true
-    Title: "&a&lKUKULKAN"
+    # \u2002 no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/kukulkan.yml)
+    # es la moldura de piedra y jade a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f &a&lKUKULKAN&f "
     Range: 50
     Color: PURPLE
     Style: SEGMENTED_10
@@ -79,7 +81,9 @@ Kukulkan:
    # - Recompensas_llaves
    # - YT_EstrellaInvocacion 1 1
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/kukulkan/kukulkan.bbmodel
   Skills:
+    - model{mid=kukulkan} @self ~onSpawn
     - skill{s=Kukulkan_Rank_Reset} @self ~onSpawn
     - skill{s=Kukulkan_Rank_Sumar} @self ~onDamaged
     - skill{s=Kukulkan_Rank_Muerte} @self ~onDeath
@@ -99,6 +103,8 @@ Kukulkan:
     - skill{s=KK_PlayerKill} @target ~onKill
     - skill{s=KK_Death} @self ~onDeath
     - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=KK_Melee} @self ~onAttack
+    - skill{s=KK_Hurt} @self ~onDamaged 0.35
     - skill{s=KK_InmuneColmillos;sync=true} @self ~onDamaged
 
 
@@ -127,7 +133,10 @@ Kukulkan_Quetzal:
   Drops:
     #- Recompensas_BansheeOfLaments
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/kk_quetzal/kk_quetzal.bbmodel
   Skills:
+    - model{mid=kk_quetzal} @self ~onSpawn
+    - state{mid=kk_quetzal;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=KK_BL_SpawnFX} @self ~onSpawn
     - skill{s=KK_BL_Wail} @target ~onAttack
     - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
@@ -156,7 +165,10 @@ Kukulkan_Sierpe:
   Drops:
     #- Recompensas_LamentShadow
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/kk_serpent/kk_serpent.bbmodel
   Skills:
+    - model{mid=kk_serpent} @self ~onSpawn
+    - state{mid=kk_serpent;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=KK_LSH_SpawnFX} @self ~onSpawn
     - skill{s=KK_LSH_ShadowCut} @target ~onAttack
     - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
@@ -185,7 +197,10 @@ Kukulkan_Ofrenda:
   Drops:
     #- Recompensas_TormentedSpirit
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/kk_offering/kk_offering.bbmodel
   Skills:
+    - model{mid=kk_offering} @self ~onSpawn
+    - state{mid=kk_offering;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=KK_TS_SpawnFX} @self ~onSpawn
     - skill{s=KK_TS_LifeDrain} @self ~onTimer:35
     - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
@@ -223,8 +238,177 @@ Kukulkan_Jaguar:
   Drops:
     #- Recompensas_CastleVindicator_Laments
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/kk_jaguar/kk_jaguar.bbmodel
   Skills:
+    - model{mid=kk_jaguar} @self ~onSpawn
+    - state{mid=kk_jaguar;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=KK_CV_SpawnFX} @self ~onSpawn
     - skill{s=KK_CV_CrushingStrike} @target ~onAttack 0.45
     - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
     - skill{s=KK_InmuneColmillos;sync=true} @self ~onDamaged
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde Kukulkan_Combate.yml con summon{type=KK_FX_...}.
+
+KK_FX_Screech:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kk_fx_screech;hitbox=false} @self ~onSpawn
+    - state{mid=kk_fx_screech;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KK_FX_Remove;delay=28} @self ~onSpawn
+
+KK_FX_Eclipse:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kk_fx_eclipse;hitbox=false} @self ~onSpawn
+    - state{mid=kk_fx_eclipse;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KK_FX_Remove;delay=32} @self ~onSpawn
+
+KK_FX_Siphon:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kk_fx_siphon;hitbox=false} @self ~onSpawn
+    - state{mid=kk_fx_siphon;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KK_FX_Remove;delay=32} @self ~onSpawn
+
+KK_FX_Altar:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kk_fx_altar;hitbox=false} @self ~onSpawn
+    - state{mid=kk_fx_altar;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KK_FX_Remove;delay=40} @self ~onSpawn
+
+KK_FX_Venom:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kk_fx_venom;hitbox=false} @self ~onSpawn
+    - state{mid=kk_fx_venom;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KK_FX_Remove;delay=28} @self ~onSpawn
+
+KK_FX_Solar:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kk_fx_solar;hitbox=false} @self ~onSpawn
+    - state{mid=kk_fx_solar;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KK_FX_Remove;delay=40} @self ~onSpawn
+
+KK_FX_Sunrays:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kk_fx_sunrays;hitbox=false} @self ~onSpawn
+    - state{mid=kk_fx_sunrays;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KK_FX_Remove;delay=36} @self ~onSpawn
+
+KK_FX_Serpents:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kk_fx_serpents;hitbox=false} @self ~onSpawn
+    - state{mid=kk_fx_serpents;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KK_FX_Remove;delay=40} @self ~onSpawn
+
+KK_FX_Pyramid:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kk_fx_pyramid;hitbox=false} @self ~onSpawn
+    - state{mid=kk_fx_pyramid;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KK_FX_Remove;delay=52} @self ~onSpawn
