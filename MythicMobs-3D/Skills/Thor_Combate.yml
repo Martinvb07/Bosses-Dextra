@@ -2,11 +2,23 @@
 # Mecanicas basadas en Mushlord, con lore, subditos y particulas de Thor.
 # Daño de skills escalado x0.97 y umbrales de vida para 4400 HP (curva de dificultad 01->17).
 # Los sacos / ranking siguen en sus archivos de siempre.
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=thor;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:thor.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=..._FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "THOR" como siempre; con pack se ve el logo.
 
 TH_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&b&lTHOR";subtitle="&eCumbre de Asgard &8• &7El Dios del Trueno desciende";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=thor;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§eCumbre de Asgard §8• §7El Dios del Trueno desciende''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.thor'',fallback:''§b§lTHOR'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:thor.intro;v=1;p=1} @self
+    - summon{type=TH_FX_Valhalla;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&b&lTHOR &f: &7¿Osais desafiar al hijo de Odin? ¡Que retumbe el cielo!"} @Server'
     - effect:sound{s=entity.zombie_villager.converted;v=0.7;p=0.7} @self
     - effect:particles{particle=ELECTRIC_SPARK;amount=28;hS=1.0;vS=0.6;speed=0.02} @self
@@ -103,7 +115,10 @@ TH_TransitionCocoon:
     - 'message{cooldown=3;m="&bLa tormenta responde al llamado de su dios..."} @PlayersInRadius{r=55}'
     - potion{type=DAMAGE_RESISTANCE;duration=40;level=5} @self
     - potion{type=SLOW;duration=25;level=6} @self
+    - state{mid=thor;s=phase_change;li=3;lo=4} @self
     - effect:sound{s=block.respawn_anchor.charge;v=0.7;p=0.7} @self
+    - effect:sound{s=dextra:thor.phase;v=1;p=1} @self
+    - summon{type=TH_FX_Absorb;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=ELECTRIC_SPARK;amount=28;hS=1.6;vS=1.0;speed=0.02} @self
     - effect:particles{particle=TOTEM;amount=14;hS=0.8;vS=1.0;speed=0.02} @self
     - delay 12
@@ -149,7 +164,10 @@ TH_ToxicSwipe:
   Conditions:
     - targetwithin{d=5}
   Skills:
+    - state{mid=thor;s=swing;li=1;lo=2} @self
     - effect:sound{s=entity.player.attack.sweep;v=0.8;p=0.8} @self
+    - effect:sound{s=dextra:thor.swing;v=1;p=1} @self
+    - summon{type=TH_FX_Swing;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=ELECTRIC_SPARK;amount=14;hS=0.6;vS=0.3;speed=0.02} @target
     - damage{a=105;pk=true} @target
     - potion{type=POISON;duration=90;level=0} @target
@@ -160,7 +178,10 @@ TH_SporeBolt:
     - targetwithin{d=22}
   Skills:
     - 'message{cooldown=10;m="&eChispas electricas &7surcan el aire..."} @PlayersInRadius{r=35}'
+    - state{mid=thor;s=throw;li=1;lo=2} @self
     - effect:sound{s=entity.llama.spit;v=0.7;p=0.8} @self
+    - effect:sound{s=dextra:thor.throw;v=1;p=1} @self
+    - summon{type=TH_FX_Bolt;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=REDSTONE;amount=20;hS=0.4;vS=0.8;speed=0.0;color=#ffe066;size=1.2} @target
     - delay 8
     - damage{a=88;pk=true} @target
@@ -170,7 +191,10 @@ TH_SporeBolt:
 TH_SporeBurst:
   Cooldown: 16
   Skills:
+    - state{mid=thor;s=slam;li=1;lo=2} @self
     - effect:sound{s=block.fungus.break;v=0.9;p=0.7} @self
+    - effect:sound{s=dextra:thor.shock;v=1;p=1} @self
+    - summon{type=TH_FX_Shock;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=ELECTRIC_SPARK;amount=28;hS=1.4;vS=0.6;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=40;hS=1.8;vS=0.8;speed=0.0;color=#ffe066;size=1.25} @self
     - damage{a=122;pk=true} @PlayersInRadius{r=7}
@@ -180,7 +204,10 @@ TH_ToxicCloud:
   Cooldown: 18
   Skills:
     - 'message{cooldown=10;m="&b&lTHOR &7invoca una &e&lnube de tormenta&7..."} @PlayersInRadius{r=40}'
+    - state{mid=thor;s=call;li=2;lo=3} @self
     - effect:sound{s=block.slime_block.break;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:thor.thunder;v=1;p=1} @self
+    - summon{type=TH_FX_Thunder;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=CLOUD;amount=30;hS=1.5;vS=0.5;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=45;hS=1.8;vS=0.4;speed=0.0;color=#ffe066;size=1.3} @self
     - damage{a=105;pk=true} @PlayersInRadius{r=6}
@@ -196,9 +223,13 @@ TH_ToxicZoneCast:
     - 'message{cooldown=12;m="&e¡Evita los campos electricos!"} @PlayersInRadius{r=45}'
     - effect:particles{particle=REDSTONE;amount=22;hS=0.8;vS=0.2;speed=0.0;color=#ffe066;size=1.25} @target
     - effect:particles{particle=VILLAGER_ANGRY;amount=5;hS=0.6;vS=0.3;speed=0.01} @target
+    - state{mid=thor;s=judgement;li=1;lo=2} @self
     - effect:sound{s=block.slime_block.place;v=0.7;p=0.5} @self
+    - effect:sound{s=dextra:thor.surge;v=0.8;p=1} @self
     - delay 14
     - effect:particles{particle=FLASH;amount=1} @target
+    - summon{type=TH_FX_Bolt;amount=1;radius=0;noise=0} @targetlocation
+    - effect:sound{s=dextra:thor.field_hum;v=1;p=1} @self
     - summon{type=Thor_CampoEstatico;amount=2;radius=2;noise=1} @target
 
 TH_FungalBloom:
@@ -207,6 +238,9 @@ TH_FungalBloom:
     - 'message{cooldown=12;m="&b&lTHOR &7absorbe la energia de los relampagos..."} @PlayersInRadius{r=35}'
     - effect:particles{particle=ELECTRIC_SPARK;amount=25;hS=1.1;vS=0.6;speed=0.02} @self
     - effect:particles{particle=VILLAGER_HAPPY;amount=14;hS=0.8;vS=0.6;speed=0.02} @self
+    - state{mid=thor;s=absorb;li=2;lo=3} @self
+    - effect:sound{s=dextra:thor.absorb;v=1;p=1} @self
+    - summon{type=TH_FX_Absorb;amount=1;radius=0;noise=0} @selflocation
     - potion{type=REGENERATION;duration=100;level=1} @self
     - damage{a=88;pk=true} @PlayersInRadius{r=5}
     - potion{type=POISON;duration=90;level=0} @PlayersInRadius{r=5}
@@ -215,7 +249,10 @@ TH_MycotoxinNova:
   Cooldown: 22
   Skills:
     - 'message{cooldown=10;m="&e&l¡NOVA DE TRUENO!"} @PlayersInRadius{r=50}'
+    - state{mid=thor;s=nova;li=2;lo=3} @self
     - effect:sound{s=entity.wither.shoot;v=0.6;p=0.9} @self
+    - effect:sound{s=dextra:thor.nova;v=1;p=1} @self
+    - summon{type=TH_FX_Nova;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=ELECTRIC_SPARK;amount=22;hS=1.0;vS=0.8;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=60;hS=1.5;vS=0.8;speed=0.0;color=#ffe066;size=1.35} @self
     - delay 10
@@ -230,7 +267,10 @@ TH_PlagueSurge:
   Cooldown: 24
   Skills:
     - 'message{cooldown=10;m="&b&lTHOR &7arrastra a todos con un &e&lmagnetismo atronador&7..."} @PlayersInRadius{r=45}'
+    - state{mid=thor;s=surge;li=2;lo=3} @self
     - effect:sound{s=entity.iron_golem.attack;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:thor.surge;v=1;p=1} @self
+    - summon{type=TH_FX_Nova;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=ELECTRIC_SPARK;amount=30;hS=1.3;vS=0.4;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=40;hS=1.5;vS=0.5;speed=0.0;color=#ffe066;size=1.3} @self
     - pull{velocity=1.3} @PlayersInRadius{r=10}
@@ -244,7 +284,10 @@ TH_CorruptionEruption:
   Cooldown: 28
   Skills:
     - 'message{cooldown=12;m="&e&lERUPCION ELECTRICA &8» &f¡El cielo estalla!"} @PlayersInRadius{r=55}'
+    - state{mid=thor;s=eruption;li=1;lo=3} @self
     - effect:sound{s=entity.generic.explode;v=0.55;p=0.7} @self
+    - effect:sound{s=dextra:thor.eruption;v=1;p=1} @self
+    - summon{type=TH_FX_Eruption;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=FLASH;amount=1} @self
     - effect:particles{particle=CLOUD;amount=45;hS=2.1;vS=0.6;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=85;hS=2.4;vS=0.8;speed=0.0;color=#ffe066;size=1.45} @self
@@ -262,7 +305,10 @@ TH_GardenSentence:
     - 'message{cooldown=10;m="&e&lJUICIO DE MJOLNIR &8» &f¡Sal del circulo!"} @PlayersInRadius{r=50}'
     - potion{type=GLOWING;duration=40;level=0} @target
     - potion{type=SLOW;duration=30;level=1} @target
+    - state{mid=thor;s=judgement;li=2;lo=3} @self
     - effect:sound{s=block.respawn_anchor.set_spawn;v=0.8;p=0.8} @self
+    - effect:sound{s=dextra:thor.judgement;v=1;p=1} @self
+    - summon{type=TH_FX_Judgement;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=REDSTONE;amount=36;hS=1.2;vS=0.2;speed=0.0;color=#ffe066;size=1.35} @target
     - effect:particles{particle=ELECTRIC_SPARK;amount=12;hS=1.1;vS=0.6;speed=0.02} @target
     - delay 24
@@ -321,7 +367,10 @@ TH_PlagueApocalypse:
     - 'message{cooldown=40;m="&e&lRAGNAROK DEL TRUENO &8» &f¡Cubrios o morid!"} @PlayersInRadius{r=60}'
     - potion{type=DAMAGE_RESISTANCE;duration=45;level=3} @self
     - potion{type=SLOW;duration=35;level=6} @self
+    - state{mid=thor;s=ragnarok;li=2;lo=4} @self
     - effect:sound{s=entity.warden.sonic_charge;v=0.75;p=0.7} @self
+    - effect:sound{s=dextra:thor.ragnarok;v=1;p=1} @self
+    - summon{type=TH_FX_Ragnarok;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=ELECTRIC_SPARK;amount=55;hS=2.4;vS=1.2;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=110;hS=2.8;vS=1.3;speed=0.0;color=#ffe066;size=1.6} @self
     - delay 30
@@ -341,6 +390,9 @@ TH_SummonMinions:
   Skills:
     - 'message{cooldown=12;m="&bLos &eEinherjar &bdescienden del Valhalla para luchar junto a Thor..."} @PlayersInRadius{r=40}'
     - effect:particles{particle=BLOCK_CRACK;material=COPPER_BLOCK;amount=25;hS=0.9;vS=0.5;speed=0.08} @self
+    - state{mid=thor;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:thor.summon;v=1;p=1} @self
+    - summon{type=TH_FX_Valhalla;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Thor_Einherjar;amount=2;radius=6;noise=2} @self
     - summon{type=Thor_CreeperTormenta;amount=1;radius=6;noise=2} @self
 
@@ -350,6 +402,9 @@ TH_SummonSpores:
     - mobsinradius{type=Thor_Chispa;amount=<5;radius=30}
   Skills:
     - effect:particles{particle=REDSTONE;amount=28;hS=1.0;vS=0.7;speed=0.0;color=#ffe066;size=1.2} @self
+    - state{mid=thor;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:thor.summon;v=1;p=1} @self
+    - summon{type=TH_FX_Valhalla;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Thor_Chispa;amount=3;radius=5;noise=2} @self
 
 TH_AntiKite:
@@ -375,20 +430,27 @@ TH_Death:
   Skills:
     - 'message{m="&b&lTHOR &f: &7El trueno... se apaga... pero volvera a sonar..."} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.zombie_villager.cure;v=0.8;p=0.5} @self
+    - effect:sound{s=dextra:thor.death;v=1;p=1} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 
 TH_MZ_SpawnFX:
   Skills:
+    - state{mid=th_einherjar;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:thor.einherjar_cry;v=0.8;p=1} @self
     - effect:particles{particle=BLOCK_CRACK;material=COPPER_BLOCK;amount=14;hS=0.5;vS=0.3;speed=0.08} @self
     - effect:sound{s=entity.zombie.ambient;v=0.7;p=0.8} @self
 
 TH_MZ_ToxicHit:
   Skills:
+    - state{mid=th_einherjar;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:thor.einherjar_chop;v=0.8;p=1} @self
     - damage{a=44;pk=true} @target
     - potion{type=POISON;duration=80;level=0} @target
 
 TH_TSC_SpawnFX:
   Skills:
+    - state{mid=th_creeper;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:thor.creeper_hiss;v=0.8;p=1} @self
     - effect:particles{particle=ELECTRIC_SPARK;amount=12;hS=0.5;vS=0.3;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=14;hS=0.6;vS=0.5;speed=0.0;color=#ffe066;size=1.15} @self
     - effect:sound{s=entity.creeper.hurt;v=0.55;p=0.7} @self
@@ -402,6 +464,8 @@ TH_TSC_PrimeCheck:
 
 TH_TSC_PrimeExplode:
   Skills:
+    - state{mid=th_creeper;s=attack;li=0;lo=0} @self
+    - effect:sound{s=dextra:thor.creeper_hiss;v=0.8;p=1} @self
     - 'message{cooldown=8;m="&eUn creeper de tormenta empieza a chisporrotear..."} @PlayersInRadius{r=22}'
     - effect:sound{s=entity.creeper.primed;v=0.9;p=0.8} @self
     - effect:particles{particle=REDSTONE;amount=22;hS=0.8;vS=0.6;speed=0.0;color=#ffe066;size=1.2} @self
@@ -410,6 +474,7 @@ TH_TSC_PrimeExplode:
     - delay 18
     - effect:particles{particle=FLASH;amount=1} @self
     - effect:sound{s=entity.generic.explode;v=0.75;p=0.85} @self
+    - effect:sound{s=dextra:thor.creeper_boom;v=0.9;p=1} @self
     - effect:particles{particle=CLOUD;amount=38;hS=1.5;vS=0.6;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=55;hS=1.7;vS=0.7;speed=0.0;color=#ffe066;size=1.35} @self
     - damage{a=105;pk=true} @PlayersInRadius{r=4}
@@ -419,6 +484,8 @@ TH_TSC_PrimeExplode:
 
 TH_MPB_Spawn:
   Skills:
+    - state{mid=th_cloud;s=spawn;li=0;lo=0} @self
+    - effect:sound{s=dextra:thor.cloud_rumble;v=0.8;p=1} @self
     - effect:particles{particle=CLOUD;amount=35;hS=1.8;vS=0.3;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=30;hS=1.7;vS=0.2;speed=0.0;color=#ffe066;size=1.35} @self
     - effect:particles{particle=CLOUD;amount=15;hS=1.5;vS=0.2;speed=0.02} @self
@@ -435,11 +502,15 @@ TH_MPB_Tick:
 
 TH_LS_SpawnFX:
   Skills:
+    - state{mid=th_spark;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:thor.spark_buzz;v=0.8;p=1} @self
     - effect:particles{particle=REDSTONE;amount=12;hS=0.4;vS=0.5;speed=0.0;color=#ffe066;size=1.1} @self
     - effect:sound{s=entity.silverfish.ambient;v=0.5;p=1.2} @self
 
 TH_LS_PoisonCloud:
   Skills:
+    - state{mid=th_spark;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:thor.spark_pop;v=0.8;p=1} @self
     - effect:particles{particle=CLOUD;amount=16;hS=0.8;vS=0.3;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=18;hS=0.9;vS=0.4;speed=0.0;color=#ffe066;size=1.15} @self
     - damage{a=35;ia=true} @PlayersInRadius{r=3}
@@ -453,6 +524,8 @@ TH_LS_DeathBurst:
 
 TH_MTZ_Spawn:
   Skills:
+    - state{mid=th_field;s=spawn;li=0;lo=0} @self
+    - effect:sound{s=dextra:thor.field_hum;v=0.7;p=1} @self
     - effect:particles{particle=REDSTONE;amount=45;hS=1.9;vS=0.1;speed=0.0;color=#ffe066;size=1.45} @self
     - effect:particles{particle=CLOUD;amount=12;hS=1.5;vS=0.2;speed=0.02} @self
     - delay 260
@@ -468,6 +541,20 @@ TH_MTZ_Tick:
     - potion{type=SLOW;duration=50;level=0} @PlayersInRadius{r=4}
 
 # Item summon
+
+TH_FX_Remove:
+  Skills:
+    - remove @self
+
+TH_Melee:
+  Skills:
+    - state{mid=thor;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:thor.swing;v=0.8;p=1} @self
+
+TH_Hurt:
+  Skills:
+    - state{mid=thor;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:thor.hurt;v=0.8;p=1} @self
 
 # --- Fuego amigo ---
 TH_FuegoAmigo:

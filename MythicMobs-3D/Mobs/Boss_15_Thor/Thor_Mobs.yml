@@ -20,7 +20,9 @@ Thor:
 
   BossBar:
     Enabled: true
-    Title: "&b&lTHOR"
+    # \xa0 no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/thor.yml)
+    # es la moldura de acero y rayos a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f &b&lTHOR&f "
     Range: 50
     Color: BLUE
     Style: SEGMENTED_10
@@ -84,7 +86,9 @@ Thor:
    # - Recompensas_llaves
    # - LL_EstrellaInvocacion 1 1
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/thor/thor.bbmodel
   Skills:
+    - model{mid=thor} @self ~onSpawn
     - skill{s=Thor_Rank_Reset} @self ~onSpawn
     - skill{s=Thor_Rank_Sumar} @self ~onDamaged
     - skill{s=Thor_Rank_Muerte} @self ~onDeath
@@ -108,6 +112,8 @@ Thor:
     - skill{s=TH_PlayerKill} @target ~onKill
     - skill{s=TH_Death} @self ~onDeath
     - skill{s=TH_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=TH_Melee} @self ~onAttack
+    - skill{s=TH_Hurt} @self ~onDamaged 0.35
 
 
 # --- Subditos de Thor ---
@@ -140,7 +146,10 @@ Thor_Einherjar:
   Drops:
     #- Recompensas_MushZombie
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/th_einherjar/th_einherjar.bbmodel
   Skills:
+    - model{mid=th_einherjar} @self ~onSpawn
+    - state{mid=th_einherjar;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=TH_MZ_SpawnFX} @self ~onSpawn
     - skill{s=TH_MZ_ToxicHit} @target ~onAttack
     - skill{s=TH_FuegoAmigo;sync=true} @self ~onDamaged
@@ -165,7 +174,10 @@ Thor_CreeperTormenta:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/th_creeper/th_creeper.bbmodel
   Skills:
+    - model{mid=th_creeper} @self ~onSpawn
+    - state{mid=th_creeper;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=TH_TSC_SpawnFX} @self ~onSpawn
     - skill{s=TH_TSC_PrimeCheck} @target ~onTimer:15
     - skill{s=TH_FuegoAmigo;sync=true} @self ~onDamaged
@@ -193,7 +205,10 @@ Thor_Chispa:
   Drops:
     #- Recompensas_LivingSpore
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/th_spark/th_spark.bbmodel
   Skills:
+    - model{mid=th_spark} @self ~onSpawn
+    - state{mid=th_spark;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=TH_LS_SpawnFX} @self ~onSpawn
     - skill{s=TH_LS_PoisonCloud} @self ~onTimer:40
     - skill{s=TH_LS_DeathBurst} @self ~onDeath
@@ -214,7 +229,9 @@ Thor_CampoEstatico:
     PreventOtherDrops: true
     PreventRandomEquipment: true
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/th_field/th_field.bbmodel (placa de cobre con arcos electricos)
   Skills:
+    - model{mid=th_field;hitbox=false} @self ~onSpawn
     - skill{s=TH_MTZ_Spawn} @self ~onSpawn
     - skill{s=TH_MTZ_Tick} @self ~onTimer:10
 
@@ -233,6 +250,192 @@ Thor_NubeTormenta:
     PreventOtherDrops: true
     PreventRandomEquipment: true
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/th_cloud/th_cloud.bbmodel (nube con rayos que caen)
   Skills:
+    - model{mid=th_cloud;hitbox=false} @self ~onSpawn
     - skill{s=TH_MPB_Spawn} @self ~onSpawn
     - skill{s=TH_MPB_Tick} @self ~onTimer:10
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde Thor_Combate.yml con summon{type=TH_FX_...}.
+
+TH_FX_Swing:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=th_fx_swing;hitbox=false} @self ~onSpawn
+    - state{mid=th_fx_swing;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=TH_FX_Remove;delay=16} @self ~onSpawn
+
+TH_FX_Bolt:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=th_fx_bolt;hitbox=false} @self ~onSpawn
+    - state{mid=th_fx_bolt;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=TH_FX_Remove;delay=24} @self ~onSpawn
+
+TH_FX_Shock:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=th_fx_shock;hitbox=false} @self ~onSpawn
+    - state{mid=th_fx_shock;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=TH_FX_Remove;delay=22} @self ~onSpawn
+
+TH_FX_Thunder:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=th_fx_thunder;hitbox=false} @self ~onSpawn
+    - state{mid=th_fx_thunder;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=TH_FX_Remove;delay=32} @self ~onSpawn
+
+TH_FX_Absorb:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=th_fx_absorb;hitbox=false} @self ~onSpawn
+    - state{mid=th_fx_absorb;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=TH_FX_Remove;delay=28} @self ~onSpawn
+
+TH_FX_Nova:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=th_fx_nova;hitbox=false} @self ~onSpawn
+    - state{mid=th_fx_nova;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=TH_FX_Remove;delay=30} @self ~onSpawn
+
+TH_FX_Eruption:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=th_fx_eruption;hitbox=false} @self ~onSpawn
+    - state{mid=th_fx_eruption;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=TH_FX_Remove;delay=32} @self ~onSpawn
+
+TH_FX_Judgement:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=th_fx_judgement;hitbox=false} @self ~onSpawn
+    - state{mid=th_fx_judgement;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=TH_FX_Remove;delay=40} @self ~onSpawn
+
+TH_FX_Ragnarok:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=th_fx_ragnarok;hitbox=false} @self ~onSpawn
+    - state{mid=th_fx_ragnarok;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=TH_FX_Remove;delay=48} @self ~onSpawn
+
+TH_FX_Valhalla:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=th_fx_valhalla;hitbox=false} @self ~onSpawn
+    - state{mid=th_fx_valhalla;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=TH_FX_Remove;delay=40} @self ~onSpawn

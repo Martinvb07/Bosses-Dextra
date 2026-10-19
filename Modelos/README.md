@@ -18,7 +18,7 @@ Hay una carpeta por boss, con el mismo numero que en `MythicMobs-3D/Mobs/Boss_XX
 | 12 | [Leviatan](12_Leviatan/) | ✅ con modelos |
 | 13 | [Xylar](13_Xylar/) | ✅ con modelos |
 | 14 | [Samhain](14_Samhain/) | ✅ con modelos |
-| 15 | [Thor](15_Thor/) | pendiente |
+| 15 | [Thor](15_Thor/) | ✅ con modelos |
 | 16 | [Kukulkan](16_Kukulkan/) | pendiente |
 | 17 | [Nezareth](17_Nezareth/) | pendiente |
 
