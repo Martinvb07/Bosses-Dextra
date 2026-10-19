@@ -1,0 +1,94 @@
+# Leviatan - Sacos de recompensa por puesto en el ranking de dano.
+# Click derecho -> ver Skills/Leviatan_Skills.yml
+# El puesto ya viene decidido en el item, asi que cada saco entrega siempre lo mismo.
+
+Saco_Leviatan_Top1:
+  Id: YELLOW_DYE
+  Display: "&3&lSaco de Leviatan &8• &e&l1er Lugar"
+  Lore:
+    - "&7Perlas negras del fondo del abismo,"
+    - "&7para quien partio la coraza del Rey."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &3&lLEVIATAN"
+  Skills:
+    - skill{s=Leviatan_Saco_Top1} @Self ~onRightClick
+
+Saco_Leviatan_Top2:
+  Id: WHITE_DYE
+  Display: "&3&lSaco de Leviatan &8• &f&l2do Lugar"
+  Lore:
+    - "&7Casi lo arrastras a la superficie."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &3&lLEVIATAN"
+  Skills:
+    - skill{s=Leviatan_Saco_Top2} @Self ~onRightClick
+
+Saco_Leviatan_Top3:
+  Id: ORANGE_DYE
+  Display: "&3&lSaco de Leviatan &8• &6&l3er Lugar"
+  Lore:
+    - "&7La marea guardara tu nombre."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &3&lLEVIATAN"
+  Skills:
+    - skill{s=Leviatan_Saco_Top3} @Self ~onRightClick
+
+Saco_Leviatan_Consuelo:
+  Id: GRAY_DYE
+  Display: "&8&lSaco de Leviatan &8• &7Participante"
+  Lore:
+    - "&7Resististe la presion del abismo,"
+    - "&7aunque no entraste en el podio."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &3&lLEVIATAN"
+  Skills:
+    - skill{s=Leviatan_Saco_Consuelo} @Self ~onRightClick
+
+# Estrella de invocacion -> skill LV_ItemSummon en Skills/Leviatan_Combate.yml
+Leviatan_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&3&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &3&lLEVIATAN&7."
+    - "&8(Usala en su altar de /warp bosses)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=LV_ItemSummon} @Self ~onRightClick
+    - skill{s=LV_ItemSummon} @Self ~onUse
+
+# --- Equipo propio de Leviatan (antes usaba el de otro boss) ---
+
+LV_ArmaduraInvisible:
+  Id: PUMPKIN_SEEDS
+  Display: "&f"
+  Lore:
+    - ""
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:175
+  ItemFlags:
+    - HIDE_ENCHANTS
+    - HIDE_ATTRIBUTES
+    - HIDE_ADDITIONAL_TOOLTIP
+  Options:
+    Unbreakable: true
+
+LV_CoronaAbismo:
+  Id: GOLDEN_HELMET
+  Display: "&3Corona del Abismo"
+  Lore:
+    - "&8Corona de &3&lLEVIATAN"
+  Trim: diamond.tide
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true

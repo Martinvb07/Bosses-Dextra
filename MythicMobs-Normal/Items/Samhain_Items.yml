@@ -1,0 +1,161 @@
+# Samhain - Sacos de recompensa por puesto en el ranking de dano.
+# Click derecho -> ver Skills/Samhain_Skills.yml
+# El puesto ya viene decidido en el item, asi que cada saco entrega siempre lo mismo.
+
+Saco_Samhain_Top1:
+  Id: YELLOW_DYE
+  Display: "&6&lSaco de Samhain &8• &e&l1er Lugar"
+  Lore:
+    - "&7Calabazas malditas llenas de botin,"
+    - "&7para quien apago su ultima vela."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &6&lSAMHAIN"
+  Skills:
+    - skill{s=Samhain_Saco_Top1} @Self ~onRightClick
+
+Saco_Samhain_Top2:
+  Id: WHITE_DYE
+  Display: "&6&lSaco de Samhain &8• &f&l2do Lugar"
+  Lore:
+    - "&7Las animas ya susurran tu nombre."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &6&lSAMHAIN"
+  Skills:
+    - skill{s=Samhain_Saco_Top2} @Self ~onRightClick
+
+Saco_Samhain_Top3:
+  Id: ORANGE_DYE
+  Display: "&6&lSaco de Samhain &8• &6&l3er Lugar"
+  Lore:
+    - "&7Sobreviviste a la noche mas larga."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &6&lSAMHAIN"
+  Skills:
+    - skill{s=Samhain_Saco_Top3} @Self ~onRightClick
+
+Saco_Samhain_Consuelo:
+  Id: GRAY_DYE
+  Display: "&8&lSaco de Samhain &8• &7Participante"
+  Lore:
+    - "&7Pasaste la noche de Samhain con vida,"
+    - "&7aunque no entraste en el podio."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &6&lSAMHAIN"
+  Skills:
+    - skill{s=Samhain_Saco_Consuelo} @Self ~onRightClick
+
+# Estrella de invocacion -> skill SH_ItemSummon en Skills/Samhain_Combate.yml
+Samhain_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&6&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &6&lSAMHAIN&7."
+    - "&8(Usala en su altar de /warp bosses)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=SH_ItemSummon} @Self ~onRightClick
+    - skill{s=SH_ItemSummon} @Self ~onUse
+
+# --- Equipo propio de Samhain (antes usaba el de otro boss) ---
+
+SH_TunicaAnimas:
+  Id: LEATHER_CHESTPLATE
+  Display: "&6Tunica de las Animas"
+  Lore:
+    - "&8Armadura de &6&lSAMHAIN"
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:219
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Color: 35,25,35
+
+SH_PantalonesAnimas:
+  Id: LEATHER_LEGGINGS
+  Display: "&6Pantalones de las Animas"
+  Lore:
+    - "&8Armadura de &6&lSAMHAIN"
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:219
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Color: 210,95,20
+
+SH_BotasAnimas:
+  Id: LEATHER_BOOTS
+  Display: "&6Botas de las Animas"
+  Lore:
+    - "&8Armadura de &6&lSAMHAIN"
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:219
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Color: 35,25,35
+
+SH_CamisaEspantapajaros:
+  Id: LEATHER_CHESTPLATE
+  Display: "&6Camisa de Espantapajaros"
+  Lore:
+    - "&8Equipo de los subditos de &6&lSAMHAIN"
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Color: 150,105,50
+
+SH_PantalonEspantapajaros:
+  Id: LEATHER_LEGGINGS
+  Display: "&6Pantalon de Espantapajaros"
+  Lore:
+    - "&8Equipo de los subditos de &6&lSAMHAIN"
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Color: 95,75,45
+
+SH_BotasEspantapajaros:
+  Id: LEATHER_BOOTS
+  Display: "&6Botas de Espantapajaros"
+  Lore:
+    - "&8Equipo de los subditos de &6&lSAMHAIN"
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Color: 70,50,30
+
+SH_CapaJinete:
+  Id: LEATHER_CHESTPLATE
+  Display: "&8Capa del Jinete"
+  Lore:
+    - "&8Equipo de los subditos de &6&lSAMHAIN"
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Color: 30,20,30

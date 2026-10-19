@@ -1,0 +1,59 @@
+# Yeti items
+Yeti_ArmaduraInvisible:
+  Id: PUMPKIN_SEEDS
+  Display: "&f"
+  Lore:
+    - ""
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:539
+  ItemFlags:
+    - HIDE_ENCHANTS
+    - HIDE_ATTRIBUTES
+    - HIDE_ADDITIONAL_TOOLTIP
+  Options:
+    Unbreakable: true
+
+YT_NucleoDeHielo:
+  Id: HEART_OF_THE_SEA
+  Display: "&b&lNucleo de hielo"
+  Lore:
+    - "&7Un corazon helado que aun late bajo la escarcha."
+    - "&7La montana guarda su frio en este nucleo."
+    - ""
+    - "&8Recompensa de &b&lYETI"
+  Options:
+    Glowing: true
+
+YT_LlaveCongelada:
+  Id: TRIPWIRE_HOOK
+  Display: "&b&lLlave congelada"
+  Lore:
+    - "&7Una llave cubierta por capas de hielo antiguo."
+    - "&7Abre puertas selladas por el invierno eterno."
+    - ""
+    - "&8Recompensa de &b&lYETI"
+  Options:
+    Glowing: true
+
+YT_PielDeYeti:
+  Id: WHITE_WOOL
+  Display: "&f&lPiel de Yeti"
+  Lore:
+    - "&7Gruesa, fria y resistente como la tormenta."
+    - "&7Aun conserva la fuerza de la bestia."
+    - ""
+    - "&8Recompensa de &b&lYETI"
+  Options:
+    Glowing: true
+
+YT_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&b&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &b&lYETI&7."
+    - "&8(Usala en su altar de invocacion)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=Yeti_ItemSummon} @Self ~onRightClick
+    - skill{s=Yeti_ItemSummon} @Self ~onUse

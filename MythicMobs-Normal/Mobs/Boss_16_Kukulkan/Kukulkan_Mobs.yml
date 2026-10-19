@@ -1,0 +1,230 @@
+# Kukulkan
+
+Kukulkan:
+  Type: EVOKER
+  Display: "&a&lKUKULKAN &8• &ala Serpiente Solar"
+  Health: 4600
+  Damage: 92
+  Armor: 4274
+  Faction: Boss_Kukulkan
+  Modules:
+    ThreatTable: true
+
+  Equipment:
+    - KK_ArmaduraInvisible:CHEST
+
+  BossBar:
+    Enabled: true
+    Title: "&a&lKUKULKAN"
+    Range: 50
+    Color: PURPLE
+    Style: SEGMENTED_10
+
+  Options:
+    Despawn: false
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.29
+    FollowRange: 40
+    KnockbackResistance: 0.68
+    PreventSunburn: true
+    UseThreatTable: true
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  DropOptions:
+    DropMethod: FANCY
+    ShowDeathChatMessage: true
+    ShowDeathHologram: true
+    PerPlayerDrops: true
+    ClientSideDrops: true
+    Lootsplosion: true
+    HologramItemNames: true
+    ItemGlowByDefault: true
+    ItemBeamByDefault: true
+    ItemVFXByDefault: false
+    RequiredDamagePercent: 25
+    HologramTimeout: 15
+    HologramMessage:
+      - "<#F2B600>========================"
+      - "<#FFD600>KUKULKAN 4600 HP"
+      - ""
+      - "<#FFA300>1er Lugar | <1.name> | <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> | <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> | <3.damage>"
+      - ""
+      - "Posicion: #<player.rank> | <player.damage>"
+      - "<#F2B600>========================"
+    ChatMessage:
+      - "<#F2B600>===================================="
+      - "<#FFD600>JEFE DERROTADO!"
+      - "<#FFD600>KUKULKAN 4600 HP"
+      - ""
+      - "<#ffe259>1er Lugar | <1.name> - <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> - <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> - <3.damage>"
+      - ""
+      - "<#F2B600>Posicion: #<player.rank> - <player.damage>"
+      - "<#F2B600>===================================="
+
+  Drops:
+    - Kukulkan_Nada 1 1
+   # - Recompensas_xp
+   # - Recompensas_runas
+   # - Recompensas_dinero
+   # - Recompensas_llaves
+   # - YT_EstrellaInvocacion 1 1
+
+  Skills:
+    - skill{s=Kukulkan_Rank_Reset} @self ~onSpawn
+    - skill{s=Kukulkan_Rank_Sumar} @self ~onDamaged
+    - skill{s=Kukulkan_Rank_Muerte} @self ~onDeath
+
+    - skill{s=KK_Spawn} @self ~onSpawn
+    - skill{s=KK_AcquireTarget} @self ~onTimer:10
+    - skill{s=KK_HP70_Check} @self ~onTimer:20
+    - skill{s=KK_HP40_Check} @self ~onTimer:20
+    - skill{s=KK_Phase2_Check} @self ~onTimer:20
+    - skill{s=KK_Phase3_Check} @self ~onTimer:20
+    - skill{s=KK_Phase4_Check} @self ~onTimer:20
+    - skill{s=KK_Aura} @self ~onTimer:10
+    - skill{s=KK_Attack_Rotation} @self ~onTimer:10
+    - skill{s=KK_SummonCycle} @self ~onTimer:70
+    - skill{s=KK_BansheeChorus} @self ~onTimer:40
+    - skill{s=KK_AntiKite} @self ~onTimer:35
+    - skill{s=KK_PlayerKill} @target ~onKill
+    - skill{s=KK_Death} @self ~onDeath
+    - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=KK_InmuneColmillos;sync=true} @self ~onDamaged
+
+
+# --- Subditos de Kukulkan ---
+
+Kukulkan_Quetzal:
+  Type: VEX
+  Display: "&aQuetzal Espectral"
+  Health: 189
+  Damage: 16
+  Faction: Boss_Kukulkan
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.34
+    FollowRange: 28
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_BansheeOfLaments
+
+  Skills:
+    - skill{s=KK_BL_SpawnFX} @self ~onSpawn
+    - skill{s=KK_BL_Wail} @target ~onAttack
+    - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=KK_InmuneColmillos;sync=true} @self ~onDamaged
+
+Kukulkan_Sierpe:
+  Type: ENDERMITE
+  Display: "&2Sierpe Solar"
+  Health: 153
+  Damage: 19
+  Faction: Boss_Kukulkan
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: true
+    MovementSpeed: 0.35
+    FollowRange: 30
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_LamentShadow
+
+  Skills:
+    - skill{s=KK_LSH_SpawnFX} @self ~onSpawn
+    - skill{s=KK_LSH_ShadowCut} @target ~onAttack
+    - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=KK_InmuneColmillos;sync=true} @self ~onDamaged
+
+Kukulkan_Ofrenda:
+  Type: ALLAY
+  Display: "&eEspiritu de la Ofrenda"
+  Health: 135
+  Damage: 0
+  Faction: Boss_Kukulkan
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: true
+    MovementSpeed: 0.28
+    FollowRange: 26
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_TormentedSpirit
+
+  Skills:
+    - skill{s=KK_TS_SpawnFX} @self ~onSpawn
+    - skill{s=KK_TS_LifeDrain} @self ~onTimer:35
+    - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=KK_InmuneColmillos;sync=true} @self ~onDamaged
+
+Kukulkan_Jaguar:
+  Type: VINDICATOR
+  Display: "&6Guerrero Jaguar"
+  Health: 369
+  Damage: 32
+  Armor: 476
+  Faction: Boss_Kukulkan
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 30
+    KnockbackResistance: 0.40
+
+  Equipment:
+    - STONE_SWORD:HAND
+    - KK_CascoJaguar:HEAD
+    - KK_PetoJaguar:CHEST
+    - KK_GrebasJaguar:LEGS
+    - KK_SandaliasJaguar:FEET
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_CastleVindicator_Laments
+
+  Skills:
+    - skill{s=KK_CV_SpawnFX} @self ~onSpawn
+    - skill{s=KK_CV_CrushingStrike} @target ~onAttack 0.45
+    - skill{s=KK_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=KK_InmuneColmillos;sync=true} @self ~onDamaged

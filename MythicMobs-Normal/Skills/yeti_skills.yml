@@ -1,0 +1,310 @@
+Yeti_Spawn:
+  Skills:
+    - setstance{stance=PHASE1} @self
+    - 'title{title="&b&lYETI";subtitle="&fIce Biome &8• &7Bestia del Invierno Eterno";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - 'message{m="&b&lYETI &f: &7Intrusos... en mi montana..."} @Server'
+    - effect:sound{s=entity.iron_golem.damage;v=0.8;p=0.6} @self
+    - effect:sound{s=entity.polar_bear.warning;v=0.9;p=0.6} @self
+    - effect:particles{particle=SNOWFLAKE;amount=34;hS=1.2;vS=1.0;speed=0.03} @self
+    - effect:particles{particle=BLOCK_CRACK;material=BLUE_ICE;amount=28;hS=1.0;vS=0.6;speed=0.09} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=70;level=2} @self
+    - delay 2
+    - settarget @NearestPlayer{r=42}
+
+Yeti_AcquireTarget:
+  Conditions:
+    - targetwithin{d=9999} false
+  Skills:
+    - settarget @NearestPlayer{r=42}
+
+Yeti_HP70_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<2240}
+  Skills:
+    - 'message{m="&b&lYETI &f: &7La horda os destrozara."} @PlayersInRadius{r=60}'
+
+Yeti_HP40_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1280}
+  Skills:
+    - 'message{m="&b&lYETI &f: &7El invierno... os sepultara."} @PlayersInRadius{r=60}'
+
+Yeti_Phase2_Check:
+  Conditions:
+    - stance{stance=PHASE1}
+    - health{h=<2240}
+  Skills:
+    - skill{s=Yeti_PhaseShield} @self
+    - setstance{stance=PHASE2} @self
+    - 'message{cooldown=9999;m="&fLa nieve cruje... &bLos cazadores del Yeti despiertan."} @PlayersInRadius{r=60}'
+    - effect:sound{s=entity.zombie.ambient;v=0.8;p=0.7} @self
+    - effect:particles{particle=SNOWFLAKE;amount=45;hS=1.6;vS=0.8;speed=0.04} @self
+    - skill{s=Yeti_SummonHunters} @self
+    - potion{type=SPEED;duration=220;level=0} @self
+    - potion{type=INCREASE_DAMAGE;duration=220;level=0} @self
+
+Yeti_Phase3_Check:
+  Conditions:
+    - stance{stance=PHASE2}
+    - health{h=<1280}
+  Skills:
+    - skill{s=Yeti_PhaseShield} @self
+    - setstance{stance=PHASE3_LOCKED} @self
+    - 'message{cooldown=9999;m="&b&lVENTISCA INTENSA &8» &fDerrota primero a sus subditos para romper el escudo."} @PlayersInRadius{r=70}'
+    - effect:sound{s=entity.blaze.shoot;v=0.5;p=0.5} @self
+    - effect:sound{s=weather.rain.above;v=0.9;p=0.6} @self
+    - effect:particles{particle=CLOUD;amount=70;hS=2.4;vS=1.1;speed=0.03} @self
+    - effect:particles{particle=SNOWFLAKE;amount=90;hS=2.5;vS=1.2;speed=0.06} @self
+    - skill{s=Yeti_IntenseBlizzard} @self
+    - skill{s=Yeti_SummonShieldMinions} @self
+    - potion{type=SPEED;duration=240;level=1} @self
+    - potion{type=INCREASE_DAMAGE;duration=240;level=1} @self
+
+Yeti_PhaseShield:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
+    - effect:particles{particle=END_ROD;amount=20;hS=0.9;vS=1.0;speed=0.02} @self
+
+Yeti_SubjugationShield:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=30;level=10} @self ?stance{stance=PHASE3_LOCKED}
+    - effect:particles{particle=END_ROD;amount=30;hS=1.1;vS=1.2;speed=0.02} @self ?stance{stance=PHASE3_LOCKED}
+    - skill{s=Yeti_SubjugationRelease} @self
+
+Yeti_SubjugationRelease:
+  Conditions:
+    - stance{stance=PHASE3_LOCKED}
+    - mobsinradius{type=FrostBrute_Yeti;amount=<1;radius=35}
+    - mobsinradius{type=GlacierRaider_Yeti;amount=<1;radius=35}
+    - mobsinradius{type=BlizzardSpirit_Yeti;amount=<1;radius=35}
+  Skills:
+    - setstance{stance=PHASE3} @self
+    - 'message{cooldown=9999;m="&b&lYETI &fqueda vulnerable al caer sus subditos."} @PlayersInRadius{r=70}'
+    - effect:sound{s=block.glass.break;v=0.9;p=0.6} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+
+Yeti_SnowPresence:
+  Skills:
+    - effect:particles{particle=SNOWFLAKE;amount=16;hS=1.8;vS=1.0;speed=0.03} @self
+    - effect:particles{particle=CLOUD;amount=6;hS=1.2;vS=0.6;speed=0.02} @self ?stance{stance=PHASE3}
+    - effect:particles{particle=CLOUD;amount=10;hS=1.5;vS=0.8;speed=0.03} @self ?stance{stance=PHASE3_LOCKED}
+
+Yeti_Roar:
+  Conditions:
+    - targetwithin{d=9999} true
+  Skills:
+    - effect:sound{s=entity.polar_bear.warning;v=1.0;p=0.55} @self
+    - effect:sound{s=entity.iron_golem.damage;v=0.8;p=0.5} @self
+    - effect:particles{particle=SNOWFLAKE;amount=24;hS=1.4;vS=1.0;speed=0.04} @self
+
+Yeti_FrozenAura:
+  Skills:
+    - effect:particles{particle=SNOWFLAKE;amount=14;hS=1.6;vS=0.8;speed=0.03} @self
+    - potion{type=SLOW;duration=45;level=1} @PlayersInRadius{r=5}
+    - potion{type=WEAKNESS;duration=40;level=0} @PlayersInRadius{r=5} ?stance{stance=PHASE3}
+
+Yeti_Attack_Rotation:
+  Skills:
+    - randomskill{skills=Yeti_IceSmash,Yeti_IceRockThrow,Yeti_FrostNova,Yeti_GroundShatter;weights=3,3,2,2} @target ?stance{stance=PHASE1}
+    - randomskill{skills=Yeti_IceSmash,Yeti_IceRockThrow,Yeti_FrostNova,Yeti_GroundShatter,Yeti_SummonHunters;weights=3,3,2,2,2} @target ?stance{stance=PHASE2}
+    - randomskill{skills=Yeti_IntenseBlizzard,Yeti_IceRockBarrage,Yeti_FrostNova,Yeti_GroundShatter,Yeti_IceSmash;weights=3,2,2,3,2} @target ?stance{stance=PHASE3_LOCKED}
+    - randomskill{skills=Yeti_IntenseBlizzard,Yeti_IceRockBarrage,Yeti_FrostNova,Yeti_GroundShatter,Yeti_IceSmash;weights=3,3,2,3,2} @target ?stance{stance=PHASE3}
+
+Yeti_GroundShatter:
+  Cooldown: 18
+  Skills:
+    - 'message{cooldown=10;m="&b&lGOLPE AL SUELO &8» &fApartaos del impacto."} @PlayersInRadius{r=45}'
+    - effect:sound{s=entity.iron_golem.attack;v=1.0;p=0.5} @self
+    - effect:sound{s=entity.generic.explode;v=0.65;p=0.8} @self
+    - effect:particles{particle=BLOCK_CRACK;material=PACKED_ICE;amount=85;hS=2.0;vS=0.5;speed=0.12} @self
+    - delay 8
+    - damage{a=67;pk=true} @PlayersInRadius{r=7}
+    - throw{velocity=1.6;velocityY=0.55} @PlayersInRadius{r=7}
+
+Yeti_IceSmash:
+  Conditions:
+    - targetwithin{d=6}
+  Skills:
+    - effect:sound{s=entity.iron_golem.attack;v=0.9;p=0.6} @self
+    - effect:particles{particle=BLOCK_CRACK;material=PACKED_ICE;amount=45;hS=1.1;vS=0.3;speed=0.10} @self
+    - damage{a=126;pk=true} @target
+    - throw{velocity=1.1;velocityY=0.3} @target
+
+Yeti_IceRockThrow:
+  Cooldown: 12
+  Conditions:
+    - targetwithin{d=28}
+  Skills:
+    - 'message{cooldown=8;m="&bYeti &farranca una roca de hielo de la montana!"} @PlayersInRadius{r=40}'
+    - effect:sound{s=block.stone.break;v=0.8;p=0.6} @self
+    - effect:particles{particle=BLOCK_CRACK;material=BLUE_ICE;amount=36;hS=0.9;vS=0.5;speed=0.09} @self
+    - delay 10
+    - effect:particles{particle=FLASH;amount=1} @target
+    - damage{a=109;pk=true} @target
+    - potion{type=SLOW;duration=60;level=1} @target
+
+Yeti_IceRockBarrage:
+  Cooldown: 20
+  Skills:
+    - 'message{cooldown=10;m="&bLluvia de rocas de hielo &fcae desde lo alto!"} @PlayersInRadius{r=50}'
+    - effect:sound{s=block.glass.break;v=0.8;p=0.7} @self
+    - effect:particles{particle=BLOCK_CRACK;material=BLUE_ICE;amount=70;hS=2.2;vS=0.9;speed=0.10} @self
+    - delay 12
+    - damage{a=133;pk=true} @PlayersInRadius{r=9}
+    - potion{type=SLOW;duration=80;level=1} @PlayersInRadius{r=9}
+
+Yeti_FrostNova:
+  Cooldown: 16
+  Skills:
+    - effect:sound{s=block.glass.break;v=0.9;p=0.6} @self
+    - effect:particles{particle=SNOWFLAKE;amount=65;hS=2.0;vS=0.7;speed=0.05} @self
+    - damage{a=83;pk=true} @PlayersInRadius{r=7}
+    - potion{type=SLOW;duration=80;level=2} @PlayersInRadius{r=7}
+
+Yeti_IntenseBlizzard:
+  Cooldown: 22
+  Skills:
+    - 'message{cooldown=10;m="&fLa ventisca os ciega y os congela los huesos..."} @PlayersInRadius{r=60}'
+    - effect:sound{s=weather.rain.above;v=1.0;p=0.5} @self
+    - effect:particles{particle=CLOUD;amount=85;hS=3.0;vS=1.2;speed=0.03} @self
+    - effect:particles{particle=SNOWFLAKE;amount=130;hS=3.2;vS=1.3;speed=0.07} @self
+    - potion{type=BLINDNESS;duration=70;level=0} @PlayersInRadius{r=14}
+    - potion{type=CONFUSION;duration=70;level=0} @PlayersInRadius{r=14}
+    - potion{type=SLOW;duration=90;level=1} @PlayersInRadius{r=14}
+
+Yeti_SummonHunters:
+  Cooldown: 24
+  Conditions:
+    - mobsinradius{type=FrostBrute_Yeti;amount=<3;radius=35}
+  Skills:
+    - effect:sound{s=entity.zombie.ambient;v=0.8;p=0.8} @self
+    - effect:particles{particle=SNOWFLAKE;amount=30;hS=1.2;vS=0.7;speed=0.04} @self
+    - summon{type=FrostBrute_Yeti;amount=2;radius=8;noise=2} @self
+
+Yeti_SummonShieldMinions:
+  Cooldown: 28
+  Conditions:
+    - mobsinradius{type=GlacierRaider_Yeti;amount=<2;radius=35}
+  Skills:
+    - 'message{cooldown=12;m="&bEl Yeti invoca guerreros glaciales y espiritus de ventisca."} @PlayersInRadius{r=50}'
+    - effect:sound{s=entity.vindicator.celebrate;v=0.8;p=0.7} @self
+    - effect:particles{particle=SNOWFLAKE;amount=36;hS=1.4;vS=0.8;speed=0.05} @self
+    - summon{type=GlacierRaider_Yeti;amount=2;radius=7;noise=2} @self
+    - summon{type=BlizzardSpirit_Yeti;amount=2;radius=7;noise=2} @self
+
+Yeti_SummonCycle:
+  Skills:
+    - skill{s=Yeti_SummonHunters} @self ?stance{stance=PHASE2}
+    - skill{s=Yeti_SummonShieldMinions} @self ?stance{stance=PHASE3}
+
+Yeti_AntiKite:
+  Conditions:
+    - targetwithin{d=9999} true
+  Skills:
+    - skill{s=Yeti_PullIfFar} @target
+
+Yeti_PullIfFar:
+  Cooldown: 12
+  Conditions:
+    - distance{d=>34}
+  Skills:
+    - 'message{cooldown=18;m="&bEl viento helado te devuelve a la montana del Yeti..."} @target'
+    - pull{velocity=1.2} @target
+    - potion{type=SLOW;duration=40;level=1} @target
+
+Yeti_PlayerKill:
+  Skills:
+    - 'message{m="&b&lYETI &f: &7El frio... te reclama..."} @PlayersInRadius{r=60}'
+
+Yeti_Death:
+  Skills:
+    - 'message{m="&b&lYETI &f: &7El hielo... se derrite..."} @PlayersInRadius{r=70}'
+    - effect:sound{s=entity.iron_golem.death;v=0.8;p=0.7} @self
+    - effect:sound{s=block.glass.break;v=0.9;p=0.5} @self
+    - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+    - effect:particles{particle=SNOWFLAKE;amount=120;hS=2.4;vS=1.1;speed=0.08} @self
+
+FBY_SpawnFX:
+  Skills:
+    - effect:sound{s=entity.zombie.ambient;v=0.8;p=1.0} @self
+    - effect:particles{particle=SNOWFLAKE;amount=12;hS=0.5;vS=0.4;speed=0.03} @self
+
+FBY_FrozenMaul:
+  Skills:
+    - damage{a=50;pk=true} @target
+    - potion{type=SLOW;duration=60;level=1} @target
+
+GRY_SpawnFX:
+  Skills:
+    - effect:sound{s=entity.vindicator.ambient;v=0.8;p=0.8} @self
+    - effect:particles{particle=SNOWFLAKE;amount=16;hS=0.6;vS=0.6;speed=0.03} @self
+
+GRY_CrystalCleave:
+  Skills:
+    - effect:particles{particle=SWEEP_ATTACK;amount=1} @self
+    - damage{a=59;pk=true} @target
+    - potion{type=SLOW;duration=40;level=0} @target
+
+BSY_SpawnFX:
+  Skills:
+    - effect:sound{s=entity.vex.ambient;v=0.8;p=0.8} @self
+    - effect:particles{particle=SOUL;amount=10;hS=0.5;vS=0.7;speed=0.02} @self
+
+BSY_FrostClaws:
+  Skills:
+    - effect:particles{particle=SNOWFLAKE;amount=12;hS=0.6;vS=0.6;speed=0.03} @target
+    - damage{a=42;ia=true} @target
+    - potion{type=SLOW;duration=50;level=1} @target
+
+# Item summon
+Yeti_ItemSummon:
+  Conditions:
+    - skilloncooldown{skill=Yeti_ItemSummon_AtCoords} castinstead Yeti_ItemSummon_Fail_Cooldown
+    - world{w=Spawn} orElseCast Yeti_ItemSummon_Fail_WrongWorld
+    - distancefromlocation{x=890.5;y=118;z=783.5;world=Spawn;distance=<2} orElseCast Yeti_ItemSummon_Fail_NotAtSpot
+  Skills:
+    - skill{s=Yeti_ItemSummon_AtCoords} @Location{x=890.5;y=118;z=783.5;world=Spawn}
+
+Yeti_ItemSummon_AtCoords:
+  Cooldown: 60
+  TargetConditions:
+    - mobsinradius{type=Yeti;amount=<1;r=100} orElseCast Yeti_ItemSummon_Fail_AlreadyActive
+  Skills:
+    - effect:sound{s=entity.evoker.prepare_summon;v=0.9;p=0.8} @self
+    - particlering{particle=REDSTONE;radius=3.0;points=48;amount=1;hS=0;vS=0;speed=0.0;color=#9fe6ff;size=1.25} @targetlocation{y=0.1}
+    - particlering{particle=REDSTONE;radius=1.6;points=28;amount=1;hS=0;vS=0;speed=0.0;color=#d8f4ff;size=1.15} @targetlocation{y=0.1}
+    - effect:particles{particle=SNOWFLAKE;amount=36;hS=0.9;vS=0.2;speed=0.06} @targetlocation{y=0.3}
+    - effect:particles{particle=CLOUD;amount=16;hS=0.7;vS=0.4;speed=0.02} @targetlocation{y=0.8}
+    - delay 8
+    - effect:particles{particle=FLASH;amount=1} @targetlocation{y=1}
+    - summon{type=Yeti;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
+    - delay 1
+    - consumehelditem{a=1} @self
+    - message{cooldown=2;m="&b&lYETI &8» &aInvocado."} @self
+
+Yeti_ItemSummon_Fail_AlreadyActive:
+  Skills:
+    - 'message{cooldown=2;m="&b&lYETI &8» &7Ya hay un &bYeti &7cerca. Mata al boss antes de invocar otro."} @self'
+
+Yeti_ItemSummon_Fail_NotAtSpot:
+  Skills:
+    - 'message{cooldown=2;m="&b&lYETI &8» &eNo estas en el &6Altar de Invocacion&e. &7Acercate al altar para usar la estrella."} @self'
+
+Yeti_ItemSummon_Fail_WrongWorld:
+  Skills:
+    - 'message{cooldown=2;m="&b&lYETI &8» &eLa invocacion no responde en este lugar. &7Regresa al &6Altar de Invocacion&7."} @self'
+
+Yeti_ItemSummon_Fail_Cooldown:
+  Skills:
+    - 'message{cooldown=2;m="&b&lYETI &8» &7La estrella aun se esta recargando. &fEspera un momento&7."} @self'
+
+# --- Fuego amigo ---
+Yeti_FuegoAmigo:
+  # Anula el daño que recibe este mob si viene de otro mob de su misma faccion
+  # (flechas de los arqueros aliados, explosiones de creepers aliados, etc).
+  TriggerConditions:
+    - faction{f=Boss_Yeti} true
+  Skills:
+    - cancelevent @self

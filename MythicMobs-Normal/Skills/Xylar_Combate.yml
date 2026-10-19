@@ -1,0 +1,338 @@
+# Xylar - Skills de combate PROPIAS (antes usaba las de RedHand tal cual).
+# Mecanicas basadas en RedHand, con lore, subditos y particulas de Xylar.
+# Daño de skills escalado x0.95 y umbrales de vida para 4000 HP (curva de dificultad 01->17).
+# Los sacos / ranking siguen en sus archivos de siempre.
+
+XY_Spawn:
+  Skills:
+    - setstance{stance=PHASE1} @self
+    - 'title{title="&d&lXYLAR";subtitle="&5Trono Galactico &8• &7El Señor de las estrellas desciende";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - 'message{m="&d&lXYLAR &f: &7He apagado mil soles. Vuestro mundo es solo uno mas."} @Server'
+    - effect:sound{s=entity.wither_skeleton.ambient;v=0.9;p=0.8} @self
+    - effect:particles{particle=SMOKE_LARGE;amount=25;hS=0.7;vS=0.9;speed=0.03} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=60;level=2} @self
+    - delay 2
+    - settarget @NearestPlayer{r=40}
+
+XY_AcquireTarget:
+  Conditions:
+    - targetwithin{d=9999} false
+  Skills:
+    - settarget @NearestPlayer{r=40}
+
+XY_HP75_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<2999}
+  Skills:
+    - 'message{m="&d&lXYLAR &8murmura... &7Aun brillan tres cuartas partes de mis estrellas."} @PlayersInRadius{r=60}'
+
+XY_HP50_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1999}
+  Skills:
+    - 'message{m="&d&lXYLAR &8ruge... &7La mitad de mi galaxia sigue en pie."} @PlayersInRadius{r=60}'
+
+XY_HP25_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1000}
+  Skills:
+    - 'message{m="&d&lXYLAR &8rie... &7Una sola estrella basta para quemaros."} @PlayersInRadius{r=60}'
+
+XY_HP70_Lore:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<2799}
+  Skills:
+    - 'message{m="&d&lXYLAR &f: &7Uno de vosotros sera tragado por el vacio."} @PlayersInRadius{r=60}'
+
+XY_HP40_Lore:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1601}
+  Skills:
+    - 'message{m="&d&lXYLAR &f: &7Sentid la gravedad de un dios."} @PlayersInRadius{r=60}'
+
+XY_Phase2_Check:
+  Conditions:
+    - stance{stance=PHASE1}
+    - health{h=<2999}
+  Skills:
+    - skill{s=XY_PhaseShield} @self
+    - setstance{stance=PHASE2} @self
+    - 'message{cooldown=9999;m="&d&lXYLAR &fentra en &5&lCOLAPSO ESTELAR&f!"} @PlayersInRadius{r=60}'
+    - potion{type=INCREASE_DAMAGE;duration=240;level=0} @self
+    - potion{type=SPEED;duration=240;level=0} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=REDSTONE;amount=45;hS=1.0;vS=1.0;speed=0.02;color=#b000b0;size=1.3} @self
+    - effect:sound{s=entity.wither.ambient;v=0.35;p=1.2} @self
+
+XY_Phase3_Check:
+  Conditions:
+    - stance{stance=PHASE2}
+    - health{h=<1601}
+  Skills:
+    - skill{s=XY_PhaseShield} @self
+    - setstance{stance=PHASE3} @self
+    - 'message{cooldown=9999;m="&d&lXYLAR &fdesata la &5&lSUPERNOVA&f..."} @PlayersInRadius{r=60}'
+    - potion{type=INCREASE_DAMAGE;duration=220;level=1} @self
+    - potion{type=SPEED;duration=220;level=1} @self
+    - potion{type=FIRE_RESISTANCE;duration=220;level=0} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=SOUL;amount=24;hS=1.1;vS=1.0;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=35;hS=1.1;vS=1.0;speed=0.02;color=#ff4dff;size=1.35} @self
+    - effect:sound{s=entity.warden.roar;v=0.25;p=1.6} @self
+
+XY_CondemnedSouls_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1199}
+  Skills:
+    - effect:sound{s=entity.vex.ambient;v=0.8;p=0.8} @self
+    - effect:particles{particle=SOUL;amount=30;hS=1.2;vS=1.0;speed=0.03} @self
+    - summon{type=Xylar_Fragmento;amount=2;radius=7;noise=2} @self
+    - summon{type=Xylar_Caballero;amount=1;radius=6;noise=2} @self
+
+XY_Aura:
+  Skills:
+    - effect:particles{particle=SMOKE_LARGE;amount=2;hS=0.35;vS=0.55;speed=0.01;yOffset=1.0} @self ?stance{stance=PHASE1}
+    - effect:particles{particle=REDSTONE;amount=4;hS=0.45;vS=0.75;speed=0.0;yOffset=1.0;color=#5a0f7a;size=1.15} @self ?stance{stance=PHASE1}
+    - effect:particles{particle=REDSTONE;amount=6;hS=0.55;vS=0.85;speed=0.0;yOffset=1.0;color=#b000b0;size=1.25} @self ?stance{stance=PHASE2}
+    - effect:particles{particle=SMOKE_LARGE;amount=2;hS=0.45;vS=0.65;speed=0.01;yOffset=1.0} @self ?stance{stance=PHASE2}
+    - effect:particles{particle=SOUL;amount=3;hS=0.6;vS=0.95;speed=0.01;yOffset=1.0} @self ?stance{stance=PHASE3}
+    - effect:particles{particle=END_ROD;amount=2;hS=0.55;vS=0.2;speed=0.0;yOffset=1.2} @self ?stance{stance=PHASE3}
+
+XY_PhaseShield:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
+    - effect:particles{particle=SPELL_MOB_AMBIENT;amount=18;hS=0.8;vS=0.6;speed=0.02} @self
+
+XY_AntiKite:
+  Conditions:
+    - targetwithin{d=9999} true
+  Skills:
+    - skill{s=XY_PullIfFar} @target
+
+XY_PullIfFar:
+  Cooldown: 12
+  Conditions:
+    - distance{d=>35}
+  Skills:
+    - 'message{cooldown=30;m="&d&lXYLAR &fte atrae con su gravedad..."} @target'
+    - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.6;vS=0.6;speed=0.02} @target
+    - pull{velocity=1.35} @target
+
+XY_Attack_Rotation:
+  Skills:
+    - randomskill{skills=XY_SlashCombo,XY_RedMark,XY_ShadowDash;weights=4,3,3} @target ?stance{stance=PHASE1}
+    - randomskill{skills=XY_RedMark,XY_HandCrush,XY_SummonSquires,XY_BloodPools;weights=3,3,3,2} @target ?stance{stance=PHASE2}
+    - randomskill{skills=XY_ShadowDash,XY_HandCrush,XY_BloodNova,XY_BloodPools;weights=3,3,3,2} @target ?stance{stance=PHASE3}
+
+XY_SlashCombo:
+  Conditions:
+    - targetwithin{d=6}
+  Skills:
+    - effect:sound{s=entity.player.attack.sweep;v=0.8;p=0.7} @self
+    - damage{a=95;pk=true} @target
+    - delay 6
+    - damage{a=95;pk=true} @target
+    - delay 6
+    - damage{a=95;pk=true} @target
+    - potion{type=WEAKNESS;duration=60;level=0} @target
+
+XY_RedMark:
+  Conditions:
+    - targetwithin{d=20}
+  Skills:
+    - 'message{cooldown=14;m="&d&lXYLAR &fmarca a &5<target.name> &fcomo su proxima orbita..."} @PlayersInRadius{r=45}'
+    - effect:particles{particle=REDSTONE;amount=28;hS=0.45;vS=0.9;speed=0.0;color=#ff4dff;size=1.4} @target
+    - potion{type=GLOWING;duration=60;level=0} @target
+    - potion{type=SLOW;duration=30;level=0} @target
+
+XY_ShadowDash:
+  Cooldown: 14
+  Conditions:
+    - targetwithin{d=25}
+  Skills:
+    - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.6;vS=0.6;speed=0.02} @target
+    - effect:sound{s=entity.enderman.teleport;v=0.7;p=0.6} @self
+    - delay 8
+    - teleport @target
+    - delay 2
+    - skill{s=XY_SlashCombo} @target
+
+XY_BloodPools:
+  Cooldown: 18
+  Conditions:
+    - targetwithin{d=25}
+  Skills:
+    - 'message{cooldown=12;m="&d&lXYLAR &7abre &5pozos gravitatorios&7... &f¡no los pises!"} @PlayersInRadius{r=45}'
+    - effect:sound{s=block.slime_block.place;v=0.65;p=0.75} @self
+    - effect:particles{particle=REDSTONE;amount=18;hS=0.8;vS=0.2;speed=0.0;color=#7a1fa0;size=1.25} @target
+    - summon{type=Xylar_PozoGravitatorio;amount=3;radius=4;noise=2} @target
+
+XY_BloodPool_Spawn:
+  Skills:
+    - effect:particles{particle=REDSTONE;amount=30;hS=1.3;vS=0.1;speed=0.0;color=#3d0a5a;size=1.35} @self
+    - delay 140
+    - remove @self
+
+XY_BloodPool_Tick:
+  Skills:
+    - effect:particles{particle=REDSTONE;amount=10;hS=1.2;vS=0.05;speed=0.0;color=#7a1fa0;size=1.25} @self
+    - effect:particles{particle=END_ROD;amount=2;hS=0.8;vS=0.1;speed=0.0;yOffset=0.1} @self
+    - damage{a=38;ia=true} @PlayersInRadius{r=3}
+    - potion{type=WITHER;duration=40;level=0} @PlayersInRadius{r=3}
+
+XY_Execution:
+  Cooldown: 9999
+  Conditions:
+    - stance{stance=PHASE3}
+    - health{h=<429}
+  Skills:
+    - 'message{cooldown=9999;m="&5&lHORIZONTE DE SUCESOS &8» &f¡Alejate de Xylar o seras aplastado!"} @PlayersInRadius{r=60}'
+    - effect:sound{s=entity.warden.roar;v=0.6;p=0.8} @self
+    - effect:sound{s=entity.wither.spawn;v=0.35;p=0.7} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=60;level=3} @self
+    - potion{type=SLOW;duration=50;level=6} @self
+    - effect:particles{particle=REDSTONE;amount=55;hS=2.6;vS=0.25;speed=0.0;color=#b000b0;size=1.35} @self
+    - effect:particles{particle=SOUL;amount=18;hS=1.4;vS=1.0;speed=0.02} @self
+    - delay 40
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=REDSTONE;amount=110;hS=3.2;vS=0.7;speed=0.0;color=#ff4dff;size=1.5} @self
+    - effect:sound{s=entity.generic.explode;v=0.55;p=0.8} @self
+    - damage{a=95;pk=true} @PlayersInRadius{r=7}
+    - throw{velocity=1.15;velocityY=0.35} @PlayersInRadius{r=7}
+    - potion{type=WITHER;duration=80;level=0} @PlayersInRadius{r=7}
+
+XY_HandCrush:
+  Cooldown: 16
+  Skills:
+    - 'message{cooldown=8;m="&d&lXYLAR &fcomprime la gravedad a su alrededor..."} @PlayersInRadius{r=45}'
+    - effect:sound{s=entity.iron_golem.attack;v=0.8;p=0.6} @self
+    - effect:particles{particle=REDSTONE;amount=30;hS=1.4;vS=0.2;speed=0.0;color=#b000b0;size=1.25} @self
+    - effect:particles{particle=BLOCK_CRACK;material=PURPUR_BLOCK;amount=35;hS=1.2;vS=0.4;speed=0.10} @self
+    - pull{velocity=1.4} @PlayersInRadius{r=10}
+    - delay 10
+    - effect:particles{particle=REDSTONE;amount=55;hS=1.8;vS=0.35;speed=0.0;color=#ff4dff;size=1.35} @self
+    - damage{a=95;pk=true} @PlayersInRadius{r=7}
+    - potion{type=WITHER;duration=70;level=0} @PlayersInRadius{r=7}
+
+XY_BloodNova:
+  Cooldown: 22
+  Skills:
+    - 'message{cooldown=10;m="&d&l¡NOVA GALACTICA!"} @PlayersInRadius{r=50}'
+    - effect:sound{s=entity.wither.shoot;v=0.6;p=0.7} @self
+    - effect:particles{particle=REDSTONE;amount=45;hS=1.2;vS=0.25;speed=0.0;color=#b000b0;size=1.25} @self
+    - effect:particles{particle=SOUL;amount=18;hS=1.0;vS=0.8;speed=0.02} @self
+    - delay 8
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=REDSTONE;amount=70;hS=2.2;vS=0.75;speed=0.0;color=#ff4dff;size=1.4} @self
+    - damage{a=95;pk=true} @PlayersInRadius{r=9}
+    - throw{velocity=1.2;velocityY=0.35} @PlayersInRadius{r=9}
+    - potion{type=SLOW;duration=60;level=1} @PlayersInRadius{r=9}
+
+XY_SummonSquires:
+  Cooldown: 30
+  Conditions:
+    - mobsinradius{type=Xylar_Soldado;amount=<4;radius=30}
+  Skills:
+    - 'message{cooldown=12;m="&5Los &dSoldados Estelares &5caen desde la orbita..."} @PlayersInRadius{r=45}'
+    - effect:particles{particle=SMOKE_LARGE;amount=30;hS=1.0;vS=0.7;speed=0.02} @self
+    - summon{type=Xylar_Soldado;amount=2;radius=8;noise=3} @self
+
+XY_Death:
+  Skills:
+    - 'message{m="&d&lXYLAR &fse apaga como una estrella moribunda. &7El cielo vuelve a la calma..."} @PlayersInRadius{r=70}'
+    - effect:sound{s=entity.wither.death;v=0.7;p=1.0} @self
+    - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+
+XY_PlayerKill:
+  Skills:
+    - 'message{m="&d&lXYLAR &f: &7Polvo de estrellas. Eso eres ahora."} @PlayersInRadius{r=60}'
+
+XY_FS_SpawnFX:
+  Skills:
+    - effect:particles{particle=SMOKE_LARGE;amount=10;hS=0.5;vS=0.5;speed=0.02} @self
+    - effect:sound{s=entity.zombie.step;v=0.6;p=0.8} @self
+
+XY_FS_Attack:
+  Skills:
+    - potion{type=SLOW;duration=25;level=0} @target
+
+XY_CK_SpawnFX:
+  Skills:
+    - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.5;vS=0.5;speed=0.02} @self
+    - effect:sound{s=entity.wither_skeleton.ambient;v=0.7;p=0.8} @self
+
+XY_CK_DarkShield:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=30;level=1} @self
+    - potion{type=WEAKNESS;duration=40;level=0} @target
+
+XY_CS_SpawnFX:
+  Skills:
+    - effect:particles{particle=SOUL;amount=14;hS=0.5;vS=0.7;speed=0.03} @self
+    - effect:sound{s=entity.vex.ambient;v=0.8;p=0.9} @self
+
+XY_CS_Weaken:
+  Skills:
+    - potion{type=WEAKNESS;duration=60;level=0} @target
+    - potion{type=CONFUSION;duration=40;level=0} @target
+
+# Item summon
+
+# --- Fuego amigo ---
+XY_FuegoAmigo:
+  # Anula el daño que recibe este mob si viene de otro mob de su misma faccion
+  # (flechas de los arqueros aliados, explosiones de creepers aliados, etc).
+  TriggerConditions:
+    - faction{f=Boss_Xylar} true
+  Skills:
+    - cancelevent @self
+
+# --- Invocacion con estrella (/warp bosses) ---
+# TODO: poner las coordenadas reales del altar de Xylar. Hay que cambiarlas en
+#       las DOS lineas marcadas con <<< (distancefromlocation y @Location).
+XY_ItemSummon:
+  Conditions:
+    - skilloncooldown{skill=XY_ItemSummon_AtCoords} castinstead XY_ItemSummon_Fail_Cooldown
+    - world{w=Spawn} orElseCast XY_ItemSummon_Fail_WrongWorld
+    - distancefromlocation{x=0.5;y=100;z=0.5;world=Spawn;distance=<6} orElseCast XY_ItemSummon_Fail_NotAtSpot   # <<<
+  Skills:
+    - skill{s=XY_ItemSummon_AtCoords} @Location{x=0.5;y=100;z=0.5;world=Spawn}   # <<<
+
+XY_ItemSummon_AtCoords:
+  Cooldown: 60
+  TargetConditions:
+    - mobsinradius{type=Xylar;amount=<1;r=100} orElseCast XY_ItemSummon_Fail_AlreadyActive
+  Skills:
+    - effect:sound{s=entity.evoker.prepare_summon;v=0.9;p=0.85} @self
+    - particlering{particle=REDSTONE;radius=3.0;points=48;amount=1;hS=0;vS=0;speed=0.0;color=#5a0f7a;size=1.25} @targetlocation{y=0.1}
+    - particlering{particle=REDSTONE;radius=1.6;points=28;amount=1;hS=0;vS=0;speed=0.0;color=#ff4dff;size=1.15} @targetlocation{y=0.1}
+    - delay 8
+    - effect:particles{particle=PORTAL;amount=60;hS=0.7;vS=0.2;speed=0.15} @targetlocation{y=1}
+    - effect:particles{particle=SMOKE_LARGE;amount=14;hS=0.7;vS=0.6;speed=0.02} @targetlocation{y=1}
+    - effect:particles{particle=FLASH;amount=1} @targetlocation{y=1}
+    - summon{type=Xylar;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
+    - delay 1
+    - consumehelditem{a=1} @self
+    - message{cooldown=2;m="&d&lXYLAR &8» &dUna estrella se apaga... &5Xylar desciende del cosmos&d."} @self
+
+XY_ItemSummon_Fail_AlreadyActive:
+  Skills:
+    - message{cooldown=2;m="&d&lXYLAR &8» &7La gravedad de &dXylar &7ya domina la zona. Derrotalo antes de invocar otro."} @self
+
+XY_ItemSummon_Fail_NotAtSpot:
+  Skills:
+    - message{cooldown=2;m="&d&lXYLAR &8» &eLa estrella solo se alinea en el &6Altar Estelar&e. &7Acercate al altar."} @self
+
+XY_ItemSummon_Fail_WrongWorld:
+  Skills:
+    - message{cooldown=2;m="&d&lXYLAR &8» &eLas constelaciones no se alinean aqui. &7Regresa al &6Altar de Invocacion&7."} @self
+
+XY_ItemSummon_Fail_Cooldown:
+  Skills:
+    - message{cooldown=2;m="&d&lXYLAR &8» &7La estrella aun se recarga de luz. &fEspera un momento&7."} @self

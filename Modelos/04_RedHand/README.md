@@ -1,6 +1,6 @@
 # RedHand: modelos de ModelEngine
 
-Boss 04 del servidor. Configuracion de MythicMobs en `MythicMobs/Mobs/Boss_04_RedHand/`.
+Boss 04 del servidor. Configuracion de MythicMobs en `MythicMobs-3D/Mobs/Boss_04_RedHand/`.
 
 Todavia no tiene modelos. Cuando los tenga, van aqui con la misma estructura que `01_Heracles/`:
 

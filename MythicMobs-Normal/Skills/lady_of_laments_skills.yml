@@ -1,0 +1,429 @@
+# Lady of Laments skills
+
+LL_Spawn:
+  Skills:
+    - setstance{stance=PHASE1} @self
+    - 'title{title="&5&lLADY OF LAMENTS";subtitle="&dPurple Castle &8• &7Reina del Lamento Eterno";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - 'message{m="&5&lLADY OF LAMENTS &f: &7Vuestras almas... lloraran conmigo..."} @Server'
+    - effect:sound{s=entity.ghast.ambient;v=0.8;p=0.7} @self
+    - effect:sound{s=block.amethyst_block.resonate;v=0.9;p=0.9} @self
+    - effect:particles{particle=SOUL;amount=20;hS=1.0;vS=1.0;speed=0.02} @self
+    - effect:particles{particle=SMOKE_LARGE;amount=24;hS=0.8;vS=0.8;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=40;hS=1.1;vS=1.0;speed=0.0;color=#8f5ad6;size=1.35} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=70;level=2} @self
+    - delay 2
+    - settarget @NearestPlayer{r=40}
+
+LL_AcquireTarget:
+  Conditions:
+    - targetwithin{d=9999} false
+  Skills:
+    - settarget @NearestPlayer{r=40}
+
+LL_HP70_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<2065}
+  Skills:
+    - 'message{m="&5&lLADY OF LAMENTS &f: &7Escuchad mi lamento..."} @PlayersInRadius{r=60}'
+
+LL_HP40_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1179}
+  Skills:
+    - 'message{m="&5&lLADY OF LAMENTS &f: &7El dolor os consumira."} @PlayersInRadius{r=60}'
+
+LL_Phase2_Check:
+  Conditions:
+    - stance{stance=PHASE1}
+    - health{h=<2065}
+  Skills:
+    - skill{s=LL_PhaseShield} @self
+    - setstance{stance=PHASE2} @self
+    - message{cooldown=9999;m="&5&lLADY OF LAMENTS &fconvoca a las &d&lBANSHEES&f del castillo."} @PlayersInRadius{r=60}
+    - effect:sound{s=entity.allay.hurt;v=0.8;p=0.6} @self
+    - effect:sound{s=entity.warden.sonic_charge;v=0.4;p=1.7} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=SOUL_FIRE_FLAME;amount=18;hS=1.0;vS=1.0;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=55;hS=1.5;vS=1.0;speed=0.0;color=#9b6cf0;size=1.45} @self
+    - summon{type=BansheeOfLaments;amount=3;radius=7;noise=2} @self
+    - potion{type=SPEED;duration=220;level=0} @self
+    - potion{type=INCREASE_DAMAGE;duration=220;level=0} @self
+
+LL_Phase3_Check:
+  Conditions:
+    - stance{stance=PHASE2}
+    - health{h=<1179}
+  Skills:
+    - skill{s=LL_PhaseShield} @self
+    - setstance{stance=PHASE3} @self
+    - message{cooldown=9999;m="&5&lLAMENTO MASIVO &8» &fEl castillo entero cae en la desesperacion."} @PlayersInRadius{r=70}
+    - skill{s=LL_MassLament} @self
+    - effect:sound{s=entity.ghast.scream;v=0.9;p=0.7} @self
+    - effect:sound{s=block.respawn_anchor.charge;v=0.8;p=0.7} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=SMOKE_LARGE;amount=35;hS=1.8;vS=0.9;speed=0.03} @self
+    - effect:particles{particle=SOUL;amount=28;hS=1.6;vS=1.1;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=80;hS=2.1;vS=1.0;speed=0.0;color=#6f3dbb;size=1.5} @self
+    - summon{type=LamentShadow;amount=2;radius=6;noise=2} @self
+    - summon{type=TormentedSpirit;amount=2;radius=6;noise=2} @self
+    - skill{s=LL_SummonCastleVindicators} @self
+    - potion{type=SPEED;duration=260;level=1} @self
+    - potion{type=INCREASE_DAMAGE;duration=260;level=1} @self
+
+LL_Phase4_Check:
+  Conditions:
+    - stance{stance=PHASE3}
+    - health{h=<296}
+  Skills:
+    - skill{s=LL_PhaseShield} @self
+    - setstance{stance=LASTBREATH} @self
+    - message{cooldown=9999;m="&5&lLADY OF LAMENTS &fentra en &d&lDESESPERACION ETERNA&f!"} @PlayersInRadius{r=70}
+    - effect:sound{s=entity.lightning_bolt.thunder;v=0.8;p=0.8} @self
+    - effect:sound{s=entity.ghast.scream;v=1.0;p=0.6} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=SOUL_FIRE_FLAME;amount=24;hS=1.2;vS=1.2;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=90;hS=2.2;vS=1.1;speed=0.0;color=#5f2ca0;size=1.55} @self
+    - potion{type=SPEED;duration=260;level=1} @self
+    - potion{type=INCREASE_DAMAGE;duration=260;level=2} @self
+    - potion{type=REGENERATION;duration=120;level=0} @self
+    - skill{s=LL_SummonCastleVindicators} @self
+    - skill{s=LL_StormOfSorrow} @self
+
+LL_PhaseShield:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
+    - effect:particles{particle=SPELL_MOB_AMBIENT;amount=20;hS=0.8;vS=0.7;speed=0.02} @self
+    - effect:particles{particle=TOTEM;amount=8;hS=0.6;vS=0.8;speed=0.02} @self
+
+LL_Aura:
+  Skills:
+    - effect:particles{particle=SMOKE_NORMAL;amount=5;hS=0.4;vS=0.7;speed=0.02;yOffset=1.0} @self ?stance{stance=PHASE1}
+    - effect:particles{particle=REDSTONE;amount=7;hS=0.5;vS=0.8;speed=0.0;yOffset=1.0;color=#a57af6;size=1.2} @self ?stance{stance=PHASE1}
+
+    - effect:particles{particle=SOUL;amount=4;hS=0.6;vS=0.9;speed=0.02;yOffset=1.0} @self ?stance{stance=PHASE2}
+    - effect:particles{particle=REDSTONE;amount=10;hS=0.7;vS=0.9;speed=0.0;yOffset=1.0;color=#8f5ad6;size=1.3} @self ?stance{stance=PHASE2}
+
+    - effect:particles{particle=SOUL_FIRE_FLAME;amount=5;hS=0.8;vS=1.0;speed=0.03;yOffset=1.0} @self ?stance{stance=PHASE3}
+    - effect:particles{particle=REDSTONE;amount=14;hS=0.9;vS=1.1;speed=0.0;yOffset=1.0;color=#6f3dbb;size=1.4} @self ?stance{stance=PHASE3}
+    - effect:particles{particle=SMOKE_LARGE;amount=3;hS=0.6;vS=0.8;speed=0.02;yOffset=0.9} @self ?stance{stance=PHASE3}
+
+    - effect:particles{particle=SOUL_FIRE_FLAME;amount=7;hS=1.0;vS=1.2;speed=0.04;yOffset=1.0} @self ?stance{stance=LASTBREATH}
+    - effect:particles{particle=REDSTONE;amount=18;hS=1.1;vS=1.2;speed=0.0;yOffset=1.0;color=#56258f;size=1.5} @self ?stance{stance=LASTBREATH}
+    - effect:particles{particle=SMOKE_LARGE;amount=5;hS=0.8;vS=0.9;speed=0.03;yOffset=0.9} @self ?stance{stance=LASTBREATH}
+
+LL_Attack_Rotation:
+  Skills:
+    - randomskill{skills=LL_Wail,LL_ShroudOfNight,LL_SpiritSiphon;weights=4,3,3} @target ?stance{stance=PHASE1}
+    - randomskill{skills=LL_Wail,LL_ShroudOfNight,LL_SpiritSiphon,LL_ShadowHunt,LL_SummonBanshees,LL_GriefMark;weights=3,3,3,2,2,2} @target ?stance{stance=PHASE2}
+    - randomskill{skills=LL_MassLament,LL_ShroudOfNight,LL_SpiritSiphon,LL_TormentedProcession,LL_ShadowHunt,LL_GriefMark,LL_SharedSorrow,LL_SummonCastleVindicators;weights=3,2,3,3,2,2,3,2} @target ?stance{stance=PHASE3}
+    - randomskill{skills=LL_StormOfSorrow,LL_MassLament,LL_SharedSorrow,LL_GriefMark,LL_SpiritSiphon,LL_EchoOfGrief,LL_SummonCastleVindicators;weights=2,3,3,3,2,2,2} @target ?stance{stance=LASTBREATH}
+
+LL_Wail:
+  Cooldown: 14
+  Skills:
+    - message{cooldown=10;m="&dUn grito espectral debilita a quienes permanecen juntos..."} @PlayersInRadius{r=40}
+    - effect:sound{s=entity.ghast.scream;v=0.7;p=1.1} @self
+    - effect:particles{particle=SOUL;amount=22;hS=1.3;vS=0.8;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=35;hS=1.5;vS=0.7;speed=0.0;color=#b28bff;size=1.25} @self
+    - damage{a=82;pk=true} @PlayersInRadius{r=7}
+    - potion{type=WEAKNESS;duration=100;level=0} @PlayersInRadius{r=7}
+    - potion{type=SLOW;duration=60;level=0} @PlayersInRadius{r=7}
+
+LL_ShroudOfNight:
+  Cooldown: 18
+  Conditions:
+    - targetwithin{d=24}
+  Skills:
+    - message{cooldown=12;m="&5&lLADY OF LAMENTS &7extiende una &8oscuridad maldita&7..."} @PlayersInRadius{r=45}
+    - effect:sound{s=entity.enderman.ambient;v=0.8;p=0.5} @self
+    - effect:particles{particle=SMOKE_LARGE;amount=22;hS=0.9;vS=0.5;speed=0.03} @target
+    - effect:particles{particle=REDSTONE;amount=28;hS=0.8;vS=0.7;speed=0.0;color=#4f2d89;size=1.2} @target
+    - delay 8
+    - damage{a=74;pk=true} @PlayersInRadius{r=4}
+    - potion{type=BLINDNESS;duration=80;level=0} @PlayersInRadius{r=4}
+    - potion{type=CONFUSION;duration=60;level=0} @PlayersInRadius{r=4}
+
+LL_SpiritSiphon:
+  Cooldown: 16
+  Conditions:
+    - targetwithin{d=22}
+  Skills:
+    - message{cooldown=10;m="&5&lLADY OF LAMENTS &farranca energia espiritual de &d<target.name>&f."} @PlayersInRadius{r=45}
+    - effect:sound{s=block.amethyst_cluster.break;v=0.7;p=0.7} @self
+    - effect:particles{particle=SOUL;amount=12;hS=0.4;vS=0.8;speed=0.03} @target
+    - effect:particles{particle=REDSTONE;amount=18;hS=0.5;vS=0.8;speed=0.0;color=#d6c0ff;size=1.1} @target
+    - delay 8
+    - damage{a=99;pk=true} @target
+    - potion{type=WEAKNESS;duration=80;level=0} @target
+    - heal{a=10} @self
+    - effect:particles{particle=HEART;amount=4;hS=0.5;vS=0.6;speed=0.02} @self
+
+LL_GriefMark:
+  Cooldown: 18
+  Conditions:
+    - targetwithin{d=26}
+  Skills:
+    - message{cooldown=12;m="&5&lPENA COMPARTIDA &8» &f<target.name> carga con el duelo de la reina."} @PlayersInRadius{r=50}
+    - potion{type=GLOWING;duration=50;level=0} @target
+    - potion{type=SLOW;duration=30;level=0} @target
+    - effect:sound{s=block.amethyst_block.hit;v=0.8;p=0.7} @self
+    - effect:particles{particle=REDSTONE;amount=26;hS=0.7;vS=0.8;speed=0.0;color=#d7b9ff;size=1.25} @target
+    - delay 24
+    - effect:particles{particle=FLASH;amount=1} @target
+    - effect:sound{s=entity.generic.explode;v=0.55;p=1.2} @target
+    - damage{a=99;pk=true} @PlayersInRadius{r=4}
+    - potion{type=WEAKNESS;duration=80;level=0} @PlayersInRadius{r=4}
+
+LL_SharedSorrow:
+  Cooldown: 20
+  Conditions:
+    - targetwithin{d=24}
+  Skills:
+    - 'message{cooldown=10;m="&dNo os agrupéis: el lamento se comparte entre almas cercanas."} @PlayersInRadius{r=50}'
+    - effect:sound{s=entity.allay.hurt;v=0.8;p=0.5} @self
+    - effect:particles{particle=SOUL;amount=18;hS=0.8;vS=0.8;speed=0.03} @target
+    - delay 10
+    - damage{a=91;pk=true} @PlayersInRadius{r=5}
+    - potion{type=SLOW;duration=60;level=0} @PlayersInRadius{r=5}
+    - potion{type=WEAKNESS;duration=70;level=0} @PlayersInRadius{r=5}
+
+LL_ShadowHunt:
+  Cooldown: 20
+  Conditions:
+    - targetwithin{d=24}
+  Skills:
+    - message{cooldown=12;m="&8Las sombras saltan desde los muros del Purple Castle..."} @PlayersInRadius{r=45}
+    - effect:sound{s=entity.enderman.teleport;v=0.7;p=0.6} @self
+    - effect:particles{particle=SMOKE_LARGE;amount=16;hS=0.7;vS=0.7;speed=0.02} @target
+    - delay 6
+    - summon{type=LamentShadow;amount=2;radius=2;noise=1} @target
+    - potion{type=SLOW;duration=40;level=0} @target
+
+LL_SummonBanshees:
+  Cooldown: 28
+  Conditions:
+    - mobsinradius{type=BansheeOfLaments;amount=<4;radius=30}
+  Skills:
+    - message{cooldown=12;m="&dLas banshees responden al lamento de su reina."} @PlayersInRadius{r=45}
+    - effect:sound{s=entity.allay.ambient_with_item;v=0.9;p=0.6} @self
+    - effect:particles{particle=SOUL_FIRE_FLAME;amount=16;hS=0.8;vS=0.8;speed=0.03} @self
+    - summon{type=BansheeOfLaments;amount=2;radius=7;noise=2} @self
+
+LL_BansheeChorus:
+  Cooldown: 18
+  Conditions:
+    - mobsinradius{type=BansheeOfLaments;amount=>1;radius=30}
+  Skills:
+    - message{cooldown=16;m="&dLas banshees amplifican el duelo de su reina..."} @PlayersInRadius{r=45}
+    - effect:sound{s=entity.vex.ambient;v=0.8;p=0.6} @self
+    - effect:particles{particle=SOUL_FIRE_FLAME;amount=14;hS=0.8;vS=0.8;speed=0.03} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=45;level=0} @self
+    - potion{type=WEAKNESS;duration=50;level=0} @PlayersInRadius{r=8}
+
+LL_MassLament:
+  Cooldown: 24
+  Skills:
+    - message{cooldown=10;m="&5&lLAMENTO MASIVO &8» &fSeparados resistireis mejor la pena eterna."} @PlayersInRadius{r=60}
+    - effect:sound{s=entity.ghast.scream;v=0.9;p=0.6} @self
+    - effect:particles{particle=SOUL;amount=26;hS=1.2;vS=1.0;speed=0.03} @self
+    - effect:particles{particle=SMOKE_LARGE;amount=32;hS=1.6;vS=0.7;speed=0.03} @self
+    - delay 12
+    - effect:particles{particle=FLASH;amount=1} @self
+    - damage{a=115;pk=true} @PlayersInRadius{r=12}
+    - potion{type=WEAKNESS;duration=120;level=0} @PlayersInRadius{r=12}
+    - potion{type=SLOW;duration=80;level=0} @PlayersInRadius{r=12}
+    - potion{type=BLINDNESS;duration=40;level=0} @PlayersInRadius{r=12}
+
+LL_StormOfSorrow:
+  Cooldown: 24
+  Skills:
+    - message{cooldown=10;m="&5&lTORMENTA DEL LAMENTO &8» &fLos rayos espirituales castigan a quien no se disperse."} @PlayersInRadius{r=60}
+    - effect:sound{s=entity.lightning_bolt.thunder;v=0.9;p=0.8} @self
+    - effect:particles{particle=CLOUD;amount=34;hS=2.0;vS=1.4;speed=0.03;yOffset=1.5} @self
+    - effect:particles{particle=ELECTRIC_SPARK;amount=26;hS=1.8;vS=1.3;speed=0.03} @self
+    - delay 10
+    - effect:lightning @PlayersInRadius{r=10}
+    - damage{a=33;pk=true} @PlayersInRadius{r=10}
+    - delay 10
+    - effect:lightning @PlayersInRadius{r=10}
+    - damage{a=33;pk=true} @PlayersInRadius{r=10}
+    - potion{type=CONFUSION;duration=50;level=0} @PlayersInRadius{r=10}
+
+LL_TormentedProcession:
+  Cooldown: 26
+  Skills:
+    - message{cooldown=12;m="&fLos espiritus atormentados marchan junto a su reina."} @PlayersInRadius{r=50}
+    - effect:sound{s=block.respawn_anchor.set_spawn;v=0.8;p=0.8} @self
+    - effect:particles{particle=SOUL;amount=22;hS=1.1;vS=1.0;speed=0.03} @self
+    - summon{type=TormentedSpirit;amount=2;radius=6;noise=2} @self
+    - summon{type=LamentShadow;amount=1;radius=5;noise=2} @self
+
+LL_SummonCastleVindicators:
+  Cooldown: 26
+  Conditions:
+    - mobsinradius{type=CastleVindicator_Laments;amount=<3;radius=30}
+  Skills:
+    - message{cooldown=12;m="&5&lLADY OF LAMENTS &finvoca a los &dverdugos del Purple Castle&f."} @PlayersInRadius{r=50}
+    - effect:sound{s=entity.vindicator.celebrate;v=0.8;p=0.7} @self
+    - effect:sound{s=block.anvil.place;v=0.6;p=0.75} @self
+    - effect:particles{particle=SOUL;amount=22;hS=1.0;vS=0.9;speed=0.02} @self
+    - effect:particles{particle=REDSTONE;amount=30;hS=1.2;vS=0.8;speed=0.0;color=#7040b3;size=1.2} @self
+    - summon{type=CastleVindicator_Laments;amount=2;radius=6;noise=2} @self
+
+LL_SummonCycle:
+  Skills:
+    - skill{s=LL_SummonBanshees} @self ?stance{stance=PHASE2}
+    - skill{s=LL_TormentedProcession} @self ?stance{stance=PHASE3}
+    - skill{s=LL_SummonBanshees} @self ?stance{stance=LASTBREATH}
+    - skill{s=LL_TormentedProcession} @self ?stance{stance=LASTBREATH}
+
+LL_AntiKite:
+  Conditions:
+    - targetwithin{d=9999} true
+  Skills:
+    - skill{s=LL_PullIfFar} @target
+
+LL_PullIfFar:
+  Cooldown: 12
+  Conditions:
+    - distance{d=>30}
+  Skills:
+    - message{cooldown=20;m="&5&lLADY OF LAMENTS &fte llama de vuelta a su pena."} @target
+    - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.7;vS=0.7;speed=0.02} @target
+    - pull{velocity=1.3} @target
+    - potion{type=SLOW;duration=30;level=0} @target
+    - skill{s=LL_EchoOfGrief} @target
+
+LL_EchoOfGrief:
+  Cooldown: 14
+  Conditions:
+    - targetwithin{d=40}
+  Skills:
+    - effect:sound{s=entity.ghast.warn;v=0.7;p=1.0} @self
+    - effect:particles{particle=SOUL;amount=16;hS=0.6;vS=0.9;speed=0.03} @target
+    - delay 8
+    - damage{a=66;pk=true} @target
+    - potion{type=BLINDNESS;duration=50;level=0} @target
+
+LL_PlayerKill:
+  Skills:
+    - 'message{m="&5&lLADY OF LAMENTS &f: &7Ahora conoces mi sufrimiento."} @PlayersInRadius{r=60}'
+
+LL_Death:
+  Skills:
+    - 'message{m="&5&lLADY OF LAMENTS &f: &7El silencio... al fin..."} @PlayersInRadius{r=70}'
+    - effect:sound{s=entity.allay.death;v=1.0;p=0.6} @self
+    - effect:sound{s=entity.ghast.death;v=0.5;p=1.2} @self
+    - effect:particles{particle=SOUL;amount=40;hS=1.4;vS=1.2;speed=0.03} @self
+    - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+
+BL_SpawnFX:
+  Skills:
+    - effect:particles{particle=SOUL_FIRE_FLAME;amount=10;hS=0.5;vS=0.7;speed=0.03} @self
+    - effect:sound{s=entity.vex.ambient;v=0.7;p=0.8} @self
+
+BL_Wail:
+  Skills:
+    - effect:particles{particle=SOUL;amount=8;hS=0.4;vS=0.6;speed=0.02} @target
+    - potion{type=WEAKNESS;duration=60;level=0} @target
+    - potion{type=CONFUSION;duration=40;level=0} @target
+
+LSH_SpawnFX:
+  Skills:
+    - effect:particles{particle=SMOKE_NORMAL;amount=10;hS=0.4;vS=0.3;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=8;hS=0.4;vS=0.3;speed=0.0;color=#3c275f;size=1.0} @self
+
+LSH_ShadowCut:
+  Skills:
+    - effect:particles{particle=SMOKE_LARGE;amount=8;hS=0.4;vS=0.4;speed=0.02} @target
+    - potion{type=BLINDNESS;duration=40;level=0} @target
+    - potion{type=SLOW;duration=30;level=0} @target
+
+TS_SpawnFX:
+  Skills:
+    - effect:particles{particle=SOUL;amount=10;hS=0.5;vS=0.8;speed=0.02} @self
+    - effect:sound{s=entity.allay.ambient_without_item;v=0.8;p=0.6} @self
+
+TS_LifeDrain:
+  Skills:
+    - effect:particles{particle=SOUL;amount=8;hS=0.8;vS=0.8;speed=0.02} @self
+    - damage{a=41;pk=true} @PlayersInRadius{r=5}
+    - heal{a=4} @self
+
+CV_SpawnFX:
+  Skills:
+    - effect:sound{s=entity.vindicator.ambient;v=0.7;p=0.8} @self
+    - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.5;vS=0.8;speed=0.02} @self
+    - effect:particles{particle=REDSTONE;amount=10;hS=0.45;vS=0.8;speed=0.0;color=#6f3dbb;size=1.1} @self
+
+CV_CrushingStrike:
+  Skills:
+    - effect:sound{s=entity.vindicator.hurt;v=0.75;p=0.6} @self
+    - effect:sound{s=entity.player.attack.crit;v=0.7;p=0.75} @self
+    - effect:particles{particle=SWEEP_ATTACK;amount=1} @self
+    - damage{a=66;pk=true} @target
+    - delay 5
+    - damage{a=58;pk=true} @target
+    - potion{type=SLOW;duration=35;level=0} @target
+
+# Item summon
+LL_ItemSummon:
+  Conditions:
+    - skilloncooldown{skill=LL_ItemSummon_AtCoords} castinstead LL_ItemSummon_Fail_Cooldown
+    - world{w=Spawn} orElseCast LL_ItemSummon_Fail_WrongWorld
+    - distancefromlocation{x=-428.5;y=72;z=865.5;world=Spawn;distance=<2} orElseCast LL_ItemSummon_Fail_NotAtSpot
+  Skills:
+    - skill{s=LL_ItemSummon_AtCoords} @Location{x=-428.5;y=72;z=865.5;world=Spawn}
+
+LL_ItemSummon_AtCoords:
+  Cooldown: 60
+  TargetConditions:
+    - mobsinradius{type=LadyOfLaments;amount=<1;r=100} orElseCast LL_ItemSummon_Fail_AlreadyActive
+  Skills:
+    - effect:sound{s=entity.evoker.prepare_summon;v=0.9;p=0.95} @self
+    - particlering{particle=REDSTONE;radius=3.0;points=48;amount=1;hS=0;vS=0;speed=0.0;color=#8f5ad6;size=1.25} @targetlocation{y=0.1}
+    - particlering{particle=REDSTONE;radius=1.6;points=28;amount=1;hS=0;vS=0;speed=0.0;color=#6f3dbb;size=1.15} @targetlocation{y=0.1}
+    - effect:particles{particle=SOUL;amount=24;hS=0.6;vS=0.05;speed=0.02} @targetlocation{y=0.2}
+    - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.6;vS=0.4;speed=0.02} @targetlocation{y=0.9}
+    - delay 8
+    - effect:particles{particle=PORTAL;amount=60;hS=0.7;vS=0.2;speed=0.15} @targetlocation{y=1}
+    - effect:particles{particle=FLASH;amount=1} @targetlocation{y=1}
+    - summon{type=LadyOfLaments;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
+    - delay 1
+    - consumehelditem{a=1} @self
+    - message{cooldown=2;m="&5&lLADY OF LAMENTS &8» &aInvocada."} @self
+LL_ItemSummon_Fail_AlreadyActive:
+  Skills:
+    - message{cooldown=2;m="&5&lLADY OF LAMENTS &8» &7Ya hay una &5LadyOfLaments &7cerca. Mata al boss antes de invocar otro."} @self
+
+LL_ItemSummon_Fail_NotAtSpot:
+  Skills:
+    - message{cooldown=2;m="&5&lLADY OF LAMENTS &8» &eNo estas en el &6Altar de Invocacion&e. &7Acercate al altar para usar la estrella."} @self
+
+LL_ItemSummon_Fail_WrongWorld:
+  Skills:
+    - message{cooldown=2;m="&5&lLADY OF LAMENTS &8» &eLa invocacion no responde en este lugar. &7Regresa al &6Altar de Invocacion&7."} @self
+
+LL_ItemSummon_Fail_Cooldown:
+  Skills:
+    - message{cooldown=2;m="&5&lLADY OF LAMENTS &8» &7La estrella aun se esta recargando. &fEspera un momento&7."} @self
+
+# --- Fuego amigo ---
+LL_FuegoAmigo:
+  # Anula el daño que recibe este mob si viene de otro mob de su misma faccion
+  # (flechas de los arqueros aliados, explosiones de creepers aliados, etc).
+  TriggerConditions:
+    - faction{f=Boss_LadyOfLaments} true
+  Skills:
+    - cancelevent @self
+
+LL_InmuneColmillos:
+  # Los colmillos del evocador no le hacen dano a los aliados de su faccion.
+  # (El dano de los colmillos no viene de un mob con faccion, asi que
+  # LL_FuegoAmigo no lo frena.)
+  TriggerConditions:
+    - entitytype{types=EVOKER_FANGS} true
+  Skills:
+    - cancelevent @self

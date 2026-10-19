@@ -1,6 +1,6 @@
 # Yeti: modelos de ModelEngine
 
-Boss 08 del servidor. Configuracion de MythicMobs en `MythicMobs/Mobs/Boss_08_Yeti/`.
+Boss 08 del servidor. Configuracion de MythicMobs en `MythicMobs-3D/Mobs/Boss_08_Yeti/`.
 
 Todavia no tiene modelos. Cuando los tenga, van aqui con la misma estructura que `01_Heracles/`:
 

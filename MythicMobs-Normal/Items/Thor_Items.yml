@@ -1,0 +1,131 @@
+# Thor - Sacos de recompensa por puesto en el ranking de dano.
+# Click derecho -> ver Skills/Thor_Skills.yml
+# El puesto ya viene decidido en el item, asi que cada saco entrega siempre lo mismo.
+
+Saco_Thor_Top1:
+  Id: YELLOW_DYE
+  Display: "&b&lSaco de Thor &8• &e&l1er Lugar"
+  Lore:
+    - "&7El botin del Dios del Trueno,"
+    - "&7para quien resistio la ira de Mjolnir."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &b&lTHOR"
+  Skills:
+    - skill{s=Thor_Saco_Top1} @Self ~onRightClick
+
+Saco_Thor_Top2:
+  Id: WHITE_DYE
+  Display: "&b&lSaco de Thor &8• &f&l2do Lugar"
+  Lore:
+    - "&7Un relampago mas y caia por tu mano."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &b&lTHOR"
+  Skills:
+    - skill{s=Thor_Saco_Top2} @Self ~onRightClick
+
+Saco_Thor_Top3:
+  Id: ORANGE_DYE
+  Display: "&b&lSaco de Thor &8• &6&l3er Lugar"
+  Lore:
+    - "&7El Valhalla escucho tu grito de guerra."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &b&lTHOR"
+  Skills:
+    - skill{s=Thor_Saco_Top3} @Self ~onRightClick
+
+Saco_Thor_Consuelo:
+  Id: GRAY_DYE
+  Display: "&8&lSaco de Thor &8• &7Participante"
+  Lore:
+    - "&7Peleaste bajo la tormenta de Asgard,"
+    - "&7aunque no entraste en el podio."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &b&lTHOR"
+  Skills:
+    - skill{s=Thor_Saco_Consuelo} @Self ~onRightClick
+
+# Estrella de invocacion -> skill TH_ItemSummon en Skills/Thor_Combate.yml
+Thor_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&b&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &b&lTHOR&7."
+    - "&8(Usala en su altar de /warp bosses)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=TH_ItemSummon} @Self ~onRightClick
+    - skill{s=TH_ItemSummon} @Self ~onUse
+
+# --- Equipo propio de Thor (antes usaba el de otro boss) ---
+
+TH_CascoAlado:
+  Id: IRON_HELMET
+  Display: "&bCasco Alado"
+  Lore:
+    - "&8Armadura de &b&lTHOR"
+  Trim: gold.flow
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+TH_PetoTrueno:
+  Id: IRON_CHESTPLATE
+  Display: "&bPeto del Trueno"
+  Lore:
+    - "&8Armadura de &b&lTHOR"
+  Trim: gold.bolt
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:343
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+TH_PantalonesTrueno:
+  Id: IRON_LEGGINGS
+  Display: "&bGrebas del Trueno"
+  Lore:
+    - "&8Armadura de &b&lTHOR"
+  Trim: gold.bolt
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+TH_BotasTrueno:
+  Id: IRON_BOOTS
+  Display: "&bBotas del Trueno"
+  Lore:
+    - "&8Armadura de &b&lTHOR"
+  Trim: gold.bolt
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+TH_CascoEinherjar:
+  Id: IRON_HELMET
+  Display: "&bCasco de Einherjar"
+  Lore:
+    - "&8Equipo de los subditos de &b&lTHOR"
+  Trim: copper.bolt
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true

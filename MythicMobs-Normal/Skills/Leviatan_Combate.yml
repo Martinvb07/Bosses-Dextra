@@ -1,0 +1,252 @@
+# Leviatan - Skills de combate PROPIAS (antes usaba las de Baal tal cual).
+# Mecanicas basadas en Baal, con lore, subditos y particulas de Leviatan.
+# Daño de skills escalado x1.00 y umbrales de vida para 3800 HP (curva de dificultad 01->17).
+# Los sacos / ranking siguen en sus archivos de siempre.
+
+LV_Spawn:
+  Skills:
+    - setstance{stance=PHASE1} @self
+    - 'title{title="&3&lLEVIATAN";subtitle="&bFosa Abisal &8• &7El Rey del Abismo emerge";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - 'message{m="&3&lLEVIATAN &f: &7Las profundidades os reclaman. Nadie respira en mi reino."} @Server'
+    - effect:sound{s=entity.skeleton.ambient;v=0.8;p=0.8} @self
+    - effect:particles{particle=SOUL;amount=18;hS=1.0;vS=0.9;speed=0.02} @self
+    - effect:particles{particle=BLOCK_CRACK;material=PRISMARINE;amount=24;hS=1.2;vS=0.9;speed=0.03} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=70;level=2} @self
+    - delay 2
+    - settarget @NearestPlayer{r=40}
+
+LV_AcquireTarget:
+  Conditions:
+    - targetwithin{d=9999} false
+  Skills:
+    - settarget @NearestPlayer{r=40}
+
+LV_HP70_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<2660}
+  Skills:
+    - 'message{m="&3&lLEVIATAN &8» &fLa marea se embravece... &b70% &fde vida y las aguas suben."} @PlayersInRadius{r=60}'
+
+LV_HP40_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1519}
+  Skills:
+    - 'message{m="&3&lLEVIATAN &8» &fEl abismo se oscurece con el &b40% &fde su vida restante..."} @PlayersInRadius{r=60}'
+
+LV_Phase2_Check:
+  Conditions:
+    - stance{stance=PHASE1}
+    - health{h=<2660}
+  Skills:
+    - skill{s=LV_PhaseShield} @self
+    - setstance{stance=PHASE2} @self
+    - summon{type=Leviatan_Ahogado;amount=2;radius=7;noise=2} @self
+    - summon{type=Leviatan_Marea;amount=1;radius=7;noise=2} @self
+    - effect:sound{s=entity.evoker.prepare_summon;v=0.8;p=0.8} @self
+
+LV_Phase3_Check:
+  Conditions:
+    - stance{stance=PHASE2}
+    - health{h=<1519}
+  Skills:
+    - skill{s=LV_PhaseShield} @self
+    - setstance{stance=PHASE3} @self
+    - skill{s=LV_ShadowVeil} @self
+    - summon{type=Leviatan_Anguila;amount=2;radius=6;noise=2} @self
+    - summon{type=Leviatan_Marea;amount=1;radius=6;noise=2}
+
+LV_PhaseShield:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
+    - effect:particles{particle=SPELL_MOB_AMBIENT;amount=18;hS=0.8;vS=0.7;speed=0.02} @self
+
+LV_Aura:
+  Skills:
+    - effect:particles{particle=BLOCK_CRACK;material=PRISMARINE;amount=5;hS=0.6;vS=0.7;speed=0.03;yOffset=1.0} @self
+    - effect:particles{particle=SOUL;amount=3;hS=0.5;vS=0.8;speed=0.02;yOffset=1.0} @self
+
+LV_Attack_Rotation:
+  Skills:
+    - randomskill{skills=LV_SpiritCurse,LV_ShadowStep,LV_SummonYokai;weights=4,3,2} @target ?stance{stance=PHASE1}
+    - randomskill{skills=LV_SpiritCurse,LV_ShadowStep,LV_SakuraHex,LV_SummonSamurai;weights=3,3,3,2} @target ?stance{stance=PHASE2}
+    - randomskill{skills=LV_ShadowVeil,LV_SakuraHex,LV_SpiritNova,LV_SummonNinjas;weights=2,3,3,2} @target ?stance{stance=PHASE3}
+
+LV_SpiritCurse:
+  Cooldown: 14
+  Conditions:
+    - targetwithin{d=22}
+  Skills:
+    - damage{a=90;pk=true} @target
+    - potion{type=WEAKNESS;duration=80;level=0} @target
+    - potion{type=CONFUSION;duration=50;level=0} @target
+
+LV_ShadowStep:
+  Cooldown: 16
+  Conditions:
+    - targetwithin{d=24}
+  Skills:
+    - effect:sound{s=entity.enderman.teleport;v=0.7;p=0.7} @self
+    - effect:particles{particle=SMOKE_LARGE;amount=14;hS=0.5;vS=0.35;speed=0.02} @self
+    - leap{velocity=180;noise=1} @target
+    - delay 12
+    - damage{a=84;pk=true} @target ?distance{d=<3}
+
+LV_SakuraHex:
+  Cooldown: 18
+  Skills:
+    - 'message{cooldown=10;m="&bUna corriente abisal os arrastra hacia el fondo..."} @PlayersInRadius{r=45}'
+    - effect:particles{particle=BLOCK_CRACK;material=PRISMARINE;amount=42;hS=1.7;vS=0.9;speed=0.03} @self
+    - damage{a=108;pk=true} @PlayersInRadius{r=7}
+    - potion{type=WEAKNESS;duration=100;level=0} @PlayersInRadius{r=7}
+
+LV_ShadowVeil:
+  Cooldown: 20
+  Skills:
+    - effect:sound{s=entity.illusioner.mirror_move;v=0.8;p=0.7} @self
+    - potion{type=INVISIBILITY;duration=60;level=0} @self
+    - effect:particles{particle=SMOKE_LARGE;amount=24;hS=1.0;vS=0.7;speed=0.03} @self
+
+LV_SpiritNova:
+  Cooldown: 22
+  Skills:
+    - effect:sound{s=entity.illusioner.cast_spell;v=0.8;p=0.8} @self
+    - effect:particles{particle=SOUL;amount=36;hS=1.5;vS=0.8;speed=0.03} @self
+    - damage{a=132;pk=true} @PlayersInRadius{r=8}
+    - potion{type=BLINDNESS;duration=50;level=0} @PlayersInRadius{r=8}
+
+LV_SummonYokai:
+  Cooldown: 24
+  Conditions:
+    - mobsinradius{type=Leviatan_Marea;amount=<3;radius=30}
+  Skills:
+    - summon{type=Leviatan_Marea;amount=1;radius=7;noise=2} @self
+
+LV_SummonSamurai:
+  Cooldown: 28
+  Conditions:
+    - mobsinradius{type=Leviatan_Ahogado;amount=<4;radius=30}
+  Skills:
+    - summon{type=Leviatan_Ahogado;amount=2;radius=7;noise=2} @self
+
+LV_SummonNinjas:
+  Cooldown: 24
+  Conditions:
+    - mobsinradius{type=Leviatan_Anguila;amount=<4;radius=30}
+  Skills:
+    - summon{type=Leviatan_Anguila;amount=2;radius=7;noise=2} @self
+
+LV_SummonCycle:
+  Skills:
+    - skill{s=LV_SummonSamurai} @self ?stance{stance=PHASE2}
+    - skill{s=LV_SummonNinjas} @self ?stance{stance=PHASE3}
+
+LV_AntiKite:
+  Conditions:
+    - targetwithin{d=9999} true
+  Skills:
+    - skill{s=LV_PullIfFar} @target
+
+LV_PullIfFar:
+  Cooldown: 12
+  Conditions:
+    - distance{d=>32}
+  Skills:
+    - pull{velocity=1.3} @target
+    - potion{type=SLOW;duration=30;level=0} @target
+
+LV_PlayerKill:
+  Skills:
+    - 'message{m="&3&lLEVIATAN &f: &7Otro cuerpo para el fondo del mar."} @PlayersInRadius{r=60}'
+
+LV_Death:
+  Skills:
+    - 'message{m="&3&lLEVIATAN &f: &7El mar... siempre... regresa..."} @PlayersInRadius{r=70}'
+    - effect:sound{s=entity.skeleton.death;v=0.8;p=0.9} @self
+    - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+
+LV_US_SpawnFX:
+  Skills:
+    - effect:particles{particle=SMOKE_NORMAL;amount=12;hS=0.5;vS=0.5;speed=0.02} @self
+
+LV_US_KatanaBlock:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=25;level=1} @self
+    - potion{type=SLOW;duration=25;level=0} @target
+
+LV_Yokai_SpawnFX:
+  Skills:
+    - effect:particles{particle=SOUL;amount=12;hS=0.5;vS=0.6;speed=0.02} @self
+
+LV_Yokai_Curse:
+  Skills:
+    - potion{type=WEAKNESS;duration=60;level=0} @PlayersInRadius{r=5}
+
+LV_SN_SpawnFX:
+  Skills:
+    - effect:particles{particle=SMOKE_LARGE;amount=10;hS=0.5;vS=0.5;speed=0.02} @self
+
+LV_SN_Invisibility:
+  Skills:
+    - potion{type=INVISIBILITY;duration=40;level=0} @self
+
+LV_SN_Assassinate:
+  Skills:
+    - damage{a=54;pk=true} @target
+    - potion{type=BLINDNESS;duration=30;level=0} @target
+
+# Item summon
+
+# --- Fuego amigo ---
+LV_FuegoAmigo:
+  # Anula el daño que recibe este mob si viene de otro mob de su misma faccion
+  # (flechas de los arqueros aliados, explosiones de creepers aliados, etc).
+  TriggerConditions:
+    - faction{f=Boss_Leviatan} true
+  Skills:
+    - cancelevent @self
+
+# --- Invocacion con estrella (/warp bosses) ---
+# TODO: poner las coordenadas reales del altar de Leviatan. Hay que cambiarlas en
+#       las DOS lineas marcadas con <<< (distancefromlocation y @Location).
+LV_ItemSummon:
+  Conditions:
+    - skilloncooldown{skill=LV_ItemSummon_AtCoords} castinstead LV_ItemSummon_Fail_Cooldown
+    - world{w=Spawn} orElseCast LV_ItemSummon_Fail_WrongWorld
+    - distancefromlocation{x=0.5;y=100;z=0.5;world=Spawn;distance=<6} orElseCast LV_ItemSummon_Fail_NotAtSpot   # <<<
+  Skills:
+    - skill{s=LV_ItemSummon_AtCoords} @Location{x=0.5;y=100;z=0.5;world=Spawn}   # <<<
+
+LV_ItemSummon_AtCoords:
+  Cooldown: 60
+  TargetConditions:
+    - mobsinradius{type=Leviatan;amount=<1;r=100} orElseCast LV_ItemSummon_Fail_AlreadyActive
+  Skills:
+    - effect:sound{s=entity.evoker.prepare_summon;v=0.9;p=0.85} @self
+    - particlering{particle=REDSTONE;radius=3.0;points=48;amount=1;hS=0;vS=0;speed=0.0;color=#1f8fa8;size=1.25} @targetlocation{y=0.1}
+    - particlering{particle=REDSTONE;radius=1.6;points=28;amount=1;hS=0;vS=0;speed=0.0;color=#6fe3ff;size=1.15} @targetlocation{y=0.1}
+    - delay 8
+    - effect:particles{particle=PORTAL;amount=60;hS=0.7;vS=0.2;speed=0.15} @targetlocation{y=1}
+    - effect:particles{particle=SMOKE_LARGE;amount=14;hS=0.7;vS=0.6;speed=0.02} @targetlocation{y=1}
+    - effect:particles{particle=FLASH;amount=1} @targetlocation{y=1}
+    - summon{type=Leviatan;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
+    - delay 1
+    - consumehelditem{a=1} @self
+    - message{cooldown=2;m="&3&lLEVIATAN &8» &bLas aguas se agitan... &3Leviatan emerge del abismo&b."} @self
+
+LV_ItemSummon_Fail_AlreadyActive:
+  Skills:
+    - message{cooldown=2;m="&3&lLEVIATAN &8» &7Las aguas ya hierven. Derrota a &3Leviatan &7antes de invocar otro."} @self
+
+LV_ItemSummon_Fail_NotAtSpot:
+  Skills:
+    - message{cooldown=2;m="&3&lLEVIATAN &8» &eLa estrella solo brilla junto al &6Altar de las Mareas&e. &7Acercate al altar."} @self
+
+LV_ItemSummon_Fail_WrongWorld:
+  Skills:
+    - message{cooldown=2;m="&3&lLEVIATAN &8» &eEl abismo no oye tu llamado aqui. &7Regresa al &6Altar de Invocacion&7."} @self
+
+LV_ItemSummon_Fail_Cooldown:
+  Skills:
+    - message{cooldown=2;m="&3&lLEVIATAN &8» &7La estrella aun esta empapada. &fEspera un momento&7."} @self

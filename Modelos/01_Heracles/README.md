@@ -12,8 +12,8 @@ Boss 01 del servidor. Es un modelo personalizado para **ModelEngine R4**, prepar
 | `ModelEngine/blueprints/heracles/heracles.bbmodel` | Modelo de Blockbench (formato *Generic Model*) con la textura incrustada y 14 animaciones |
 | `ModelEngine/blueprints/heracles/heracles_texture.png` | La textura, por si quieres retocarla aparte |
 | `ModelEngine/blueprints/hoplit/`, `spartan_warrior/`, `greek_archer/`, `minotaur/` | Modelos de los súbditos |
-| `MythicMobs/Mobs/Boss_01_Heracles/Heracles_Mobs.yml` | Mob `Heracles`, ahora con `model{mid=heracles}` |
-| `MythicMobs/Skills/heracles_skills.yml` | Skills con animaciones y sonidos sincronizados |
+| `../../MythicMobs-3D/Mobs/Boss_01_Heracles/Heracles_Mobs.yml` | Mob `Heracles`, ahora con `model{mid=heracles}` |
+| `../../MythicMobs-3D/Skills/heracles_skills.yml` | Skills con animaciones y sonidos sincronizados |
 | `ItemsAdder/contents/heracles_hud/` | Marco de la bossbar y laureles del título (font images de ItemsAdder) |
 | `ResourcePack/HeraclesPack/` | Textura de la barra y sonidos propios (se fusiona con el pack de ItemsAdder) |
 | `preview/*.gif` | Vista previa de cada animación |

@@ -1,0 +1,1086 @@
+#SKills Orcos
+GolpeFuerte:
+  Skills:
+  - damage{amount=35} @target
+  - message{m="&c&lORCO &fte ha dado un golpe &cfuerte!"} @target
+GolpeFuerteOrcoMayor:
+  Skills:
+  - damage{amount=50} @target
+  - message{m="&c&lORCO MAYOR &fte ha dado un golpe &cmuy fuerte!"} @target
+GolpeFuerteJefe:
+  Skills:
+  - damage{amount=80} @target
+  - message{m="&c&lJEFE ORCO &fte ha golpeado &cbrutalmente!"} @target
+dineroorco:
+  Skills:
+  - command{c="eco give <trigger.name> 800"} @Target 
+  - message{m="&fEncontraste &e800 ⛃ &fen los bolsillos del &2&lOrco"} @Target
+dinerojefeorco:
+  Skills:
+  - command{c="eco give <trigger.name> 1200"} @Target 
+  - message{m="&fEncontraste &e1200 ⛃ &fen los bolsillos del &2&lJefe Orco"} @Target
+#Skills Guerreros
+BloodyEffectR:
+  Skills:
+  - message{m="&7&lRecluta&f te cortado profundamente! &c¡Estás sangrando!"} @target
+  - effect:bloodyScreen{d=100} @target
+  - damage{amount=15} @target
+  - delay 20
+  - damage{amount=15} @target
+  - delay 20
+  - damage{amount=15} @target
+  - delay 20
+  - damage{amount=15} @target
+  - delay 20
+  - damage{amount=15} @target
+  - delay 20
+  - damage{amount=15} @target
+BloodyEffectV:
+  Skills:
+  - message{m="&7&lVerdugo&f te cortado profundamente! &c¡Estás sangrando!"} @target
+  - effect:bloodyScreen{d=100} @target
+  - damage{amount=15} @target
+  - delay 20
+  - damage{amount=15} @target
+  - delay 20
+  - damage{amount=15} @target
+  - delay 20
+  - damage{amount=15} @target
+  - delay 20
+  - damage{amount=15} @target
+  - delay 20
+  - damage{amount=15} @target
+BloodyEffectGV:
+  Skills:
+  - message{m="&7&lGran Verdugo&f te cortado profundamente! &c¡Estás sangrando!"} @target
+  - effect:bloodyScreen{d=100} @target
+  - damage{amount=25} @target
+  - delay 20
+  - damage{amount=25} @target
+  - delay 20
+  - damage{amount=25} @target
+  - delay 20
+  - damage{amount=25} @target
+  - delay 20
+  - damage{amount=25} @target
+  - delay 20
+  - damage{amount=25} @target
+BloqueoGV:
+  Skills:
+  - message{m="&7&lGran Verdugo&f ha bloqueado tu ataque!"} @target
+  - sound{s=item.shield.block} @PIR{r=10}
+  - setNoDamageTicks{ticks=30;delay=1} @self
+BloqueoV:
+  Skills:
+  - message{m="&7&lVerdugo&f ha bloqueado tu ataque!"} @target
+  - sound{s=item.shield.block} @PIR{r=10}
+  - setNoDamageTicks{ticks=30;delay=1} @self
+BloqueoR:
+  Skills:
+  - message{m="&7&lRecluta&f ha bloqueado tu ataque!"} @target
+  - sound{s=item.shield.block} @PIR{r=10}
+  - setNoDamageTicks{ticks=30;delay=1} @self
+#Skills Arqueros
+ArrowBarrage:
+  Skills:
+  - shoot{type=ARROW;velocity=2;damage=10} @target
+  - potion{type=BLINDNESS;duration=80;level=2} @target
+  - delay 10
+  - shoot{type=ARROW;velocity=2;damage=10} @target
+  - delay 10
+  - shoot{type=ARROW;velocity=2;damage=10} @target
+  - delay 10
+  - shoot{type=ARROW;velocity=2;damage=10} @target
+  - delay 10
+  - shoot{type=ARROW;velocity=2;damage=10} @target
+ArrowBarrageMaster:
+  Skills:
+  - shoot{type=ARROW;velocity=2;damage=10} @target
+  - potion{type=POISON;duration=80;level=2} @target
+  - delay 10
+  - shoot{type=ARROW;velocity=2;damage=10} @target
+  - delay 10
+  - shoot{type=ARROW;velocity=2;damage=10} @target
+  - delay 10
+  - shoot{type=ARROW;velocity=2;damage=10} @target
+  - delay 10
+  - shoot{type=ARROW;velocity=2;damage=10} @target
+#Skills Wither
+ReflejoG:
+  Skills:
+  - message{m="&l<gradient:#bd230b:#540e03>Guardia del Rey</gradient>&f ha reflejado tu ataque!"} @target
+  - sound{s=item.shield.block} @PIR{r=10}
+  - setNoDamageTicks{ticks=30;delay=1} @self
+  - damage{amount=25} @target
+  - potion{type=WITHER;duration=100;level=4} @target
+ReflejoP:
+  Skills:
+  - message{m="&l<gradient:#bd230b:#540e03>Principe Oscuro</gradient>&f ha reflejado tu ataque!"} @target
+  - sound{s=item.shield.block} @PIR{r=10}
+  - setNoDamageTicks{ticks=30;delay=1} @self
+  - damage{amount=35} @target
+  - potion{type=WITHER;duration=200;level=4} @PIR{r=10}
+ReflejoR:
+  Skills:
+  - message{m="&l<gradient:#bd230b:#540e03>Rey Oscuro</gradient>&f ha reflejado tu ataque!"} @target
+  - sound{s=item.shield.block} @PIR{r=10}
+  - setNoDamageTicks{ticks=30;delay=1} @self
+  - damage{amount=40} @target
+  - potion{type=WITHER;duration=200;level=4} @PIR{r=10}
+ExplosionRey:
+  Skills:
+  - explosion{yield=4} @PIR{r=14}
+  - effect:explosion @Self
+  - damage{amount=30} @PlayersInRadius{r=5}
+  - throw{velocity=10;velocityY=3} @PlayersInRadius{r=5}
+Ataque1:
+  Skills:
+  - orbital{i=1;r=2;points=18;OnStart=SonidoP;OnTick=TickDoradoSS;d=10;vy=1;vz=1;vx=1;oy=1;rX=80} @self
+  - orbital{i=1;r=1.9;points=18;OnStart=SonidoP;OnTick=TickNegroS;d=10;vy=1;vz=1;vx=1;oy=1;rX=80} @self
+  - orbital{i=1;r=1.8;points=18;OnStart=SonidoP;OnTick=TickAmarilloSS;d=10;vy=1;vz=1;vx=1;oy=1;rX=80} @self
+  - orbital{i=1;r=1.7;points=18;OnStart=SonidoP;OnTick=TicDoradoSS;d=10;vy=1;vz=1;vx=1;oy=1;rX=80} @self
+  - damage{a=12} @PIR{r=3}
+Ataque2:
+  Skills:
+  - orbital{i=1;r=2;points=18;OnStart=SonidoP;OnTick=TickDoradoSS;d=10;vy=1;vz=1;vx=1;oy=1;rX=75} @self
+  - orbital{i=1;r=1.9;points=18;OnStart=SonidoP;OnTick=TickNegroS;d=10;vy=1;vz=1;vx=1;oy=1;rX=75} @self
+  - orbital{i=1;r=1.8;points=18;OnStart=SonidoP;OnTick=TickAmarilloSS;d=10;vy=1;vz=1;vx=1;oy=1;rX=75} @self
+  - orbital{i=1;r=1.7;points=18;OnStart=SonidoP;OnTick=TicDoradoSS;d=10;vy=1;vz=1;vx=1;oy=1;rX=75} @self
+  - damage{a=12} @PIR{r=3} 
+Ataque3:
+  Skills:
+  - orbital{i=1;r=2;points=18;OnStart=SonidoP;OnTick=TickDoradoSS;d=10;vy=1;vz=1;vx=1;oy=1;rX=40} @self
+  - orbital{i=1;r=1.9;points=18;OnStart=SonidoP;OnTick=TickNegroS;d=10;vy=1;vz=1;vx=1;oy=1;rX=40} @self
+  - orbital{i=1;r=1.8;points=18;OnStart=SonidoP;OnTick=TickAmarilloSS;d=10;vy=1;vz=1;vx=1;oy=1;rX=40} @self
+  - orbital{i=1;r=1.7;points=18;OnStart=SonidoP;OnTick=TicDoradoSS;d=10;vy=1;vz=1;vx=1;oy=1;rX=40} @self
+  - damage{a=12} @PIR{r=3}
+TickDoradoSS:
+  Skills:
+  - effect:particles{p=reddust;c=#781f11;a=8;hs=0.1;vs=0.1;s=0.01} @origin
+TickAmarilloSS:
+  Skills:
+  - effect:particles{p=reddust;c=#b3311d;a=8;hs=0.1;vs=0.1;s=0.01} @origin
+#Skills Penumbra Reworkeado
+Ataque1P:
+  Skills:
+  - orbital{i=1;r=2;points=18;OnStart=SonidoP;OnTick=TickDoradoSSP;d=10;vy=1;vz=1;vx=1;oy=1;rX=80} @self
+  - orbital{i=1;r=1.9;points=18;OnStart=SonidoP;OnTick=TickNegroSP;d=10;vy=1;vz=1;vx=1;oy=1;rX=80} @self
+  - orbital{i=1;r=1.8;points=18;OnStart=SonidoP;OnTick=TickAmarilloSSP;d=10;vy=1;vz=1;vx=1;oy=1;rX=80} @self
+  - orbital{i=1;r=1.7;points=18;OnStart=SonidoP;OnTick=TicDoradoSSP;d=10;vy=1;vz=1;vx=1;oy=1;rX=80} @self
+  - damage{a=18} @PIR{r=3}
+Ataque2P:
+  Skills:
+  - orbital{i=1;r=2;points=18;OnStart=SonidoP;OnTick=TickDoradoSSP;d=10;vy=1;vz=1;vx=1;oy=1;rX=75} @self
+  - orbital{i=1;r=1.9;points=18;OnStart=SonidoP;OnTick=TickNegroSP;d=10;vy=1;vz=1;vx=1;oy=1;rX=75} @self
+  - orbital{i=1;r=1.8;points=18;OnStart=SonidoP;OnTick=TickAmarilloSSP;d=10;vy=1;vz=1;vx=1;oy=1;rX=75} @self
+  - orbital{i=1;r=1.7;points=18;OnStart=SonidoP;OnTick=TicDoradoSSP;d=10;vy=1;vz=1;vx=1;oy=1;rX=75} @self
+  - damage{a=18} @PIR{r=3} 
+Ataque3P:
+  Skills:
+  - orbital{i=1;r=2;points=18;OnStart=SonidoP;OnTick=TickDoradoSSP;d=10;vy=1;vz=1;vx=1;oy=1;rX=40} @self
+  - orbital{i=1;r=1.9;points=18;OnStart=SonidoP;OnTick=TickNegroSP;d=10;vy=1;vz=1;vx=1;oy=1;rX=40} @self
+  - orbital{i=1;r=1.8;points=18;OnStart=SonidoP;OnTick=TickAmarilloSSP;d=10;vy=1;vz=1;vx=1;oy=1;rX=40} @self
+  - orbital{i=1;r=1.7;points=18;OnStart=SonidoP;OnTick=TicDoradoSSP;d=10;vy=1;vz=1;vx=1;oy=1;rX=40} @self
+  - damage{a=18} @PIR{r=3}
+PenumbraA:
+  Skills:
+  - projectile{oT=TickCritico;oH=TickDañoPe;mr=12;i=1;v=6;sfo=0;syo=0;sso=0;sE=false;sB=true;y y=20} @ring{radius=160;points=6}
+  - effect:sound{s=entity.experience_orb.pickup;v=1;p=0.7}
+  - delay 2
+  - effect:sound{s=entity.experience_orb.pickup;v=1;p=0.7}
+  - delay 2
+  - effect:sound{s=entity.experience_orb.pickup;v=1;p=0.7}
+  - delay 2
+  - effect:sound{s=entity.experience_orb.pickup;v=1;p=0.7}
+  - delay 2
+  - effect:sound{s=entity.experience_orb.pickup;v=1;p=0.7}
+  - delay 2
+  - effect:sound{s=entity.experience_orb.pickup;v=1;p=0.7}
+  - delay 2
+  - effect:sound{s=entity.experience_orb.pickup;v=1;p=0.7}
+  - delay 2
+  - effect:sound{s=entity.experience_orb.pickup;v=1;p=0.7}
+  - delay 2
+  - effect:sound{s=entity.experience_orb.pickup;v=1;p=0.7}
+  - delay 2
+  - effect:sound{s=entity.experience_orb.pickup;v=1;p=0.7}
+  - delay 2
+TickCorte2:
+  Skills:
+  - effect:particles{p=reddust;amount=1;speed=0;hR=0.2;vR=0.2;color=#000000} @origin
+  - effect:particles{p=reddust;amount=1;speed=0;hR=0.2;vR=0.2;color=#F1C40F} @origin
+  - effect:particles{p=reddust;amount=1;speed=0;hR=0.2;vR=0.2;color=#F9E79F} @origin
+TickCorte:
+  Skills:
+  - effect:particles{p=reddust;c=#F1C40F;a=8;hs=0.1;vs=0.1;s=0.01} @origin
+  - effect:sound{s=entity.zombie.infect;v=1;p=0.7}
+  - damage{a=15} 
+TickCritico:
+  Skills:
+  - effect:particles{p=CRIT;a=18;hs=0.1;vs=0.1;s=0.01} @origin
+TickDañoPe:
+  Skills:
+  - damage{a=15}
+PenumbraA2:
+  Skills:
+  - projectile{onTick=TickCorte2;onHit=TickCorte;v=27;i=1;hR=1;vR=1;syo=2;StopAtBlock=true;HitNonPlayers=true;g=0.3;vO=1.8} @Cone{angle=360;points=48;range=60;rotation=360}
+TickDoradoSSP:
+  Skills:
+  - effect:particles{p=reddust;c=#F1C40F;a=8;hs=0.1;vs=0.1;s=0.01} @origin
+TickAmarilloSSP:
+  Skills:
+  - effect:particles{p=reddust;c=#F9E79F;a=8;hs=0.1;vs=0.1;s=0.01} @origin
+TickNegroSP:
+  Skills:
+  - effect:particles{p=reddust;c=#000000;a=6;hs=0.1;vs=0.1;s=0.01} @origin
+TickNegroSSP:
+  Skills:
+  - effect:particles{p=reddust;c=#000000;a=8;hs=0.1;vs=0.1;s=0.01} @origin
+CharcoLava:
+  Skills:
+  - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=3;radius=1;y=0.5} @TargetLocation
+  - effect:particles{particle=lava;a=1;vs=0.15;hs=0.15;s=0;y=0.5} @TargetLocation
+  - effect:particles{particle=cloud;a=1;vs=0.55;hs=0.55;s=0;y=0.15} @TargetLocation
+  - delay 3
+  - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=4;radius=1.33;y=0.15} @TargetLocation
+  - effect:particles{particle=lava;a=1;vs=0.2;hs=0.2;s=0;y=0.15} @TargetLocation
+  - effect:particles{particle=cloud;a=1;vs=0.75;hs=0.75;s=0;y=0.15} @TargetLocation
+  - effect:sound{s=block.fire.ambient;v=2;p=0.5} @target
+  - effect:sound{s=entity.ender_dragon.hurt;v=1.5;p=0.5} @target
+  - damage{a=1;i=true} @Target
+  - delay 4
+  - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=6;radius=1.67;y=0.15} @TargetLocation
+  - effect:particles{particle=lava;a=1;vs=0.3;hs=0.3;s=0;y=0.15} @TargetLocation
+  - effect:particles{particle=cloud;a=1;vs=1;hs=1;s=0;y=0.15} @TargetLocation
+  - delay 3
+  - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=9;radius=2;y=0.15} @TargetLocation
+  - effect:particles{particle=lava;a=1;vs=0.4;hs=0.4;s=0;y=0.15} @TargetLocation
+  - effect:particles{particle=cloud;a=1;vs=1.4;hs=1.4;s=0;y=0.15} @TargetLocation
+  - effect:sound{s=block.fire.ambient;v=2;p=0.5} @target
+  - effect:sound{s=entity.ender_dragon.hurt;v=1.5;p=0.5} @target
+  - damage{a=1;i=true} @Target
+  - delay 3
+  - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=12;radius=2.33;y=0.15} @TargetLocation
+  - effect:particles{particle=lava;a=1;vs=0.6;hs=0.6;s=0;y=0.15} @TargetLocation
+  - effect:particles{particle=cloud;a=1;vs=1.8;hs=1.8;s=0;y=0.15} @TargetLocation
+  - delay 4
+  - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=15;radius=2.67;y=0.15} @TargetLocation
+  - effect:particles{particle=lava;a=1;vs=0.8;hs=0.8;s=0;y=0.15} @TargetLocation
+  - effect:particles{particle=cloud;a=1;vs=2.25;hs=2.25;s=0;y=0.15} @TargetLocation
+  - effect:sound{s=block.fire.ambient;v=2;p=0.5} @target
+  - effect:sound{s=entity.ender_dragon.hurt;v=1.5;p=0.5} @target
+  - damage{a=1;i=true} @Target
+  - delay 3
+  - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=18;radius=3;y=0.15} @TargetLocation
+  - effect:particles{particle=lava;a=1;vs=1;hs=1;s=0;y=0.15} @TargetLocation
+  - effect:particles{particle=cloud;a=1;vs=2.55;hs=2.55;s=0;y=0.15} @TargetLocation
+  - delay 3
+  - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=24;radius=3.33;y=0.15} @TargetLocation
+  - effect:particles{particle=lava;a=1;vs=0.6;hs=0.6;s=0;y=0.15} @forward{f=2;y=1}
+  - effect:particles{particle=cloud;a=1;vs=1.8;hs=1.8;s=0;y=0.15} @TargetLocation
+  - effect:sound{s=block.fire.ambient;v=2;p=0.5} @target
+  - effect:sound{s=entity.ender_dragon.hurt;v=1.5;p=0.5} @target
+  - damage{a=1;i=true} @Target
+  - delay 4
+  - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=30;radius=3.67;y=0.15} @TargetLocation
+  - effect:particles{particle=lava;a=1;vs=0.8;hs=0.8;s=0;y=0.15} @TargetLocation
+  - effect:particles{particle=cloud;a=1;vs=2.25;hs=2.25;s=0;y=0.15} @TargetLocation
+  - delay 3
+  - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=36;radius=4;y=0.15} @TargetLocation
+  - effect:particles{particle=lava;a=1;vs=1;hs=1;s=0;y=0.15} @forward{f=2;y=1}
+  - effect:particles{particle=cloud;a=1;vs=2.55;hs=2.55;s=0;y=0.15} @TargetLocation
+  - effect:sound{s=block.fire.ambient;v=2;p=0.5} @target
+  - effect:sound{s=entity.ender_dragon.hurt;v=1.5;p=0.5} @target
+  - damage{a=1;i=true} @Target
+  - delay 3
+  - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=44;radius=4.33;y=0.15} @TargetLocation
+  - effect:particles{particle=lava;a=1;vs=0.6;hs=0.6;s=0;y=0.15} @TargetLocation
+  - effect:particles{particle=cloud;a=1;vs=1.8;hs=1.8;s=0;y=0.15} @TargetLocation
+  - delay 4
+  - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=52;radius=4.67;y=0.15} @TargetLocation
+  - effect:particles{particle=lava;a=1;vs=0.8;hs=0.8;s=0;y=0.15} @forward{f=2;y=1}
+  - effect:particles{particle=cloud;a=1;vs=2.25;hs=2.25;s=0;y=0.15} @TargetLocation
+  - effect:sound{s=block.fire.ambient;v=2;p=0.5} @target
+  - effect:sound{s=entity.ender_dragon.hurt;v=1.5;p=0.5} @target
+  - damage{a=1;i=true} @Target
+  - delay 3
+  - effect:particlering{particle=lava;a=2;vs=0.15;hs=0.15;s=0;points=60;radius=5;y=0.15} @TargetLocation
+  - effect:particles{particle=lava;a=1;vs=1;hs=1;s=0;y=0.15} @TargetLocation
+  - effect:particles{particle=cloud;a=1;vs=2.55;hs=2.55;s=0;y=0.15} @TargetLocation
+#Jefe Tiki
+TikiAtk1:
+  Cooldown: 5
+  Skills:
+  - sound{s=entity.zombie.attack_iron_door;v=0.9;p=2;repeat=5;repeatinterval=20} @PIR{r=40}
+  - potion{type=SLOW;duration=200;level=99} @PIR{r=20}
+  - damage{amount=30;repeat=5;repeatinterval=20} @PlayersInRadius{r=30}
+
+CerdoAtk1:
+  Cooldown: 50
+  Skills:
+  - potion{type=DAMAGE_RESISTANCE;duration=10;level=200} @self 
+  - explosion{yield=0.01;false;false} @target
+  - potion{type=SLOW;duration=200;level=1} @PlayersInRadius{r=20}
+  - damage{amount=30;repeat=5;repeatinterval=40} @PlayersInRadius{r=15}
+CerdoAtk2:
+  Cooldown: 70
+  Skills:
+  - throw{velocity=15;velocityY=5} @PlayersInRadius{r=10}
+CerdoAtk3:
+  Cooldown: 20
+  Skills:
+  - sound{s=entity.evoker.cast_spell;v=0.9;p=2;repeat=2;repeatinterval=20} @PlayersInRadius{r=20}
+  - potion{type=POISON;duration=200;level=10} @PlayersInRadius{r=15}
+esbirro1:
+  Cooldown: 20
+  Skills:
+  - sound{s=entity.zombie.break_wooden_door;v=2;p=2;repeat=5;repeatinterval=20} @PlayersInRadius{r=20}
+  - effect:particles{particle=Damage_Indicator;amount=20;hS=1;vS=1;speed=5} @Target
+  - damage{amount=35;repeat=3;repeatinterval=30} @target 
+  - potion{type=SLOW;duration=200;level=1} @Target
+esbirro2:
+  Cooldown: 20
+  Skills:
+  - sound{s=entity.evoker.cast_spell;v=1;p=0.9;repeat=1;repeatinterval=20} @PIR{r=20}
+  - effect:particles{particle=flame;amount=200;hS=1;vS=1;speed=5} @self
+  - damage{amount=25;repeat=3;repeatinterval=30} @PlayersInRadius{r=15} 
+SetOwner:
+  Skills:
+  - setvariable{var=skill.resis;type=INTEGER;value=1} @self
+resistance:
+  Skills:
+  - heal{amount=400} @self 
+esbirro3:
+  Cooldown: 20
+  Skills:
+  - skill{s=final1} @target 
+cureAlieados:
+  Cooldown: 25
+  Skills:
+  - sound{s=entity.wither.ambient;repeat=3;repeatinterval=10} @PIR{r=20}
+  - message{m="&c&l[!] &eEl &4&lJefe Tiki &eha curado a sus aliados!"} @PlayersInRadius{r=20}
+  - effect:enderbeam{d=25;y=2} @MobsInRadius{r=25;t=CerdoTiki,JefeTiki,Esbirro1,Esbirro2,Esbirro3}
+  - heal{amount=125} @MobsInRadius{r=25;t=Esbirro1,Esbirro2,Esbirro3}
+EsbirrosSpawn:
+  Cooldown: 70
+  Skills:
+  - sound{s=item.goat_horn.sound.2;v=2;p=0.9;repeat=0;repeatinterval=20} @PlayersInRadius{r=20}
+  - summon{type=Esbirro1;amount=3;radius=5;onSurface=true} @Self
+  - summon{type=Esbirro2;amount=2;radius=5;onSurface=true} @Self
+  - summon{type=Esbirro3;amount=2;radius=5;onSurface=true} @Self
+final1:
+  Skills:
+  - projectile{onTick=p1-Tick;onHit=p2-Hit;v=8;i=1;hR=1;vR=1;hnp=true;repeat=4;repeatinterval=25}
+p1-Tick:
+  Skills:
+  - effect:particles{p=Sculk_Soul;amount=20;speed=0;hS=0.2;vS=0.2} @origin
+p2-Hit:
+  Skills:
+  - damage{a=10}
+  - potion{type=SLOW;duration=100;lvl=2} 
+#SKills Golem
+Terremoto:
+  Skills:
+  - jump{velocity=0.75}
+  - delay 20
+  - blockwave{duration=30;radius=5;radiusY=5;velocity=5;shape=sphere} @selflocation
+  - damage{amount=120} @PlayersInRadius{r=20}
+  - throw{velocity=20;velocityY=5} @PlayersInRadius{r=10}
+  - sound{s=entity.generic.explode} @PIR{r=10}
+SweepDamage:
+  Skills:
+  - sound{s=entity.evoker.prepare_summon} @PIR{r=10}
+  - summon{type=SweepArmor;amount=1;radius=10;onSurface=true} @PlayersInRadius{r=10}
+BlackScreen:
+  Skills:
+  - sendtitle{title="&fTu visión sera afectada";subtitle="&cDebes alejarte lo antes posible!";d=30} @PlayersInRadius{r=15}
+  - delay 400
+  - sendtitle{title="Tu visión ha sido reducida";subtitle="&cAlejate antes de perderla!";d=30} @PlayersInRadius{r=15}
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 20
+  - potion{type=BLINDNESS;duration=400;level=2} @PlayersInRadius{r=30}
+  - delay 10
+  - sendtitle{title="&4Perderas la visión";subtitle="&4Aléjate y recuperate!";d=30} @PlayersInRadius{r=30}
+  - delay 15
+  - blackscreen{d=100} @PlayersInRadius{r=40}
+  - summon{type=Golemsubdito;amount=1;radius=8;onSurface=true} @PlayersInRadius{r=30}
+# SKILL BOSS
+test_TICK:
+  Skills:
+  - effect:particles{delay=1;particle=sweep_attack;amount=1;speed=0.25;hS=0;vS=0;y=0.25;size=0.25} @Origin 
+  - modifyProjectile{trait=RADIUS;action=MULTIPLY;value=0.98}
+  - modifyProjectile{delay=5;trait=RADIUS;action=MULTIPLY;value=0.985}
+  - modifyProjectile{delay=50;trait=RADIUS;action=MULTIPLY;value=1.07}
+  - modifyProjectile{delay=100;trait=RADIUS;action=MULTIPLY;value=0.9}
+test_Hit:
+  Skills:
+  - damage{amount=80} @PlayersInRadius{r=40}
+##SKILL JEFES
+
+HuskRecuperacion:
+  Cooldown: 8
+  Skills:
+  - sound{s=item.honey_bottle.drink;v=0.5;p=1;repeat=5;repeatInterval=5} @PIR{r=5}
+  - heal{amount=20} @self 
+  - sound{s=entity.witch.drink;v=1;p=2} @PIR{r=5}
+GuardianAtaque:
+  Cooldown: 12
+  Skills:
+  - sound{s=entity.evoker.prepare_summon;v=0.5;p=2} @PIR{r=5}
+  - effect:particles{particle=end_rod;amount=50;hS=2;vS=1;speed=0.3} @self
+  - damagepercent{percent=3.5} @PIR{r=5}
+GuardianAtaque1:
+  Cooldown: 10
+  Skills:
+  - sound{s=entity.evoker.prepare_summon;v=0.5;p=2} @PIR{r=5}
+  - effect:particles{particle=end_rod;amount=50;hS=2;vS=1;speed=0.3} @self
+  - damagepercent{percent=1.5} @PIR{r=5}
+HEROICO:
+  Skills:
+  - command{c="ae givercbook HEROICO <trigger.name> 1"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado una runa &6Heroico"} @Target
+CELESTIAL:
+  Skills:
+  - command{c="ae givercbook CELESTIAL <trigger.name> 1"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado una runa &eCelestial"} @Target
+ARCANO:
+  Skills:
+  - command{c="ae givercbook ARCANO <trigger.name> 1"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado una runa &3Arcano"} @Target
+VULCANO:
+  Skills:
+  - command{c="ae givercbook VULCANO <trigger.name> 1"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado una runa &4Vulcano"} @Target
+ETERNO:
+  Skills:
+  - command{c="ae givercbook ETERNO <trigger.name> 1"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado una runa &cEterno"} @Target
+DEXTRA:
+  Skills:
+  - command{c="ae givercbook DEXTRA <trigger.name> 1"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado una runa &bDextra"} @Target
+GolemAtaque:
+  Cooldown: 12
+  Skills:
+  - sound{s=block.anvil.land;v=0.5;p=2} @PIR{r=5}
+  - effect:particles{particle=snow_shovel;amount=100;hS=2;vS=1;speed=0.3} @self
+  - potion{type=SLOW;duration=200;level=15} @PIR{r=5}
+RobaAtaque:
+  Cooldown: 10
+  Skills:
+  - sound{s=entity.ravager.attack;v=1;p=1.2} 
+  - effect:particles{particle=sweep_attack;amount=2;hS=0.3;vS=0.3;speed=0.3;repeat=5;repeatInterval=10;y=1} 
+  - effect:particles{particle=redstone;amount=10;hS=0.3;vS=0.3;speed=0.3;repeat=5;repeatInterval=10;y=1} 
+  - damage{amount=50}
+RobaAtaque1:
+  Cooldown: 10
+  Skills:
+  - sound{s=entity.ravager.attack;v=1;p=1.2} 
+  - effect:particles{particle=sweep_attack;amount=2;hS=0.3;vS=0.3;speed=0.3;repeat=5;repeatInterval=10;y=1} 
+  - effect:particles{particle=redstone;amount=10;hS=0.3;vS=0.3;speed=0.3;repeat=5;repeatInterval=10;y=1} 
+  - damage{amount=25}
+BandidoAtaque:
+  Cooldown: 10
+  Skills:
+  - sound{s=entity.elder_guardian.curse;v=1;p=1.2} @PIR{r=5}
+  - effect:particles{particle=sweep_attack;amount=2;hS=0.3;vS=0.3;speed=0.3;repeat=5;repeatInterval=10;y=1} @Target
+  - effect:particles{particle=redstone;amount=10;hS=0.3;vS=0.3;speed=0.3;repeat=5;repeatInterval=10;y=1} @Target
+  - skill{s=SKILL1}
+SKILL1:
+  Skills:
+  - projectile{onTick=Tick;onHit=Hit;v=8;i=1;hR=1;vR=1;hnp=true}
+Tick:
+  Skills:
+  - effect:particles{p=flame;amount=20;speed=0;hS=0.2;vS=0.2} @origin
+Hit:
+  Skills:
+  - potion{type=SLOW;duration=100;lvl=2}
+MidasReflejar:
+  Skills:
+  - damage{amount=15} @PIR{r=5}
+  - effect:particles{particle=small_flame;amount=40;hS=1;vS=1;speed=0.3;y=1} @Origin
+  - sound{s=entity.generic.explode;v=1;p=1.2} @PIR{r=5}
+MidasLanzar:
+  Cooldown: 40
+  Skills:
+  - damage{amount=50} @PIR{r=10}
+  - effect:particles{particle=end_rod;amount=30;hS=0.3;vS=0.3;speed=0.3;y=1} @Origin
+  - sound{s=entity.elder_guardian.curse;v=1;p=0.1} @PIR{r=5}
+  - pull{v=100;to=true} @PIR{r=10}
+  - delay 20
+  - sound{s=entity.elder_guardian.curse;v=1;p=2;repeat=4;repeatInterval=20} @target
+  - message{m="&c&l[!] &eMidas > &8[&f<&heart>&8] &cExplotara en 5"} @PlayersInRadius{r=10}
+  - pull{v=8;to=true} @PIR{r=10}
+  - delay 20
+  - message{m="&c&l[!] &eMidas > &8[&f<&heart>&8] &cExplotara en 4"} @PlayersInRadius{r=10}
+  - pull{v=8;to=true} @PIR{r=10}
+  - delay 20
+  - message{m="&c&l[!] &eMidas > &8[&f<&heart>&8] &cExplotara en 3"} @PlayersInRadius{r=10}
+  - pull{v=8;to=true} @PIR{r=10}
+  - delay 20
+  - message{m="&c&l[!] &eMidas > &8[&f<&heart>&8] &cExplotara en 2"} @PlayersInRadius{r=10}
+  - pull{v=8;to=true} @PIR{r=10}
+  - delay 20
+  - message{m="&c&l[!] &eMidas > &8[&f<&heart>&8] &cExplotara en 1"} @PlayersInRadius{r=10}
+  - pull{v=8;to=true} @PIR{r=10}
+  - damage{amount=50} @PIR{r=10}
+  - effect:particles{particle=explosion_large;amount=40;hS=2;vS=2;speed=0.3;y=1.2} @Self
+  - sound{s=entity.generic.explode;v=1;p=1.2} @PIR{r=10}
+  - sound{s=entity.elder_guardian.death_land;v=1;p=0.1} @PIR{r=10}
+Prision:
+  Cooldown: 10
+  Skills:
+  - prison{material=GOLD_BLOCK;duration=60;breakable=false} @target
+  - message{m="&c&l[!] &eMidas &c!Te ha vuelto oro¡"} @target
+MultiplicadorDeDaño:
+  Skills:
+  - skill{s=MultiplicadorDeDaño1}
+  - skill{s=MultiplicadorDeDaño2}
+  - skill{s=MultiplicadorDeDaño3}
+  - skill{s=MultiplicadorDeDaño4}
+  - skill{s=MultiplicadorDeDaño5}
+  - skill{s=MultiplicadorDeDaño6}
+  - skill{s=MultiplicadorDeDaño7}
+  - skill{s=MultiplicadorDeDaño8}
+  - skill{s=MultiplicadorDeDaño9}
+  - skill{s=MultiplicadorDeDaño10}
+MultiplicadorDeDaño1:
+  Conditions:
+  - playerkills{k=1} true
+  Skills: 
+  - barCreate{name="uno";display="&4&l--♠︎&f&lx1 &4&l♠︎--";value=0.1;color=RED;style=SOLID} @PIR{r=50}
+  - potion{type=INCREASE_DAMAGE;duration=99999;level=5;p=false} @self
+  - delay 10
+  - message{m="&4 ☬ ᴍᴜʟᴛɪᴘʟɪᴄᴀᴅᴏʀ x1 ☬"} @PIR{r=50}
+  - sound{s=block.respawn_anchor.set_spawn;v=10;p=0.5} @PIR{r=50}
+MultiplicadorDeDaño2:
+  Conditions:
+  - playerkills{k=2} true
+  Skills:
+  - potionclear{} @self
+  - barRemove{name="uno"} @Self
+  - barCreate{name="dos";display="&4&l--♠︎&f&lx2 &4&l♠︎--";value=0.2;color=RED;style=SOLID} @PIR{r=50}
+  - delay 10
+  - potion{type=INCREASE_DAMAGE;duration=99999;level=10;p=false} @self
+  - message{m="&4 ☬ ᴍᴜʟᴛɪᴘʟɪᴄᴀᴅᴏʀ x2 ☬"} @PIR{r=50}
+  - sound{s=block.respawn_anchor.set_spawn;v=10;p=0.5} @PIR{r=50}
+MultiplicadorDeDaño3:
+  Conditions:
+  - playerkills{k=3} true
+  Skills:
+  - potionclear{} @self
+  - barRemove{name="dos"} @Self
+  - barCreate{name="tres";display="&4&l--♠︎&f&lx3 &4&l♠︎--";value=0.3;color=RED;style=SOLID} @PIR{r=50}
+  - delay 10
+  - potion{type=INCREASE_DAMAGE;duration=99999;level=15;p=false} @self
+  - message{m="&4 ☬ ᴍᴜʟᴛɪᴘʟɪᴄᴀᴅᴏʀ x3 ☬"} @PIR{r=50}
+  - sound{s=block.respawn_anchor.set_spawn;v=15;p=0.5} @PIR{r=50}
+MultiplicadorDeDaño4:
+  Conditions:
+  - playerkills{k=4} true
+  Skills:
+  - potionclear{} @self
+  - barRemove{name="tres"} @Self
+  - barCreate{name="cuatro";display="&4&l--♠︎&f&lx4 &4&l♠︎--";value=0.4;color=RED;style=SOLID} @PIR{r=50}
+  - delay 10
+  - potion{type=INCREASE_DAMAGE;duration=99999;level=20;p=false} @self
+  - message{m="&4 ☬ ᴍᴜʟᴛɪᴘʟɪᴄᴀᴅᴏʀ x4 ☬"} @PIR{r=50}
+  - sound{s=block.respawn_anchor.set_spawn;v=20;p=0.5} @PIR{r=50}
+MultiplicadorDeDaño5:
+  Conditions:
+  - playerkills{k=5} true
+  Skills:
+  - potionclear{} @self
+  - barRemove{name="cuatro"} @Self
+  - barCreate{name="cinco";display="&4&l--♠︎&f&lx5 &4&l♠︎--";value=0.5;color=RED;style=SOLID} @PIR{r=50}
+  - delay 10
+  - potion{type=INCREASE_DAMAGE;duration=99999;level=25;p=false} @self
+  - message{m="&4 ☬ ᴍᴜʟᴛɪᴘʟɪᴄᴀᴅᴏʀ x5 ☬"} @PIR{r=50}
+  - sound{s=block.respawn_anchor.set_spawn;v=25;p=0.5} @PIR{r=50}
+MultiplicadorDeDaño6:
+  Conditions:
+  - playerkills{k=6} true
+  Skills:
+  - potionclear{} @self
+  - barRemove{name="cinco"} @Self
+  - barCreate{name="seis";display="&4&l--♠︎&f&lx6 &4&l♠︎--";value=0.6;color=RED;style=SOLID} @PIR{r=50}
+  - delay 10
+  - potion{type=INCREASE_DAMAGE;duration=99999;level=30;p=false} @self
+  - message{m="&4 ☬ ᴍᴜʟᴛɪᴘʟɪᴄᴀᴅᴏʀ x6 ☬"} @PIR{r=50}
+  - sound{s=block.respawn_anchor.set_spawn;v=30;p=0.5} @PIR{r=50
+MultiplicadorDeDaño7:
+  Conditions:
+  - playerkills{k=7} true
+  Skills:
+  - potionclear{} @self
+  - barRemove{name="seis"} @Self
+  - barCreate{name="siete";display="&4&l--♠︎&f&lx7 &4&l♠︎--";value=0.7;color=RED;style=SOLID} @PIR{r=50}
+  - delay 10
+  - potion{type=INCREASE_DAMAGE;duration=99999;level=35;p=false} @self
+  - message{m="&4 ☬ ᴍᴜʟᴛɪᴘʟɪᴄᴀᴅᴏʀ x7 ☬"} @PIR{r=50}
+  - sound{s=block.respawn_anchor.set_spawn;v=35;p=0.5} @PIR{r=50}
+MultiplicadorDeDaño8:
+  Conditions:
+  - playerkills{k=8} true
+  Skills:
+  - potionclear{} @self
+  - barRemove{name="siete"} @Self
+  - barCreate{name="ocho";display="&4&l--♠︎&f&lx8 &4&l♠︎--";value=0.8;color=RED;style=SOLID} @PIR{r=50}
+  - delay 10
+  - potion{type=INCREASE_DAMAGE;duration=99999;level=40;p=false} @self
+  - message{m="&4 ☬ ᴍᴜʟᴛɪᴘʟɪᴄᴀᴅᴏʀ x8 ☬"} @PIR{r=50}
+  - sound{s=block.respawn_anchor.set_spawn;v=40;p=0.5} @PIR{r=50}
+  - sound{s=entity.ravager.roar;v=50;p=1} @PIR{r=50}
+MultiplicadorDeDaño9:
+  Conditions:
+  - playerkills{k=9} true
+  Skills:
+  - potionclear{} @self
+  - barRemove{name="ocho"} @Self
+  - barCreate{name="nueve";display="&4&l--♠︎&f&lx9 &4&l♠︎--";value=0.9;color=RED;style=SOLID} @PIR{r=50}
+  - delay 10
+  - potion{type=INCREASE_DAMAGE;duration=99999;level=45;p=false} @self
+  - message{m="&4 ☬ ᴍᴜʟᴛɪᴘʟɪᴄᴀᴅᴏʀ x9 ☬"} @PIR{r=50}
+  - sound{s=block.respawn_anchor.set_spawn;v=45;p=0.5} @PIR{r=50}
+  - sound{s=entity.ravager.roar;v=50;p=1} @PIR{r=50}
+MultiplicadorDeDaño10:
+  Conditions:
+  - playerkills{k=10} true
+  Skills:
+  - potionclear{} @self
+  - barRemove{name="nueve"} @Self
+  - barCreate{name="diez";display="&4&l--♠︎&f&lx10 &4&l♠︎--";value=1.0;color=RED;style=SOLID} @PIR{r=50}
+  - delay 10
+  - potion{type=INCREASE_DAMAGE;duration=99999;level=50;p=false} @self
+  - message{m="&4 ☬ ᴍᴜʟᴛɪᴘʟɪᴄᴀᴅᴏʀ x10 ☬"} @PIR{r=50}
+  - sound{s=block.respawn_anchor.set_spawn;v=50;p=0.5} @PIR{r=50}
+  - sound{s=entity.ravager.roar;v=50;p=1} @PIR{r=50}
+  - delay 20
+  - sound{s=entity.skeleton_horse.death;v=50;p=1.4} @PIR{r=50}
+TormentaDeArena:
+  Cooldown: 30
+  Skills:
+  - throw{velocity=30;velocityY=30} @EntitiesNearOrigin{r=10}
+  - projectile{onTick=Cañones-TickE;onHit=Cañones-TickC;v=50;;i=1;hR=1;vR=1;d=60;sE=true;sB=true;sfo=-1;sso=3.4;syo=4} @PlayersNearOrigin{r=50}
+  - delay 30
+  - projectile{onTick=Cañones-TickE;onHit=Cañones-TickC;v=50;;i=1;hR=1;vR=1;d=60;sE=true;sB=true;sfo=-1;sso=3.4;syo=4} @PlayersNearOrigin{r=50}
+  - delay 30
+  - projectile{onTick=Cañones-TickE;onHit=Cañones-TickC;v=50;;i=1;hR=1;vR=1;d=60;sE=true;sB=true;sfo=-1;sso=3.4;syo=4} @PlayersNearOrigin{r=50}
+Cañones-TickA:
+  Skills:
+  - effect:particles{p=reddust;color=#EAD5BF;amount=10;Size=0.5;hs=0;vs=0} @origin
+  - effect:particles{p=reddust;color=#D55405;amount=10;Size=0.3;hs=0;vs=0} @origin
+  - delay 3
+Cañones-TickB:
+  Skills:
+  - effect:particles{p=reddust;color=#FFFFFF;amount=10;Size=0.4;hs=0;vs=0} @origin
+  - delay 2
+  - effect:particles{p=reddust;color=#EAD5BF;amount=10;Size=0.2;hs=0;vs=0} @origin
+Cañones-TickC:
+  Skills:
+  - sound{s=minecraft:block.respawn_anchor.set_spawn;v=1;p=2} @PlayersNearOrigin{r=2}
+  - damage{amount=60} @PlayersNearOrigin{r=2}
+Cañones-TickE:
+  Skills:
+  - effect:particles{p=reddust;color=#EAD5BF;amount=10;Size=0.5;hs=0;vs=0} @origin
+  - effect:particles{p=reddust;color=#DA5112;amount=10;Size=0.3;hs=0.02;vs=0} @origin
+  - delay 1
+  - effect:particles{p=reddust;color=#EAD5BF;amount=10;Size=0.3;hs=0.04;vs=0} @origin
+  - effect:particles{p=reddust;color=#DA5112;amount=20;Size=0.3;hs=0.04;vs=0} @origin
+  - delay 1
+  - effect:particles{p=reddust;color=#EAD5BF;amount=15;Size=0.3;hs=0.08;vs=0} @origin
+  - effect:particles{p=reddust;color=#DA5112;amount=15;Size=0.3;hs=0.08;vs=0} @origin
+  - delay 1
+  - effect:particles{p=reddust;color=#DA5112;amount=30;Size=0.3;hs=0.14;vs=0} @origin
+  - delay 1
+  - effect:particles{p=reddust;color=#DA5112;amount=40;Size=0.3;hs=0.18;vs=0} @origin
+  - delay 1
+  - effect:particles{p=reddust;color=#DA5112;amount=50;Size=0.3;hs=0.22;vs=0} @origin
+  - delay 1
+  - effect:particles{p=reddust;color=#DA5112;amount=50;Size=0.3;hs=0.24;vs=0} @origin
+  - delay 1
+  - effect:particles{p=reddust;color=#DA5112;amount=50;Size=0.3;hs=0.28;vs=0} @origin
+  - delay 1
+  - effect:particles{p=reddust;color=#DA5112;amount=50;Size=0.3;hs=0.32;vs=0} @origin
+Polvo:
+  Cooldown: 1
+  Skills:
+  - effect:particles{p=reddust;color=#EAD5BF;amount=20;Size=0.5;hs=1;vs=1} @Self
+  - effect:lightning @PlayersNearOrigin{r=10}
+  - message{m="&c&l[!] &eMidas > &c!Te convertiras en polvo¡"} @PlayersNearOrigin{r=10}
+  - damage{a=2;repeat=20;repeatInterval=5} @PlayersNearOrigin{r=10}
+Mordida:
+  Cooldown: 8
+  Skills:
+  - sound{s=:entity.phantom.bite;v=50;p=2} @PIR{r=10}
+  - sound{s=:entity.ravager.roar;v=50;p=2} @PIR{r=10}
+  - effect:particles{p=reddust;color=#FA0000;amount=20;Size=0.5;hs=1;vs=1} @Self
+  - damage{a=60} @Target
+  - message{m="&c&l[!] &5Escarabajo > &c!Te he mordido¡"} @Target
+  - delay 10
+  - message{m="&c&l[!] &5Escarabajo > &c!Te estas desangrando¡"} @Target
+  - damage{a=2;repeat=20;repeatInterval=5} @Target
+  - effect:particles{p=reddust;color=#FA0000;amount=20;Size=0.5;hs=1;vs=1;repeat=20;repeatInterval=5} @target
+MordidaE:
+  Cooldown: 8
+  Skills:
+  - sound{s=:entity.ravager.roar;v=50;p=0.2} @PIR{r=10}
+  - effect:particles{p=reddust;color=#EDBB99;amount=60;Size=0.5;hs=4;vs=2} @Self
+  - damage{a=60} @PIR{r=5}
+MordidaLanzar:
+  Cooldown: 11
+  Skills:
+  - sound{s=:entity.ravager.roar;v=50;p=0.2} @PIR{r=10}
+  - throw{velocity=10;velocityY=10} @Target
+  - message{m="&c&l[!] &5Escarabajo > &c!Te ha lanzado¡"} @Target
+  - delay 5
+  - sound{s=:entity.generic.explode;v=50;p=2} @PIR{r=10}
+  - damage{a=30} @Target
+Veneno:
+  Cooldown: 15
+  Skills:
+  - sound{s=entity.evoker.prepare_attack;v=50;p=2} @PIR{r=10}
+  - potion{type=SLOW;duration=200;level=4} @PIR{r=10}
+  - potion{type=POISON;duration=200;level=12} @PIR{r=10}
+  - message{m="&c&l[!] &5Escarabajo > &c!Los ha envenenado¡"} @PIR{r=10}
+  - damage{a=30} @PIR{r=10}
+LunaNEspadaV:
+  Cooldown: 7
+  Skills:
+  - potion{type=SLOW;duration=35;level=2} @self
+  - orbital{i=1;r=2.3;points=17;OnStart=SonidoP;OnTick=TickMoradoS;d=12;vy=1;vz=1;vx=1;oy=1;rZ=-34} @self
+  - damage{a=5} @PIR{r=3}
+  - delay 7
+  - orbital{i=1;r=2.3;points=17;OnStart=SonidoP;OnTick=TickNegroS;d=12;vy=1;vz=1;vx=1;oy=1;rZ=45} @self
+  - damage{a=5} @PIR{r=3}
+  - delay 7
+  - orbital{i=1;r=2.3;points=17;OnStart=SonidoP;OnTick=TickBlancoS;d=12;vy=1;vz=1;vx=1;oy=1;rZ=67} @self
+  - damage{a=5} @PIR{r=3}
+  - delay 7
+  - orbital{i=1;r=2.3;points=17;OnStart=SonidoP;OnTick=TickMoradoS;d=12;vy=1;vz=1;vx=1;oy=1;rZ=80} @self
+  - damage{a=5} @PIR{r=3}
+  - delay 7
+  - orbital{i=1;r=2.3;points=17;OnStart=SonidoP;OnTick=TickNegroS;d=12;vy=1;vz=1;vx=1;oy=1;rZ=98} @self
+  - damage{a=5} @PIR{r=3}
+  - delay 7
+  - orbital{i=1;r=2.3;points=17;OnStart=SonidoP;OnTick=TickBlancoS;d=12;vy=1;vz=1;vx=1;oy=1;rZ=-56} @self
+  - damage{a=5} @PIR{r=3}
+  - delay 7
+  - orbital{i=1;r=2.3;points=17;OnStart=SonidoP;OnTick=TickMoradoS;d=12;vy=1;vz=1;vx=1;oy=1;rZ=58} @self
+  - damage{a=5} @PIR{r=3}
+  - delay 7
+  - orbital{i=1;r=2.3;points=17;OnStart=SonidoP;OnTick=TickNegroS;d=12;vy=1;vz=1;vx=1;oy=1;rZ=-49} @self
+  - damage{a=5} @PIR{r=3}
+  - delay 7
+TickMoradoS:
+  Skills:
+  - effect:particles{p=reddust;c=#5C0B9C;a=6;hs=0.1;vs=0.1;s=0.01} @origin
+TickBlancoS:
+  Skills:
+  - effect:particles{p=reddust;c=#FEFEFE;a=6;hs=0.1;vs=0.1;s=0.01} @origin
+TickNegroS:
+  Skills:
+  - effect:particles{p=reddust;c=#000000;a=6;hs=0.1;vs=0.1;s=0.01} @origin
+#TickDañoS:
+#  Skills:
+#  - damage{a=22} @PIR{r=10}
+SonidoP:
+  Skills:
+  - sound{s=item.shield.block;v=1.0;p=1.0} @PIR{r=10}
+SonidoPP:
+  Skills:
+  - sound{s=ambient.weather.thunder;v=1.0;p=1.0} @Target
+llamas:
+      Skills:
+      - projectile{onTick=TickMorado;onHit=Llamas-efecto;v=8;i=1;hR=1;sso=1.1;syo=1.2;vR=1;hnp=true}
+      - delay 2
+      - projectile{onTick=TickNegroSS;onHit=Llamas-efecto;v=8;i=1;hR=1;sso=-1.1;syo=1.1;vR=1;hnp=true}
+      - delay 2
+      - projectile{onTick=TickBlancoSS;onHit=Llamas-efecto;v=8;i=1;hR=1;sso=1.2;syo=-1.1;vR=1;hnp=true}
+      - delay 2
+      - projectile{onTick=TickNegroSS;onHit=Llamas-efecto;v=8;i=1;hR=1;sso=1.3;syo=-1.2;vR=1;hnp=true}
+      - delay 2
+      - projectile{onTick=TickMoradoSS;onHit=Llamas-efecto;v=8;i=1;hR=1;sso=.1.3;syo=1.3;vR=1;hnp=true}
+      - delay 2
+      - projectile{onTick=TickMorado;onHit=Llamas-efecto;v=8;i=1;hR=1;sso=1.1;vR=1;syo=-1.2;hnp=true}
+      - delay 2
+      - projectile{onTick=TickNegroSS;onHit=Llamas-efecto;v=8;i=1;hR=1;sso=-1.1;vR=1;syo=-1.3;hnp=true}
+      - delay 2
+      - projectile{onTick=TickBlancoSS;onHit=Llamas-efecto;v=8;i=1;hR=1;sso=1.2;vR=1;syo=1.2;hnp=true}
+      - delay 2
+      - projectile{onTick=TickNegroSS;onHit=Llamas-efecto;v=8;i=1;hR=1;sso=1.3;vR=1;syo=-1.2;hnp=true}
+      - delay 2
+      - projectile{onTick=TickMoradoSS;onHit=Llamas-efecto;v=8;i=1;hR=1;sso=.1.3;vR=1;syo=1.3;hnp=true}
+      - delay 2
+Llamas-efecto:
+      Skills:
+      - damage{a=15}
+      - sound{s=entity.shulker_bullet.hit} @self
+      - potion{type=SLOW;duration=100;lvl=2}
+TickMoradoSS:
+  Skills:
+  - effect:particles{p=reddust;c=#5C0B9C;a=8;hs=0.1;vs=0.1;s=0.01} @origin
+TickBlancoSS:
+  Skills:
+  - effect:particles{p=reddust;c=#FEFEFE;a=8;hs=0.1;vs=0.1;s=0.01} @origin
+TickNegroSS:
+  Skills:
+  - effect:particles{p=reddust;c=#000000;a=8;hs=0.1;vs=0.1;s=0.01} @origin
+  
+## DROPEOS MIDAS
+DSobrecargaI:
+  Skills:
+  - command{c="ae givebook <trigger.name> overload 1 1 25 75"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cSobrecarga I"} @Target
+DSobrecargaDI:
+  Skills:
+  - command{c="ae givebook <trigger.name> godlyoverload 1 1 30 70"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &bSobrecarga de los Dioses I"} @Target
+DGrasaIII:
+  Skills:
+  - command{c="ae givebook <trigger.name> fat 3 1 40 60"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cGrasa III"} @Target
+DBarbaroI:
+  Skills:
+  - command{c="ae givebook <trigger.name> barbarian 1 1 30 70"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cBárbaro I"} @Target
+DBorrachoII:
+  Skills:
+  - command{c="ae givebook <trigger.name> drunk 2 1 20 80"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cBorracho II"} @Target
+DPurgaII:
+  Skills:
+  - command{c="ae givebook <trigger.name> purge 2 1 40 60"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cPurga II"} @Target
+DOmegaI:
+  Skills:
+  - command{c="ae givebook <trigger.name> omegaannihilate 1 1 45 55"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &bOmega Aniquilar I"} @Target
+DAniquilarI:
+  Skills:
+  - command{c="ae givebook <trigger.name> annihilate 2 1 55 45"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &4Aniquilar II"} @Target
+DDemonioFI:
+  Skills:
+  - command{c="ae givebook <trigger.name> demonioforjador 1 1 55 45"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &3Demonio Forjador I"} @Target
+DGuardianesV:
+  Skills:
+  - command{c="ae givebook <trigger.name> guardians 5 1 30 70"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &4Guardianes V"} @Target
+DBarbaroFII:
+  Skills:
+  - command{c="ae givebook <trigger.name> strongbarbarian 2 1 50 50"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &bBárbaro Fuerte II"} @Target
+DMjolnirMII:
+  Skills:
+  - command{c="ae givebook <trigger.name> mightymjolnir 2 1 35 65"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &bPoderoso Mjolnir II"} @Target
+DHendiduraII:
+  Skills:
+  - command{c="ae givebook <trigger.name> cleave 2 1 40 60"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &4Hendidura II"} @Target
+DGloriaII:
+  Skills:
+  - command{c="ae givebook <trigger.name> gloriadelosdioses 3 1 55 45"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &3Gloria de los Dioses III"} @Target
+DMHerreroI:
+  Skills:
+  - command{c="ae givebook <trigger.name> masterblacksmith 1 1 20 80"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &bMaestro Herrero I"} @Target
+DExplosivoI:
+  Skills:
+  - command{c="ae givebook <trigger.name> explosive 1 1 20 80"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &eExplosivo I"} @Target
+DCampoFI:
+  Skills:
+  - command{c="ae givebook <trigger.name> forcefield 2 1 30 70"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &6Campo de Fuerza II"} @Target
+## Dropeos Escarabajo ######
+DAnularI:
+  Skills:
+  - command{c="ae givebook <trigger.name> nulify 1 1 25 75"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &bAnular I"} @Target
+DMacizoIII:
+  Skills:
+  - command{c="ae givebook <trigger.name> chunky 3 1 35 65"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cMacizo III"} @Target
+DPielDragonI:
+  Skills:
+  - command{c="ae givebook <trigger.name> dragonskin 1 1 5 95"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &4Piel de Dragón I"} @Target
+DTenazI:
+  Skills:
+  - command{c="ae givebook <trigger.name> tenaz 1 1 15 85"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &bTenaz I"} @Target
+DEndurecidoI:
+  Skills:
+  - command{c="ae givebook <trigger.name> hardened 1 1 20 80"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cEndurecido I"} @Target
+DInmortalI:
+  Skills:
+  - command{c="ae givebook <trigger.name> immortal 1 1 10 90"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &bInmortal I"} @Target
+DInquebrantableI:
+  Skills:
+  - command{c="ae givebook <trigger.name> inquebrantable 1 1 15 85"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &bInquebrantable I"} @Target
+DParcheI:
+  Skills:
+  - command{c="ae givebook <trigger.name> patch 1 1 30 70"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cParche I"} @Target
+DDesintegrarI:
+  Skills:
+  - command{c="ae givebook <trigger.name> disintegrate 1 1 40 60"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &4Desintegrar I"} @Target
+DTankII:
+  Skills:
+  - command{c="ae givebook <trigger.name> tank 2 1 5 95"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &4Tanque II"} @Target
+DBloqueoI:
+  Skills:
+  - command{c="ae givebook <trigger.name> block 1 1 15 85"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &4Bloqueo I"} @Target
+DForjaDI:
+  Skills:
+  - command{c="ae givebook <trigger.name> demonioforjador 1 1 25 75"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &3Demonio Forjador I"} @Target
+DRepudioI:
+  Skills:
+  - command{c="ae givebook <trigger.name> ward 1 1 25 75"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &eRepudio I"} @Target
+DReflejarII:
+  Skills:
+  - command{c="ae givebook <trigger.name> reflect 2 1 30 70"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &eReflejar II"} @Target
+DEnderSI:
+  Skills:
+  - command{c="ae givebook <trigger.name> endershift 1 1 40 60"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &eEnderShift I"} @Target
+DCactusI:
+  Skills:
+  - command{c="ae givebook <trigger.name> cactus 1 1 40 60"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &6Cactus I"} @Target
+DDiseminadorPI:
+  Skills:
+  - command{c="ae givebook <trigger.name> potatoplanter 1 1 60 40"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &6Diseminador de Papas I"} @Target
+## DROPES LUNA NIGGA #####
+DHemorragiaII:
+  Skills:
+  - command{c="ae givebook <trigger.name> bleed 2 1 25 75"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &4Hemorragia II"} @Target
+DDeepBleedII:
+  Skills:
+  - command{c="ae givebook <trigger.name> deepbleed 2 1 30 70"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &bHemorragia Profunda II"} @Target
+DJusticiaII:
+  Skills:
+  - command{c="ae givebook <trigger.name> uppercut 2 1 35 65"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &bJusticia II"} @Target
+DCalibreI:
+  Skills:
+  - command{c="ae givebook <trigger.name> calibre 1 1 30 70"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &bCalibre I"} @Target
+DFuriaII:
+  Skills:
+  - command{c="ae givebook <trigger.name> rage 2 1 25 75"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cFuria II"} @Target
+DFuerzaContI:
+  Skills:
+  - command{c="ae givebook <trigger.name> bluntforce 1 1 30 70"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cFuerza Contundente I"} @Target
+DAbrazoMuerteII:
+  Skills:
+  - command{c="ae givebook <trigger.name> mortalcoil 2 1 30 70"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cAbrazo de la Muerte II"} @Target
+DPortadorMuerteI:
+  Skills:
+  - command{c="ae givebook <trigger.name> deathbringer 1 1 25 75"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cPortador de la Muerte I"} @Target
+DDevoradorI:
+  Skills:
+  - command{c="ae givebook <trigger.name> devorador 1 1 25 75"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cDevorador I"} @Target
+DDespedazarI:
+  Skills:
+  - command{c="ae givebook <trigger.name> despedazar 1 1 35 65"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cDespedazar I"} @Target
+DExperienciaII:
+  Skills:
+  - command{c="ae givebook <trigger.name> experiencia 2 1 40 60"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &6Experiencia II"} @Target
+DMjolnirI:
+  Skills:
+  - command{c="ae givebook <trigger.name> mjolnir 1 1 20 80"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &3Mjolnir I"} @Target
+DCriticoI:
+  Skills:
+  - command{c="ae givebook <trigger.name> critical 1 1 30 70"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &3Crítico I"} @Target
+DInvidenciaI:
+  Skills:
+  - command{c="ae givebook <trigger.name> blind 1 1 40 60"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &3Invidencia I"} @Target
+DInsomniaIII:
+  Skills:
+  - command{c="ae givebook <trigger.name> insomnia 3 1 40 60"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &6Insomnia III"} @Target
+DCaidaAII:
+  Skills:
+  - command{c="ae givebook <trigger.name> jellylegs 1 1 50 50"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &4Caída Angelical I"} @Target
+DHerreroIII:
+  Skills:
+  - command{c="ae givebook <trigger.name> blacksmith 2 1 40 60"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &cHerrero III"} @Target
+DFrenadoI:
+  Skills:
+  - command{c="ae givebook <trigger.name> snag 1 1 25 75"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &eFrenar I"} @Target
+DGolpeRII:
+  Skills:
+  - command{c="ae givebook <trigger.name> strike 2 1 35 65"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &6Golpe Relámpago II"} @Target
+DPesoLI:
+  Skills:
+  - command{c="ae givebook <trigger.name> featherweight 1 1 20 80"} @Target 
+  - message{m="&c&l[!] &e<caster.name> &cTe ha otorgado un encantamiento &ePeso Ligero I"} @Target

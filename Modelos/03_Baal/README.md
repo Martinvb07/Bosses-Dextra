@@ -1,6 +1,6 @@
 # Baal: modelos de ModelEngine
 
-Boss 03 del servidor. Configuracion de MythicMobs en `MythicMobs/Mobs/Boss_03_Baal/`.
+Boss 03 del servidor. Configuracion de MythicMobs en `MythicMobs-3D/Mobs/Boss_03_Baal/`.
 
 Todavia no tiene modelos. Cuando los tenga, van aqui con la misma estructura que `01_Heracles/`:
 

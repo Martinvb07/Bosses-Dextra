@@ -1,7 +1,7 @@
 # Modelos
 
 Modelos 3D (ModelEngine), animaciones, texturas, sonidos y vistas previas de cada boss.
-Hay una carpeta por boss, con el mismo numero que en `MythicMobs/Mobs/Boss_XX_<Nombre>/`.
+Hay una carpeta por boss, con el mismo numero que en `MythicMobs-3D/Mobs/Boss_XX_<Nombre>/`.
 
 | # | Boss | Estado |
 |---|---|---|
@@ -28,9 +28,9 @@ Cada carpeta sigue la estructura de `01_Heracles/`:
 ModelEngine/blueprints/<modelo>/   .bbmodel y textura -> plugins/ModelEngine/blueprints/
 ItemsAdder/                        font images (bossbar, titulos) -> plugins/ItemsAdder/contents/
 ResourcePack/                      texturas y sonidos extra -> plugins/<carpeta>, fusionada por ItemsAdder
-MythicMobs/                        yml del boss con los modelos ya conectados
 preview/                           imagenes, GIF y demos de sonido
 README.md                          instalacion, animaciones y skills
 ```
 
-Los scripts que generan modelos y sonidos estan en `tools/`.
+Los .yml de MythicMobs con los modelos ya conectados estan en `MythicMobs-3D/` (servidor con texturas);
+`MythicMobs-Normal/` es la misma configuracion solo vanilla. Los scripts que generan modelos y sonidos estan en `tools/`.

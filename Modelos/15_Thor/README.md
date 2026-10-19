@@ -1,6 +1,6 @@
 # Thor: modelos de ModelEngine
 
-Boss 15 del servidor. Configuracion de MythicMobs en `MythicMobs/Mobs/Boss_15_Thor/`.
+Boss 15 del servidor. Configuracion de MythicMobs en `MythicMobs-3D/Mobs/Boss_15_Thor/`.
 
 Todavia no tiene modelos. Cuando los tenga, van aqui con la misma estructura que `01_Heracles/`:
 

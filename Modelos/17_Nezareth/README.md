@@ -1,6 +1,6 @@
 # Nezareth: modelos de ModelEngine
 
-Boss 17 del servidor. Configuracion de MythicMobs en `MythicMobs/Mobs/Boss_17_Nezareth/`.
+Boss 17 del servidor. Configuracion de MythicMobs en `MythicMobs-3D/Mobs/Boss_17_Nezareth/`.
 
 Todavia no tiene modelos. Cuando los tenga, van aqui con la misma estructura que `01_Heracles/`:
 

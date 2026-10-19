@@ -1,6 +1,6 @@
 # Samhain: modelos de ModelEngine
 
-Boss 14 del servidor. Configuracion de MythicMobs en `MythicMobs/Mobs/Boss_14_Samhain/`.
+Boss 14 del servidor. Configuracion de MythicMobs en `MythicMobs-3D/Mobs/Boss_14_Samhain/`.
 
 Todavia no tiene modelos. Cuando los tenga, van aqui con la misma estructura que `01_Heracles/`:
 

@@ -1,0 +1,518 @@
+# Mushlord skills
+
+Mushlord_Spawn:
+  Skills:
+    - setstance{stance=PHASE1} @self
+    - 'title{title="&2&lMUSHLORD";subtitle="&aMushroom Island &8• &7Señor de las Espiras Corruptas";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - 'message{m="&2&lMUSHLORD &f: &7Bienvenidos… a mi jardín eterno…"} @Server'
+    - effect:sound{s=entity.zombie_villager.converted;v=0.7;p=0.7} @self
+    - effect:particles{particle=SLIME;amount=28;hS=1.0;vS=0.6;speed=0.02} @self
+    - effect:particles{particle=REDSTONE;amount=40;hS=1.2;vS=1.0;speed=0.0;color=#5aa34b;size=1.3} @self
+    - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=18;hS=1.0;vS=0.8;speed=0.02} @self
+    - potion{type=DAMAGE_RESISTANCE;duration=70;level=2} @self
+    - delay 2
+    - settarget @NearestPlayer{r=40}
+
+Mushlord_AcquireTarget:
+  Conditions:
+    - targetwithin{d=9999} false
+  Skills:
+    - settarget @NearestPlayer{r=40}
+
+Mushlord_HP70_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1960}
+  Skills:
+    - 'message{m="&2&lMUSHLORD &f: &7Respirad… mis esporas…"} @PlayersInRadius{r=60}'
+
+Mushlord_HP40_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<1119}
+  Skills:
+    - 'message{m="&2&lMUSHLORD &f: &7La corrupción florece."} @PlayersInRadius{r=60}'
+
+Mushlord_HP25_Check:
+  Cooldown: 9999
+  Conditions:
+    - health{h=<701}
+  Skills:
+    - 'message{m="&2&lMUSHLORD &f: &7Todo el jardín caerá con vosotros dentro."} @PlayersInRadius{r=60}'
+
+Mushlord_Phase2_Check:
+  Conditions:
+    - stance{stance=PHASE1}
+    - health{h=<1960}
+  Skills:
+    - skill{s=Mushlord_TransitionCocoon} @self
+    - skill{s=Mushlord_PhaseShield} @self
+    - setstance{stance=PHASE2} @self
+    - message{cooldown=9999;m="&2&lMUSHLORD &fdesata la &a&lLLUVIA DE ESPORAS&f!"} @PlayersInRadius{r=60}
+    - effect:sound{s=entity.slime.jump;v=0.8;p=0.6} @self
+    - effect:sound{s=block.fungus.break;v=1.0;p=0.8} @self
+    - effect:particles{particle=SLIME;amount=42;hS=1.4;vS=0.8;speed=0.03} @self
+    - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=24;hS=1.4;vS=0.8;speed=0.02} @self
+    - summon{type=LivingSpore;amount=4;radius=7;noise=2} @self
+    - potion{type=SPEED;duration=220;level=1} @self
+    - potion{type=INCREASE_DAMAGE;duration=220;level=0} @self
+
+Mushlord_Phase3_Check:
+  Conditions:
+    - stance{stance=PHASE2}
+    - health{h=<1119}
+  Skills:
+    - skill{s=Mushlord_TransitionCocoon} @self
+    - skill{s=Mushlord_PhaseShield} @self
+    - setstance{stance=PHASE3} @self
+    - message{cooldown=9999;m="&2&lMUSHLORD &fconvierte el suelo en &2&lPODREDUMBRE VIVA&f!"} @PlayersInRadius{r=60}
+    - effect:sound{s=block.slime_block.place;v=0.8;p=0.5} @self
+    - effect:sound{s=entity.warden.roar;v=0.25;p=1.6} @self
+    - effect:particles{particle=REDSTONE;amount=70;hS=1.7;vS=0.8;speed=0.0;color=#3f8f3a;size=1.45} @self
+    - effect:particles{particle=CLOUD;amount=35;hS=1.9;vS=0.5;speed=0.03} @self
+    - summon{type=Mushlord_ToxicZone;amount=3;radius=6;noise=2} @self
+    - potion{type=INCREASE_DAMAGE;duration=220;level=1} @self
+    - potion{type=SPEED;duration=220;level=1} @self
+
+Mushlord_Phase4_Check:
+  Conditions:
+    - stance{stance=PHASE3}
+    - health{h=<701}
+  Skills:
+    - skill{s=Mushlord_TransitionCocoon} @self
+    - skill{s=Mushlord_PhaseShield} @self
+    - setstance{stance=LASTBREATH} @self
+    - message{cooldown=9999;m="&2&lMUSHLORD &fentra en &a&lCORAZÓN DE PLAGA&f!"} @PlayersInRadius{r=60}
+    - effect:sound{s=entity.warden.roar;v=0.55;p=0.8} @self
+    - effect:sound{s=entity.generic.explode;v=0.45;p=0.7} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=REDSTONE;amount=95;hS=2.2;vS=1.1;speed=0.0;color=#2a6b25;size=1.6} @self
+    - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=36;hS=2.0;vS=1.1;speed=0.03} @self
+    - effect:particles{particle=SOUL;amount=18;hS=1.2;vS=1.0;speed=0.02} @self
+    - summon{type=Mushlord_ToxicZone;amount=4;radius=7;noise=3} @self
+    - summon{type=LivingSpore;amount=3;radius=6;noise=2} @self
+    - potion{type=INCREASE_DAMAGE;duration=260;level=2} @self
+    - potion{type=SPEED;duration=260;level=1} @self
+    - potion{type=REGENERATION;duration=160;level=1} @self
+
+Mushlord_TransitionCocoon:
+  Skills:
+    - message{cooldown=3;m="&2El jardín corrupto responde al llamado de su señor..."} @PlayersInRadius{r=55}
+    - potion{type=DAMAGE_RESISTANCE;duration=40;level=5} @self
+    - potion{type=SLOW;duration=25;level=6} @self
+    - effect:sound{s=block.respawn_anchor.charge;v=0.7;p=0.7} @self
+    - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=28;hS=1.6;vS=1.0;speed=0.02} @self
+    - effect:particles{particle=TOTEM;amount=14;hS=0.8;vS=1.0;speed=0.02} @self
+    - delay 12
+    - effect:particles{particle=FLASH;amount=1} @self
+    - throw{velocity=0.9;velocityY=0.18} @PlayersInRadius{r=6}
+
+Mushlord_PhaseShield:
+  Skills:
+    - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
+    - effect:particles{particle=SPELL_MOB_AMBIENT;amount=24;hS=1.0;vS=0.6;speed=0.02} @self
+    - effect:particles{particle=TOTEM;amount=8;hS=0.6;vS=0.8;speed=0.02} @self
+
+Mushlord_Aura:
+  Skills:
+    - effect:particles{particle=REDSTONE;amount=7;hS=0.5;vS=0.75;speed=0.0;yOffset=1.0;color=#5aa34b;size=1.2} @self ?stance{stance=PHASE1}
+    - effect:particles{particle=SLIME;amount=3;hS=0.4;vS=0.5;speed=0.01;yOffset=0.8} @self ?stance{stance=PHASE1}
+    - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=2;hS=0.45;vS=0.7;speed=0.01;yOffset=1.0} @self ?stance{stance=PHASE1}
+
+    - effect:particles{particle=REDSTONE;amount=10;hS=0.65;vS=0.9;speed=0.0;yOffset=1.0;color=#4a9440;size=1.3} @self ?stance{stance=PHASE2}
+    - effect:particles{particle=SPELL_MOB;amount=5;hS=0.55;vS=0.7;speed=0.02;yOffset=0.9} @self ?stance{stance=PHASE2}
+    - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=4;hS=0.7;vS=0.8;speed=0.01;yOffset=1.1} @self ?stance{stance=PHASE2}
+
+    - effect:particles{particle=REDSTONE;amount=14;hS=0.9;vS=1.0;speed=0.0;yOffset=1.0;color=#2d7429;size=1.45} @self ?stance{stance=PHASE3}
+    - effect:particles{particle=SLIME;amount=5;hS=0.7;vS=0.65;speed=0.02;yOffset=0.8} @self ?stance{stance=PHASE3}
+    - effect:particles{particle=CLOUD;amount=4;hS=0.8;vS=0.4;speed=0.02;yOffset=0.8} @self ?stance{stance=PHASE3}
+
+    - effect:particles{particle=REDSTONE;amount=18;hS=1.1;vS=1.2;speed=0.0;yOffset=1.0;color=#225f1f;size=1.55} @self ?stance{stance=LASTBREATH}
+    - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=7;hS=1.0;vS=1.0;speed=0.02;yOffset=1.2} @self ?stance{stance=LASTBREATH}
+    - effect:particles{particle=SOUL;amount=3;hS=0.8;vS=1.0;speed=0.02;yOffset=1.1} @self ?stance{stance=LASTBREATH}
+
+Mushlord_Attack_Rotation:
+  Skills:
+    - randomskill{skills=Mushlord_ToxicSwipe,Mushlord_SporeBolt,Mushlord_SummonMinions;weights=4,3,2} @target ?stance{stance=PHASE1}
+    - randomskill{skills=Mushlord_ToxicSwipe,Mushlord_SporeBurst,Mushlord_ToxicCloud,Mushlord_MycotoxinNova,Mushlord_SummonSpores,Mushlord_SummonMinions;weights=3,3,3,3,2,2} @target ?stance{stance=PHASE2}
+    - randomskill{skills=Mushlord_ToxicCloud,Mushlord_ToxicZoneCast,Mushlord_SporeBurst,Mushlord_FungalBloom,Mushlord_PlagueSurge,Mushlord_GardenSentence,Mushlord_SummonSpores;weights=3,3,2,2,3,2,2} @target ?stance{stance=PHASE3}
+    - randomskill{skills=Mushlord_MycotoxinNova,Mushlord_PlagueSurge,Mushlord_ToxicZoneCast,Mushlord_CorruptionEruption,Mushlord_FungalBloom,Mushlord_GardenSentence;weights=3,3,2,3,2,3} @target ?stance{stance=LASTBREATH}
+
+Mushlord_ToxicTouch:
+  Skills:
+    - potion{type=POISON;duration=80;level=1} @target
+
+Mushlord_ToxicSwipe:
+  Conditions:
+    - targetwithin{d=5}
+  Skills:
+    - effect:sound{s=entity.player.attack.sweep;v=0.8;p=0.8} @self
+    - effect:particles{particle=SLIME;amount=14;hS=0.6;vS=0.3;speed=0.02} @target
+    - damage{a=65;pk=true} @target
+    - potion{type=POISON;duration=90;level=0} @target
+
+Mushlord_SporeBolt:
+  Cooldown: 10
+  Conditions:
+    - targetwithin{d=22}
+  Skills:
+    - message{cooldown=10;m="&aEsporas venenosas &7surcan el aire..."} @PlayersInRadius{r=35}
+    - effect:sound{s=entity.llama.spit;v=0.7;p=0.8} @self
+    - effect:particles{particle=REDSTONE;amount=20;hS=0.4;vS=0.8;speed=0.0;color=#76b852;size=1.2} @target
+    - delay 8
+    - damage{a=54;pk=true} @target
+    - potion{type=POISON;duration=120;level=0} @target
+    - potion{type=CONFUSION;duration=60;level=0} @target
+
+Mushlord_SporeBurst:
+  Cooldown: 16
+  Skills:
+    - effect:sound{s=block.fungus.break;v=0.9;p=0.7} @self
+    - effect:particles{particle=SLIME;amount=28;hS=1.4;vS=0.6;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=40;hS=1.8;vS=0.8;speed=0.0;color=#6faa4d;size=1.25} @self
+    - damage{a=76;pk=true} @PlayersInRadius{r=7}
+    - potion{type=POISON;duration=120;level=1} @PlayersInRadius{r=7}
+
+Mushlord_ToxicCloud:
+  Cooldown: 18
+  Skills:
+    - message{cooldown=10;m="&2&lMUSHLORD &7extiende una &a&lnube tóxica&7..."} @PlayersInRadius{r=40}
+    - effect:sound{s=block.slime_block.break;v=0.8;p=0.6} @self
+    - effect:particles{particle=CLOUD;amount=30;hS=1.5;vS=0.5;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=45;hS=1.8;vS=0.4;speed=0.0;color=#4f9a45;size=1.3} @self
+    - damage{a=65;pk=true} @PlayersInRadius{r=6}
+    - potion{type=POISON;duration=140;level=1} @PlayersInRadius{r=6}
+    - potion{type=SLOW;duration=60;level=1} @PlayersInRadius{r=6}
+    - summon{type=Mushlord_PersistentBreath;amount=1;radius=2;noise=1} @self
+
+Mushlord_ToxicZoneCast:
+  Cooldown: 20
+  Conditions:
+    - targetwithin{d=24}
+  Skills:
+    - message{cooldown=12;m="&a¡Evita las zonas verdes tóxicas!"} @PlayersInRadius{r=45}
+    - effect:particles{particle=REDSTONE;amount=22;hS=0.8;vS=0.2;speed=0.0;color=#3c8a37;size=1.25} @target
+    - effect:particles{particle=VILLAGER_ANGRY;amount=5;hS=0.6;vS=0.3;speed=0.01} @target
+    - effect:sound{s=block.slime_block.place;v=0.7;p=0.5} @self
+    - delay 14
+    - effect:particles{particle=FLASH;amount=1} @target
+    - summon{type=Mushlord_ToxicZone;amount=2;radius=2;noise=1} @target
+
+Mushlord_FungalBloom:
+  Cooldown: 20
+  Skills:
+    - message{cooldown=12;m="&2&lMUSHLORD &7absorbe la podredumbre del jardín..."} @PlayersInRadius{r=35}
+    - effect:particles{particle=SLIME;amount=25;hS=1.1;vS=0.6;speed=0.02} @self
+    - effect:particles{particle=VILLAGER_HAPPY;amount=14;hS=0.8;vS=0.6;speed=0.02} @self
+    - potion{type=REGENERATION;duration=100;level=1} @self
+    - damage{a=54;pk=true} @PlayersInRadius{r=5}
+    - potion{type=POISON;duration=90;level=0} @PlayersInRadius{r=5}
+
+Mushlord_MycotoxinNova:
+  Cooldown: 22
+  Skills:
+    - message{cooldown=10;m="&2&l¡NOVA MICOTÓXICA!"} @PlayersInRadius{r=50}
+    - effect:sound{s=entity.wither.shoot;v=0.6;p=0.9} @self
+    - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=22;hS=1.0;vS=0.8;speed=0.02} @self
+    - effect:particles{particle=REDSTONE;amount=60;hS=1.5;vS=0.8;speed=0.0;color=#4f9a45;size=1.35} @self
+    - delay 10
+    - effect:particles{particle=FLASH;amount=1} @self
+    - damage{a=108;pk=true} @PlayersInRadius{r=8}
+    - throw{velocity=1.0;velocityY=0.25} @PlayersInRadius{r=8}
+    - potion{type=POISON;duration=120;level=1} @PlayersInRadius{r=8}
+    - potion{type=CONFUSION;duration=60;level=0} @PlayersInRadius{r=8}
+    - summon{type=Mushlord_PersistentBreath;amount=2;radius=4;noise=2} @self
+
+Mushlord_PlagueSurge:
+  Cooldown: 24
+  Skills:
+    - message{cooldown=10;m="&2&lMUSHLORD &7desata una &a&lmarejada de plaga&7..."} @PlayersInRadius{r=45}
+    - effect:sound{s=entity.iron_golem.attack;v=0.8;p=0.6} @self
+    - effect:particles{particle=SLIME;amount=30;hS=1.3;vS=0.4;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=40;hS=1.5;vS=0.5;speed=0.0;color=#3e8c36;size=1.3} @self
+    - pull{velocity=1.3} @PlayersInRadius{r=10}
+    - delay 10
+    - damage{a=98;pk=true} @PlayersInRadius{r=7}
+    - potion{type=POISON;duration=100;level=1} @PlayersInRadius{r=7}
+    - potion{type=SLOW;duration=60;level=1} @PlayersInRadius{r=7}
+    - summon{type=Mushlord_ToxicZone;amount=2;radius=4;noise=2} @self
+
+Mushlord_CorruptionEruption:
+  Cooldown: 28
+  Skills:
+    - message{cooldown=12;m="&2&lERUPCIÓN CORRUPTA &8» &f¡El jardín explota!"} @PlayersInRadius{r=55}
+    - effect:sound{s=entity.generic.explode;v=0.55;p=0.7} @self
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:particles{particle=CLOUD;amount=45;hS=2.1;vS=0.6;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=85;hS=2.4;vS=0.8;speed=0.0;color=#2d7429;size=1.45} @self
+    - damage{a=130;pk=true} @PlayersInRadius{r=9}
+    - potion{type=POISON;duration=140;level=1} @PlayersInRadius{r=9}
+    - potion{type=HARM;duration=1;level=1} @PlayersInRadius{r=9}
+    - summon{type=Mushlord_ToxicZone;amount=4;radius=6;noise=2} @self
+    - summon{type=Mushlord_PersistentBreath;amount=2;radius=5;noise=2} @self
+
+Mushlord_GardenSentence:
+  Cooldown: 20
+  Conditions:
+    - targetwithin{d=28}
+  Skills:
+    - message{cooldown=10;m="&2&lSENTENCIA DEL JARDÍN &8» &f¡Sal del círculo!"} @PlayersInRadius{r=50}
+    - potion{type=GLOWING;duration=40;level=0} @target
+    - potion{type=SLOW;duration=30;level=1} @target
+    - effect:sound{s=block.respawn_anchor.set_spawn;v=0.8;p=0.8} @self
+    - effect:particles{particle=REDSTONE;amount=36;hS=1.2;vS=0.2;speed=0.0;color=#6cb356;size=1.35} @target
+    - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=12;hS=1.1;vS=0.6;speed=0.02} @target
+    - delay 24
+    - effect:particles{particle=FLASH;amount=1} @target
+    - effect:sound{s=entity.generic.explode;v=0.65;p=0.95} @target
+    - damage{a=119;pk=true} @PlayersInRadius{r=4}
+    - potion{type=POISON;duration=140;level=1} @PlayersInRadius{r=4}
+    - potion{type=HARM;duration=1;level=1} @PlayersInRadius{r=4}
+    - summon{type=Mushlord_PersistentBreath;amount=2;radius=2;noise=1} @target
+
+Mushlord_FungalRegrowth:
+  Skills:
+    - effect:particles{particle=VILLAGER_HAPPY;amount=8;hS=0.6;vS=0.5;speed=0.02} @self ?stance{stance=PHASE3}
+    - potion{type=REGENERATION;duration=45;level=0} @self ?stance{stance=PHASE3}
+    - effect:particles{particle=VILLAGER_HAPPY;amount=14;hS=0.8;vS=0.7;speed=0.02} @self ?stance{stance=LASTBREATH}
+    - potion{type=REGENERATION;duration=60;level=1} @self ?stance{stance=LASTBREATH}
+    - potion{type=DAMAGE_RESISTANCE;duration=40;level=0} @self ?stance{stance=LASTBREATH}
+
+Mushlord_SummonCycle:
+  Skills:
+    - skill{s=Mushlord_SummonMinions} @self ?stance{stance=PHASE2}
+    - skill{s=Mushlord_SummonSpores} @self ?stance{stance=PHASE3}
+    - skill{s=Mushlord_SummonSpores} @self ?stance{stance=LASTBREATH}
+    - skill{s=Mushlord_SummonMinions} @self ?stance{stance=LASTBREATH}
+
+Mushlord_MapPressure:
+  Skills:
+    - skill{s=Mushlord_CloudSpread} @self ?stance{stance=PHASE3}
+    - skill{s=Mushlord_CloudSpread_Enrage} @self ?stance{stance=LASTBREATH}
+
+Mushlord_CloudSpread:
+  Cooldown: 18
+  Skills:
+    - message{cooldown=10;m="&2Las nubes tóxicas empiezan a cubrir el jardín..."} @PlayersInRadius{r=45}
+    - effect:particles{particle=CLOUD;amount=20;hS=1.4;vS=0.3;speed=0.02} @self
+    - summon{type=Mushlord_PersistentBreath;amount=2;radius=6;noise=3} @self
+
+Mushlord_CloudSpread_Enrage:
+  Cooldown: 14
+  Skills:
+    - message{cooldown=8;m="&2&lMUSHLORD &7sofoca el mapa con esporas letales..."} @PlayersInRadius{r=50}
+    - effect:particles{particle=DRAGON_BREATH;amount=24;hS=1.7;vS=0.3;speed=0.02} @self
+    - summon{type=Mushlord_PersistentBreath;amount=3;radius=7;noise=3} @self
+    - summon{type=Mushlord_ToxicZone;amount=2;radius=6;noise=2} @self
+
+Mushlord_PlagueApocalypse_Check:
+  Conditions:
+    - stance{stance=LASTBREATH}
+    - targetwithin{d=9999} true
+  Skills:
+    - skill{s=Mushlord_PlagueApocalypse} @self
+
+Mushlord_PlagueApocalypse:
+  Cooldown: 40
+  Skills:
+    - message{cooldown=40;m="&2&lAPOCALIPSIS FÚNGICO &8» &f¡Cubríos o morid!"} @PlayersInRadius{r=60}
+    - potion{type=DAMAGE_RESISTANCE;duration=45;level=3} @self
+    - potion{type=SLOW;duration=35;level=6} @self
+    - effect:sound{s=entity.warden.sonic_charge;v=0.75;p=0.7} @self
+    - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=55;hS=2.4;vS=1.2;speed=0.02} @self
+    - effect:particles{particle=REDSTONE;amount=110;hS=2.8;vS=1.3;speed=0.0;color=#2f7d2b;size=1.6} @self
+    - delay 30
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:sound{s=entity.generic.explode;v=0.85;p=0.7} @self
+    - damage{a=152;pk=true} @PlayersInRadius{r=10}
+    - throw{velocity=1.2;velocityY=0.35} @PlayersInRadius{r=10}
+    - potion{type=POISON;duration=160;level=1} @PlayersInRadius{r=10}
+    - potion{type=HARM;duration=1;level=1} @PlayersInRadius{r=10}
+    - summon{type=Mushlord_PersistentBreath;amount=4;radius=8;noise=3} @self
+    - summon{type=Mushlord_ToxicZone;amount=3;radius=7;noise=2} @self
+
+Mushlord_SummonMinions:
+  Cooldown: 26
+  Conditions:
+    - mobsinradius{type=MushZombie;amount=<3;radius=30}
+  Skills:
+    - message{cooldown=12;m="&2El jardín se levanta para defender a su señor..."} @PlayersInRadius{r=40}
+    - effect:particles{particle=BLOCK_CRACK;material=MOSS_BLOCK;amount=25;hS=0.9;vS=0.5;speed=0.08} @self
+    - summon{type=MushZombie;amount=2;radius=6;noise=2} @self
+    - summon{type=ToxicShroomCreeper;amount=1;radius=6;noise=2} @self
+
+Mushlord_SummonSpores:
+  Cooldown: 18
+  Conditions:
+    - mobsinradius{type=LivingSpore;amount=<5;radius=30}
+  Skills:
+    - effect:particles{particle=REDSTONE;amount=28;hS=1.0;vS=0.7;speed=0.0;color=#77c65d;size=1.2} @self
+    - summon{type=LivingSpore;amount=3;radius=5;noise=2} @self
+
+Mushlord_AntiKite:
+  Conditions:
+    - targetwithin{d=9999} true
+  Skills:
+    - skill{s=Mushlord_PullIfFar} @target
+
+Mushlord_PullIfFar:
+  Cooldown: 12
+  Conditions:
+    - distance{d=>30}
+  Skills:
+    - message{cooldown=25;m="&2Las lianas fúngicas te arrastran hacia el jardín..."} @target
+    - effect:particles{particle=SLIME;amount=16;hS=0.5;vS=0.5;speed=0.02} @target
+    - pull{velocity=1.4} @target
+
+Mushlord_PlayerKill:
+  Skills:
+    - 'message{m="&2&lMUSHLORD &f: &7Ahora… eres parte del ciclo."} @PlayersInRadius{r=50}'
+
+Mushlord_Death:
+  Skills:
+    - 'message{m="&2&lMUSHLORD &f: &7El ciclo… continúa…"} @PlayersInRadius{r=70}'
+    - effect:sound{s=entity.zombie_villager.cure;v=0.8;p=0.5} @self
+    - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+
+MZ_SpawnFX:
+  Skills:
+    - effect:particles{particle=BLOCK_CRACK;material=MOSS_BLOCK;amount=14;hS=0.5;vS=0.3;speed=0.08} @self
+    - effect:sound{s=entity.zombie.ambient;v=0.7;p=0.8} @self
+
+MZ_ToxicHit:
+  Skills:
+    - damage{a=27;pk=true} @target
+    - potion{type=POISON;duration=80;level=0} @target
+
+TSC_SpawnFX:
+  Skills:
+    - effect:particles{particle=SLIME;amount=12;hS=0.5;vS=0.3;speed=0.02} @self
+    - effect:particles{particle=REDSTONE;amount=14;hS=0.6;vS=0.5;speed=0.0;color=#69ba55;size=1.15} @self
+    - effect:sound{s=entity.creeper.hurt;v=0.55;p=0.7} @self
+
+TSC_PrimeCheck:
+  Cooldown: 18
+  Conditions:
+    - targetwithin{d=4}
+  Skills:
+    - skill{s=TSC_PrimeExplode} @self
+
+TSC_PrimeExplode:
+  Skills:
+    - message{cooldown=8;m="&aUn creeper espora comienza a hincharse..."} @PlayersInRadius{r=22}
+    - effect:sound{s=entity.creeper.primed;v=0.9;p=0.8} @self
+    - effect:particles{particle=REDSTONE;amount=22;hS=0.8;vS=0.6;speed=0.0;color=#7bd85f;size=1.2} @self
+    - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=8;hS=0.7;vS=0.7;speed=0.02} @self
+    - potion{type=SLOW;duration=24;level=6} @self
+    - delay 18
+    - effect:particles{particle=FLASH;amount=1} @self
+    - effect:sound{s=entity.generic.explode;v=0.75;p=0.85} @self
+    - effect:particles{particle=CLOUD;amount=38;hS=1.5;vS=0.6;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=55;hS=1.7;vS=0.7;speed=0.0;color=#4ea541;size=1.35} @self
+    - damage{a=65;pk=true} @PlayersInRadius{r=4}
+    - potion{type=HARM;duration=1;level=1} @PlayersInRadius{r=4}
+    - summon{type=Mushlord_PersistentBreath;amount=1;radius=1;noise=0} @self
+    - remove @self
+
+MPB_Spawn:
+  Skills:
+    - effect:particles{particle=DRAGON_BREATH;amount=35;hS=1.8;vS=0.3;speed=0.02} @self
+    - effect:particles{particle=REDSTONE;amount=30;hS=1.7;vS=0.2;speed=0.0;color=#5fb44d;size=1.35} @self
+    - effect:particles{particle=CLOUD;amount=15;hS=1.5;vS=0.2;speed=0.02} @self
+    - delay 160
+    - remove @self
+
+MPB_Tick:
+  Skills:
+    - effect:particles{particle=DRAGON_BREATH;amount=16;hS=1.7;vS=0.1;speed=0.02;yOffset=0.15} @self
+    - effect:particles{particle=REDSTONE;amount=12;hS=1.6;vS=0.05;speed=0.0;color=#71cd5b;size=1.25} @self
+    - effect:particles{particle=CLOUD;amount=6;hS=1.2;vS=0.08;speed=0.02;yOffset=0.1} @self
+    - potion{type=POISON;duration=80;level=1} @PlayersInRadius{r=4}
+    - potion{type=HARM;duration=1;level=1} @PlayersInRadius{r=4}
+
+LS_SpawnFX:
+  Skills:
+    - effect:particles{particle=REDSTONE;amount=12;hS=0.4;vS=0.5;speed=0.0;color=#78c85d;size=1.1} @self
+    - effect:sound{s=entity.silverfish.ambient;v=0.5;p=1.2} @self
+
+LS_PoisonCloud:
+  Skills:
+    - effect:particles{particle=CLOUD;amount=16;hS=0.8;vS=0.3;speed=0.03} @self
+    - effect:particles{particle=REDSTONE;amount=18;hS=0.9;vS=0.4;speed=0.0;color=#7bcf62;size=1.15} @self
+    - damage{a=22;ia=true} @PlayersInRadius{r=3}
+    - potion{type=POISON;duration=80;level=0} @PlayersInRadius{r=3}
+
+LS_DeathBurst:
+  Skills:
+    - effect:particles{particle=SLIME;amount=14;hS=0.7;vS=0.3;speed=0.03} @self
+    - damage{a=32;ia=true} @PlayersInRadius{r=3}
+    - potion{type=POISON;duration=90;level=0} @PlayersInRadius{r=3}
+
+MTZ_Spawn:
+  Skills:
+    - effect:particles{particle=REDSTONE;amount=45;hS=1.9;vS=0.1;speed=0.0;color=#2f7d2b;size=1.45} @self
+    - effect:particles{particle=CLOUD;amount=12;hS=1.5;vS=0.2;speed=0.02} @self
+    - delay 260
+    - remove @self
+
+MTZ_Tick:
+  Skills:
+    - effect:particles{particle=REDSTONE;amount=16;hS=1.8;vS=0.05;speed=0.0;color=#3f9c37;size=1.35} @self
+    - effect:particles{particle=SLIME;amount=5;hS=1.2;vS=0.1;speed=0.01;yOffset=0.1} @self
+    - effect:particles{particle=CLOUD;amount=6;hS=1.3;vS=0.15;speed=0.02;yOffset=0.1} @self
+    - damage{a=16;ia=true} @PlayersInRadius{r=4}
+    - potion{type=POISON;duration=80;level=0} @PlayersInRadius{r=4}
+    - potion{type=SLOW;duration=50;level=0} @PlayersInRadius{r=4}
+
+# Item summon
+Mushlord_ItemSummon:
+  Conditions:
+    - skilloncooldown{skill=Mushlord_ItemSummon_AtCoords} castinstead Mushlord_ItemSummon_Fail_Cooldown
+    - world{w=Spawn} orElseCast Mushlord_ItemSummon_Fail_WrongWorld
+    - distancefromlocation{x=1120.5;y=63;z=-41.5;world=Spawn;distance=<2} orElseCast Mushlord_ItemSummon_Fail_NotAtSpot
+  Skills:
+    - skill{s=Mushlord_ItemSummon_AtCoords} @Location{x=1120.5;y=63;z=-41.5;world=Spawn}
+
+Mushlord_ItemSummon_AtCoords:
+  Cooldown: 60
+  TargetConditions:
+    - mobsinradius{type=Mushlord;amount=<1;r=100} orElseCast Mushlord_ItemSummon_Fail_AlreadyActive
+  Skills:
+    - effect:sound{s=entity.evoker.prepare_summon;v=0.9;p=0.9} @self
+    - particlering{particle=REDSTONE;radius=3.0;points=48;amount=1;hS=0;vS=0;speed=0.0;color=#5aa34b;size=1.25} @targetlocation{y=0.1}
+    - particlering{particle=REDSTONE;radius=1.6;points=28;amount=1;hS=0;vS=0;speed=0.0;color=#2d7429;size=1.15} @targetlocation{y=0.1}
+    - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=22;hS=0.7;vS=0.5;speed=0.02} @targetlocation{y=0.2}
+    - effect:particles{particle=SLIME;amount=18;hS=0.7;vS=0.2;speed=0.03} @targetlocation{y=0.3}
+    - delay 8
+    - effect:particles{particle=PORTAL;amount=60;hS=0.7;vS=0.2;speed=0.15} @targetlocation{y=1}
+    - effect:particles{particle=SMOKE_LARGE;amount=14;hS=0.7;vS=0.6;speed=0.02} @targetlocation{y=1}
+    - effect:particles{particle=FLASH;amount=1} @targetlocation{y=1}
+    - summon{type=Mushlord;amount=1;radius=1;noise=0;summonerIsOwner=false;summonerIsParent=false} @targetlocation{y=1}
+    - delay 1
+    - consumehelditem{a=1} @self
+    - message{cooldown=2;m="&2&lMUSHLORD &8» &aInvocado."} @self
+
+Mushlord_ItemSummon_Fail_AlreadyActive:
+  Skills:
+    - message{cooldown=2;m="&2&lMUSHLORD &8» &7Ya hay un &2Mushlord &7cerca. Mata al boss antes de invocar otro."} @self
+
+Mushlord_ItemSummon_Fail_NotAtSpot:
+  Skills:
+    - message{cooldown=2;m="&2&lMUSHLORD &8» &eNo estas en el &6Altar de Invocacion&e. &7Acercate al altar para usar la estrella."} @self
+
+Mushlord_ItemSummon_Fail_WrongWorld:
+  Skills:
+    - message{cooldown=2;m="&2&lMUSHLORD &8» &eLa invocacion no responde en este lugar. &7Regresa al &6Altar de Invocacion&7."} @self
+
+Mushlord_ItemSummon_Fail_Cooldown:
+  Skills:
+    - message{cooldown=2;m="&2&lMUSHLORD &8» &7La estrella aun se esta recargando. &fEspera un momento&7."} @self
+
+# --- Fuego amigo ---
+Mushlord_FuegoAmigo:
+  # Anula el daño que recibe este mob si viene de otro mob de su misma faccion
+  # (flechas de los arqueros aliados, explosiones de creepers aliados, etc).
+  TriggerConditions:
+    - faction{f=Boss_Mushlord} true
+  Skills:
+    - cancelevent @self

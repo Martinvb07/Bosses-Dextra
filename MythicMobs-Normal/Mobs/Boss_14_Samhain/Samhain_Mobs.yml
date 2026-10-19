@@ -1,0 +1,202 @@
+Samhain:
+  Type: STRAY
+  Display: "&6&lSAMHAIN &8• &6el Senor de las Animas"
+  Title: "&6&lSAMHAIN &7- &f<mob.hp{round=0}> &6ALMA"
+  Health: 4200
+  Damage: 86
+  Armor: 2735
+  Faction: Boss_Samhain
+
+  Modules:
+    ThreatTable: true
+
+  Equipment:
+    - DIAMOND_HOE:HAND
+    - SH_TunicaAnimas:CHEST
+    - SH_PantalonesAnimas:LEGS
+    - SH_BotasAnimas:FEET
+    - JACK_O_LANTERN:HEAD
+
+  BossBar:
+    Enabled: true
+    Title: "&6&lSAMHAIN"
+    Range: 50
+    Color: BLUE
+    Style: SEGMENTED_10
+
+  Options:
+    AlwaysShowName: true
+    Despawn: false
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 40
+    KnockbackResistance: 0.80
+    PreventSunburn: true
+    UseThreatTable: true
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  DropOptions:
+    DropMethod: FANCY
+    ShowDeathChatMessage: true
+    ShowDeathHologram: true
+    PerPlayerDrops: true
+    ClientSideDrops: true
+    Lootsplosion: true
+    HologramItemNames: true
+    ItemGlowByDefault: true
+    ItemBeamByDefault: true
+    ItemVFXByDefault: false
+    RequiredDamagePercent: 25
+    HologramTimeout: 15
+    HologramMessage:
+      - "<#F2B600>========================"
+      - "<#FFD600>SAMHAIN 4200 HP"
+      - ""
+      - "<#FFA300>1er Lugar | <1.name> | <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> | <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> | <3.damage>"
+      - ""
+      - "Posicion: #<player.rank> | <player.damage>"
+      - "<#F2B600>========================"
+    ChatMessage:
+      - "<#F2B600>===================================="
+      - "<#FFD600>JEFE DERROTADO!"
+      - "<#FFD600>SAMHAIN 4200 HP"
+      - ""
+      - "<#ffe259>1er Lugar | <1.name> - <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> - <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> - <3.damage>"
+      - ""
+      - "<#F2B600>Posicion: #<player.rank> - <player.damage>"
+      - "<#F2B600>===================================="
+
+  Drops:
+    - Samhain_Nada 1 1
+   # - Recompensas_xp
+   # - Recompensas_runas
+   # - Recompensas_dinero
+   # - Recompensas_llaves
+   # - MH_EstrellaInvocacion 1 1
+
+  Skills:
+    - skill{s=Samhain_Rank_Reset} @self ~onSpawn
+    - skill{s=Samhain_Rank_Sumar} @self ~onDamaged
+    - skill{s=Samhain_Rank_Muerte} @self ~onDeath
+
+    - skill{s=SH_Spawn} @self ~onSpawn
+    - skill{s=SH_AcquireTarget} @self ~onTimer:10
+    - skill{s=SH_HP75_Check} @self ~onTimer:20
+    - skill{s=SH_HP50_Check} @self ~onTimer:20
+    - skill{s=SH_HP25_Check} @self ~onTimer:20
+    - skill{s=SH_Phase2_Check} @self ~onTimer:20
+    - skill{s=SH_Phase3_Check} @self ~onTimer:20
+    - skill{s=SH_Phase4_Check} @self ~onTimer:20
+    - skill{s=SH_FreezeAura} @self ~onTimer:10
+    - skill{s=SH_Attack_Rotation} @self ~onTimer:9
+    - skill{s=SH_AntiKite} @self ~onTimer:35
+    - skill{s=SH_DevastatingBlow} @target ~onAttack 0.35
+    - skill{s=SH_PlayerKill} @target ~onKill
+    - skill{s=SH_Death} @self ~onDeath
+    - skill{s=SH_FuegoAmigo;sync=true} @self ~onDamaged
+
+
+# --- Subditos de Samhain ---
+
+Samhain_Espantapajaros:
+  Type: ZOMBIE
+  Display: "&6Espantapajaros Maldito"
+  Health: 1400
+  Damage: 17
+  Armor: 85
+  Faction: Boss_Samhain
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    MovementSpeed: 0.24
+    FollowRange: 28
+
+  Equipment:
+    - IRON_HOE:HAND
+    - SH_CamisaEspantapajaros:CHEST
+    - SH_PantalonEspantapajaros:LEGS
+    - SH_BotasEspantapajaros:FEET
+    - CARVED_PUMPKIN:HEAD
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_Draugr_Ragnarok
+
+  Skills:
+    - skill{s=SH_Draugr_Resilience} @self ~onSpawn
+    - skill{s=SH_Draugr_Resilience} @self ~onTimer:80
+    - skill{s=SH_FuegoAmigo;sync=true} @self ~onDamaged
+
+Samhain_FuegoFatuo:
+  Type: VEX
+  Display: "&eFuego Fatuo"
+  Health: 115
+  Damage: 21
+  Faction: Boss_Samhain
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    Silent: false
+    MovementSpeed: 0.36
+    FollowRange: 30
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_SpectralVex_Ragnarok
+
+  Skills:
+    - skill{s=SH_SpectralVex_SpawnFX} @self ~onSpawn
+    - skill{s=SH_SpectralVex_BlueAura} @self ~onTimer:10
+    - skill{s=SH_SpectralVex_QuickStrike} @target ~onAttack
+    - skill{s=SH_SpectralVex_DeathFX} @self ~onDeath
+    - skill{s=SH_FuegoAmigo;sync=true} @self ~onDamaged
+
+Samhain_Jinete:
+  Type: HUSK
+  Display: "&6Jinete sin Cabeza"
+  Health: 2188
+  Damage: 26
+  Armor: 133
+  Faction: Boss_Samhain
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    MovementSpeed: 0.29
+    FollowRange: 30
+
+  Equipment:
+    - IRON_SWORD:HAND
+    - JACK_O_LANTERN:OFFHAND
+    - SH_CapaJinete:CHEST
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_VikingWarrior_Ragnarok
+
+  Skills:
+    - skill{s=SH_VikingWarrior_DoubleAxe} @target ~onAttack
+    - skill{s=SH_FuegoAmigo;sync=true} @self ~onDamaged

@@ -1,0 +1,184 @@
+# Lady of Laments + Banshee + Shadow + Tormented Spirit
+
+LadyOfLaments:
+  Type: EVOKER
+  Display: "&5&lLADY OF LAMENTS &8• &dReina del Lamento Eterno"
+  Health: 2950
+  Damage: 68
+  Armor: 4274
+  Faction: Boss_LadyOfLaments
+  Equipment:
+    - LadyOfLaments_ArmaduraInvisible:CHEST
+
+  BossBar:
+    Enabled: true
+    Title: "&5&lLADY OF LAMENTS"
+    Range: 50
+    Color: PURPLE
+    Style: SEGMENTED_10
+
+  Options:
+    Despawn: false
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.29
+    FollowRange: 40
+    KnockbackResistance: 0.68
+    PreventSunburn: true
+    UseThreatTable: true
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    - Recompensas_xp
+    - Recompensas_runas
+    - Recompensas_dinero
+    - Recompensas_llaves
+    - YT_EstrellaInvocacion 1 1
+
+  Skills:
+    - skill{s=LL_Spawn} @self ~onSpawn
+    - skill{s=LL_AcquireTarget} @self ~onTimer:10
+    - skill{s=LL_HP70_Check} @self ~onTimer:20
+    - skill{s=LL_HP40_Check} @self ~onTimer:20
+    - skill{s=LL_Phase2_Check} @self ~onTimer:20
+    - skill{s=LL_Phase3_Check} @self ~onTimer:20
+    - skill{s=LL_Phase4_Check} @self ~onTimer:20
+    - skill{s=LL_Aura} @self ~onTimer:10
+    - skill{s=LL_Attack_Rotation} @self ~onTimer:10
+    - skill{s=LL_SummonCycle} @self ~onTimer:70
+    - skill{s=LL_BansheeChorus} @self ~onTimer:40
+    - skill{s=LL_AntiKite} @self ~onTimer:35
+    - skill{s=LL_PlayerKill} @target ~onKill
+    - skill{s=LL_Death} @self ~onDeath
+    - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=LL_InmuneColmillos;sync=true} @self ~onDamaged
+
+BansheeOfLaments:
+  Type: VEX
+  Display: "&dBanshee del lamento"
+  Health: 84
+  Damage: 12
+  Faction: Boss_LadyOfLaments
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.34
+    FollowRange: 28
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_BansheeOfLaments
+
+  Skills:
+    - skill{s=BL_SpawnFX} @self ~onSpawn
+    - skill{s=BL_Wail} @target ~onAttack
+    - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=LL_InmuneColmillos;sync=true} @self ~onDamaged
+
+LamentShadow:
+  Type: ENDERMITE
+  Display: "&8Sombra del duelo"
+  Health: 68
+  Damage: 14
+  Faction: Boss_LadyOfLaments
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: true
+    MovementSpeed: 0.35
+    FollowRange: 30
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_LamentShadow
+
+  Skills:
+    - skill{s=LSH_SpawnFX} @self ~onSpawn
+    - skill{s=LSH_ShadowCut} @target ~onAttack
+    - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=LL_InmuneColmillos;sync=true} @self ~onDamaged
+
+TormentedSpirit:
+  Type: ALLAY
+  Display: "&fEspiritu atormentado"
+  Health: 60
+  Damage: 0
+  Faction: Boss_LadyOfLaments
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: true
+    MovementSpeed: 0.28
+    FollowRange: 26
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_TormentedSpirit
+
+  Skills:
+    - skill{s=TS_SpawnFX} @self ~onSpawn
+    - skill{s=TS_LifeDrain} @self ~onTimer:35
+    - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=LL_InmuneColmillos;sync=true} @self ~onDamaged
+
+CastleVindicator_Laments:
+  Type: VINDICATOR
+  Display: "&5Vindicador del castillo"
+  Health: 164
+  Damage: 24
+  Armor: 476
+  Faction: Boss_LadyOfLaments
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 30
+    KnockbackResistance: 0.40
+
+  Equipment:
+    - IRON_AXE:HAND
+    - IRON_HELMET:HEAD
+    - IRON_CHESTPLATE:CHEST
+    - IRON_LEGGINGS:LEGS
+    - IRON_BOOTS:FEET
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_CastleVindicator_Laments
+
+  Skills:
+    - skill{s=CV_SpawnFX} @self ~onSpawn
+    - skill{s=CV_CrushingStrike} @target ~onAttack 0.45
+    - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=LL_InmuneColmillos;sync=true} @self ~onDamaged

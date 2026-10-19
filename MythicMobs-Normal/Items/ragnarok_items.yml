@@ -1,0 +1,98 @@
+Ragnarok_IronLeggings:
+  Id: IRON_LEGGINGS
+  Display: "&b&lPantalón de Ragnarok"
+  Lore:
+    - "&7Resiste el hielo del fin."
+    - "&7Solo los valientes lo portan."
+    - ""
+    - "&8Armadura de &b&lRAGNAROK"
+  NBT:
+    Trim:
+      pattern: minecraft:snout
+      material: minecraft:diamond
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:219
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Glowing: true
+
+Ragnarok_IronBoots:
+  Id: IRON_BOOTS
+  Display: "&b&lBotas de Ragnarok"
+  Lore:
+    - "&7Pisadas firmes ante el invierno."
+    - "&7Solo los valientes las portan."
+    - ""
+    - "&8Armadura de &b&lRAGNAROK"
+  NBT:
+    Trim:
+      pattern: minecraft:snout
+      material: minecraft:diamond
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:219
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Glowing: true
+
+Ragnarok_IronChestplate:
+  Id: IRON_CHESTPLATE
+  Display: "&b&lArmadura de Ragnarok"
+  Lore:
+    - "&7Protege del frío del fin."
+    - "&7Solo los valientes la portan."
+    - ""
+    - "&8Armadura de &b&lRAGNAROK"
+  NBT:
+    Trim:
+      pattern: minecraft:snout
+      material: minecraft:diamond
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:219
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Glowing: true
+
+# Ragnarok rewards
+
+Ragnarok_NordicKey:
+  Id: TRIPWIRE_HOOK
+  Display: "&3&lLlave nordica"
+  Lore:
+    - "&7Abre reliquias selladas del norte."
+    - "&7Aun esta fria al tacto."
+    - ""
+    - "&8Recompensa de &b&lRAGNAROK"
+  Options:
+    Glowing: true
+
+Ragnarok_FrozenFragment:
+  Id: PRISMARINE_CRYSTALS
+  Display: "&f&lFragmento helado"
+  Lore:
+    - "&7Un fragmento del invierno eterno."
+    - "&7Vibra con energia glacial."
+    - ""
+    - "&8Recompensa de &b&lRAGNAROK"
+  Options:
+    Glowing: true
+
+Ragnarok_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&b&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &b&lRAGNAROK&7."
+    - "&8(Usala en su altar de invocacion)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=Ragnarok_ItemSummon} @Self ~onRightClick
+    - skill{s=Ragnarok_ItemSummon} @Self ~onUse

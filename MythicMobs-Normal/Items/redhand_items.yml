@@ -1,0 +1,112 @@
+# RedHand items
+
+RH_PetoNetherita:
+  Id: NETHERITE_CHESTPLATE
+  Display: "&bPeto de netherita"
+  Lore:
+    - "&8Armadura de &4&lRED HAND"
+  Trim: redstone.silence
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:219
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+RH_PantalonesNetherita:
+  Id: NETHERITE_LEGGINGS
+  Display: "&bPantalones de netherita"
+  Lore:
+    - "&8Armadura de &4&lRED HAND"
+  Trim: redstone.silence
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:219
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+RH_BotasNetherita:
+  Id: NETHERITE_BOOTS
+  Display: "&bBotas de netherita"
+  Lore:
+    - "&8Armadura de &4&lRED HAND"
+  Trim: redstone.silence
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:219
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+RH_RosaDelWither:
+  Id: WITHER_ROSE
+  Display: "&4&lSello de Red Hand"
+  Lore:
+    - "&7Una flor nacida del odio."
+    - "&7Late como un corazón enfermo."
+    - ""
+    - "&8Recompensa del &4&lRED HAND"
+  Options:
+    Glowing: true
+
+RH_CraneoDeWither:
+  Id: WITHER_SKELETON_SKULL
+  Display: "&8&lEco Maldito"
+  Lore:
+    - "&7Susurran nombres en la oscuridad."
+    - "&7Nadie debería escucharlos."
+    - ""
+    - "&8Recompensa del &4&lRED HAND"
+  Options:
+    Glowing: true
+
+RH_EscoriaAncestral:
+  Id: NETHERITE_SCRAP
+  Display: "&6&lFragmento Prohibido"
+  Lore:
+    - "&7Un trozo de poder que no debería existir."
+    - "&7Su calor no se apaga nunca."
+    - ""
+    - "&8Recompensa del &4&lRED HAND"
+  Options:
+    Glowing: true
+
+RH_LlaveRoja:
+  Id: TRIPWIRE_HOOK
+  Display: "&c&lLlave roja"
+  Lore:
+    - "&7Abre salones sellados con sangre."
+    - "&7El metal parece latir."
+    - ""
+    - "&8Recompensa del &4&lRED HAND"
+  Options:
+    Glowing: true
+
+RH_FragmentoOscuro:
+  Id: PRISMARINE_SHARD
+  Display: "&8Fragmento oscuro"
+  Lore:
+    - "&7Un trozo de sombra solidificada."
+    - "&7Se resiste a cualquier luz."
+    - ""
+    - "&8Recompensa del &4&lRED HAND"
+  Options:
+    Glowing: true
+
+RH_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&4&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho para invocar a &4&lRED HAND&7."
+    - "&8(Usala en su altar de invocacion)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=RH_ItemSummon} @Self ~onUse

@@ -1,0 +1,54 @@
+Thor_Rank_Reset:
+  Skills:
+    - modifyscore{o=thor_dmg;e=#thor;a=set;v=0} @self
+    - modifyscore{o=thor_pool;e=#thor;a=set;v=0} @self
+    - modifyscore{o=thor_rank;e=#thor;a=set;v=0} @self
+    - 'command{c="minecraft:scoreboard players reset * thor_dmg"} @self'
+    - 'command{c="minecraft:scoreboard players reset * thor_pool"} @self'
+    - 'command{c="minecraft:scoreboard players reset * thor_rank"} @self'
+    - 'command{c="minecraft:execute as @a[tag=thor_top] run minecraft:tag @s remove thor_top"} @self'
+
+Thor_Rank_Sumar:
+  TriggerConditions:
+    - entitytype{t=PLAYER}
+  Skills:
+    - setvariable{var=skill.kdmg;type=INTEGER;value="<skill.var.damage-amount>"} @self
+    - modifyscore{o=thor_dmg;e=<trigger.name>;a=add;v=<skill.var.kdmg>} @self
+
+Thor_Rank_Calcular:
+  Skills:
+    - 'command{c="minecraft:execute as @a if score @s thor_dmg matches 1.. run minecraft:scoreboard players operation @s thor_pool = @s thor_dmg"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #thor thor_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s thor_pool matches 1.. run minecraft:scoreboard players operation #thor thor_pool > @s thor_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s thor_pool matches 1.. if score @s thor_pool = #thor thor_pool run minecraft:tag @s add thor_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=thor_top,limit=1] run minecraft:scoreboard players set @s thor_rank 3"} @self'
+    - 'command{c="minecraft:execute as @a[tag=thor_top] run minecraft:tag @s remove thor_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s thor_rank matches 3 run minecraft:scoreboard players reset @s thor_pool"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #thor thor_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s thor_pool matches 1.. run minecraft:scoreboard players operation #thor thor_pool > @s thor_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s thor_pool matches 1.. if score @s thor_pool = #thor thor_pool run minecraft:tag @s add thor_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=thor_top,limit=1] run minecraft:scoreboard players set @s thor_rank 2"} @self'
+    - 'command{c="minecraft:execute as @a[tag=thor_top] run minecraft:tag @s remove thor_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s thor_rank matches 2 run minecraft:scoreboard players reset @s thor_pool"} @self'
+
+    - 'command{c="minecraft:scoreboard players set #thor thor_pool 0"} @self'
+    - 'command{c="minecraft:execute as @a if score @s thor_pool matches 1.. run minecraft:scoreboard players operation #thor thor_pool > @s thor_pool"} @self'
+    - 'command{c="minecraft:execute as @a if score @s thor_pool matches 1.. if score @s thor_pool = #thor thor_pool run minecraft:tag @s add thor_top"} @self'
+    - 'command{c="minecraft:execute as @a[tag=thor_top,limit=1] run minecraft:scoreboard players set @s thor_rank 1"} @self'
+    - 'command{c="minecraft:execute as @a[tag=thor_top] run minecraft:tag @s remove thor_top"} @self'
+    - 'command{c="minecraft:execute as @a if score @s thor_rank matches 1 run minecraft:scoreboard players reset @s thor_pool"} @self'
+
+
+Thor_Rank_Entregar:
+  Skills:
+    - 'command{c="minecraft:execute if score <target.name> thor_rank matches 3 run mm items give -d <target.name> Saco_Thor_Top1 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> thor_rank matches 2 run mm items give -d <target.name> Saco_Thor_Top2 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> thor_rank matches 1 run mm items give -d <target.name> Saco_Thor_Top3 1"} @PlayersInWorld'
+    - 'command{c="minecraft:execute if score <target.name> thor_dmg matches 1.. unless score <target.name> thor_rank matches 1..3 run mm items give -d <target.name> Saco_Thor_Consuelo 1"} @PlayersInWorld'
+
+Thor_Rank_Muerte:
+  Skills:
+    - skill{s=Thor_Rank_Calcular} @self
+    - skill{s=Thor_Rank_Entregar} @self

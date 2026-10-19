@@ -1,0 +1,194 @@
+# Leviatan
+
+Leviatan:
+  Type: SKELETON
+  Display: "&3&lLEVIATAN &8• &3el Rey del Abismo"
+  Health: 3800
+  Damage: 80
+  Armor: 1750
+  Faction: Boss_Leviatan
+
+  Modules:
+    ThreatTable: true
+
+  Equipment:
+    - TRIDENT:HAND
+    - LV_ArmaduraInvisible:CHEST
+    - LV_CoronaAbismo:HEAD
+
+  BossBar:
+    Enabled: true
+    Title: "&3&lLEVIATAN"
+    Range: 50
+    Color: PINK
+    Style: SEGMENTED_10
+
+  Options:
+    Despawn: false
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 40
+    KnockbackResistance: 0.65
+    PreventSunburn: true
+    UseThreatTable: true
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  DropOptions:
+    DropMethod: FANCY
+    ShowDeathChatMessage: true
+    ShowDeathHologram: true
+    PerPlayerDrops: true
+    ClientSideDrops: true
+    Lootsplosion: true
+    HologramItemNames: true
+    ItemGlowByDefault: true
+    ItemBeamByDefault: true
+    ItemVFXByDefault: false
+    RequiredDamagePercent: 25
+    HologramTimeout: 15
+    HologramMessage:
+      - "<#F2B600>========================"
+      - "<#FFD600>LEVIATAN 3800 HP"
+      - ""
+      - "<#FFA300>1er Lugar | <1.name> | <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> | <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> | <3.damage>"
+      - ""
+      - "Posicion: #<player.rank> | <player.damage>"
+      - "<#F2B600>========================"
+    ChatMessage:
+      - "<#F2B600>===================================="
+      - "<#FFD600>JEFE DERROTADO!"
+      - "<#FFD600>LEVIATAN 3800 HP"
+      - ""
+      - "<#ffe259>1er Lugar | <1.name> - <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> - <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> - <3.damage>"
+      - ""
+      - "<#F2B600>Posicion: #<player.rank> - <player.damage>"
+      - "<#F2B600>===================================="
+
+  Drops:
+    - Leviatan_Nada 1 1
+   # - Recompensas_xp
+   # - Recompensas_runas
+   # - Recompensas_dinero
+   # - Recompensas_llaves
+   # - RH_EstrellaInvocacion 1 1
+
+  Skills:
+    - skill{s=Leviatan_Rank_Reset} @self ~onSpawn
+    - skill{s=Leviatan_Rank_Sumar} @self ~onDamaged
+    - skill{s=Leviatan_Rank_Muerte} @self ~onDeath
+
+    - skill{s=LV_Spawn} @self ~onSpawn
+    - skill{s=LV_AcquireTarget} @self ~onTimer:10
+    - skill{s=LV_HP70_Check} @self ~onTimer:20
+    - skill{s=LV_HP40_Check} @self ~onTimer:20
+    - skill{s=LV_Phase2_Check} @self ~onTimer:20
+    - skill{s=LV_Phase3_Check} @self ~onTimer:20
+    - skill{s=LV_Aura} @self ~onTimer:10
+    - skill{s=LV_Attack_Rotation} @self ~onTimer:10
+    - skill{s=LV_SummonCycle} @self ~onTimer:60
+    - skill{s=LV_AntiKite} @self ~onTimer:35
+    - skill{s=LV_PlayerKill} @target ~onKill
+    - skill{s=LV_Death} @self ~onDeath
+    - skill{s=LV_FuegoAmigo;sync=true} @self ~onDamaged
+
+
+# --- Subditos de Leviatan ---
+
+Leviatan_Ahogado:
+  Type: DROWNED
+  Display: "&3Ahogado del Abismo"
+  Health: 193
+  Damage: 20
+  Armor: 3
+  Faction: Boss_Leviatan
+
+  Equipment:
+    - STONE_SWORD:HAND
+    - TURTLE_HELMET:HEAD
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    MovementSpeed: 0.28
+    FollowRange: 28
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_UndeadSamurai
+
+  Skills:
+    - skill{s=LV_US_SpawnFX} @self ~onSpawn
+    - skill{s=LV_US_KatanaBlock} @target ~onAttack
+    - skill{s=LV_FuegoAmigo;sync=true} @self ~onDamaged
+
+Leviatan_Marea:
+  Type: ALLAY
+  Display: "&bEspiritu de la Marea"
+  Health: 111
+  Damage: 14
+  Faction: Boss_Leviatan
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 28
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_Yokai
+
+  Skills:
+    - skill{s=LV_Yokai_SpawnFX} @self ~onSpawn
+    - skill{s=LV_Yokai_Curse} @self ~onTimer:35
+    - skill{s=LV_FuegoAmigo;sync=true} @self ~onDamaged
+
+Leviatan_Anguila:
+  Type: VEX
+  Display: "&3Anguila Espectral"
+  Health: 97
+  Damage: 20
+  Faction: Boss_Leviatan
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.36
+    FollowRange: 30
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_ShadowNinja
+
+  Skills:
+    - skill{s=LV_SN_SpawnFX} @self ~onSpawn
+    - skill{s=LV_SN_Invisibility} @self ~onTimer:30
+    - skill{s=LV_SN_Assassinate} @target ~onAttack
+    - skill{s=LV_FuegoAmigo;sync=true} @self ~onDamaged

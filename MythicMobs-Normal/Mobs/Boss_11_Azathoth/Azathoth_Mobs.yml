@@ -1,0 +1,232 @@
+Azathoth:
+  Type: ENDERMAN
+  Display: "&5&lAZATHOTH &8• &5el Caos Ancestral"
+  Health: 3600
+  Damage: 77
+  Armor: 1750
+  Faction: Boss_Azathoth
+  Equipment:
+    - AZ_ArmaduraInvisible:CHEST
+
+  BossBar:
+    Enabled: true
+    Title: "&5&lAZATHOTH"
+    Range: 60
+    Color: PURPLE
+    Style: SOLID
+
+  Options:
+    Despawn: false
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventTeleport: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 60
+    KnockbackResistance: 1.0
+    UseThreatTable: true
+    Collidable: true
+
+  AIGoalSelectors:
+    - clear
+    - meleeattack
+    - movetowardstarget
+    - LookAtTarget
+    - randomlookaround
+
+  DamageModifiers:
+    - FIRE 0
+    - FIRE_TICK 0
+    - LAVA 0
+    - HOT_FLOOR 0
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  DropOptions:
+    DropMethod: FANCY
+    ShowDeathChatMessage: true
+    ShowDeathHologram: true
+    PerPlayerDrops: true
+    ClientSideDrops: true
+    Lootsplosion: true
+    HologramItemNames: true
+    ItemGlowByDefault: true
+    ItemBeamByDefault: true
+    ItemVFXByDefault: false
+    RequiredDamagePercent: 25
+    HologramTimeout: 15
+    HologramMessage:
+      - "<#F2B600>========================"
+      - "<#FFD600>AZATHOTH 3600 HP"
+      - ""
+      - "<#FFA300>1er Lugar | <1.name> | <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> | <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> | <3.damage>"
+      - ""
+      - "Posicion: #<player.rank> | <player.damage>"
+      - "<#F2B600>========================"
+    ChatMessage:
+      - "<#F2B600>===================================="
+      - "<#FFD600>JEFE DERROTADO!"
+      - "<#FFD600>AZATHOTH 3600 HP"
+      - ""
+      - "<#ffe259>1er Lugar | <1.name> - <1.damage>"
+      - "<#D1FFFF>2do Lugar | <2.name> - <2.damage>"
+      - "<#D1FFFF>3ro Lugar | <3.name> - <3.damage>"
+      - ""
+      - "<#F2B600>Posicion: #<player.rank> - <player.damage>"
+      - "<#F2B600>===================================="
+
+  Drops:
+    - Azathoth_Nada 1 1
+   # - Recompensas_xp
+   # - Recompensas_runas
+   # - Recompensas_dinero
+   # - Recompensas_llaves
+   # - Baal_EstrellaInvocacion 1 1
+
+  Modules:
+    ThreatTable: true
+    ImmunityTable: true
+  Skills:
+    - skill{s=Azathoth_Rank_Reset} @self ~onSpawn
+    - skill{s=Azathoth_Rank_Sumar} @self ~onDamaged
+    - skill{s=Azathoth_Rank_Muerte} @self ~onDeath
+
+    - skill{s=AZ_Spawn} @self ~onSpawn
+    - skill{s=AZ_AcquireTarget} @self ~onTimer:10
+    - skill{s=AZ_HP75_Check} @self ~onTimer:20
+    - skill{s=AZ_HP50_Check} @self ~onTimer:20
+    - skill{s=AZ_HP25_Check} @self ~onTimer:20
+    - skill{s=AZ_HP70_Lore} @self ~onTimer:20
+    - skill{s=AZ_HP40_Lore} @self ~onTimer:20
+    - skill{s=AZ_Phase2_Check} @self ~onTimer:20
+    - skill{s=AZ_Phase3_Check} @self ~onTimer:20
+    - skill{s=AZ_Phase4_Check} @self ~onTimer:20
+    - skill{s=AZ_DesertSummons_Check} @self ~onTimer:20
+    - skill{s=AZ_IntenseSandstorm_Check} @self ~onTimer:20
+    - skill{s=AZ_EnderPresence} @self ~onTimer:12
+    - skill{s=AZ_KeepFight} @self ~onTimer:40
+    - skill{s=AZ_Attack_Rotation} @self ~onTimer:55
+    - skill{s=AZ_PlayerKill} @target ~onKill
+    - skill{s=AZ_Death} @self ~onDeath
+    - skill{s=AZ_FuegoAmigo;sync=true} @self ~onDamaged
+
+
+# --- Subditos de Azathoth ---
+
+Azathoth_Engendro:
+  Type: HUSK
+  Display: "&5Engendro del Vacio"
+  Health: 1190
+  Damage: 51
+  Faction: Boss_Azathoth
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.28
+    FollowRange: 30
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_SandWarden
+
+  Skills:
+    - skill{s=AZ_SW_SpawnFX} @self ~onSpawn
+    - skill{s=AZ_SW_Attack} @target ~onAttack
+    - skill{s=AZ_FuegoAmigo;sync=true} @self ~onDamaged
+
+Azathoth_Flautista:
+  Type: HUSK
+  Display: "&dFlautista Demente"
+  Health: 1488
+  Damage: 19
+  Armor: 44
+  Faction: Boss_Azathoth
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.24
+    FollowRange: 28
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_MummyGuardian
+
+  Skills:
+    - skill{s=AZ_MG_SpawnFX} @self ~onSpawn
+    - skill{s=AZ_MG_Curse} @target ~onAttack
+    - skill{s=AZ_FuegoAmigo;sync=true} @self ~onDamaged
+
+Azathoth_Larva:
+  Type: SPIDER
+  Display: "&5Larva Estelar"
+  Health: 1859
+  Damage: 23
+  Armor: 55
+  Faction: Boss_Azathoth
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.31
+    FollowRange: 28
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_GiantScarab
+
+  Skills:
+    - skill{s=AZ_GS_SpawnFX} @self ~onSpawn
+    - skill{s=AZ_GS_Venom} @target ~onAttack
+    - skill{s=AZ_FuegoAmigo;sync=true} @self ~onDamaged
+
+Azathoth_Sacerdote:
+  Type: STRAY
+  Display: "&dSacerdote del Caos"
+  Health: 140
+  Damage: 12
+  Faction: Boss_Azathoth
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.24
+    FollowRange: 30
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_DesertPriest
+
+  Skills:
+    - skill{s=AZ_DP_SpawnFX} @self ~onSpawn
+    - skill{s=AZ_DP_HealAllies} @self ~onTimer:45
+    - skill{s=AZ_FuegoAmigo;sync=true} @self ~onDamaged

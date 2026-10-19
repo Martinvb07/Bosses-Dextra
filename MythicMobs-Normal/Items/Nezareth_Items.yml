@@ -1,0 +1,82 @@
+# Nezareth - Sacos de recompensa por puesto en el ranking de dano.
+# Click derecho -> ver Skills/Nezareth_Skills.yml
+# El puesto ya viene decidido en el item, asi que cada saco entrega siempre lo mismo.
+
+Saco_Nezareth_Top1:
+  Id: YELLOW_DYE
+  Display: "&8&lSaco de Nezareth &8• &e&l1er Lugar"
+  Lore:
+    - "&7Hilos del destino tejidos por Nezareth,"
+    - "&7para quien corto mas hilos."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &8&lNEZARETH"
+  Skills:
+    - skill{s=Nezareth_Saco_Top1} @Self ~onRightClick
+
+Saco_Nezareth_Top2:
+  Id: WHITE_DYE
+  Display: "&8&lSaco de Nezareth &8• &f&l2do Lugar"
+  Lore:
+    - "&7Casi deshaces su telar."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &8&lNEZARETH"
+  Skills:
+    - skill{s=Nezareth_Saco_Top2} @Self ~onRightClick
+
+Saco_Nezareth_Top3:
+  Id: ORANGE_DYE
+  Display: "&8&lSaco de Nezareth &8• &6&l3er Lugar"
+  Lore:
+    - "&7Tu hilo sigue intacto en su tapiz."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &8&lNEZARETH"
+  Skills:
+    - skill{s=Nezareth_Saco_Top3} @Self ~onRightClick
+
+Saco_Nezareth_Consuelo:
+  Id: GRAY_DYE
+  Display: "&8&lSaco de Nezareth &8• &7Participante"
+  Lore:
+    - "&7Escapaste de la tela de la Tejedora,"
+    - "&7aunque no entraste en el podio."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &8&lNEZARETH"
+  Skills:
+    - skill{s=Nezareth_Saco_Consuelo} @Self ~onRightClick
+
+# Estrella de invocacion -> skill NZ_ItemSummon en Skills/Nezareth_Combate.yml
+Nezareth_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&8&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &8&lNEZARETH&7."
+    - "&8(Usala en su altar de /warp bosses)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=NZ_ItemSummon} @Self ~onRightClick
+    - skill{s=NZ_ItemSummon} @Self ~onUse
+
+# --- Equipo propio de Nezareth (antes usaba el de otro boss) ---
+
+NZ_ArmaduraInvisible:
+  Id: PUMPKIN_SEEDS
+  Display: "&f"
+  Lore:
+    - ""
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:539
+  ItemFlags:
+    - HIDE_ENCHANTS
+    - HIDE_ATTRIBUTES
+    - HIDE_ADDITIONAL_TOOLTIP
+  Options:
+    Unbreakable: true

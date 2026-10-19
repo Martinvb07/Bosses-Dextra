@@ -1,0 +1,149 @@
+# Yeti + secuaces de hielo
+
+Yeti:
+  Type: SKELETON
+  Display: "&b&lYETI &8• &fBestia del Invierno Eterno"
+  Health: 3200
+  Damage: 71
+  Armor: 6679
+  Faction: Boss_Yeti
+  Equipment:
+    - Yeti_ArmaduraInvisible:CHEST
+
+  BossBar:
+    Enabled: true
+    Title: "&b&lYETI"
+    Range: 55
+    Color: BLUE
+    Style: SEGMENTED_10
+
+  Options:
+    Despawn: false
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 42
+    KnockbackResistance: 0.85
+    UseThreatTable: true
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    - Recompensas_xp
+    - Recompensas_runas
+    - Recompensas_dinero
+    - Recompensas_llaves
+
+  Skills:
+    - skill{s=Yeti_Spawn} @self ~onSpawn
+    - skill{s=Yeti_AcquireTarget} @self ~onTimer:10
+    - skill{s=Yeti_HP70_Check} @self ~onTimer:20
+    - skill{s=Yeti_HP40_Check} @self ~onTimer:20
+    - skill{s=Yeti_Phase2_Check} @self ~onTimer:20
+    - skill{s=Yeti_Phase3_Check} @self ~onTimer:20
+    - skill{s=Yeti_SubjugationShield} @self ~onTimer:10
+    - skill{s=Yeti_FrozenAura} @self ~onTimer:12
+    - skill{s=Yeti_SnowPresence} @self ~onTimer:8
+    - skill{s=Yeti_Roar} @self ~onTimer:80
+    - skill{s=Yeti_Attack_Rotation} @self ~onTimer:10
+    - skill{s=Yeti_SummonCycle} @self ~onTimer:55
+    - skill{s=Yeti_AntiKite} @self ~onTimer:35
+    - skill{s=Yeti_PlayerKill} @target ~onKill
+    - skill{s=Yeti_Death} @self ~onDeath
+    - skill{s=Yeti_FuegoAmigo;sync=true} @self ~onDamaged
+
+FrostBrute_Yeti:
+  Type: HUSK
+  Display: "&bBruto de escarcha"
+  Health: 682
+  Damage: 14
+  Armor: 2226
+  Faction: Boss_Yeti
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.30
+    FollowRange: 30
+
+  Equipment:
+    - STONE_AXE:HAND
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_FrostBrute_Yeti
+
+  Skills:
+    - skill{s=FBY_SpawnFX} @self ~onSpawn
+    - skill{s=FBY_FrozenMaul} @target ~onAttack
+    - skill{s=Yeti_FuegoAmigo;sync=true} @self ~onDamaged
+
+GlacierRaider_Yeti:
+  Type: VINDICATOR
+  Display: "&fAsaltante glaciar"
+  Health: 853
+  Damage: 18
+  Armor: 2783
+  Faction: Boss_Yeti
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.31
+    FollowRange: 30
+
+  Equipment:
+    - IRON_AXE:HAND
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_GlacierRaider_Yeti
+
+  Skills:
+    - skill{s=GRY_SpawnFX} @self ~onSpawn
+    - skill{s=GRY_CrystalCleave} @target ~onAttack
+    - skill{s=Yeti_FuegoAmigo;sync=true} @self ~onDamaged
+
+BlizzardSpirit_Yeti:
+  Type: VEX
+  Display: "&bEspiritu de ventisca"
+  Health: 68
+  Damage: 14
+  Faction: Boss_Yeti
+
+  Options:
+    Despawn: true
+    PreventOtherDrops: true
+    PreventBlockBreak: true
+    PreventRandomEquipment: true
+    Silent: false
+    MovementSpeed: 0.34
+    FollowRange: 28
+
+  AITargetSelectors:
+    - clear
+    - players
+
+  Drops:
+    #- Recompensas_BlizzardSpirit_Yeti
+
+  Skills:
+    - skill{s=BSY_SpawnFX} @self ~onSpawn
+    - skill{s=BSY_FrostClaws} @target ~onAttack
+    - skill{s=Yeti_FuegoAmigo;sync=true} @self ~onDamaged

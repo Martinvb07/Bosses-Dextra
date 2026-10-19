@@ -1,0 +1,161 @@
+# Kronos - Sacos de recompensa por puesto en el ranking de dano.
+# Item de Crucible: click derecho -> ver Skills/kronos_skills.yml
+# El puesto ya viene decidido en el item, asi que cada saco entrega siempre lo mismo.
+
+Saco_Kronos_Top1:
+  Id: YELLOW_DYE
+  Display: "&5&lSaco de Kronos &8• &e&l1er Lugar"
+  Lore:
+    - "&7Arena dorada del reloj de Kronos,"
+    - "&7para quien le robo mas segundos."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &5&lKRONOS"
+  Skills:
+    - skill{s=Kronos_Saco_Top1} @Self ~onRightClick
+
+Saco_Kronos_Top2:
+  Id: WHITE_DYE
+  Display: "&5&lSaco de Kronos &8• &f&l2do Lugar"
+  Lore:
+    - "&7Un instante mas y lo detenias vos solo."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &5&lKRONOS"
+  Skills:
+    - skill{s=Kronos_Saco_Top2} @Self ~onRightClick
+
+Saco_Kronos_Top3:
+  Id: ORANGE_DYE
+  Display: "&5&lSaco de Kronos &8• &6&l3er Lugar"
+  Lore:
+    - "&7Tu golpe quedo grabado en la esfera del reloj."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &5&lKRONOS"
+  Skills:
+    - skill{s=Kronos_Saco_Top3} @Self ~onRightClick
+
+Saco_Kronos_Consuelo:
+  Id: GRAY_DYE
+  Display: "&8&lSaco de Kronos &8• &7Participante"
+  Lore:
+    - "&7Estuviste ahi cuando el reloj volvio a correr,"
+    - "&7aunque no entraste en el podio."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &5&lKRONOS"
+  Skills:
+    - skill{s=Kronos_Saco_Consuelo} @Self ~onRightClick
+
+# Estrella de invocacion -> skill KR_ItemSummon en Skills/Kronos_Combate.yml
+Kronos_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&5&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &5&lKRONOS&7."
+    - "&8(Usala en su altar de /warp bosses)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=KR_ItemSummon} @Self ~onRightClick
+    - skill{s=KR_ItemSummon} @Self ~onUse
+
+# --- Equipo propio de Kronos (antes usaba el de otro boss) ---
+
+KR_CoronaTiempo:
+  Id: GOLDEN_HELMET
+  Display: "&5Corona del Tiempo"
+  Lore:
+    - "&8Corona de &5&lKRONOS"
+  Trim: amethyst.eye
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+KR_PetoTiempo:
+  Id: NETHERITE_CHESTPLATE
+  Display: "&5Peto del Tiempo"
+  Lore:
+    - "&8Armadura de &5&lKRONOS"
+  Trim: gold.wayfinder
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:140
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+KR_PantalonesTiempo:
+  Id: NETHERITE_LEGGINGS
+  Display: "&5Grebas del Tiempo"
+  Lore:
+    - "&8Armadura de &5&lKRONOS"
+  Trim: gold.wayfinder
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:140
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+KR_BotasTiempo:
+  Id: NETHERITE_BOOTS
+  Display: "&5Botas del Tiempo"
+  Lore:
+    - "&8Armadura de &5&lKRONOS"
+  Trim: gold.wayfinder
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:140
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+KR_CascoCentinela:
+  Id: IRON_HELMET
+  Display: "&5Casco de Centinela"
+  Lore:
+    - "&8Equipo de los subditos de &5&lKRONOS"
+  Trim: amethyst.vex
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+KR_CascoGuardian:
+  Id: DIAMOND_HELMET
+  Display: "&5Yelmo de las Eras"
+  Lore:
+    - "&8Equipo de los subditos de &5&lKRONOS"
+  Trim: amethyst.ward
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+KR_CapuchaSaetero:
+  Id: LEATHER_HELMET
+  Display: "&dCapucha del Ocaso"
+  Lore:
+    - "&8Equipo de los subditos de &5&lKRONOS"
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Color: 90,30,140

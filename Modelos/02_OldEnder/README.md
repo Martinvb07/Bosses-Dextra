@@ -1,6 +1,6 @@
 # OldEnder: modelos de ModelEngine
 
-Boss 02 del servidor. Configuracion de MythicMobs en `MythicMobs/Mobs/Boss_02_OldEnder/`.
+Boss 02 del servidor. Configuracion de MythicMobs en `MythicMobs-3D/Mobs/Boss_02_OldEnder/`.
 
 Todavia no tiene modelos. Cuando los tenga, van aqui con la misma estructura que `01_Heracles/`:
 

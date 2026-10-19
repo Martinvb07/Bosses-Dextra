@@ -1,0 +1,149 @@
+# Xylar - Sacos de recompensa por puesto en el ranking de dano.
+# Click derecho -> ver Skills/Xylar_Skills.yml
+# El puesto ya viene decidido en el item, asi que cada saco entrega siempre lo mismo.
+
+Saco_Xylar_Top1:
+  Id: YELLOW_DYE
+  Display: "&d&lSaco de Xylar &8• &e&l1er Lugar"
+  Lore:
+    - "&7Polvo de estrellas de la armadura de Xylar,"
+    - "&7para quien apago su galaxia."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &d&lXYLAR"
+  Skills:
+    - skill{s=Xylar_Saco_Top1} @Self ~onRightClick
+
+Saco_Xylar_Top2:
+  Id: WHITE_DYE
+  Display: "&d&lSaco de Xylar &8• &f&l2do Lugar"
+  Lore:
+    - "&7Tu ataque cruzo media galaxia."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &d&lXYLAR"
+  Skills:
+    - skill{s=Xylar_Saco_Top2} @Self ~onRightClick
+
+Saco_Xylar_Top3:
+  Id: ORANGE_DYE
+  Display: "&d&lSaco de Xylar &8• &6&l3er Lugar"
+  Lore:
+    - "&7Una nueva constelacion lleva tu nombre."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &d&lXYLAR"
+  Skills:
+    - skill{s=Xylar_Saco_Top3} @Self ~onRightClick
+
+Saco_Xylar_Consuelo:
+  Id: GRAY_DYE
+  Display: "&8&lSaco de Xylar &8• &7Participante"
+  Lore:
+    - "&7Viste caer al Senor Galactico,"
+    - "&7aunque no entraste en el podio."
+    - ""
+    - "&eClick derecho &7para abrirlo."
+    - ""
+    - "&8Recompensa de &d&lXYLAR"
+  Skills:
+    - skill{s=Xylar_Saco_Consuelo} @Self ~onRightClick
+
+# Estrella de invocacion -> skill XY_ItemSummon en Skills/Xylar_Combate.yml
+Xylar_EstrellaInvocacion:
+  Id: NETHER_STAR
+  Display: "&d&lEstrella de invocacion"
+  Lore:
+    - "&7Click derecho sobre el altar para invocar a &d&lXYLAR&7."
+    - "&8(Usala en su altar de /warp bosses)"
+  Options:
+    Glowing: true
+  Skills:
+    - skill{s=XY_ItemSummon} @Self ~onRightClick
+    - skill{s=XY_ItemSummon} @Self ~onUse
+
+# --- Equipo propio de Xylar (antes usaba el de otro boss) ---
+
+XY_YelmoEstelar:
+  Id: DIAMOND_HELMET
+  Display: "&dYelmo Estelar"
+  Lore:
+    - "&8Armadura de &d&lXYLAR"
+  Trim: quartz.eye
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+XY_PetoEstelar:
+  Id: DIAMOND_CHESTPLATE
+  Display: "&dPeto Estelar"
+  Lore:
+    - "&8Armadura de &d&lXYLAR"
+  Trim: amethyst.spire
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:219
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+XY_PantalonesEstelar:
+  Id: DIAMOND_LEGGINGS
+  Display: "&dGrebas Estelares"
+  Lore:
+    - "&8Armadura de &d&lXYLAR"
+  Trim: amethyst.spire
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:219
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+XY_BotasEstelar:
+  Id: DIAMOND_BOOTS
+  Display: "&dBotas Estelares"
+  Lore:
+    - "&8Armadura de &d&lXYLAR"
+  Trim: amethyst.spire
+  Enchantments:
+    - PROTECTION_ENVIRONMENTAL:219
+    - DURABILITY:3
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+
+XY_CascoSoldado:
+  Id: LEATHER_HELMET
+  Display: "&dCasco de Soldado Estelar"
+  Lore:
+    - "&8Equipo de los subditos de &d&lXYLAR"
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true
+    Color: 200,90,230
+
+XY_YelmoVacio:
+  Id: NETHERITE_HELMET
+  Display: "&5Yelmo del Vacio"
+  Lore:
+    - "&8Equipo de los subditos de &d&lXYLAR"
+  Trim: amethyst.vex
+  Hide:
+    - ATTRIBUTES
+    - ENCHANTS
+  Options:
+    Unbreakable: true

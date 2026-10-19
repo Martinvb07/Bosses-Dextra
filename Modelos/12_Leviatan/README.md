@@ -1,6 +1,6 @@
 # Leviatan: modelos de ModelEngine
 
-Boss 12 del servidor. Configuracion de MythicMobs en `MythicMobs/Mobs/Boss_12_Leviatan/`.
+Boss 12 del servidor. Configuracion de MythicMobs en `MythicMobs-3D/Mobs/Boss_12_Leviatan/`.
 
 Todavia no tiene modelos. Cuando los tenga, van aqui con la misma estructura que `01_Heracles/`:
 

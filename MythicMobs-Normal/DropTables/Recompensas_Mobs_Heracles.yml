@@ -1,0 +1,10 @@
+Recompensas_Heracles:
+  TotalItems: 1
+  MaxItems: 1
+  Drops:
+    #- elemento_carbon 4 0.75
+    #- elemento_hierro 2 0.50
+    - command{c="ae givercbook EXALTED <trigger.name> 3"} 0.003
+    - command{c="ae givercbook EXALTED <trigger.name> 2"} 0.005
+    - command{c="ae givercbook EXALTED <trigger.name> 1"} 0.009
+

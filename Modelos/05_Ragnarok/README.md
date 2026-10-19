@@ -1,6 +1,6 @@
 # Ragnarok: modelos de ModelEngine
 
-Boss 05 del servidor. Configuracion de MythicMobs en `MythicMobs/Mobs/Boss_05_Ragnarok/`.
+Boss 05 del servidor. Configuracion de MythicMobs en `MythicMobs-3D/Mobs/Boss_05_Ragnarok/`.
 
 Todavia no tiene modelos. Cuando los tenga, van aqui con la misma estructura que `01_Heracles/`:
 

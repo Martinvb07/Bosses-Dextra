@@ -1,6 +1,6 @@
 # Azathoth: modelos de ModelEngine
 
-Boss 11 del servidor. Configuracion de MythicMobs en `MythicMobs/Mobs/Boss_11_Azathoth/`.
+Boss 11 del servidor. Configuracion de MythicMobs en `MythicMobs-3D/Mobs/Boss_11_Azathoth/`.
 
 Todavia no tiene modelos. Cuando los tenga, van aqui con la misma estructura que `01_Heracles/`:
 

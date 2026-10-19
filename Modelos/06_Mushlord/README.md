@@ -1,6 +1,6 @@
 # Mushlord: modelos de ModelEngine
 
-Boss 06 del servidor. Configuracion de MythicMobs en `MythicMobs/Mobs/Boss_06_Mushlord/`.
+Boss 06 del servidor. Configuracion de MythicMobs en `MythicMobs-3D/Mobs/Boss_06_Mushlord/`.
 
 Todavia no tiene modelos. Cuando los tenga, van aqui con la misma estructura que `01_Heracles/`:
 

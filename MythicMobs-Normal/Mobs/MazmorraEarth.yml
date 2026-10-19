@@ -1,0 +1,1288 @@
+#MObs tematica Orcos - Alexby
+Jefeorco:
+  Type: ZOMBIE
+  Display: '&c&lJEFE ORCO &f<caster.hp> <red><&heart></red>'
+  Health: 900
+  Damage: 35
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  Options:
+    NoDamageTicks: 10
+    KnockbackResistance: 1
+    MovementSpeed: 0.3
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTkzY2Q3YzU5MTk2MmM3OWE0NjgzYmIxZmYxNGU3ZjcyYTE4YWE0M2Y4OGUyOTViOWY3NTRlMjkyYjQ5YjcifX19;enchants=PROTECTION_ENVIRONMENTAL:16,THORNS:5} HEAD
+  - PetoOrco CHEST
+  - PantalonOrco LEGS
+  - BotasOrco FEET
+  - NETHERITE_SWORD{enchants=damage_all:8} HAND
+  Skills:
+  - summon{type=Orco1;amount=2;radius=4} @SELF ~onSpawn
+  - summon{type=Orco2;amount=2;radius=4} @SELF ~onSpawn
+  - summon{type=Orco3;amount=1;radius=4} @SELF ~onSpawn
+  - potion{type=HUNGER;duration=200;level=3} @TARGET ~onTimer:260
+  - sound{s=entity.ravager.hurt} @self ~onDamaged
+  - sound{s=entity.ravager.attack} @self ~onAttack
+  - sound{s=entity.ravager.celebrate} @self ~onTimer:300
+  - skill{s=GolpeFuerteJefe} @self ~onAttack 0.025
+  - skill{s=dinerojefeorco} @self ~onDeath 0.5
+  Drops:
+  - elemento_redstone 1 0.22
+  - fragmento_redstone 2 0.3
+Orco1:
+  Type: ZOMBIE
+  Display: '&c&lORCO &f<caster.hp> <red><&heart></red>'
+  Health: 250
+  Damage: 15
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+  Options:
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.4
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTE0ZGMzOGQ0Zjc4NTE5ZGQ1NjE5ZGQ0MWEyNmFiZmZiOTEyM2UxNTY3ZjZkODljYjNiMTY2ZTI5NzY2OCJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:12,THORNS:3} HEAD
+  - PetoOrco CHEST
+  - PantalonOrco LEGS
+  - BotasOrco FEET
+  - IRON_SWORD{enchants=damage_all:5} HAND
+  Skills:
+  - sound{s=entity.ravager.stunned} @self ~onTimer:200
+  - skill{s=GolpeFuerte} @self ~onAttack 0.05
+  - skill{s=dineroorco} @self ~onDeath 0.25
+  Drops:
+  - elemento_carbon 1 0.08
+  - fragmento_carbon 2 0.15
+Orco2:
+  Type: ZOMBIE
+  Display: '&c&lORCO &f<caster.hp> <red><&heart></red>'
+  Health: 250
+  Damage: 15
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+  Options:
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.4
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTk4MTZkZTU0N2UxOWRlYmY2NmEwNThjOWFmMTkxZTc3OGZhN2JmM2I0M2QxZGIxZTY4ODNjMzk3MjUzZSJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:12,THORNS:3} HEAD
+  - PetoOrco CHEST
+  - PantalonOrco LEGS
+  - BotasOrco FEET
+  - IRON_SWORD{enchants=damage_all:5} HAND
+  Skills:
+  - sound{s=entity.ravager.stunned} @self ~onTimer:500
+  - skill{s=GolpeFuerte} @self ~onAttack 0.05
+  - skill{s=dineroorco} @self ~onDeath 0.25
+  Drops:
+  - elemento_carbon 1 0.08
+  - fragmento_carbon 2 0.15
+Orco3:
+  Type: ZOMBIE
+  Display: '&c&lORCO MAYOR &f<caster.hp> <red><&heart></red>'
+  Health: 500
+  Damage: 25
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+  Options:
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.4
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTQzOGViZWE2OGZmOGJlYTEwN2MyNzMyZmE4ZjljZDRlMDQ2ZTFiMTNmOGUxMmQwOWYwNTdkNDhkYjRjNSJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:12,THORNS:4} HEAD
+  - PetoOrco CHEST
+  - PantalonOrco LEGS
+  - BotasOrco FEET
+  - IRON_SWORD{enchants=damage_all:7} HAND
+  Skills:
+  - sound{s=entity.ravager.stunned} @self ~onTimer:200
+  - skill{s=GolpeFuerteOrcoMayor} @self ~onAttack 0.025
+  - skill{s=dineroorco} @self ~onDeath 0.35
+  Drops:
+  - elemento_carbon 1 0.15
+  - fragmento_carbon 2 0.25
+#Mobs Tematica Pantano - Alexby
+Pantanoso1:
+  Type: ZOMBIE
+  Display: '&2&lZombie Pantanoso &f<caster.hp> <red><&heart></red>'
+  Health: 150
+  Damage: 15
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+  Options:
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.35
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDQ0ZjZjNTMxZDg5MjE4ZTg4YmNkMWY3NTIzNzEzNWIxNDhhMmNlMzQzNWIzNzEzNGRhMTMxZmEyMWU2MTU3MSJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:13,THORNS:2} HEAD
+  - PetoPantano CHEST
+  - PantalonPantano LEGS
+  - BotasPantano FEET
+  - WOODEN_SWORD{enchants=damage_all:6} HAND
+  Skills:
+  - sound{s=entity.drowned.hurt} @self ~onDamaged
+  - sound{s=entity.drowned.shoot} @self ~onAttack
+  - potion{type=WEAKNESS;duration=80;level=2} @PIR{r=10} ~onTimer:120
+  Drops:
+  - elemento_carbon 1 0.08
+  - fragmento_carbon 2 0.15
+Pantanoso2:
+  Type: ZOMBIE
+  Display: '&2&lAldeano del Pantano &f<caster.hp> <red><&heart></red>'
+  Health: 150
+  Damage: 15
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+  Options:
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.35
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjIyNjZlYmFkZjdkYjQwNTViZWNiY2RjMzc1NDE1MTc5OTYzMTljNjYxYWFlOTgxZDMwYWM2NGI2Nzg3N2FkZCJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:13,THORNS:2} HEAD
+  - PetoPantano CHEST
+  - PantalonPantano LEGS
+  - BotasPantano FEET
+  - WOODEN_SWORD{enchants=damage_all:6} HAND
+  Skills:
+  - sound{s=entity.drowned.hurt} @self ~onDamaged
+  - sound{s=entity.drowned.shoot} @self ~onAttack
+  - potion{type=POISON;duration=150;level=3} @PIR{r=10} ~onTimer:220
+  Drops:
+  - elemento_carbon 1 0.08
+  - fragmento_carbon 2 0.15
+MounstroPantano:
+  Type: ZOMBIE
+  Display: '&2&lMounstro del Pantano &f<caster.hp> <red><&heart></red>'
+  Health: 900
+  Damage: 30
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+  Options:
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.55
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGJhZDk5ZWQzYzgyMGI3OTc4MTkwYWQwOGE5MzRhNjhkZmE5MGQ5OTg2ODI1ZGExYzk3ZjZmMjFmNDlhZDYyNiJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:16,THORNS:4} HEAD
+  - PetoMounstro CHEST
+  - PantalonMounstro LEGS
+  - BotasMounstro FEET
+  - EspadaMounstro HAND
+  Skills:
+  - sound{s=entity.drowned.hurt} @self ~onDamaged
+  - sound{s=entity.drowned.shoot} @self ~onAttack
+  - potion{type=SLOW;duration=80;level=4} @PIR{r=10} ~onTimer:220
+  - potion{type=BLINDNESS;duration=100;level=4} @PIR{r=10} ~onTimer:240
+  - summon{type=Pantanoso1;amount=3;radius=4} @SELF ~onSpawn
+  - summon{type=Pantanoso2;amount=1;radius=4} @SELF ~onSpawn
+  Drops:
+  - elemento_redstone 1 0.22
+  - fragmento_redstone 2 0.3
+#Mobs Tematica Guerreros Pillager - Alexby
+Guerrero1:
+  Type: PILLAGER
+  Display: '&7&lRecluta &f<caster.hp> <red><&heart></red>'
+  Health: 200
+  Damage: 20
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  Options:
+    NoDamageTicks: 10
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.35
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - 0 clear
+  - 2 meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - 0 clear
+  - 1 players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2VjYWI5ZTE3YTQyMzMxNTMxODExYzJmOTIyM2FmM2JmY2ViZTYwY2ExNDc5ZmQ1NzQwOWVlODUzOTEwYWFmOSJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:18,THORNS:4} HEAD
+  - EspadaPillager HAND
+  - EscudoPillager OFFHAND
+  Skills:
+  - sound{s=item.armor.equip_netherite;v=1;p=0.8} ~onDamaged
+  - sound{s=entity.drowned.shoot} @self ~onAttack
+  - sound{s=entity.pillager.celebrate} @self ~onTimer:200
+  - sound{s=entity.pillager.death} @self ~onDeath
+  - leap{velocity=100} @target ~onTimer:60
+  - potion{type=FAST_DIGGING;duration=100;level=1} @self ~onTimer:250
+  - skill{s=BloodyEffectR} @self ~onTimer:1500
+  - skill{s=BloqueoR} @self ~onDamaged 0.025
+  Drops:
+  - elemento_carbon 1 0.08
+  - fragmento_carbon 2 0.15
+Guerrero2:
+  Type: PILLAGER
+  Display: '&7&lVerdugo &f<caster.hp> <red><&heart></red>'
+  Health: 200
+  Damage: 25
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  Options:
+    NoDamageTicks: 10
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.35
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzJhNGFlYzg1ODI4OWQ0NmQyZWQ2YjI0MGY5OTdkNGE4NWFiNjhiYzYyZTM0MzkxNzFmM2NjZDEzNDBjOGM4ZSJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:18,THORNS:4} HEAD
+  - EspadaPillager HAND
+  - EscudoPillager OFFHAND
+  Skills:
+  - sound{s=item.armor.equip_netherite;v=1;p=0.8} ~onDamaged
+  - sound{s=entity.drowned.shoot} @self ~onAttack
+  - sound{s=entity.pillager.celebrate} @self ~onTimer:200
+  - sound{s=entity.pillager.death} @self ~onDeath
+  - leap{velocity=100} @target ~onTimer:60
+  - potion{type=INCREASE_DAMAGE;duration=100;level=0} @self ~onTimer:300
+  - skill{s=BloodyEffectV} @self ~onTimer:1000
+  - skill{s=BloqueoV} @self ~onDamaged 0.05
+  Drops:
+  - elemento_carbon 1 0.15
+  - fragmento_carbon 2 0.25
+GranVerdugo:
+  Type: PILLAGER
+  Display: '&7&lGran Verdugo &f<caster.hp> <red><&heart></red>'
+  Health: 750
+  Damage: 40
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  Options:
+    NoDamageTicks: 10
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.35
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzQ1NDNlM2RmYjUwNDhiNDNjYTNjM2FiY2YwZGY0YjNmY2ZiMTdhOTk4NTRkNzZjZmFhNjdhNjYxZjU2NGZkOSJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:20,THORNS:6} HEAD
+  - EspadaPillager HAND
+  - EscudoPillager OFFHAND
+  Skills:
+  - sound{s=item.armor.equip_netherite;v=1;p=0.8} ~onDamaged
+  - sound{s=entity.drowned.shoot} @self ~onAttack
+  - sound{s=entity.pillager.celebrate} @self ~onTimer:200
+  - sound{s=entity.pillager.death} @self ~onDeath
+  - leap{velocity=100} @target ~onTimer:40
+  - potion{type=INCREASE_DAMAGE;duration=100;level=0} @self ~onTimer:400
+  - potion{type=SLOW;duration=60;level=3} @PIR{r=10} ~onTimer:100
+  - summon{type=Guerrero1;amount=2;radius=4} @SELF ~onSpawn
+  - summon{type=Guerrero2;amount=1;radius=4} @SELF ~onSpawn
+  - skill{s=BloodyEffectGV} @self ~onAttack 0.1
+  - skill{s=BloqueoGV} @self ~onDamaged 0.2
+  Drops:
+  - elemento_redstone 2 0.3
+  - fragmento_redstone 3 0.4
+#Mobs Tematica Arqueros - Alexby
+ArqueroAprendriz:
+  Type: PILLAGER
+  Display: '&e&lArquero Aprendiz &f<caster.hp> <red><&heart></red>'
+  Health: 100
+  Damage: 25
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+  Options:
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.35
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - clear
+  - bowattack{speed=1;amin=40;radius=30}
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGFiZWJjNTlmMjg5MWZiOTc1ZmMyYjIwZGU0NzNlNGJiZGI4YjRjZmUyNDYxMzViODkzNjk5Yjk4NTAzMjc1NiJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:14,THORNS:3} HEAD
+  - Arco1 HAND
+  Skills:
+  - sound{s=item.armor.equip_netherite;v=1;p=0.8} ~onDamaged
+  - sound{s=entity.drowned.shoot} @self ~onAttack
+  - sound{s=entity.pillager.celebrate} @self ~onTimer:200
+  - sound{s=entity.pillager.death} @self ~onDeath
+  - shoot{type=ARROW;velocity=1;damage=15} @target ~onTimer:40
+  - potion{type=SLOW;duration=60;level=1} @target ~onAttack
+  Drops:
+  - elemento_carbon 1 0.08
+  - fragmento_carbon 2 0.15
+ArqueroExperto:
+  Type: PILLAGER
+  Display: '&e&lArquero Experto &f<caster.hp> <red><&heart></red>'
+  Health: 150
+  Damage: 25
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+  Options:
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.35
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - clear
+  - bowattack{speed=1.2;amin=40;radius=30}
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGFiZWJjNTlmMjg5MWZiOTc1ZmMyYjIwZGU0NzNlNGJiZGI4YjRjZmUyNDYxMzViODkzNjk5Yjk4NTAzMjc1NiJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:14,THORNS:3} HEAD
+  - Arco2 HAND
+  Skills:
+  - sound{s=item.armor.equip_netherite;v=1;p=0.8} ~onDamaged
+  - sound{s=entity.drowned.shoot} @self ~onAttack
+  - sound{s=entity.pillager.celebrate} @self ~onTimer:200
+  - sound{s=entity.pillager.death} @self ~onDeath
+  - skill{s=ArrowBarrage} @self ~onTimer:200
+  - shoot{type=ARROW;velocity=1;damage=15} @target ~onTimer:40
+  - potion{type=WEAKNESS;duration=60;level=2} @target ~onAttack
+  Drops:
+  - elemento_carbon 1 0.15
+  - fragmento_carbon 2 0.25
+ArqueroMaestro:
+  Type: PILLAGER
+  Display: '&e&lMaestro Arquero &f<caster.hp> <red><&heart></red>'
+  Health: 200
+  Damage: 25
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+  Options:
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.35
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - clear
+  - bowattack{speed=1.5;amin=20;radius=30}
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGFiZWJjNTlmMjg5MWZiOTc1ZmMyYjIwZGU0NzNlNGJiZGI4YjRjZmUyNDYxMzViODkzNjk5Yjk4NTAzMjc1NiJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:16,THORNS:6} HEAD
+  - Arco2 HAND
+  Skills:
+  - sound{s=item.armor.equip_netherite;v=1;p=0.8} ~onDamaged
+  - sound{s=entity.drowned.shoot} @self ~onAttack
+  - sound{s=entity.pillager.celebrate} @self ~onTimer:200
+  - sound{s=entity.pillager.death} @self ~onDeath
+  - skill{s=ArrowBarrageMaster} @self ~onTimer:400
+  - shoot{type=ARROW;velocity=1;damage=20} @target ~onTimer:20
+  - potion{type=CONFUSION;duration=60;level=2} @target ~onAttack
+  - potion{type=WITHER;duration=60;level=2} @target ~onAttack
+  - potion{type=SLOW_DIGGING;duration=60;level=2} @target ~onAttack
+  - summon{type=ArqueroAprendriz;amount=3;radius=4} @SELF ~onSpawn
+  - summon{type=ArqueroExperto;amount=1;radius=4} @SELF ~onSpawn
+  Drops:
+  - elemento_carbon 1 0.15
+  - fragmento_carbon 2 0.25
+#Mobs tematica Nether - Alexby
+GuardiadelRey:
+  Type: WITHER_SKELETON
+  Display: '&l<gradient:#bd230b:#540e03>Guardia del Rey </gradient> &f<caster.hp> <red><&heart></red>'
+  Health: 450
+  Damage: 35
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  Options:
+    NoDamageTicks: 10
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.35
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - 0 clear
+  - 2 meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - 0 clear
+  - 1 players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhhMjU4MDBiMmFmM2JlZjgzYmY4YzlhNzE5YzFlYThhNDQzOTQxYjM4NjZhNmNmNGZhMzA0YzNlMTQ1MzVkOSJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:20,THORNS:6} HEAD
+  - EspadaGuardia HAND
+  - EscudoGuardias OFFHAND
+  Skills:
+  - sound{s=item.armor.equip_netherite;v=1;p=0.8} ~onDamaged
+  - sound{s=entity.drowned.shoot} @self ~onAttack
+  - sound{s=entity.wither_skeleton.ambient} @self ~onTimer:200
+  - sound{s=entity.wither_skeleton.step} @self ~onTimer:100
+  - sound{s=entity.wither_skeleton.death} @self ~onDeath
+  - leap{velocity=100} @target ~onTimer:60
+  - potion{type=FAST_DIGGING;duration=100;level=1} @self ~onTimer:250
+  - randomskill{skills=Ataque1 10,Ataque2 10,Ataque3 10} ~onAttack @self
+  - skill{s=ReflejoG} @self ~onDamaged 0.1
+  Drops:
+  - elemento_redstone 1 0.22
+  - fragmento_redstone 2 0.3
+PrincipeOscuro:
+  Type: WITHER_SKELETON
+  Display: '&l<gradient:#bd230b:#540e03>Principe Oscuro</gradient> &f<caster.hp> <red><&heart></red>'
+  Health: 700
+  Damage: 45
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  Options:
+    NoDamageTicks: 10
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.35
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - 0 clear
+  - 2 meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - 0 clear
+  - 1 players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWJlY2RmOTc0N2JjZDcxZTBkZmU3N2E1NmMyMGRjOTk1ODNmMjQ1ZTQ2OWM4M2Y4NGJkMTk1ZWM2ZTJkM2VlMiJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:22,THORNS:6} HEAD
+  - EspadaGuardia HAND
+  - EscudoGuardias OFFHAND
+  Skills:
+  - sound{s=item.armor.equip_netherite;v=1;p=0.8} ~onDamaged
+  - sound{s=entity.drowned.shoot} @self ~onAttack
+  - sound{s=entity.wither_skeleton.ambient} @self ~onTimer:200
+  - sound{s=entity.wither_skeleton.step} @self ~onTimer:100
+  - sound{s=entity.wither_skeleton.death} @self ~onDeath
+  - leap{velocity=120} @target ~onTimer:60
+  - potion{type=FAST_DIGGING;duration=100;level=1} @self ~onTimer:250
+  - potion{type=CONFUSION;duration=200;level=2} @PIR{r=10} ~onTimer:300
+  - randomskill{skills=Ataque1 10,Ataque2 10,Ataque3 10} ~onAttack @self
+  - skill{s=ReflejoP} @self ~onDamaged 0.15
+  Drops:
+  - elemento_redstone 2 0.3
+  - fragmento_redstone 3 0.4
+ReyOscuro:
+  Type: WITHER_SKELETON
+  Display: '&l<gradient:#bd230b:#540e03>Rey Oscuro</gradient> &f<caster.hp> <red><&heart></red>'
+  Health: 1000
+  Damage: 60
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  Options:
+    NoDamageTicks: 10
+    KnockbackResistance: 0.5
+    MovementSpeed: 0.35
+    PreventRenaming: true
+    PreventSunburn: true
+    Silent: true
+    PreventJockeyMounts: true
+    PreventTransformation: true
+  AIGoalSelectors:
+  - 0 clear
+  - 2 meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - 0 clear
+  - 1 players
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTMxMzkyMGJkYWIwZmFhMTI4OTk5MjE5NWRjNjRhMjE0OTA5OGIxNTNjMzVjNmJhZTc2NWJhM2IwODQyZDFhOSJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:22,THORNS:6} HEAD
+  - EspadaGuardia HAND
+  - EscudoGuardias OFFHAND
+  Skills:
+  - sound{s=item.armor.equip_netherite;v=1;p=0.8} ~onDamaged
+  - sound{s=entity.drowned.shoot} @self ~onAttack
+  - sound{s=entity.wither_skeleton.ambient} @self ~onTimer:200
+  - sound{s=entity.wither_skeleton.step} @self ~onTimer:100
+  - sound{s=entity.wither_skeleton.death} @self ~onDeath
+  - leap{velocity=120} @target ~onTimer:60
+  - potion{type=FAST_DIGGING;duration=100;level=1} @self ~onTimer:250
+  - potion{type=POISON;duration=200;level=2} @PIR{r=10} ~onTimer:300
+  - randomskill{skills=Ataque1 10,Ataque2 10,Ataque3 10} ~onAttack @self
+  - skill{s=ReflejoR} @self ~onDamaged 0.08
+  - skill{s=ExplosionRey} @self ~onTimer:600
+  - summon{type=GuardiadelRey;amount=2;radius=4} @SELF ~onSpawn
+  - summon{type=PrincipeOscuro;amount=1;radius=4} @SELF ~onSpawn
+  Drops:
+  - elemento_redstone 2 0.3
+  - fragmento_redstone 3 0.4
+#Mobs Antiguos Ajustados
+Penumbra:
+  Type: PIGLIN_BRUTE
+  Health: 800
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  Display: "&e&l&oPenumbra &f<caster.hp> <red><&heart></red>"
+  Damage: 30
+  Faction: mazmorra
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2UzMDBlOTAyNzM0OWM0OTA3NDk3NDM4YmFjMjllM2E0Yzg3YTg0OGM1MGIzNGMyMTI0MjcyN2I1N2Y0ZTFjZiJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:18,THORNS:6} HEAD
+  - EspadaPenumbra HAND
+  Options:
+    NoDamageTicks: 10
+    MovementSpeed: 0.4
+    Despawn: false
+    FollowRange: 15
+    KnockbackResistance: 1
+    MaxCombatDistance: 5
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    PreventSunburn: true
+    PreventRenaming: true
+    Silent: true
+    PreventOtherDrops: true
+  DamageModifiers:
+  - FALL 0
+  AIGoalSelectors:
+  - 0 clear
+  - 2 meleeattack
+  AITargetSelectors:
+  - 0 clear
+  - 1 players
+  BossBar:
+    Enabled: false
+    Title: '&8&Penumbra - &6&l<mob.hp>&4<&heart>'
+    Range: 20
+    Color: GRAY
+    Style: SOLID
+  Skills:
+   - randomskill{skills=Ataque1P 10,Ataque2P 10,Ataque3P 10} ~onAttack @self
+   - skill{s=PenumbraA} @origin ~onTimer:180
+   - skill{s=PenumbraA2} @self ~onTimer:220
+   - skill{s=CharcoLava} ~onTimer:220
+  Drops:
+  - elemento_redstone 2 0.3
+  - fragmento_redstone 3 0.4
+Golemsubdito:
+  Type: IRON_GOLEM
+  Display: '&eGolem &f<caster.hp> <red><&heart></red>'
+  Health: 750
+  Damage: 40
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODkwOTFkNzllYTBmNTllZjdlZjk0ZDdiYmE2ZTVmMTdmMmY3ZDQ1NzJjNDRmOTBmNzZjNDgxOWE3MTQifX19;enchants=PROTECTION_ENVIRONMENTAL:23,THORNS:8} HEAD
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Options:
+    NoDamageTicks: 20
+    MovementSpeed: 0.33
+    Silent: true
+    Despawn: false
+    FollowRange: 10
+    KnockbackResistance: 1
+    MaxCombatDistance: 5
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    PreventSunburn: true
+    PreventRenaming: true
+    PreventOtherDrops: true
+    ShowHealth: true
+  Skills:
+  - skill{s=GolemAtaque} @target ~onDamaged 1
+  - sound{s=entity.blaze.hurt;v=0.5;p=2} @self ~onDamaged
+  Drops:
+  - elemento_redstone 2 0.3
+  - fragmento_redstone 3 0.4
+TitanGolem:
+  Type: IRON_GOLEM
+  Display: '&7&lTitan Golem &f<caster.hp> <red><&heart></red>'
+  Health: 1250
+  Damage: 70
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODkwOTFkNzllYTBmNTllZjdlZjk0ZDdiYmE2ZTVmMTdmMmY3ZDQ1NzJjNDRmOTBmNzZjNDgxOWE3MTQifX19;enchants=PROTECTION_ENVIRONMENTAL:100,THORNS:8} HEAD
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Options:
+    NoDamageTicks: 10
+    MovementSpeed: 0.33
+    Silent: true
+    Despawn: false
+    FollowRange: 10
+    KnockbackResistance: 1
+    MaxCombatDistance: 5
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    PreventSunburn: true
+    PreventRenaming: true
+    PreventOtherDrops: true
+    ShowHealth: true
+  BossBar:
+    Enabled: true
+    Title: '&7&lTitan Golem - &7Lvl&8[&c<caster.level>&8] [&e<&heart>&6 <mob.hp>&8]'
+    Range: 20
+    Color: GRAY
+    Style: SOLID
+  Skills:
+  - skill{s=GolemAtaque} @target ~onDamaged 1
+  - sound{s=entity.blaze.hurt;v=0.5;p=2} @self ~onDamaged
+  - skill{s=Terremoto} @self ~onTimer:200
+  - skill{s=SweepDamage} @self ~onTimer:800
+  - extinguish{delay=2} @self ~onDamaged 1
+  - skill{s=BlackScreen} ~onTimer:1200
+  - effect:bloodyScreen{d=100} @PIR{r=15} ~onTimer:20
+  - potion{type=DAMAGE_RESISTANCE;duration=9999;level=3} @self ~onTimer:200
+  Drops:
+  - elemento_lapis 2 0.5
+  - fragmento_lapis 3 0.6
+## JEFES MAZMORRA DROPS NUEVOS
+LunaNegra:
+  Type: PIGLIN
+  Health: 1500
+  Display: ""
+  Damage: 20
+  Faction: mazmorra
+  Disguise: SOMBRA
+  Equipment:
+  - IRON_SWORD HAND
+  - STICK OFFHAND
+  Options:
+    MovementSpeed: 0.5
+    Despawn: false
+    FollowRange: 5
+    KnockbackResistance: 3
+    MaxCombatDistance: 5
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    PreventSunburn: true
+    PreventRenaming: true
+    Silent: true
+    PreventOtherDrops: true
+  LevelModifiers:
+  - health 20
+  DamageModifiers:
+  - FALL 0
+  - PROJECTILE 0.20
+  AIGoalSelectors:
+  - 0 clear
+  - 2 meleeattack
+  AITargetSelectors:
+  - 0 clear
+  - 1 players
+  BossBar:
+    Enabled: true
+    Title: '&8&lLuna Negra - &7Lvl&8 [&c<caster.level>&8][&5<&heart><mob.hp>&8]'
+    Range: 10
+    Color: RED
+    Style: SEGMENTED_6
+  Skills:
+  - sound{s=entity.ghast.hurt;v=0.5;p=0.1} @self ~onDamaged 0.5
+  - sound{s=entity.evocation_fangs.attack;v=0.8;p=0.8} @self ~onDamaged 1
+  - sound{s=entity.pillager.celebrate;v=0.5;p=0.6} @self ~onDeath 1
+  - sound{s=entity.shulker_bullet.hit;v=0.5;p=0.4} @self ~onTimer:30
+  - randomskill{skills=LunaNEspadaV 10,llamas 10} ~onDamaged @self 0.6
+  - sound{s=entity.ghast.scream;v=50;p=0.1} @Server ~onSpawn
+  - sound{s=entity.evoker.prepare_summon;v=100;p=1} @Server ~onSpawn
+  - message{m="&c&l[!] &8¡Luna &5Negra &8[&5<&heart>&8] &cHa aparecido en el desierto!"} @Server ~onSpawn
+  - command{c="ae givercbook HEROICO <trigger.name> 2"} @Target ~onDeath
+  - command{c="ae givercbook CELESTIAL <trigger.name> 2"} @Target ~onDeath
+  - command{c="ae givercbook ARCANO <trigger.name> 2"} @Target ~onDeath
+  - command{c="ae givercbook VULCANO <trigger.name> 1"} @Target ~onDeath
+  DropOptions:
+    DropMethod: FANCY
+    ShowDeathChatMessage: true
+    ShowDeathHologram: true
+    PerPlayerDrops: true
+    ClientSideDrops: true
+    Lootsplosion: true
+    HologramItemNames: true
+    ItemGlowByDefault: true
+    ItemBeamByDefault: true
+    ItemVFXByDefault: false
+    ItemVFX:
+      Material: STONE
+      Model: 0
+    RequiredDamagePercent: 1
+    HologramTimeout: 600
+    HologramMessage: 
+    - '<#FF9B00>========================'
+    - '<#F2B600>LUNA NEGRA 1500 ❤HP'
+    - ''
+    - '<#FFA300>1er Lugar | <1.name> | <1.damage>'
+    - '<#D1FFFF>2do Lugar | <2.name> | <2.damage>'
+    - '<#D1FFFF>3ro Lugar | <3.name> | <3.damage>'
+    - '<#E57A00>4to Lugar | <4.name> | <4.damage>'
+    - '<#E57A00>5to Lugar | <5.name> | <5.damage>'
+    - ''
+    - 'Posición: #<player.rank> | <player.damage>'
+    - '<#FF9B00>========================'
+    ChatMessage:
+    - '<#F28800>===================================='
+    - '<#FFA300>JEFE DERROTADO!'
+    - '<#F2B600>LUNA NEGRA 1500 ❤HP'
+    - ''
+    - '<#ffe259>1er Lugar »<#ffe259> <1.name> - <1.damage>'
+    - '<#D1FFFF>2do Lugar »<#D1FFFF> <2.name> - <2.damage>'
+    - '<#D1FFFF>3ro Lugar »<#D1FFFF> <3.name> - <3.damage>'
+    - '<#E57A00>4to Lugar »<#E57A00> <4.name> - <4.damage>'
+    - '<#E57A00>5to Lugar »<#E57A00> <5.name> - <5.damage>'
+    - ''
+    - '<#F2B600>Posición: #<player.rank> - <player.damage> (<pity> Pity)'
+    - '<#F28800>===================================='
+  Drops:
+  - elemento_lapis 2 0.5
+  - fragmento_lapis 3 0.6
+MIDAS:
+  Type: HUSK
+  Display: ''
+  Health: 1500
+  Damage: 25
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+  Equipment:
+  - GOLD_SWORD HAND
+  DamageModifiers:
+  - PROJECTILE 0.20
+  LevelModifiers:
+  - health 40
+  Options:
+    MovementSpeed: 0.3
+    Silent: true
+    Despawn: false
+    FollowRange: 30
+    KnockbackResistance: 1
+    MaxCombatDistance: 30
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    PreventSunburn: true
+    PreventRenaming: true
+    PreventOtherDrops: true
+  BossBar:
+    Enabled: true
+    Title: '&eMidas - &7Lvl&8[&c<caster.level>&8] [&e<&heart>&6 <mob.hp>&8]'
+    Range: 20
+    Color: GRAY
+    Style: SOLID
+  Skills:
+  - skill{s=MidasLanzar} @Target ~onDamaged 0.8
+  - skill{s=MidasReflejar} @Target ~onDamaged 0.5
+  - skill{s=Prision} @Target ~onDamaged 0.8
+  - skill{s=MultiplicadorDeDaño} @self ~onPlayerKill
+  - skill{s=TormentaDeArena} @Self ~onDamaged 0.1
+  - skill{s=Polvo} @Self ~onDamaged 0.1
+  - sound{s=entity.blaze.hurt;v=0.5;p=2} @self ~onDamaged
+  - message{m="&c&l[!] &e¡Midas &8[&e<&heart>&8] &cHa aparecido en el desierto!"} @Server ~onSpawn
+  - sound{s=entity.allay.death;v=100;p=0.1} @Server ~onSpawn
+  - sound{s=entity.wither.death;v=100;p=0.1} @Server ~onDeath
+  - command{c="ae givercbook DEXTRA <trigger.name> 5"} @Target ~onDeath
+  - command{c="ae givercbook ETERNO <trigger.name> 7"} @Target ~onDeath
+  - command{c="ae givercbook VULCANO <trigger.name> 10"} @Target ~onDeath
+  - command{c="ae givercbook ARCANO <trigger.name> 12"} @Target ~onDeath
+  - command{c="ae givercbook CELESTIAL <trigger.name> 14"} @Target ~onDeath
+  - command{c="ae givercbook HEROICO <trigger.name> 15"} @Target ~onDeath
+  DropOptions:
+    DropMethod: FANCY
+    ShowDeathChatMessage: true
+    ShowDeathHologram: true
+    PerPlayerDrops: true
+    ClientSideDrops: true
+    Lootsplosion: true
+    HologramItemNames: true
+    ItemGlowByDefault: true
+    ItemBeamByDefault: true
+    ItemVFXByDefault: false
+    ItemVFX:
+      Material: STONE
+      Model: 0
+    RequiredDamagePercent: 1
+    HologramTimeout: 600
+    HologramMessage: 
+    - '<#FF9B00>========================'
+    - '<#F2B600>MIDAS 1500 ❤HP'
+    - ''
+    - '<#FFA300>1er Lugar | <1.name> | <1.damage>'
+    - '<#D1FFFF>2do Lugar | <2.name> | <2.damage>'
+    - '<#D1FFFF>3ro Lugar | <3.name> | <3.damage>'
+    - '<#E57A00>4to Lugar | <4.name> | <4.damage>'
+    - '<#E57A00>5to Lugar | <5.name> | <5.damage>'
+    - ''
+    - 'Posición: #<player.rank> | <player.damage>'
+    - '<#FF9B00>========================'
+    ChatMessage:
+    - '<#F28800>===================================='
+    - '<#FFA300>JEFE DERROTADO!'
+    - '<#F2B600>MIDAS 1500 ❤HP'
+    - ''
+    - '<#ffe259>1er Lugar »<#ffe259> <1.name> - <1.damage>'
+    - '<#D1FFFF>2do Lugar »<#D1FFFF> <2.name> - <2.damage>'
+    - '<#D1FFFF>3ro Lugar »<#D1FFFF> <3.name> - <3.damage>'
+    - '<#E57A00>4to Lugar »<#E57A00> <4.name> - <4.damage>'
+    - '<#E57A00>5to Lugar »<#E57A00> <5.name> - <5.damage>'
+    - ''
+    - '<#F2B600>Posición: #<player.rank> - <player.damage> (<pity> Pity)'
+    - '<#F28800>===================================='
+  Drops:
+  - elemento_lapis 2 0.5
+  - fragmento_lapis 3 0.6
+EscarabajoDelDesierto:
+  Type: RAVAGER
+  Display: ''
+  Health: 1500
+  Damage: 25
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+  Equipment:
+  LevelModifiers:
+  - health 30
+  DamageModifiers:
+  - PROJECTILE 0.20
+  Options:
+    MovementSpeed: 0.3
+    Silent: true
+    Despawn: false
+    FollowRange: 30
+    KnockbackResistance: 1
+    MaxCombatDistance: 30
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    PreventSunburn: true
+    PreventRenaming: true
+    PreventOtherDrops: true
+    Baby: true
+  BossBar:
+    Enabled: true
+    Title: '&eEscarabajo del desierto - &7Lvl&8[&c<caster.level>&8] [&e<&heart>&6 <mob.hp>&8]'
+    Range: 20
+    Color: GRAY
+    Style: SOLID
+  Skills:
+  - skill{s=Mordida} @Target ~onDamaged 0.8
+  - skill{s=MordidaE} @Target ~onDamaged 0.8
+  - skill{s=MordidaLanzar} @Target ~onDamaged 0.7
+  - skill{s=Veneno} @Target ~onDamaged 0.7
+  - sound{s=entity.blaze.hurt;v=0.5;p=2} @self ~onDamaged
+  - message{m="&c&l[!] &5¡El escarabajo del desierto &8[&e<&heart>&8] &cHa aparecido en el desierto!"} @Server ~onSpawn
+  - sound{s=block.beacon.power_select;v=100;p=0.1} @Server ~onSpawn
+  - sound{s=block.respawn_anchor.set_spawn;v=100;p=0.1} @Server ~onDeath
+  - command{c="ae givercbook DEXTRA <trigger.name> 3"} @Target ~onDeath
+  - command{c="ae givercbook ETERNO <trigger.name> 5"} @Target ~onDeath
+  - command{c="ae givercbook VULCANO <trigger.name> 7"} @Target ~onDeath
+  - command{c="ae givercbook ARCANO <trigger.name> 9"} @Target ~onDeath
+  - command{c="ae givercbook CELESTIAL <trigger.name> 11"} @Target ~onDeath
+  - command{c="ae givercbook HEROICO <trigger.name> 13"} @Target ~onDeath
+  DropOptions:
+    DropMethod: FANCY
+    ShowDeathChatMessage: true
+    ShowDeathHologram: true
+    PerPlayerDrops: true
+    ClientSideDrops: true
+    Lootsplosion: true
+    HologramItemNames: true
+    ItemGlowByDefault: true
+    ItemBeamByDefault: true
+    ItemVFXByDefault: false
+    ItemVFX:
+      Material: STONE
+      Model: 0
+    RequiredDamagePercent: 1
+    HologramTimeout: 600
+    HologramMessage: 
+    - '<#FF9B00>========================'
+    - '<#F2B600>ESCARABAJO DEL DESIERTO 1500 ❤HP'
+    - ''
+    - '<#FFA300>1er Lugar | <1.name> | <1.damage>'
+    - '<#D1FFFF>2do Lugar | <2.name> | <2.damage>'
+    - '<#D1FFFF>3ro Lugar | <3.name> | <3.damage>'
+    - '<#E57A00>4to Lugar | <4.name> | <4.damage>'
+    - '<#E57A00>5to Lugar | <5.name> | <5.damage>'
+    - ''
+    - 'Posición: #<player.rank> | <player.damage>'
+    - '<#FF9B00>========================'
+    ChatMessage:
+    - '<#F28800>===================================='
+    - '<#FFA300>JEFE DERROTADO!'
+    - '<#F2B600>ESCARABAJO DEL DESIERTO 1500 ❤HP'
+    - ''
+    - '<#ffe259>1er Lugar »<#ffe259> <1.name> - <1.damage>'
+    - '<#D1FFFF>2do Lugar »<#D1FFFF> <2.name> - <2.damage>'
+    - '<#D1FFFF>3ro Lugar »<#D1FFFF> <3.name> - <3.damage>'
+    - '<#E57A00>4to Lugar »<#E57A00> <4.name> - <4.damage>'
+    - '<#E57A00>5to Lugar »<#E57A00> <5.name> - <5.damage>'
+    - ''
+    - '<#F2B600>Posición: #<player.rank> - <player.damage> (<pity> Pity)'
+    - '<#F28800>===================================='
+  Drops:
+  - elemento_lapis 2 0.5
+  - fragmento_lapis 3 0.6
+CerdoTiki:
+  Type: RAVAGER
+  Display: "&a&lCerdo Tiki &f<caster.hp> <red><&heart></red>"
+  Health: 1300
+  Damage: 70
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  Equipment:
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - NETHERITE_HELMET{enchants=PROTECTION_ENVIRONMENTAL:40,THORNS:8} HEAD
+  Options:
+    NoDamageTicks: 10
+    MovementSpeed: 0.33
+    Silent: false
+    Despawn: false
+    FollowRange: 10
+    KnockbackResistance: 1
+    MaxCombatDistance: 5
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    PreventSunburn: true
+    PreventRenaming: true
+    PreventOtherDrops: true
+    ShowHealth: true
+  BossBar:
+    Enabled: true
+    Title: '&a&lCerdo Tiki - &7Lvl&8[&c<caster.level>&8] [&e<&heart>&6 <mob.hp>&8]'
+    Range: 20
+    Color: GREEN
+    Style: SOLID
+  Skills:
+  - damage{amount=15} @target ~onDamaged 1
+  - skill{s=CerdoAtk1} @target ~onDamaged 1
+  - skill{s=CerdoAtk2} @target ~onDamaged 1
+  - skill{s=CerdoAtk3} @target ~onAttack 1
+  - skill{s=EsbirrosSpawn} @target ~onDamaged 1
+  - potion{type=DAMAGE_RESISTANCE;duration=9999;level=3} @self ~onTimer:20
+  - signal{s=RESIST} @MobsInRadius{r=10;t=JefeTiki} ~onTimer:10
+  - signal{s=RESIS} @MobsInRadius{r=10;t=JefeTiki} ~onDeath
+  - sound{s=item.goat_horn.sound.2;v=1;p=1;repeat=1;repeatinterval=20} @PIR{r=20} ~onDeath
+  - setvariable{var=skill.resis;type=STRING;value="yes"}  ~onDeath
+  Drops:
+  - elemento_lapis 2 0.5
+  - fragmento_lapis 3 0.6
+JefeTiki:
+  Type: EVOKER
+  Display: '&4&lJefe Tiki &f<caster.hp> <red><&heart></red>'
+  Health: 950
+  Damage: 70
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  AITargetSelectors:
+  - clear
+  - players
+  Equipment:
+  - NETHERITE_HELMET{enchants=PROTECTION_ENVIRONMENTAL:75,THORNS:8} HEAD
+  Options:
+    NoDamageTicks: 10
+    MovementSpeed: 0.33
+    Silent: false
+    Despawn: false
+    FollowRange: 30
+    KnockbackResistance: 1
+    MaxCombatDistance: 5
+    PreventOtherDrops: true
+    ShowHealth: true
+  BossBar:
+    Enabled: true
+    Title: '&4&lJefe Tiki - &7Lvl&8[&c<caster.level>&8] [&e<&heart>&6 <mob.hp>&8]'
+    Range: 20
+    Color: GRAY
+    Style: SOLID
+  Skills:
+  - mount{type=CerdoTiki} @self ~onSpawn
+  - damage{amount=15} @target ~onDamaged 1
+  - skill{s=TikiAtk1} @target ~onDamaged 1
+  - skill{s=cureAlieados} @Self ~onTimer:25
+  - skill{s=resistance} @Self ~onSignal:RESIST
+  - potion{type=DAMAGE_RESISTANCE;duration=99999999;level=254} @self ~onSpawn
+  - potionclear{type=DAMAGE_RESISTANCE} @self ~onSignal:RESIS
+  - potion{type=DAMAGE_RESISTANCE;duration=9999;level=3} @self ~onTimer:20
+  - message{m="&c&l[!] &eEl Jefe Tiki ha quitado su proteccion!"} @PlayersInRadius{r=20} ~onSignal:RESIS
+  
+  - sound{s=item.goat_horn.sound.0;v=1;p=0.9;repeat=0;repeatinterval=32} @Server ~onDeath
+  Drops:
+  - elemento_lapis 2 0.5
+  - fragmento_lapis 3 0.6
+Esbirro1:
+  Type: VINDICATOR
+  Display: '&5&lEsbirro &f<caster.hp> <red><&heart></red>'
+  Health: 100
+  Damage: 35
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  Equipment:
+  - NETHERITE_AXE HAND
+  - NETHERITE_AXE OFFHAND
+  - DIAMOND_BOOTS{enchants=FROST_WALKER:100} FEET 
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Options:
+    NoDamageTicks: 10
+    MovementSpeed: 0.33
+    Silent: false
+    Despawn: true
+    FollowRange: 10
+    KnockbackResistance: 1
+    MaxCombatDistance: 5
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    PreventSunburn: true
+    PreventRenaming: true
+    PreventOtherDrops: true
+    ShowHealth: true
+  BossBar:
+    Enabled: false
+  Drops:
+  - elemento_carbon 1 0.08
+  - fragmento_carbon 2 0.15
+  Skills:
+  - skill{s=esbirro1} @target ~onAttack 1
+  - potion{type=DAMAGE_RESISTANCE;duration=9999;level=2} @self ~onTimer:20
+Esbirro2:
+  Type: EVOKER
+  Display: '&5&lEsbirro &f<caster.hp> <red><&heart></red>'
+  Health: 100
+  Damage: 35
+  Faction: mazmorra
+  Equipment:
+  - NETHERITE_AXE HAND
+  - NETHERITE_AXE OFFHAND
+  - DIAMOND_BOOTS{enchants=FROST_WALKER:100} FEET 
+  Options:
+    NoDamageTicks: 10
+    MovementSpeed: 0.4
+    Silent: false
+    Despawn: true
+    FollowRange: 40
+    KnockbackResistance: 1
+    MaxCombatDistance: 30
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    PreventSunburn: false
+    PreventRenaming: false
+    PreventOtherDrops: true
+    ShowHealth: true
+  BossBar:
+    Enabled: false
+  Skills:
+  - skill{s=esbirro2} @target ~onTimer:60 1
+  - potion{type=DAMAGE_RESISTANCE;duration=9999;level=2} @self ~onTimer:20
+  Drops:
+  - elemento_carbon 1 0.08
+  - fragmento_carbon 2 0.15
+#############  
+Esbirro3:
+  Type: PILLAGER
+  Display: '&5&lEsbirro &f<caster.hp> <red><&heart></red>'
+  Health: 100
+  Damage: 35
+  Faction: mazmorra
+  Modules:
+    ThreatTable: true
+    ImmunityTables: true
+  Equipment:
+  - NETHERITE_AXE HAND
+  - NETHERITE_AXE OFFHAND
+  - DIAMOND_BOOTS{enchants=FROST_WALKER:100} FEET 
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+  Options:
+    NoDamageTicks: 10
+    MovementSpeed: 0.33
+    Silent: false
+    Despawn: true
+    FollowRange: 10
+    KnockbackResistance: 1
+    MaxCombatDistance: 5
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    PreventSunburn: false
+    PreventRenaming: false
+    PreventOtherDrops: true
+    ShowHealth: true
+  BossBar:
+    Enabled: false
+  Drops:
+  - elemento_carbon 1 0.08
+  - fragmento_carbon 2 0.15
+  Skills:
+  - skill{s=esbirro3} @target ~onAttack 1
+  - potion{type=DAMAGE_RESISTANCE;duration=9999;level=2} @self ~onTimer:20
+SweepArmor:
+  Type: ARMOR_STAND
+  Options:
+    Marker: true
+    Small: true
+    HasArms: false
+    Invisible: true
+    Invincible: true
+    NoGravity: true
+  Equipment:
+  - PLAYER_HEAD{skullTexture=eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDA1ZWU5YzY0ZDRiNjYyMTE5ZjVjNTczNTU2MjMyNzQwMDE4NTgyMjM5YjA5OTNlZTZjYTMyNTJmZmVlMWY2NyJ9fX0=;enchants=PROTECTION_ENVIRONMENTAL:100,THORNS:8} HEAD
+  Skills:  
+  - remove{delay=160} @self ~onSpawn
+  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9} @self ~onSpawn
+  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9;ry=3.14} @self ~onSpawn
+  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9;ry=6.28} @self ~onSpawn
+  - orbital{onTick=test_TICK;onHit=test_Hit;points=32;interval=1;duration=150;r=9;ry=7.85} @self ~onSpawn
