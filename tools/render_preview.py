@@ -56,6 +56,8 @@ def bone_matrices(anim=None, t=0.0):
         o = np.array(b.origin, float)
         M = np.eye(4)
         M[:3, :3] = rot_matrix(rx, ry, rz)
+        if anim and (b.name, "scale") in anim.tracks:
+            M[:3, :3] = M[:3, :3] @ np.diag(sample_track(anim.tracks[(b.name, "scale")], t))
         T1, T2, TP = np.eye(4), np.eye(4), np.eye(4)
         T1[:3, 3] = o
         T2[:3, 3] = -o

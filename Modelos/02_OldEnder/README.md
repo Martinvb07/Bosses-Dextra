@@ -11,17 +11,18 @@ Faraón enderman: cuerpo del vacío con vetas moradas, nemes dorado y azul con c
 |---|---|
 | `ModelEngine/blueprints/old_ender/` | Modelo del boss: 88 cubos y 14 animaciones |
 | `ModelEngine/blueprints/sand_warden/`, `mummy_guardian/`, `giant_scarab/`, `desert_priest/` | Súbditos |
+| `ModelEngine/blueprints/oe_fx_*/` | Efectos de los ataques (portal, onda, pinchos, ojo, remolino) |
 | `../../MythicMobs-3D/Mobs/Boss_02_OldEnder/OldEnder_Mobs.yml` | Mobs con `model{}`, bossbar con moldura |
 | `../../MythicMobs-3D/Skills/old_ender_skills.yml` | Skills con animaciones, sonidos y título |
 | `../DextraBossesPack/assets/dextra/sounds/old_ender/` | Sonidos propios (`dextra:old_ender.*`) |
-| `../DextraBossesPack/assets/dextra/textures/font/old_ender/` | Ojos de Horus del título |
+| `../DextraBossesPack/assets/dextra/textures/font/old_ender/` | Logo del título |
 | `../ItemsAdder/contents/dextra_bosses/old_ender.yml` | Moldura de la bossbar |
 | `preview/` | Imágenes, `hud_preview.png` y `sonidos_demo.mp3` |
-| `../../tools/b02_oldender.py`, `b02_sounds.py`, `b02_hud.py` | Scripts que lo generan todo |
+| `../../tools/b02_oldender.py`, `b02_fx.py`, `b02_sounds.py`, `b02_hud.py` | Scripts que lo generan todo |
 
 ## Instalación
 
-1. Copia las 5 carpetas de `ModelEngine/blueprints/` en `plugins/ModelEngine/blueprints/` y ejecuta `/meg reload`.
+1. Copia todas las carpetas de `ModelEngine/blueprints/` (5 mobs y 5 efectos) en `plugins/ModelEngine/blueprints/` y ejecuta `/meg reload`.
 2. Sustituye en el servidor 3D:
    - `plugins/MythicMobs/Mobs/Boss_02_OldEnder/OldEnder_Mobs.yml`
    - `plugins/MythicMobs/Skills/old_ender_skills.yml`
@@ -30,17 +31,36 @@ Faraón enderman: cuerpo del vacío con vetas moradas, nemes dorado y azul con c
 
 ## Bossbar y título
 
-![HUD](preview/hud_preview.png)
+![Bossbar](preview/hud_preview.png)
+![Título](preview/titulo_preview.png)
 
 | | Sin pack | Con pack |
 |---|---|---|
 | Bossbar | `OLD ENDER` morado y barra morada vanilla | Moldura egipcia con obeliscos, sol alado con gema y ankh; barra morada con brillo |
-| Título al aparecer | `OLD ENDER` como siempre | `OLD ENDER` con un ojo de Horus a cada lado |
+| Título al aparecer | `OLD ENDER` como siempre | Logo dorado con franja de lapislázuli, sol alado y dos ankh |
 | Sonidos | Los vanilla de siempre | Los vanilla más los propios |
 
 - **Bossbar:** el título es `&f &5&lOLD ENDER&f `. En vanilla, ` ` es un espacio en blanco. Con el pack, ItemsAdder lo convierte en media moldura.
-- **Título de aparición:** se manda con `/title` y un texto traducible. Si el jugador no tiene el pack, Minecraft muestra el texto de siempre.
+- **Título de aparición:** se manda con `/title` y un texto traducible. Si el jugador no tiene el pack, Minecraft muestra el texto de siempre; con el pack, el logo.
 - **Barra morada:** con el pack también cambia la textura de la barra morada. La usan Old Ender, Kronos, Azathoth, Lady of Laments y Kukulkan.
+
+## Efectos de los ataques
+
+Cada ataque saca un efecto en 3D con su propia animación. Es un mob invisible (`OD_FX_*`, armor stand marcador) que lleva el modelo y se borra solo al terminar.
+
+| Efecto | Modelo | Ataques |
+|---|---|---|
+| Portal del vacío que se abre, gira y se cierra | `oe_fx_portal` | `OD_TeleportStrike` (donde sale y donde cae), `OD_SandWarp` |
+| Onda de arena que llega a 8 bloques | `oe_fx_shockwave` | `OD_SandPulse`, impactos de `OD_DesertCollapse`, `OD_SandWarp` y `OD_SandstormRift` |
+| Dos anillos de pinchos de arenisca con runas, y grietas moradas | `oe_fx_collapse` | `OD_DesertCollapse`, `OD_SandstormRift` |
+| Ojo de Horus gigante sobre el jugador; la pupila se dilata al golpear | `oe_fx_eye` | `OD_EnderGaze` |
+| Remolino de arena con núcleo del vacío | `oe_fx_tornado` | `OD_Sandstorm`, carga de `OD_SandstormRift` |
+
+![Portal](preview/efectos/oe_fx_portal.png)
+![Onda](preview/efectos/oe_fx_shockwave.png)
+![Pinchos](preview/efectos/oe_fx_collapse.png)
+![Ojo](preview/efectos/oe_fx_eye.png)
+![Remolino](preview/efectos/oe_fx_tornado.png)
 
 ## Súbditos
 

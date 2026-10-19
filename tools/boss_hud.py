@@ -159,55 +159,101 @@ def bar_sprites(prog_rows, back_rows):
 VANILLA_PURPLE = ([(196, 112, 230)] * 2 + [(150, 60, 200)] * 3, [(70, 34, 86)] * 5)
 
 
-def preview(path, name, name_color, glyph, bar_y, bar_ext, prog, back, vanilla_bar, title_l, title_r,
-            title_color, title_scale_px, subtitle="", health=0.62):
-    """Compara la bossbar y el titulo SIN pack (vanilla) y CON pack. Escala x3."""
+def preview(path, name, name_color, glyph, bar_y, bar_ext, prog, back, vanilla_bar, health=0.62):
+    """Compara la bossbar SIN pack (vanilla) y CON pack. Escala x3."""
     T = text_width(name)
     W = glyph.width
     total = 2 * (W + 1) + T
-    sw = 340
+    sw = 300
     c = sw // 2
-    scene = Image.new("RGBA", (sw * 2 + 20, 150), (104, 112, 92, 255))
+    scene = Image.new("RGBA", (sw * 2 + 20, 60), (104, 112, 92, 255))
     for col, with_pack in ((0, False), (1, True)):
         ox = col * (sw + 20)
-        bx = ox + c - 91
-        by = 26
-        if with_pack:
-            x0 = ox + c - total // 2
-            pb, bk = prog, back
-        else:
-            x0 = ox + c - T // 2 - 2
-            pb, bk = bar_sprites(*vanilla_bar)
+        bx, by = ox + c - 91, 30
+        pb, bk = (prog, back) if with_pack else bar_sprites(*vanilla_bar)
         scene.alpha_composite(bk, (bx, by))
         scene.alpha_composite(pb.crop((0, 0, round(BAR_W * health), BAR_H)), (bx, by))
         if with_pack:
-            gy = by - bar_y
-            scene.alpha_composite(glyph, (x0, gy))
-            scene.alpha_composite(glyph, (x0 + W + 1 + T, gy))
+            x0 = ox + c - total // 2
+            scene.alpha_composite(glyph, (x0, by - bar_y))
+            scene.alpha_composite(glyph, (x0 + W + 1 + T, by - bar_y))
             draw_text(scene, name, x0 + W + 1, by - 9, name_color)
         else:
             draw_text(scene, name, ox + c - T // 2, by - 9, name_color)
-        # titulo en pantalla (escala 2 en la vista previa)
-        big = Image.new("RGBA", (sw // 2, 40))
-        tw = T
+        ImageDraw.Draw(scene).text((ox + 6, 2), "CON PACK" if with_pack else "SIN PACK (vanilla)",
+                                   fill=(255, 255, 255, 255))
+    scene.resize((scene.width * 3, scene.height * 3), Image.NEAREST).save(path)
+
+
+# --------------------------------------------------------------- logo del titulo
+def logo_text(text, fill_rows, outline_col, glow_col, scale=2, gap=2, band=None):
+    """Nombre en letras grandes de pixel art: degradado vertical por filas (fill_rows,
+    de arriba a abajo), borde oscuro y un halo de color. 'band' = (fila, color) pinta
+    una franja horizontal dentro de las letras."""
+    w = 0
+    for ch in text:
+        w += (3 * scale if ch == " " else (len(F5[ch][0]) * scale + 1)) + gap
+    w -= gap
+    h = 7 * scale
+    pad = 2
+    img = Image.new("RGBA", (w + 2 * pad, h + 2 * pad))
+    p = img.load()
+    mask = Image.new("L", img.size)
+    mp = mask.load()
+    x = pad
+    for ch in text:
+        if ch == " ":
+            x += 3 * scale + gap
+            continue
+        rows = F5[ch]
+        for ry, row in enumerate(rows):
+            for rx, v in enumerate(row):
+                if v == "1":
+                    for dy in range(scale):
+                        for dx in range(scale + 1):      # +1: trazo mas grueso
+                            mp[x + rx * scale + dx, pad + ry * scale + dy] = 255
+        x += len(rows[0]) * scale + 1 + gap
+    for yy in range(img.height):
+        for xx in range(img.width):
+            if mp[xx, yy]:
+                t = (yy - pad) / max(1, h - 1)
+                c = fill_rows[min(len(fill_rows) - 1, int(t * len(fill_rows)))]
+                if band and yy - pad in band[0]:
+                    c = band[1]
+                if yy > 0 and not mp[xx, yy - 1]:
+                    c = tuple(min(255, v + 40) for v in c)        # brillo arriba
+                p[xx, yy] = c + (255,)
+    outline(img, outline_col)
+    # halo
+    a = img.split()[3].point(lambda v: 255 if v else 0)
+    ring = dilate(a).load()
+    for yy in range(img.height):
+        for xx in range(img.width):
+            if ring[xx, yy]:
+                p[xx, yy] = glow_col + (120,)
+    return img
+
+
+def title_preview(path, logo, logo_height, name, name_color, subtitle):
+    """Titulo en pantalla SIN pack y CON pack (escala de la vista previa: x2 texto)."""
+    sw = 300
+    scene = Image.new("RGBA", (sw * 2 + 20, 110), (104, 112, 92, 255))
+    T = text_width(name)
+    for col, with_pack in ((0, False), (1, True)):
+        ox = col * (sw + 20)
+        big = Image.new("RGBA", (sw // 2, 46))
         if with_pack:
-            sl, sr = title_l, title_r
-            lw = round(sl.width * title_scale_px / sl.height)
-            sl = sl.resize((lw, title_scale_px), Image.NEAREST)
-            sr = sr.resize((lw, title_scale_px), Image.NEAREST)
-            full = lw + 1 + 4 + tw + 4 + lw + 1
-            tx = big.width // 2 - full // 2
-            ty = 20
-            big.alpha_composite(sl, (tx, ty + 7 - title_scale_px + 2))
-            draw_text(big, name, tx + lw + 1 + 4, ty, title_color)
-            big.alpha_composite(sr, (tx + lw + 1 + 4 + tw + 4, ty + 7 - title_scale_px + 2))
+            # 1 px de la imagen = logo_height / logo.height px de fuente; aqui 1 px de fuente = 2 px
+            k = 2 * logo_height / logo.height
+            logo = logo.resize((round(logo.width * k), round(logo.height * k)), Image.NEAREST)
+            big2 = Image.new("RGBA", (sw, 92))
+            big2.alpha_composite(logo, (sw // 2 - logo.width // 2, 92 - logo.height - 10))
+            scene.alpha_composite(big2, (ox, 0))
         else:
-            draw_text(big, name, big.width // 2 - tw // 2, 20, title_color)
-        big = big.resize((big.width * 2, big.height * 2), Image.NEAREST)
-        scene.alpha_composite(big, (ox, 52))
-        if subtitle:
-            draw_text(scene, subtitle.upper(), ox + c - text_width(subtitle.upper(), False) // 2, 136,
-                      (200, 200, 200), bold=False)
-        lab = ImageDraw.Draw(scene)
-        lab.text((ox + 6, 4), "CON PACK" if with_pack else "SIN PACK (vanilla)", fill=(255, 255, 255, 255))
+            draw_text(big, name, big.width // 2 - T // 2, 26, name_color)
+            scene.alpha_composite(big.resize((sw, 92), Image.NEAREST), (ox, 0))
+        draw_text(scene, subtitle.upper(), ox + sw // 2 - text_width(subtitle.upper(), False) // 2, 96,
+                  (200, 200, 200), bold=False)
+        ImageDraw.Draw(scene).text((ox + 6, 4), "CON PACK" if with_pack else "SIN PACK (vanilla)",
+                                   fill=(255, 255, 255, 255))
     scene.resize((scene.width * 3, scene.height * 3), Image.NEAREST).save(path)

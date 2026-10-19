@@ -122,6 +122,10 @@ class Anim:
     def pos(self, bone, t, x=0, y=0, z=0, i="catmullrom"):
         return self.k(bone, "position", t, x, y, z, i)
 
+    def scl(self, bone, t, x=1, y=None, z=None, i="catmullrom"):
+        """Escala del hueso (1 = normal). scl(b, t, s) escala igual en los tres ejes."""
+        return self.k(bone, "scale", t, x, x if y is None else y, x if z is None else z, i)
+
     def pose(self, t, poses, i="catmullrom"):
         """poses: {bone: (rx,ry,rz)} o {bone: {'r':(..), 'p':(..)}}"""
         for b, v in poses.items():

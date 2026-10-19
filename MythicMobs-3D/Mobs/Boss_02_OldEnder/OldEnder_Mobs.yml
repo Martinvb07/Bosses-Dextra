@@ -206,3 +206,97 @@ DesertPriest:
     - state{mid=desert_priest;s=attack;li=1;lo=2} @self ~onShoot
     - state{mid=desert_priest;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=OD_FuegoAmigo;sync=true} @self ~onDamaged
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde old_ender_skills.yml con summon{type=OD_FX_...}.
+
+OD_FX_Portal:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=oe_fx_portal;hitbox=false} @self ~onSpawn
+    - state{mid=oe_fx_portal;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=OD_FX_Remove;delay=26} @self ~onSpawn
+
+OD_FX_Shockwave:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=oe_fx_shockwave;hitbox=false} @self ~onSpawn
+    - state{mid=oe_fx_shockwave;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=OD_FX_Remove;delay=20} @self ~onSpawn
+
+OD_FX_Collapse:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=oe_fx_collapse;hitbox=false} @self ~onSpawn
+    - state{mid=oe_fx_collapse;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=OD_FX_Remove;delay=38} @self ~onSpawn
+
+OD_FX_Eye:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=oe_fx_eye;hitbox=false} @self ~onSpawn
+    - state{mid=oe_fx_eye;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=OD_FX_Remove;delay=28} @self ~onSpawn
+
+OD_FX_Tornado:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=oe_fx_tornado;hitbox=false} @self ~onSpawn
+    - state{mid=oe_fx_tornado;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=OD_FX_Remove;delay=62} @self ~onSpawn

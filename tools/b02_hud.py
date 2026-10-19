@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-HUD de OLD ENDER: moldura egipcia de la bossbar, ojos de Horus del titulo y barra morada.
+HUD de OLD ENDER: moldura egipcia de la bossbar, logo del titulo y barra morada.
 
   Bossbar (Mobs/Boss_02_OldEnder/OldEnder_Mobs.yml):  "&f &5&lOLD ENDER&f "
   Titulo  (Skills/old_ender_skills.yml -> OD_Spawn):   /title con texto traducible
@@ -20,6 +20,8 @@ import dextra_pack as DP  # noqa: E402
 BOSS = "old_ender"
 NAME = "OLD ENDER"
 PREVIEW = Path(__file__).resolve().parent.parent / "Modelos/02_OldEnder/preview/hud_preview.png"
+TITLE_PREVIEW = PREVIEW.with_name("titulo_preview.png")
+LOGO_H = 18                 # alto del logo en px de fuente (el texto normal mide 8)
 
 EXT = 4                     # ancho de los pilares
 W, H = BH.COVER + EXT, 32
@@ -101,31 +103,39 @@ def frame():
     return BH.fix_width(img)
 
 
-EYE = [
-    "...LLLLLLLLLLLLLLLLL......",
-    ".LLLLLLLLLLLLLLLLLLLLLL...",
-    "......................LL..",
-    "......GGGGGGGGG........L..",
-    "....GGG.......GGG.........",
-    "...G...WWPPPWW...GGGGGGGGG",
-    "..G...WWPPDPPWW..GGGGGGGGG",
-    "...G...WWPPPWW...G........",
-    "....GGG.......GGG.........",
-    "......GGGGGGGGG...........",
-    ".......G.....G............",
-    ".......G......G...........",
-    ".......G.......G..........",
-    ".......G........G...GG....",
-    "......GG.........G.G..G...",
-    ".....GG...........G...G...",
-    "....GG.............GGG....",
-]
-
-
-def eye(flip):
-    img = Image.new("RGBA", (28, 19))
-    pal = {"L": LAPIS[1], "G": GOLD[3], "W": (250, 246, 230), "P": PURP[1], "D": PURP[0]}
-    BH.sprite(img, 1, 1, EYE, pal, flip=flip)
+def logo():
+    """Logo del titulo: OLD ENDER en oro con franja de lapislazuli, sol alado y dos ankh."""
+    txt = BH.logo_text(NAME, [GOLD[4], GOLD[3], GOLD[3], GOLD[2], GOLD[2], GOLD[1]], OUT, PURP[2],
+                       scale=3, gap=4, band=(range(9, 12), LAPIS[2]))
+    side, top = 18, 12
+    img = Image.new("RGBA", (txt.width + 2 * side, txt.height + top + 4))
+    img.alpha_composite(txt, (side, top))
+    d = ImageDraw.Draw(img)
+    c = img.width // 2
+    # sol alado encima del nombre
+    for i in range(30):
+        x = i + 6
+        hh = max(1, 5 - i // 6)
+        for k in range(hh):
+            col = (GOLD[3], LAPIS[2], TURQ, LAPIS[1], GOLD[2])[k]
+            d.point((c - x, top - 3 - k + i // 10), fill=col + (255,))
+            d.point((c + x - 1, top - 3 - k + i // 10), fill=col + (255,))
+    for y in range(top - 11, top - 1):
+        for x in range(c - 6, c + 6):
+            dx, dy = x + 0.5 - c, y + 0.5 - (top - 6)
+            r2 = dx * dx + dy * dy
+            if r2 <= 25:
+                col = PURP[3] if r2 < 4 and dy < 0 else PURP[2] if r2 < 10 else PURP[1]
+                if r2 > 16:
+                    col = GOLD[3] if dy < 0 else GOLD[1]
+                d.point((x, y), fill=col + (255,))
+    # ankh a cada lado
+    for ax in (side // 2, img.width - side // 2 - 1):
+        ay = top + 2
+        d.ellipse([ax - 3, ay, ax + 3, ay + 6], outline=GOLD[3] + (255,), width=2)
+        d.rectangle([ax - 5, ay + 7, ax + 5, ay + 8], fill=GOLD[3] + (255,))
+        d.rectangle([ax - 1, ay + 7, ax + 1, ay + 18], fill=GOLD[2] + (255,))
+        d.point((ax, ay + 3), fill=PURP[2] + (255,))
     BH.outline(img, OUT)
     return img
 
@@ -144,13 +154,13 @@ def main():
     DP.ensure_pack()
     g = frame()
     DP.register_bossbar(BOSS, g, ascent=BAR_Y - 2, height=H)
-    el, er = eye(True), eye(False)
-    DP.register_title(BOSS, "§5§lOLD ENDER", el, er, height=19, ascent=14)
+    lg = logo()
+    DP.register_title(BOSS, lg, height=LOGO_H, ascent=LOGO_H - 5)
     p, b = bars()
     DP.save_bar_sprites("purple", p, b)
     PREVIEW.parent.mkdir(parents=True, exist_ok=True)
-    BH.preview(PREVIEW, NAME, (170, 0, 170), g, BAR_Y, EXT, p, b, BH.VANILLA_PURPLE, el, er,
-               (170, 0, 170), 17, subtitle="Desert Biome - El ancestral emerge entre arenas")
+    BH.preview(PREVIEW, NAME, (170, 0, 170), g, BAR_Y, EXT, p, b, BH.VANILLA_PURPLE)
+    BH.title_preview(TITLE_PREVIEW, lg, LOGO_H, NAME, (170, 0, 170), "Desert Biome - El ancestral emerge entre arenas")
     print("OK", PREVIEW)
 
 

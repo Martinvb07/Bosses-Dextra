@@ -20,9 +20,9 @@ Funciona CON y SIN el pack:
            ItemsAdder lo convierte en media moldura (la misma imagen a los dos lados,
            por eso cada media moldura es simetrica).
   Titulo:  se manda con /title y un texto traducible:
-           {translate:'dextra.title.<boss>',fallback:'§5§lOLD ENDER',with:[adorno izq., adorno der.]}
+           {translate:'dextra.title.<boss>',fallback:'§5§lOLD ENDER',with:[logo]}
            Sin pack la clave no existe y Minecraft muestra el fallback (el titulo de siempre);
-           con pack se ve "<adorno> OLD ENDER <adorno>" con la fuente dextra:hud.
+           con pack se ve el logo del boss (una imagen de la fuente dextra:hud).
 
 Cada script de boss llama a las funciones de aqui para anadir/actualizar SOLO sus entradas
 en los .json compartidos.
@@ -85,34 +85,32 @@ def register_sounds(boss, entries):
     _save(path, dict(sorted(data.items())))
 
 
-def register_title(boss, text, left_png, right_png, height, ascent):
-    """Adornos del titulo en la fuente dextra:hud + texto traducible."""
+def register_title(boss, logo_png, height, ascent):
+    """Logo del titulo (imagen con el nombre) en la fuente dextra:hud + texto traducible."""
     tdir = ASSETS / "textures/font" / boss
     tdir.mkdir(parents=True, exist_ok=True)
-    left_png.save(tdir / "title_left.png")
-    right_png.save(tdir / "title_right.png")
-    cl, cr = TITLE_CHARS[boss]
+    for old in tdir.glob("title_*.png"):
+        old.unlink()
+    logo_png.save(tdir / "title_logo.png")
+    ch = TITLE_CHARS[boss][0]
     path = ASSETS / "font/hud.json"
     data = _load(path, {"providers": []})
     data["providers"] = [p for p in data["providers"] if f"/{boss}/" not in p.get("file", "")]
-    for ch, name in ((cl, "title_left"), (cr, "title_right")):
-        data["providers"].append({"type": "bitmap", "file": f"{NS}:font/{boss}/{name}.png",
-                                  "height": height, "ascent": ascent, "chars": [ch]})
+    data["providers"].append({"type": "bitmap", "file": f"{NS}:font/{boss}/title_logo.png",
+                              "height": height, "ascent": ascent, "chars": [ch]})
     _save(path, data)
     lang = ASSETS / "lang/en_us.json"
     ldata = _load(lang, {})
-    ldata[f"dextra.title.{boss}"] = f"%1$s {text}\u00a7r %2$s"
+    ldata[f"dextra.title.{boss}"] = "%1$s"
     _save(lang, dict(sorted(ldata.items())))
 
 
 def title_component(boss, fallback):
-    """Texto SNBT para /title, escapado para usarse dentro de command{c="..."} de MythicMobs."""
-    cl, cr = TITLE_CHARS[boss]
-    esc = lambda ch: ch   # noqa: E731  (el caracter va tal cual en el yml, en UTF-8)
-    comp = ("<&lc>translate:''dextra.title.%s'',fallback:''%s'',with:<&lb>"
-            "<&lc>text:''%s'',font:''dextra:hud'',color:''white''<&rc>,"
-            "<&lc>text:''%s'',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>") % (boss, fallback, esc(cl), esc(cr))
-    return comp
+    """Texto SNBT para /title, escapado para usarse dentro de command{c="..."} de MythicMobs.
+    Sin pack: 'fallback' (el titulo de siempre). Con pack: el logo."""
+    ch = TITLE_CHARS[boss][0]
+    return ("<&lc>translate:''dextra.title.%s'',fallback:''%s'',with:<&lb>"
+            "<&lc>text:''%s'',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>") % (boss, fallback, ch)
 
 
 def register_bossbar(boss, png, ascent, height):
