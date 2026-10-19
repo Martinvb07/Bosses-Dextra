@@ -217,6 +217,23 @@ class Model:
             kw = {**kw, "pivot": [-kw["pivot"][0], kw["pivot"][1], kw["pivot"][2]]}
         self.cube(bone_l, "left_" + name, [-to[0], frm[1], frm[2]], [-frm[0], to[1], to[2]], mat, **kw)
 
+    def scale(self, s):
+        """Escala todo el modelo (cubos, pivotes y animaciones de posicion) por s.
+        Se llama al final, cuando el modelo y sus animaciones ya estan hechos."""
+        for c in self.CUBES:
+            c.frm = [v * s for v in c.frm]
+            c.to = [v * s for v in c.to]
+            c.pivot = [v * s for v in c.pivot]
+            c.inflate *= s
+        for b in self.BONES.values():
+            b.origin = [v * s for v in b.origin]
+        for a in self.ANIMS:
+            for (bone, ch), kfs in a.tracks.items():
+                if ch == "position":
+                    for t, (x, y, z, i) in list(kfs.items()):
+                        kfs[t] = (x * s, y * s, z * s, i)
+        return self
+
     def decor(self, fn):
         """Decorador: registra fn como decoracion con su nombre sin 'd_'."""
         self.DECOR[fn.__name__.removeprefix("d_")] = fn
