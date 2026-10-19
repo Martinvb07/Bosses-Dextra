@@ -1,9 +1,21 @@
 # Ragnarok skills
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=ragnarok;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:ragnarok.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=RG_FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "RAGNAROK" como siempre; con pack se ve el logo.
 
 Ragnarok_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&b&lRAGNAROK";subtitle="&bVolcano &8• &7El fin ha llegado";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=ragnarok;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§bVolcano §8• §7El fin ha llegado''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.ragnarok'',fallback:''§b§lRAGNAROK'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:ragnarok.intro;v=1;p=1} @self
+    - summon{type=RG_FX_Runes;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&b&lRAGNAROK &7Surge de las profundidades del volcán"} @Server'
     - effect:sound{s=entity.wither.spawn;v=0.6;p=0.8} @self
     - effect:particles{particle=SNOWFLAKE;amount=45;hS=1.2;vS=1.0;speed=0.03} @self
@@ -82,6 +94,9 @@ Ragnarok_Phase4_Check:
 Ragnarok_PhaseShield:
   Skills:
     - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
+    - state{mid=ragnarok;s=phase_change;li=3;lo=4} @self
+    - effect:sound{s=dextra:ragnarok.phase;v=1;p=1} @self
+    - summon{type=RG_FX_Runes;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=END_ROD;amount=25;hS=0.9;vS=1.0;speed=0.02} @self
 
 Ragnarok_Attack_Rotation:
@@ -95,7 +110,11 @@ Ragnarok_HeavyStrike:
   Conditions:
     - targetwithin{d=6}
   Skills:
+    - state{mid=ragnarok;s=heavy;li=1;lo=2} @self
     - effect:sound{s=entity.player.attack.sweep;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:ragnarok.strike;v=1;p=1} @self
+    - delay 4
+    - summon{type=RG_FX_Shatter;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SWEEP_ATTACK;amount=1} @self
     - damage{a=111;pk=true} @target
     - throw{velocity=1.0;velocityY=0.25} @target
@@ -105,9 +124,12 @@ Ragnarok_DevastatingBlow:
     - targetwithin{d=4}
   Skills:
     - message{cooldown=8;m="&3Golpe devastador de &bRagnarok&f!"} @PlayersInRadius{r=40}
+    - state{mid=ragnarok;s=blow;li=1;lo=3} @self
     - effect:sound{s=entity.iron_golem.attack;v=0.9;p=0.5} @self
+    - effect:sound{s=dextra:ragnarok.blow;v=1;p=1} @self
     - effect:particles{particle=BLOCK_CRACK;material=ICE;amount=45;hS=1.1;vS=0.3;speed=0.10} @self
     - delay 6
+    - summon{type=RG_FX_Shatter;amount=1;radius=0;noise=0} @selflocation
     - damage{a=137;pk=true} @PlayersInRadius{r=4}
     - throw{velocity=1.2;velocityY=0.3} @PlayersInRadius{r=4}
 
@@ -120,7 +142,10 @@ Ragnarok_FreezeAura:
 Ragnarok_FreezeBurst:
   Cooldown: 12
   Skills:
+    - state{mid=ragnarok;s=burst;li=2;lo=3} @self
     - effect:sound{s=block.glass.break;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:ragnarok.burst;v=1;p=1} @self
+    - summon{type=RG_FX_Burst;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SNOWFLAKE;amount=60;hS=2.0;vS=0.8;speed=0.05} @self
     - damage{a=69;pk=true} @PlayersInRadius{r=7}
     - potion{type=SLOW;duration=70;level=3} @PlayersInRadius{r=7}
@@ -129,7 +154,10 @@ Ragnarok_IceStorm:
   Cooldown: 20
   Skills:
     - message{cooldown=10;m="&bTormenta de hielo&f en curso..."} @PlayersInRadius{r=50}
+    - state{mid=ragnarok;s=storm;li=2;lo=3} @self
     - effect:sound{s=entity.snow_golem.shoot;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:ragnarok.storm;v=1;p=1} @self
+    - summon{type=RG_FX_Icefall;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=CLOUD;amount=80;hS=3.2;vS=1.2;speed=0.02;yOffset=1.4} @self
     - effect:particles{particle=SNOWFLAKE;amount=120;hS=3.0;vS=1.1;speed=0.08} @self
     - effect:particles{particle=BLOCK_CRACK;material=PACKED_ICE;amount=60;hS=2.8;vS=0.15;speed=0.08;yOffset=0.1} @self
@@ -141,7 +169,10 @@ Ragnarok_LightningStorm:
   Cooldown: 35
   Skills:
     - message{cooldown=10;m="&bRagnarok invoca una &fTormenta de Rayos&b!"} @PlayersInRadius{r=50}
+    - state{mid=ragnarok;s=lightning;li=2;lo=4} @self
     - effect:sound{s=entity.lightning_bolt.thunder;v=0.9;p=0.8} @self
+    - effect:sound{s=dextra:ragnarok.lightning;v=1;p=1} @self
+    - summon{type=RG_FX_Runes;amount=1;radius=0;noise=0} @selflocation
     - potion{type=BLINDNESS;duration=100;level=0} @PlayersInRadius{r=12}
     - potion{type=CONFUSION;duration=100;level=0} @PlayersInRadius{r=12}
     - effect:particles{particle=CLOUD;amount=90;hS=3.0;vS=1.7;speed=0.02;yOffset=1.6} @self
@@ -165,8 +196,11 @@ Ragnarok_RunOrDie:
   Cooldown: 22
   Skills:
     - message{cooldown=8;m="&c&lRAGNAROK &fcomienza a cargar el fin... &e¡CORRE!"} @PlayersInRadius{r=60}
+    - state{mid=ragnarok;s=ragnarok;li=2;lo=4} @self
     - effect:sound{s=block.beacon.power_select;v=0.9;p=0.45} @self
     - effect:sound{s=entity.wither.ambient;v=0.5;p=0.6} @self
+    - effect:sound{s=dextra:ragnarok.ragnarok;v=1;p=1} @self
+    - summon{type=RG_FX_End;amount=1;radius=0;noise=0} @selflocation
     - potion{type=SLOW;duration=40;level=6} @self
     - potion{type=DAMAGE_RESISTANCE;duration=40;level=3} @self
     - effect:particles{particle=FLASH;amount=1} @self
@@ -203,7 +237,10 @@ Ragnarok_SummonDraugr:
   Conditions:
     - mobsinradius{type=Draugr_Ragnarok;amount=<5;radius=35}
   Skills:
+    - state{mid=ragnarok;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.zombie.ambient;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:ragnarok.summon;v=1;p=1} @self
+    - summon{type=RG_FX_Runes;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SOUL;amount=20;hS=1.0;vS=0.8;speed=0.02} @self
     - effect:particles{particle=SPELL_MOB_AMBIENT;amount=18;hS=0.9;vS=0.7;speed=0.02} @self
     - summon{type=Draugr_Ragnarok;amount=2;radius=8;noise=3} @self
@@ -213,7 +250,10 @@ Ragnarok_SummonVex:
   Conditions:
     - mobsinradius{type=SpectralVex_Ragnarok;amount=<4;radius=35}
   Skills:
+    - state{mid=ragnarok;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.vex.ambient;v=0.9;p=1.1} @self
+    - effect:sound{s=dextra:ragnarok.summon;v=1;p=1} @self
+    - summon{type=RG_FX_Runes;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SOUL;amount=20;hS=1.0;vS=0.6;speed=0.02} @self
     - effect:particles{particle=CLOUD;amount=16;hS=0.9;vS=0.4;speed=0.02;yOffset=0.6} @self
     - effect:particles{particle=ELECTRIC_SPARK;amount=10;hS=0.7;vS=0.7;speed=0.02} @self
@@ -224,10 +264,42 @@ Ragnarok_SummonVikings:
   Conditions:
     - mobsinradius{type=VikingWarrior_Ragnarok;amount=<4;radius=35}
   Skills:
+    - state{mid=ragnarok;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.husk.ambient;v=0.8;p=0.8} @self
+    - effect:sound{s=dextra:ragnarok.summon;v=1;p=1} @self
+    - summon{type=RG_FX_Runes;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=entity.player.attack.sweep;v=0.7;p=0.6} @self
     - effect:particles{particle=BLOCK_CRACK;material=BLUE_ICE;amount=30;hS=1.2;vS=0.3;speed=0.08} @self
     - summon{type=VikingWarrior_Ragnarok;amount=2;radius=8;noise=3} @self
+
+Ragnarok_FX_Remove:
+  Skills:
+    - remove @self
+
+Ragnarok_Melee:
+  Skills:
+    - state{mid=ragnarok;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:ragnarok.strike;v=0.8;p=1.1} @self
+
+Ragnarok_Hurt:
+  Skills:
+    - state{mid=ragnarok;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:ragnarok.hurt;v=0.8;p=1} @self
+
+Draugr_SpawnFX:
+  Skills:
+    - state{mid=draugr;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:ragnarok.draugr_groan;v=0.8;p=1} @self
+
+Draugr_Attack:
+  Skills:
+    - state{mid=draugr;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:ragnarok.draugr_hit;v=0.8;p=1} @self
+
+VikingWarrior_SpawnFX:
+  Skills:
+    - state{mid=viking_warrior;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:ragnarok.viking_shout;v=0.8;p=1} @self
 
 Ragnarok_PlayerKill:
   Skills:
@@ -237,6 +309,7 @@ Ragnarok_Death:
   Skills:
     - 'message{m="&b&lRAGNAROK &f: &7El Valhalla me espera…"} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.wither.death;v=0.8;p=0.9} @self
+    - effect:sound{s=dextra:ragnarok.death;v=1;p=1} @self
     - effect:sound{s=block.glass.break;v=1.0;p=0.5} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
     - effect:particles{particle=SNOWFLAKE;amount=120;hS=2.5;vS=1.2;speed=0.08} @self
@@ -251,6 +324,8 @@ Draugr_Resilience:
 
 SpectralVex_SpawnFX:
   Skills:
+    - state{mid=spectral_valkyrie;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:ragnarok.valkyrie_cry;v=0.8;p=1} @self
     - effect:particles{particle=SOUL;amount=14;hS=0.5;vS=0.5;speed=0.02} @self
     - effect:particles{particle=CLOUD;amount=8;hS=0.4;vS=0.4;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=10;hS=0.35;vS=0.45;speed=0;color=#9fe6ff;size=1.15} @self
@@ -262,6 +337,8 @@ SpectralVex_BlueAura:
 
 SpectralVex_QuickStrike:
   Skills:
+    - state{mid=spectral_valkyrie;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:ragnarok.valkyrie_strike;v=0.8;p=1} @self
     - potion{type=SPEED;duration=40;level=1} @self
     - effect:sound{s=entity.vex.charge;v=0.7;p=1.2} @self
     - damage{a=43;ia=true} @target
@@ -274,6 +351,8 @@ SpectralVex_DeathFX:
 
 VikingWarrior_DoubleAxe:
   Skills:
+    - state{mid=viking_warrior;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:ragnarok.viking_hit;v=0.8;p=1} @self
     - effect:sound{s=entity.player.attack.sweep;v=0.7;p=0.7} @self
     - damage{a=51;pk=true} @target
     - delay 4

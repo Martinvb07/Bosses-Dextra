@@ -16,7 +16,9 @@ Ragnarok:
 
   BossBar:
     Enabled: true
-    Title: "&b&lRAGNAROK"
+    # \u2007 no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/ragnarok.yml)
+    # es la moldura nordica a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f\u2007&b&lRAGNAROK&f\u2007"
     Range: 50
     Color: BLUE
     Style: SEGMENTED_10
@@ -45,7 +47,9 @@ Ragnarok:
     - Recompensas_llaves
     - MH_EstrellaInvocacion 1 1
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/ragnarok/ragnarok.bbmodel
   Skills:
+    - model{mid=ragnarok} @self ~onSpawn
     - skill{s=Ragnarok_Spawn} @self ~onSpawn
     - skill{s=Ragnarok_AcquireTarget} @self ~onTimer:10
     - skill{s=Ragnarok_HP75_Check} @self ~onTimer:20
@@ -61,6 +65,8 @@ Ragnarok:
     - skill{s=Ragnarok_PlayerKill} @target ~onKill
     - skill{s=Ragnarok_Death} @self ~onDeath
     - skill{s=Ragnarok_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=Ragnarok_Hurt} @self ~onDamaged 0.35
+    - skill{s=Ragnarok_Melee} @self ~onAttack
 
 Draugr_Ragnarok:
   Type: ZOMBIE
@@ -90,7 +96,12 @@ Draugr_Ragnarok:
   Drops:
     #- Recompensas_Draugr_Ragnarok
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/draugr/draugr.bbmodel
   Skills:
+    - model{mid=draugr} @self ~onSpawn
+    - skill{s=Draugr_SpawnFX} @self ~onSpawn
+    - skill{s=Draugr_Attack} @self ~onAttack
+    - state{mid=draugr;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=Draugr_Resilience} @self ~onSpawn
     - skill{s=Draugr_Resilience} @self ~onTimer:80
     - skill{s=Ragnarok_FuegoAmigo;sync=true} @self ~onDamaged
@@ -116,7 +127,10 @@ SpectralVex_Ragnarok:
   Drops:
     #- Recompensas_SpectralVex_Ragnarok
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/spectral_valkyrie/spectral_valkyrie.bbmodel
   Skills:
+    - model{mid=spectral_valkyrie} @self ~onSpawn
+    - state{mid=spectral_valkyrie;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=SpectralVex_SpawnFX} @self ~onSpawn
     - skill{s=SpectralVex_BlueAura} @self ~onTimer:10
     - skill{s=SpectralVex_QuickStrike} @target ~onAttack
@@ -150,6 +164,104 @@ VikingWarrior_Ragnarok:
   Drops:
     #- Recompensas_VikingWarrior_Ragnarok
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/viking_warrior/viking_warrior.bbmodel
   Skills:
+    - model{mid=viking_warrior} @self ~onSpawn
+    - skill{s=VikingWarrior_SpawnFX} @self ~onSpawn
+    - state{mid=viking_warrior;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=VikingWarrior_DoubleAxe} @target ~onAttack
     - skill{s=Ragnarok_FuegoAmigo;sync=true} @self ~onDamaged
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde ragnarok_skills.yml con summon{type=RG_FX_...}.
+
+RG_FX_Shatter:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=rg_fx_shatter;hitbox=false} @self ~onSpawn
+    - state{mid=rg_fx_shatter;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Ragnarok_FX_Remove;delay=20} @self ~onSpawn
+
+RG_FX_Burst:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=rg_fx_burst;hitbox=false} @self ~onSpawn
+    - state{mid=rg_fx_burst;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Ragnarok_FX_Remove;delay=20} @self ~onSpawn
+
+RG_FX_Icefall:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=rg_fx_icefall;hitbox=false} @self ~onSpawn
+    - state{mid=rg_fx_icefall;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Ragnarok_FX_Remove;delay=32} @self ~onSpawn
+
+RG_FX_Runes:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=rg_fx_runes;hitbox=false} @self ~onSpawn
+    - state{mid=rg_fx_runes;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Ragnarok_FX_Remove;delay=36} @self ~onSpawn
+
+RG_FX_End:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=rg_fx_end;hitbox=false} @self ~onSpawn
+    - state{mid=rg_fx_end;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Ragnarok_FX_Remove;delay=56} @self ~onSpawn

@@ -1,0 +1,15 @@
+# Marco de la bossbar de ragnarok (generado por tools/; no lo edites a mano).
+# En MythicMobs: BossBar.Title = "&f\u2007<nombre>&f\u2007"
+# Sin pack el caracter \u2007 es un espacio en blanco; con pack es esta imagen.
+info:
+  namespace: dextra_bosses
+
+font_images:
+  ragnarok_bossbar:
+    path: font/ragnarok/bossbar.png
+    symbol: "\u2007"
+    scale_ratio: 32
+    y_position: 12
+    show_in_gui: false
+    shadow:
+      enabled: false
