@@ -49,8 +49,13 @@ class Bone:
 
 
 class Cube:
-    def __init__(self, model, bone, name, frm, to, mat, decor=None, inflate=0):
+    def __init__(self, model, bone, name, frm, to, mat, decor=None, inflate=0, rot=None, pivot=None):
         self.bone = bone
+        # rot=(eje, grados) en un solo eje y multiplo de 22.5 (lo que aceptan los modelos de Minecraft)
+        if rot:
+            assert rot[0] in "xyz" and rot[1] % 22.5 == 0 and abs(rot[1]) <= 45, (name, rot)
+        self.rot = rot
+        self.pivot = list(pivot) if pivot else [(frm[i] + to[i]) / 2 for i in range(3)]
         self.name = name
         self.frm = list(frm)
         self.to = list(to)
@@ -202,6 +207,10 @@ class Model:
     def cube_lr(self, bone_r, bone_l, name, frm, to, mat, **kw):
         """Cubo en el lado derecho (+X) y su espejo en el izquierdo (-X)."""
         self.cube(bone_r, "right_" + name, frm, to, mat, **kw)
+        if kw.get("rot") and kw["rot"][0] in "yz":
+            kw = {**kw, "rot": (kw["rot"][0], -kw["rot"][1])}
+        if kw.get("pivot"):
+            kw = {**kw, "pivot": [-kw["pivot"][0], kw["pivot"][1], kw["pivot"][2]]}
         self.cube(bone_l, "left_" + name, [-to[0], frm[1], frm[2]], [-frm[0], to[1], to[2]], mat, **kw)
 
     def decor(self, fn):
@@ -325,7 +334,8 @@ class Model:
             "name": c.name, "box_uv": False, "rescale": False, "locked": False,
             "light_emission": 0, "render_order": "default", "allow_mirror_modeling": True,
             "from": c.frm, "to": c.to, "autouv": 0, "color": 0, "inflate": c.inflate,
-            "origin": c.bone.origin, "faces": faces, "type": "cube", "uuid": c.uuid,
+            "origin": c.pivot if c.rot else c.bone.origin, "faces": faces, "type": "cube", "uuid": c.uuid,
+            **({"rotation": [c.rot[1] if a == c.rot[0] else 0 for a in "xyz"]} if c.rot else {}),
         }
 
     def build(self, out_path):

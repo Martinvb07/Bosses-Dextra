@@ -10,7 +10,9 @@ OldEnder:
 
   BossBar:
     Enabled: true
-    Title: "&5&lOLD ENDER"
+    # \u2004 no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/old_ender.yml)
+    # es la moldura egipcia a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f\u2004&5&lOLD ENDER&f\u2004"
     Range: 60
     Color: PURPLE
     Style: SOLID
@@ -53,7 +55,9 @@ OldEnder:
 
   Modules:
     ImmunityTable: true
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/old_ender/old_ender.bbmodel
   Skills:
+    - model{mid=old_ender} @self ~onSpawn
     - skill{s=OD_Spawn} @self ~onSpawn
     - skill{s=OD_AcquireTarget} @self ~onTimer:10
     - skill{s=OD_HP75_Check} @self ~onTimer:20
@@ -72,6 +76,8 @@ OldEnder:
     - skill{s=OD_PlayerKill} @target ~onKill
     - skill{s=OD_Death} @self ~onDeath
     - skill{s=OD_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=OD_Hurt} @self ~onDamaged 0.35
+    - skill{s=OD_Melee} @self ~onAttack
 
 SandWarden:
   Type: HUSK
@@ -96,9 +102,12 @@ SandWarden:
   Drops:
     #- Recompensas_SandWarden
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/sand_warden/sand_warden.bbmodel
   Skills:
+    - model{mid=sand_warden} @self ~onSpawn
     - skill{s=SW_SpawnFX} @self ~onSpawn
     - skill{s=SW_Attack} @target ~onAttack
+    - state{mid=sand_warden;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=OD_FuegoAmigo;sync=true} @self ~onDamaged
 
 MummyGuardian:
@@ -125,9 +134,13 @@ MummyGuardian:
   Drops:
     #- Recompensas_MummyGuardian
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/mummy_guardian/mummy_guardian.bbmodel
   Skills:
+    - model{mid=mummy_guardian} @self ~onSpawn
     - skill{s=MG_SpawnFX} @self ~onSpawn
     - skill{s=MG_Curse} @target ~onAttack
+    - skill{s=MG_Groan} @self ~onTimer:160 0.4
+    - state{mid=mummy_guardian;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=OD_FuegoAmigo;sync=true} @self ~onDamaged
 
 GiantScarab:
@@ -154,9 +167,12 @@ GiantScarab:
   Drops:
     #- Recompensas_GiantScarab
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/giant_scarab/giant_scarab.bbmodel
   Skills:
+    - model{mid=giant_scarab} @self ~onSpawn
     - skill{s=GS_SpawnFX} @self ~onSpawn
     - skill{s=GS_Venom} @target ~onAttack
+    - state{mid=giant_scarab;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=OD_FuegoAmigo;sync=true} @self ~onDamaged
 
 DesertPriest:
@@ -182,7 +198,11 @@ DesertPriest:
   Drops:
     #- Recompensas_DesertPriest
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/desert_priest/desert_priest.bbmodel
   Skills:
+    - model{mid=desert_priest} @self ~onSpawn
     - skill{s=DP_SpawnFX} @self ~onSpawn
     - skill{s=DP_HealAllies} @self ~onTimer:45
+    - state{mid=desert_priest;s=attack;li=1;lo=2} @self ~onShoot
+    - state{mid=desert_priest;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=OD_FuegoAmigo;sync=true} @self ~onDamaged

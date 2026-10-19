@@ -1,8 +1,19 @@
 # OldEnder + SandWarden skills
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=old_ender;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:old_ender.*" = sonidos propios del pack. Cada uno va junto al sonido
+#    vanilla de siempre, asi que quien no tenga el pack oye lo mismo que antes.
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "OLD ENDER" como siempre; con pack lleva un ojo de Horus a cada lado.
 OD_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&5&lOLD ENDER";subtitle="&eDesert Biome &8• &7El ancestral emerge entre arenas";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=old_ender;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§eDesert Biome §8• §7El ancestral emerge entre arenas''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.old_ender'',fallback:''§5§lOLD ENDER'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc>,<&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:old_ender.intro;v=1;p=1} @self
     - 'message{m="&5&lOLD ENDER &fse materializa entre las arenas..."} @Server'
     - effect:sound{s=entity.enderman.scream;v=0.8;p=0.7} @self
     - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=35;hS=1.0;vS=0.6;speed=0.08} @self
@@ -121,6 +132,8 @@ OD_DesertSummons_Check:
   Conditions:
     - health{h=<1540}
   Skills:
+    - state{mid=old_ender;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:old_ender.summon;v=1;p=0.9} @self
     - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=36;hS=1.4;vS=0.5;speed=0.10} @self
     - summon{type=MummyGuardian;amount=2;radius=8;noise=2} @self
     - summon{type=DesertPriest;amount=1;radius=8;noise=2} @self
@@ -138,6 +151,8 @@ OD_IntenseSandstorm_Check:
 OD_PhaseShield:
   Skills:
     - potion{type=DAMAGE_RESISTANCE;duration=60;level=4} @self
+    - state{mid=old_ender;s=phase_change;li=3;lo=4} @self
+    - effect:sound{s=dextra:old_ender.phase;v=1;p=1} @self
     - effect:particles{particle=SPELL_MOB_AMBIENT;amount=25;hS=1.0;vS=0.5;speed=0.02} @self
 
 OD_EnderPresence:
@@ -189,9 +204,12 @@ OD_TeleportStrike:
   Conditions:
     - targetwithin{d=18}
   Skills:
+    - state{mid=old_ender;s=teleport_strike;li=2;lo=3} @self
     - effect:sound{s=entity.enderman.teleport;v=1.0;p=1.2} @self
+    - effect:sound{s=dextra:old_ender.teleport;v=1;p=1} @self
     - leap{velocity=200;noise=1} @target
     - delay 12
+    - effect:sound{s=dextra:old_ender.strike;v=1;p=1} @self
     - effect:particles{particle=ENCHANT;amount=18;hS=0.2;vS=0.7;speed=0.5} @self
     - effect:particles{particle=PORTAL;amount=24;hS=0.7;vS=0.3;speed=0.15} @target
     - damage{a=45;pk=true} @target ?distance{d=<3}
@@ -204,7 +222,9 @@ OD_SandPulse:
     - targetwithin{d=12}
   Skills:
     - message{cooldown=8;m="&5Old Ender &fdesata una onda de arena mágica!"} @PlayersInRadius{r=45}
+    - state{mid=old_ender;s=pulse;li=2;lo=3} @self
     - effect:sound{s=entity.enderman.stare;v=0.95;p=0.7} @self
+    - effect:sound{s=dextra:old_ender.pulse;v=1;p=1} @self
     - effect:particles{particle=ENCHANT;amount=24;hS=1.2;vS=0.7;speed=0.7} @self
     - effect:particles{particle=CLOUD;amount=55;hS=2.4;vS=0.7;speed=0.04} @self
     - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=65;hS=2.6;vS=0.6;speed=0.11} @self
@@ -216,11 +236,14 @@ OD_SandPulse:
 OD_DesertCollapse:
   Skills:
     - message{cooldown=10;m="&5Old Ender &fgolpea el suelo, la arena colapsa mágicamente!"} @PlayersInRadius{r=45}
+    - state{mid=old_ender;s=collapse;li=2;lo=3} @self
     - effect:sound{s=entity.generic.explode;v=0.65;p=0.85} @self
     - effect:sound{s=entity.enderman.scream;v=0.7;p=1.0} @self
+    - effect:sound{s=dextra:old_ender.roar;v=0.7;p=1.2} @self
     - effect:particles{particle=ENCHANT;amount=30;hS=1.0;vS=0.8;speed=0.8} @self
     - effect:particles{particle=BLOCK_CRACK;material=SANDSTONE;amount=60;hS=1.6;vS=0.5;speed=0.12} @self
     - delay 10
+    - effect:sound{s=dextra:old_ender.collapse;v=1;p=1} @self
     - damage{a=49;pk=true} @PlayersInRadius{r=9}
     - throw{velocity=1.5;velocityY=0.7} @PlayersInRadius{r=9}
 
@@ -230,7 +253,9 @@ OD_EnderGaze:
     - targetwithin{d=35}
   Skills:
     - message{cooldown=6;m="&5Old Ender &fclava su mirada mágica!"} @PlayersInRadius{r=45}
+    - state{mid=old_ender;s=gaze;li=2;lo=3} @self
     - effect:sound{s=entity.enderman.stare;v=0.9;p=1.1} @self
+    - effect:sound{s=dextra:old_ender.gaze;v=1;p=1} @self
     - effect:particles{particle=ENCHANT;amount=22;hS=0.5;vS=0.7;speed=0.7} @self
     - effect:particles{particle=PORTAL;amount=26;hS=0.6;vS=0.5;speed=0.13} @target
     - delay 10
@@ -241,7 +266,9 @@ OD_EnderGaze:
 
 OD_Sandstorm:
   Skills:
+    - state{mid=old_ender;s=sandstorm;li=2;lo=3} @self
     - effect:sound{s=entity.ender_dragon.flap;v=0.7;p=0.55} @self
+    - effect:sound{s=dextra:old_ender.sandstorm;v=1;p=1} @self
     - effect:particles{particle=CLOUD;amount=50;hS=2.4;vS=0.8;speed=0.03} @self
     - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=70;hS=2.8;vS=0.7;speed=0.10} @self
     - potion{type=SLOW;duration=90;level=1} @PlayersInRadius{r=16}
@@ -254,11 +281,14 @@ OD_SandWarp:
     - targetwithin{d=45}
   Skills:
     - message{cooldown=10;m="&5Old Ender &fse desliza entre sus presas!"} @PlayersInRadius{r=50}
+    - state{mid=old_ender;s=warp;li=2;lo=3} @self
     - effect:sound{s=entity.enderman.teleport;v=1.0;p=1.2} @self
+    - effect:sound{s=dextra:old_ender.teleport;v=1;p=0.85} @self
     - pull{velocity=1.25} @PlayersInRadius{r=10}
     - effect:particles{particle=ENCHANT;amount=18;hS=1.0;vS=0.7;speed=0.7} @self
     - delay 8
     - effect:sound{s=entity.enderman.scream;v=0.85;p=0.7} @self
+    - effect:sound{s=dextra:old_ender.pulse;v=1;p=1.15} @self
     - damage{a=47;pk=true} @PlayersInRadius{r=10}
     - throw{velocity=1.5;velocityY=0.4} @PlayersInRadius{r=10}
 
@@ -267,12 +297,15 @@ OD_SandstormRift:
   Cooldown: 24
   Skills:
     - message{cooldown=10;m="&5&lRIFT &8» &fEl Old Ender abre grietas mágicas en la tormenta de arena."} @PlayersInRadius{r=60}
+    - state{mid=old_ender;s=sandstorm;li=2;lo=3} @self
     - effect:sound{s=entity.enderman.stare;v=0.95;p=0.55} @self
+    - effect:sound{s=dextra:old_ender.sandstorm;v=1;p=0.8} @self
     - effect:particles{particle=ENCHANT;amount=36;hS=1.5;vS=1.0;speed=1.0} @self
     - effect:particles{particle=PORTAL;amount=34;hS=1.6;vS=1.2;speed=0.09} @self
     - effect:particles{particle=CLOUD;amount=38;hS=1.9;vS=1.0;speed=0.03} @self
     - delay 18
     - effect:sound{s=entity.generic.explode;v=0.85;p=0.7} @self
+    - effect:sound{s=dextra:old_ender.collapse;v=1;p=0.9} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
     - effect:particles{particle=BLOCK_CRACK;material=SANDSTONE;amount=110;hS=3.0;vS=0.9;speed=0.14} @self
     - damage{a=50;pk=true} @PlayersInRadius{r=12}
@@ -283,6 +316,8 @@ OD_SummonWardens:
     - mobsinradius{type=SandWarden;amount=<5;radius=35}
   Skills:
     - message{cooldown=10;m="&eLa arena toma forma... &6Guardianes &eaparecen&f!"} @PlayersInRadius{r=50}
+    - state{mid=old_ender;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:old_ender.summon;v=1;p=1} @self
     - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=40;hS=2.0;vS=0.6;speed=0.10} @self
     - summon{type=SandWarden;amount=2;radius=10;noise=3} @self
 
@@ -290,7 +325,18 @@ OD_Death:
   Skills:
     - message{m="&5&lOLD ENDER &fha sido derrotado. &eLa arena vuelve a dormir..."} @PlayersInRadius{r=80}
     - effect:sound{s=entity.enderman.death;v=0.9;p=0.8} @self
+    - effect:sound{s=dextra:old_ender.death;v=1;p=1} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+
+OD_Melee:
+  Skills:
+    - state{mid=old_ender;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:old_ender.strike;v=0.8;p=1.1} @self
+
+OD_Hurt:
+  Skills:
+    - state{mid=old_ender;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:old_ender.hurt;v=0.8;p=1} @self
 
 OD_PlayerKill:
   Skills:
@@ -299,38 +345,56 @@ OD_PlayerKill:
 SW_SpawnFX:
   Skills:
     - effect:particles{particle=BLOCK_CRACK;material=SAND;amount=18;hS=0.6;vS=0.2;speed=0.10} @self
+    - state{mid=sand_warden;s=spawn;li=0;lo=2} @self
     - effect:sound{s=block.sand.place;v=0.7;p=0.8} @self
+    - effect:sound{s=dextra:old_ender.warden_rise;v=0.8;p=1} @self
     - potion{type=FIRE_RESISTANCE;duration=999999;level=0} @self
 
 SW_Attack:
   Skills:
+    - state{mid=sand_warden;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:old_ender.warden_hit;v=0.8;p=1} @self
     - potion{type=SLOW;duration=30;level=0} @target
 
 MG_SpawnFX:
   Skills:
     - effect:particles{particle=BLOCK_CRACK;material=SANDSTONE;amount=16;hS=0.6;vS=0.3;speed=0.08} @self
+    - state{mid=mummy_guardian;s=spawn;li=0;lo=2} @self
     - effect:sound{s=entity.husk.ambient;v=0.7;p=0.8} @self
+    - effect:sound{s=dextra:old_ender.mummy_groan;v=0.8;p=1} @self
 
 MG_Curse:
   Skills:
+    - state{mid=mummy_guardian;s=attack;li=1;lo=2} @self
     - potion{type=SLOW;duration=60;level=1} @target
+
+MG_Groan:
+  Skills:
+    - effect:sound{s=dextra:old_ender.mummy_groan;v=0.7;p=1} @self
 
 GS_SpawnFX:
   Skills:
     - effect:particles{particle=CRIT;amount=12;hS=0.5;vS=0.3;speed=0.08} @self
+    - state{mid=giant_scarab;s=spawn;li=0;lo=2} @self
     - effect:sound{s=entity.spider.ambient;v=0.7;p=1.1} @self
+    - effect:sound{s=dextra:old_ender.scarab_hiss;v=0.8;p=1} @self
 
 GS_Venom:
   Skills:
+    - state{mid=giant_scarab;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:old_ender.scarab_hiss;v=0.7;p=1.2} @self
     - potion{type=POISON;duration=70;level=0} @target
 
 DP_SpawnFX:
   Skills:
     - effect:particles{particle=ENCHANTMENT_TABLE;amount=10;hS=0.5;vS=0.8;speed=0.2} @self
+    - state{mid=desert_priest;s=spawn;li=0;lo=2} @self
     - effect:sound{s=entity.skeleton.ambient;v=0.7;p=0.9} @self
 
 DP_HealAllies:
   Skills:
+    - state{mid=desert_priest;s=cast;li=2;lo=3} @self
+    - effect:sound{s=dextra:old_ender.priest_chant;v=0.8;p=1} @self
     - heal{a=6} @MobsInRadius{r=8;type=OldEnder}
     - heal{a=6} @MobsInRadius{r=8;type=SandWarden}
     - heal{a=6} @MobsInRadius{r=8;type=MummyGuardian}

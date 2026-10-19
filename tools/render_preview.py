@@ -71,7 +71,8 @@ def bone_matrices(anim=None, t=0.0):
 
 
 def face_corners(c, face):
-    (x0, y0, z0), (x1, y1, z1) = c.frm, c.to
+    k = getattr(c, "inflate", 0) or 0
+    (x0, y0, z0), (x1, y1, z1) = (v - k for v in c.frm), (v + k for v in c.to)
     return {
         "north": ((x1, y1, z0), (x0, y1, z0), (x1, y0, z0)),
         "south": ((x0, y1, z1), (x1, y1, z1), (x0, y0, z1)),
@@ -104,6 +105,14 @@ def render(tex, anim=None, t=0.0, yaw=-30, pitch=12, size=(420, 520), focus=None
         if c.mat == "hitbox":
             continue
         M = mats[c.bone.name]
+        if getattr(c, "rot", None):
+            a, deg = c.rot
+            R = np.eye(4)
+            R[:3, :3] = rot_matrix(*(deg if ax == a else 0 for ax in "xyz"))
+            T1, T2 = np.eye(4), np.eye(4)
+            T1[:3, 3] = c.pivot
+            T2[:3, 3] = [-v for v in c.pivot]
+            M = M @ T1 @ R @ T2
         for face, uv in c.uv.items():
             tl, tr, bl = (np.array((M @ np.append(np.array(p, float), 1.0))[:3]) for p in face_corners(c, face))
             P0, P1, P3 = proj(tl), proj(tr), proj(bl)

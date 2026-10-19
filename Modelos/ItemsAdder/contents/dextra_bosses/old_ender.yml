@@ -1,0 +1,15 @@
+# Marco de la bossbar de old_ender (generado por tools/; no lo edites a mano).
+# En MythicMobs: BossBar.Title = "&f\u2004<nombre>&f\u2004"
+# Sin pack el caracter \u2004 es un espacio en blanco; con pack es esta imagen.
+info:
+  namespace: dextra_bosses
+
+font_images:
+  old_ender_bossbar:
+    path: font/old_ender/bossbar.png
+    symbol: "\u2004"
+    scale_ratio: 32
+    y_position: 12
+    show_in_gui: false
+    shadow:
+      enabled: false
