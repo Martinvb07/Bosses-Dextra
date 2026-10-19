@@ -2,11 +2,23 @@
 # Mecanicas basadas en Yeti, con lore, subditos y particulas de Nezareth.
 # Daño de skills escalado x1.70 y umbrales de vida para 4800 HP (curva de dificultad 01->17).
 # Los sacos / ranking siguen en sus archivos de siempre.
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=nezareth;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:nezareth.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=..._FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "NEZARETH" como siempre; con pack se ve el logo.
 
 NZ_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&8&lNEZARETH";subtitle="&7La Telaraña del Destino &8• &7La Tejedora Eterna despierta";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=nezareth;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§7La Telaraña del Destino §8• §7La Tejedora Eterna despierta''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.nezareth'',fallback:''§8§lNEZARETH'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:nezareth.intro;v=1;p=1} @self
+    - summon{type=NZ_FX_Weave;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&8&lNEZARETH &f: &7Cada hilo es una vida... y los vuestros ya estan cortados."} @Server'
     - effect:sound{s=entity.iron_golem.damage;v=0.8;p=0.6} @self
     - effect:sound{s=entity.polar_bear.warning;v=0.9;p=0.6} @self
@@ -59,7 +71,10 @@ NZ_Phase3_Check:
     - setstance{stance=PHASE3_LOCKED} @self
     - 'message{cooldown=9999;m="&8&lCAPULLO ETERNO &8» &fDerrota primero a sus subditos para romper la seda."} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.blaze.shoot;v=0.5;p=0.5} @self
+    - state{mid=nezareth;s=cocoon;li=2;lo=4} @self
     - effect:sound{s=weather.rain.above;v=0.9;p=0.6} @self
+    - effect:sound{s=dextra:nezareth.shield;v=1;p=1} @self
+    - summon{type=NZ_FX_Shield;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SMOKE_NORMAL;amount=70;hS=2.4;vS=1.1;speed=0.03} @self
     - effect:particles{particle=BLOCK_CRACK;material=COBWEB;amount=90;hS=2.5;vS=1.2;speed=0.06} @self
     - skill{s=NZ_IntenseBlizzard} @self
@@ -69,6 +84,8 @@ NZ_Phase3_Check:
 
 NZ_PhaseShield:
   Skills:
+    - state{mid=nezareth;s=phase_change;li=3;lo=4} @self
+    - effect:sound{s=dextra:nezareth.phase;v=1;p=1} @self
     - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
     - effect:particles{particle=END_ROD;amount=20;hS=0.9;vS=1.0;speed=0.02} @self
 
@@ -86,6 +103,7 @@ NZ_SubjugationRelease:
     - mobsinradius{type=Nezareth_Polilla;amount=<1;radius=35}
   Skills:
     - setstance{stance=PHASE3} @self
+    - effect:sound{s=dextra:nezareth.shield;v=1;p=1.3} @self
     - 'message{cooldown=9999;m="&8&lNEZARETH &fqueda expuesta al cortarse sus hilos."} @PlayersInRadius{r=70}'
     - effect:sound{s=block.glass.break;v=0.9;p=0.6} @self
     - effect:particles{particle=FLASH;amount=1} @self
@@ -100,7 +118,10 @@ NZ_Roar:
   Conditions:
     - targetwithin{d=9999} true
   Skills:
+    - state{mid=nezareth;s=roar;li=2;lo=3} @self
     - effect:sound{s=entity.polar_bear.warning;v=1.0;p=0.55} @self
+    - effect:sound{s=dextra:nezareth.roar;v=1;p=1} @self
+    - summon{type=NZ_FX_Shriek;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=entity.iron_golem.damage;v=0.8;p=0.5} @self
     - effect:particles{particle=BLOCK_CRACK;material=COBWEB;amount=24;hS=1.4;vS=1.0;speed=0.04} @self
 
@@ -121,7 +142,10 @@ NZ_GroundShatter:
   Cooldown: 18
   Skills:
     - 'message{cooldown=10;m="&8&lTIRON DE HILOS &8» &fApartaos del impacto."} @PlayersInRadius{r=45}'
+    - state{mid=nezareth;s=tug;li=2;lo=3} @self
     - effect:sound{s=entity.iron_golem.attack;v=1.0;p=0.5} @self
+    - effect:sound{s=dextra:nezareth.tug;v=1;p=1} @self
+    - summon{type=NZ_FX_Tug;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=entity.generic.explode;v=0.65;p=0.8} @self
     - effect:particles{particle=BLOCK_CRACK;material=COBWEB;amount=85;hS=2.0;vS=0.5;speed=0.12} @self
     - delay 8
@@ -132,7 +156,10 @@ NZ_IceSmash:
   Conditions:
     - targetwithin{d=6}
   Skills:
+    - state{mid=nezareth;s=smash;li=1;lo=2} @self
     - effect:sound{s=entity.iron_golem.attack;v=0.9;p=0.6} @self
+    - effect:sound{s=dextra:nezareth.smash;v=1;p=1} @self
+    - summon{type=NZ_FX_Slash;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=BLOCK_CRACK;material=COBWEB;amount=45;hS=1.1;vS=0.3;speed=0.10} @self
     - damage{a=193;pk=true} @target
     - throw{velocity=1.1;velocityY=0.3} @target
@@ -143,7 +170,10 @@ NZ_IceRockThrow:
     - targetwithin{d=28}
   Skills:
     - 'message{cooldown=8;m="&8Nezareth &flanza un capullo de seda endurecida!"} @PlayersInRadius{r=40}'
+    - state{mid=nezareth;s=throw;li=2;lo=3} @self
     - effect:sound{s=block.stone.break;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:nezareth.cocoon;v=1;p=1} @self
+    - summon{type=NZ_FX_Cocoon;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=BLOCK_CRACK;material=BLACK_WOOL;amount=36;hS=0.9;vS=0.5;speed=0.09} @self
     - delay 10
     - effect:particles{particle=FLASH;amount=1} @target
@@ -154,7 +184,10 @@ NZ_IceRockBarrage:
   Cooldown: 20
   Skills:
     - 'message{cooldown=10;m="&7Una lluvia de &8capullos &fcae desde la telaraña!"} @PlayersInRadius{r=50}'
+    - state{mid=nezareth;s=barrage;li=2;lo=3} @self
     - effect:sound{s=block.glass.break;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:nezareth.rain;v=1;p=1} @self
+    - summon{type=NZ_FX_Rain;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=BLOCK_CRACK;material=BLACK_WOOL;amount=70;hS=2.2;vS=0.9;speed=0.10} @self
     - delay 12
     - damage{a=204;pk=true} @PlayersInRadius{r=9}
@@ -163,6 +196,9 @@ NZ_IceRockBarrage:
 NZ_FrostNova:
   Cooldown: 16
   Skills:
+    - state{mid=nezareth;s=nova;li=1;lo=3} @self
+    - effect:sound{s=dextra:nezareth.web;v=1;p=1} @self
+    - summon{type=NZ_FX_Web;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=block.glass.break;v=0.9;p=0.6} @self
     - effect:particles{particle=BLOCK_CRACK;material=COBWEB;amount=65;hS=2.0;vS=0.7;speed=0.05} @self
     - damage{a=128;pk=true} @PlayersInRadius{r=7}
@@ -172,7 +208,10 @@ NZ_IntenseBlizzard:
   Cooldown: 22
   Skills:
     - 'message{cooldown=10;m="&7La seda os envuelve, os ciega y os inmoviliza..."} @PlayersInRadius{r=60}'
+    - state{mid=nezareth;s=weave;li=2;lo=3} @self
     - effect:sound{s=weather.rain.above;v=1.0;p=0.5} @self
+    - effect:sound{s=dextra:nezareth.silk;v=1;p=1} @self
+    - summon{type=NZ_FX_Silkstorm;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SMOKE_NORMAL;amount=85;hS=3.0;vS=1.2;speed=0.03} @self
     - effect:particles{particle=BLOCK_CRACK;material=COBWEB;amount=130;hS=3.2;vS=1.3;speed=0.07} @self
     - potion{type=BLINDNESS;duration=70;level=0} @PlayersInRadius{r=14}
@@ -184,7 +223,10 @@ NZ_SummonHunters:
   Conditions:
     - mobsinradius{type=Nezareth_Marioneta;amount=<3;radius=35}
   Skills:
+    - state{mid=nezareth;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.zombie.ambient;v=0.8;p=0.8} @self
+    - effect:sound{s=dextra:nezareth.summon;v=1;p=1} @self
+    - summon{type=NZ_FX_Weave;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=BLOCK_CRACK;material=COBWEB;amount=30;hS=1.2;vS=0.7;speed=0.04} @self
     - summon{type=Nezareth_Marioneta;amount=2;radius=8;noise=2} @self
 
@@ -194,7 +236,10 @@ NZ_SummonShieldMinions:
     - mobsinradius{type=Nezareth_Hilandera;amount=<2;radius=35}
   Skills:
     - 'message{cooldown=12;m="&8Nezareth teje hilanderas y polillas sombrias."} @PlayersInRadius{r=50}'
+    - state{mid=nezareth;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.vindicator.celebrate;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:nezareth.summon;v=1;p=1} @self
+    - summon{type=NZ_FX_Weave;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=BLOCK_CRACK;material=COBWEB;amount=36;hS=1.4;vS=0.8;speed=0.05} @self
     - summon{type=Nezareth_Hilandera;amount=2;radius=7;noise=2} @self
     - summon{type=Nezareth_Polilla;amount=2;radius=7;noise=2} @self
@@ -227,43 +272,70 @@ NZ_Death:
   Skills:
     - 'message{m="&8&lNEZARETH &f: &7La trama... se deshace..."} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.iron_golem.death;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:nezareth.death;v=1;p=1} @self
     - effect:sound{s=block.glass.break;v=0.9;p=0.5} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
     - effect:particles{particle=BLOCK_CRACK;material=COBWEB;amount=120;hS=2.4;vS=1.1;speed=0.08} @self
 
 NZ_FBY_SpawnFX:
   Skills:
+    - state{mid=nz_puppet;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:nezareth.puppet_creak;v=0.8;p=1} @self
     - effect:sound{s=entity.zombie.ambient;v=0.8;p=1.0} @self
     - effect:particles{particle=BLOCK_CRACK;material=COBWEB;amount=12;hS=0.5;vS=0.4;speed=0.03} @self
 
 NZ_FBY_FrozenMaul:
   Skills:
+    - state{mid=nz_puppet;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:nezareth.puppet_hit;v=0.8;p=1} @self
     - damage{a=77;pk=true} @target
     - potion{type=SLOW;duration=60;level=1} @target
 
 NZ_GRY_SpawnFX:
   Skills:
+    - state{mid=nz_spinner;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:nezareth.spinner_hum;v=0.8;p=1} @self
     - effect:sound{s=entity.vindicator.ambient;v=0.8;p=0.8} @self
     - effect:particles{particle=BLOCK_CRACK;material=COBWEB;amount=16;hS=0.6;vS=0.6;speed=0.03} @self
 
 NZ_GRY_CrystalCleave:
   Skills:
+    - state{mid=nz_spinner;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:nezareth.spinner_snip;v=0.8;p=1} @self
     - effect:particles{particle=SWEEP_ATTACK;amount=1} @self
     - damage{a=90;pk=true} @target
     - potion{type=SLOW;duration=40;level=0} @target
 
 NZ_BSY_SpawnFX:
   Skills:
+    - state{mid=nz_moth;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:nezareth.moth_flutter;v=0.8;p=1} @self
     - effect:sound{s=entity.vex.ambient;v=0.8;p=0.8} @self
     - effect:particles{particle=SOUL;amount=10;hS=0.5;vS=0.7;speed=0.02} @self
 
 NZ_BSY_FrostClaws:
   Skills:
+    - state{mid=nz_moth;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:nezareth.moth_bite;v=0.8;p=1} @self
     - effect:particles{particle=BLOCK_CRACK;material=COBWEB;amount=12;hS=0.6;vS=0.6;speed=0.03} @target
     - damage{a=65;ia=true} @target
     - potion{type=SLOW;duration=50;level=1} @target
 
 # Item summon
+
+NZ_FX_Remove:
+  Skills:
+    - remove @self
+
+NZ_Melee:
+  Skills:
+    - state{mid=nezareth;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:nezareth.claw;v=0.8;p=1} @self
+
+NZ_Hurt:
+  Skills:
+    - state{mid=nezareth;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:nezareth.hurt;v=0.8;p=1} @self
 
 # --- Fuego amigo ---
 NZ_FuegoAmigo:

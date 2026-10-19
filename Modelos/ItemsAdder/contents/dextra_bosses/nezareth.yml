@@ -1,0 +1,15 @@
+# Marco de la bossbar de nezareth (generado por tools/; no lo edites a mano).
+# En MythicMobs: BossBar.Title = "&f\u2003<nombre>&f\u2003"
+# Sin pack el caracter \u2003 es un espacio en blanco; con pack es esta imagen.
+info:
+  namespace: dextra_bosses
+
+font_images:
+  nezareth_bossbar:
+    path: font/nezareth/bossbar.png
+    symbol: "\u2003"
+    scale_ratio: 32
+    y_position: 12
+    show_in_gui: false
+    shadow:
+      enabled: false

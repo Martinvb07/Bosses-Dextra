@@ -15,7 +15,9 @@ Nezareth:
 
   BossBar:
     Enabled: true
-    Title: "&8&lNEZARETH"
+    # \u2003 no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/nezareth.yml)
+    # es la moldura de quitina y telaranas a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f &8&lNEZARETH&f "
     Range: 55
     Color: BLUE
     Style: SEGMENTED_10
@@ -77,7 +79,9 @@ Nezareth:
    # - Recompensas_dinero
    # - Recompensas_llaves
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/nezareth/nezareth.bbmodel
   Skills:
+    - model{mid=nezareth} @self ~onSpawn
     - skill{s=Nezareth_Rank_Reset} @self ~onSpawn
     - skill{s=Nezareth_Rank_Sumar} @self ~onDamaged
     - skill{s=Nezareth_Rank_Muerte} @self ~onDeath
@@ -98,6 +102,8 @@ Nezareth:
     - skill{s=NZ_PlayerKill} @target ~onKill
     - skill{s=NZ_Death} @self ~onDeath
     - skill{s=NZ_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=NZ_Melee} @self ~onAttack
+    - skill{s=NZ_Hurt} @self ~onDamaged 0.35
 
 
 # --- Subditos de Nezareth ---
@@ -129,7 +135,10 @@ Nezareth_Marioneta:
   Drops:
     #- Recompensas_FrostBrute_Yeti
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/nz_puppet/nz_puppet.bbmodel
   Skills:
+    - model{mid=nz_puppet} @self ~onSpawn
+    - state{mid=nz_puppet;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=NZ_FBY_SpawnFX} @self ~onSpawn
     - skill{s=NZ_FBY_FrozenMaul} @target ~onAttack
     - skill{s=NZ_FuegoAmigo;sync=true} @self ~onDamaged
@@ -161,7 +170,10 @@ Nezareth_Hilandera:
   Drops:
     #- Recompensas_GlacierRaider_Yeti
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/nz_spinner/nz_spinner.bbmodel
   Skills:
+    - model{mid=nz_spinner} @self ~onSpawn
+    - state{mid=nz_spinner;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=NZ_GRY_SpawnFX} @self ~onSpawn
     - skill{s=NZ_GRY_CrystalCleave} @target ~onAttack
     - skill{s=NZ_FuegoAmigo;sync=true} @self ~onDamaged
@@ -189,7 +201,176 @@ Nezareth_Polilla:
   Drops:
     #- Recompensas_BlizzardSpirit_Yeti
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/nz_moth/nz_moth.bbmodel
   Skills:
+    - model{mid=nz_moth} @self ~onSpawn
+    - state{mid=nz_moth;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=NZ_BSY_SpawnFX} @self ~onSpawn
     - skill{s=NZ_BSY_FrostClaws} @target ~onAttack
     - skill{s=NZ_FuegoAmigo;sync=true} @self ~onDamaged
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde Nezareth_Combate.yml con summon{type=NZ_FX_...}.
+
+NZ_FX_Tug:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=nz_fx_tug;hitbox=false} @self ~onSpawn
+    - state{mid=nz_fx_tug;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=NZ_FX_Remove;delay=32} @self ~onSpawn
+
+NZ_FX_Slash:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=nz_fx_slash;hitbox=false} @self ~onSpawn
+    - state{mid=nz_fx_slash;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=NZ_FX_Remove;delay=18} @self ~onSpawn
+
+NZ_FX_Cocoon:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=nz_fx_cocoon;hitbox=false} @self ~onSpawn
+    - state{mid=nz_fx_cocoon;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=NZ_FX_Remove;delay=36} @self ~onSpawn
+
+NZ_FX_Rain:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=nz_fx_rain;hitbox=false} @self ~onSpawn
+    - state{mid=nz_fx_rain;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=NZ_FX_Remove;delay=40} @self ~onSpawn
+
+NZ_FX_Web:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=nz_fx_web;hitbox=false} @self ~onSpawn
+    - state{mid=nz_fx_web;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=NZ_FX_Remove;delay=26} @self ~onSpawn
+
+NZ_FX_Silkstorm:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=nz_fx_silkstorm;hitbox=false} @self ~onSpawn
+    - state{mid=nz_fx_silkstorm;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=NZ_FX_Remove;delay=48} @self ~onSpawn
+
+NZ_FX_Shriek:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=nz_fx_shriek;hitbox=false} @self ~onSpawn
+    - state{mid=nz_fx_shriek;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=NZ_FX_Remove;delay=28} @self ~onSpawn
+
+NZ_FX_Shield:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=nz_fx_shield;hitbox=false} @self ~onSpawn
+    - state{mid=nz_fx_shield;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=NZ_FX_Remove;delay=64} @self ~onSpawn
+
+NZ_FX_Weave:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=nz_fx_weave;hitbox=false} @self ~onSpawn
+    - state{mid=nz_fx_weave;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=NZ_FX_Remove;delay=44} @self ~onSpawn

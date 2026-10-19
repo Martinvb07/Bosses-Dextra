@@ -20,7 +20,7 @@ Hay una carpeta por boss, con el mismo numero que en `MythicMobs-3D/Mobs/Boss_XX
 | 14 | [Samhain](14_Samhain/) | ✅ con modelos |
 | 15 | [Thor](15_Thor/) | ✅ con modelos |
 | 16 | [Kukulkan](16_Kukulkan/) | ✅ con modelos |
-| 17 | [Nezareth](17_Nezareth/) | pendiente |
+| 17 | [Nezareth](17_Nezareth/) | ✅ con modelos |
 
 Cada carpeta sigue la estructura de `01_Heracles/`:
 
