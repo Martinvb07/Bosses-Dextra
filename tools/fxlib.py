@@ -362,3 +362,21 @@ def action_sheet(model, shots, out, focus=34, scale=4.4):
     for i, f in enumerate(fr):
         S.paste(f, ((i % 4) * 300, (i // 4) * 400))
     S.save(out)
+
+
+def shifted(m, a, dt, build):
+    """Construye una pieza con build(m, tmp_anim) y copia sus keyframes a 'a' retrasados dt segundos.
+    Los huesos nuevos quedan a escala 0 hasta que empieza la pieza."""
+    before = set(m.BONES)
+    tmp = m.anim("_tmp", a.length, "once")
+    build(m, tmp)
+    m.ANIMS.remove(tmp)
+    for (bone, ch), kfs in tmp.tracks.items():
+        for t, v in kfs.items():
+            a.k(bone, ch, round(t + dt, 4), *v[:3], v[3])
+    for bone in set(m.BONES) - before:
+        if dt > 0 and m.BONES[bone].parent is m.root:
+            a.scl(bone, 0, 0.01)
+            a.scl(bone, round(dt - 0.01, 4), 0.01)
+            if (bone, "scale") not in tmp.tracks:
+                a.scl(bone, round(dt, 4), 1)

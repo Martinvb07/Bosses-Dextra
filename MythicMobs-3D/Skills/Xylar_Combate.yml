@@ -2,11 +2,23 @@
 # Mecanicas basadas en RedHand, con lore, subditos y particulas de Xylar.
 # Daño de skills escalado x0.95 y umbrales de vida para 4000 HP (curva de dificultad 01->17).
 # Los sacos / ranking siguen en sus archivos de siempre.
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=xylar;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:xylar.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=..._FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "XYLAR" como siempre; con pack se ve el logo.
 
 XY_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&d&lXYLAR";subtitle="&5Trono Galactico &8• &7El Señor de las estrellas desciende";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=xylar;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§5Trono Galactico §8• §7El Señor de las estrellas desciende''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.xylar'',fallback:''§d§lXYLAR'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:xylar.intro;v=1;p=1} @self
+    - summon{type=XY_FX_Phase;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&d&lXYLAR &f: &7He apagado mil soles. Vuestro mundo es solo uno mas."} @Server'
     - effect:sound{s=entity.wither_skeleton.ambient;v=0.9;p=0.8} @self
     - effect:particles{particle=SMOKE_LARGE;amount=25;hS=0.7;vS=0.9;speed=0.03} @self
@@ -92,6 +104,9 @@ XY_CondemnedSouls_Check:
   Skills:
     - effect:sound{s=entity.vex.ambient;v=0.8;p=0.8} @self
     - effect:particles{particle=SOUL;amount=30;hS=1.2;vS=1.0;speed=0.03} @self
+    - state{mid=xylar;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:xylar.summon;v=1;p=1} @self
+    - summon{type=XY_FX_Meteor;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Xylar_Fragmento;amount=2;radius=7;noise=2} @self
     - summon{type=Xylar_Caballero;amount=1;radius=6;noise=2} @self
 
@@ -106,6 +121,9 @@ XY_Aura:
 
 XY_PhaseShield:
   Skills:
+    - state{mid=xylar;s=phase_change;li=3;lo=4} @self
+    - effect:sound{s=dextra:xylar.phase;v=1;p=1} @self
+    - summon{type=XY_FX_Phase;amount=1;radius=0;noise=0} @selflocation
     - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
     - effect:particles{particle=SPELL_MOB_AMBIENT;amount=18;hS=0.8;vS=0.6;speed=0.02} @self
 
@@ -134,7 +152,10 @@ XY_SlashCombo:
   Conditions:
     - targetwithin{d=6}
   Skills:
+    - state{mid=xylar;s=combo;li=1;lo=2} @self
     - effect:sound{s=entity.player.attack.sweep;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:xylar.combo;v=1;p=1} @self
+    - summon{type=XY_FX_Combo;amount=1;radius=0;noise=0} @selflocation
     - damage{a=95;pk=true} @target
     - delay 6
     - damage{a=95;pk=true} @target
@@ -148,6 +169,9 @@ XY_RedMark:
   Skills:
     - 'message{cooldown=14;m="&d&lXYLAR &fmarca a &5<target.name> &fcomo su proxima orbita..."} @PlayersInRadius{r=45}'
     - effect:particles{particle=REDSTONE;amount=28;hS=0.45;vS=0.9;speed=0.0;color=#ff4dff;size=1.4} @target
+    - state{mid=xylar;s=mark;li=1;lo=2} @self
+    - effect:sound{s=dextra:xylar.mark;v=1;p=1} @self
+    - summon{type=XY_FX_Mark;amount=1;radius=0;noise=0} @targetlocation
     - potion{type=GLOWING;duration=60;level=0} @target
     - potion{type=SLOW;duration=30;level=0} @target
 
@@ -157,9 +181,13 @@ XY_ShadowDash:
     - targetwithin{d=25}
   Skills:
     - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.6;vS=0.6;speed=0.02} @target
+    - state{mid=xylar;s=dash;li=1;lo=2} @self
     - effect:sound{s=entity.enderman.teleport;v=0.7;p=0.6} @self
+    - effect:sound{s=dextra:xylar.dash;v=1;p=1} @self
+    - summon{type=XY_FX_Dash;amount=1;radius=0;noise=0} @selflocation
     - delay 8
     - teleport @target
+    - summon{type=XY_FX_Dash;amount=1;radius=0;noise=0} @selflocation
     - delay 2
     - skill{s=XY_SlashCombo} @target
 
@@ -169,12 +197,16 @@ XY_BloodPools:
     - targetwithin{d=25}
   Skills:
     - 'message{cooldown=12;m="&d&lXYLAR &7abre &5pozos gravitatorios&7... &f¡no los pises!"} @PlayersInRadius{r=45}'
+    - state{mid=xylar;s=pools;li=1;lo=2} @self
     - effect:sound{s=block.slime_block.place;v=0.65;p=0.75} @self
+    - effect:sound{s=dextra:xylar.pools;v=1;p=1} @self
     - effect:particles{particle=REDSTONE;amount=18;hS=0.8;vS=0.2;speed=0.0;color=#7a1fa0;size=1.25} @target
     - summon{type=Xylar_PozoGravitatorio;amount=3;radius=4;noise=2} @target
 
 XY_BloodPool_Spawn:
   Skills:
+    - state{mid=xy_well;s=spawn;li=0;lo=0} @self
+    - effect:sound{s=dextra:xylar.well_hum;v=0.8;p=1} @self
     - effect:particles{particle=REDSTONE;amount=30;hS=1.3;vS=0.1;speed=0.0;color=#3d0a5a;size=1.35} @self
     - delay 140
     - remove @self
@@ -193,7 +225,10 @@ XY_Execution:
     - health{h=<429}
   Skills:
     - 'message{cooldown=9999;m="&5&lHORIZONTE DE SUCESOS &8» &f¡Alejate de Xylar o seras aplastado!"} @PlayersInRadius{r=60}'
+    - state{mid=xylar;s=horizon;li=2;lo=4} @self
     - effect:sound{s=entity.warden.roar;v=0.6;p=0.8} @self
+    - effect:sound{s=dextra:xylar.horizon;v=1;p=1} @self
+    - summon{type=XY_FX_Horizon;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=entity.wither.spawn;v=0.35;p=0.7} @self
     - potion{type=DAMAGE_RESISTANCE;duration=60;level=3} @self
     - potion{type=SLOW;duration=50;level=6} @self
@@ -211,7 +246,10 @@ XY_HandCrush:
   Cooldown: 16
   Skills:
     - 'message{cooldown=8;m="&d&lXYLAR &fcomprime la gravedad a su alrededor..."} @PlayersInRadius{r=45}'
+    - state{mid=xylar;s=crush;li=2;lo=3} @self
     - effect:sound{s=entity.iron_golem.attack;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:xylar.crush;v=1;p=1} @self
+    - summon{type=XY_FX_Crush;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=REDSTONE;amount=30;hS=1.4;vS=0.2;speed=0.0;color=#b000b0;size=1.25} @self
     - effect:particles{particle=BLOCK_CRACK;material=PURPUR_BLOCK;amount=35;hS=1.2;vS=0.4;speed=0.10} @self
     - pull{velocity=1.4} @PlayersInRadius{r=10}
@@ -224,7 +262,10 @@ XY_BloodNova:
   Cooldown: 22
   Skills:
     - 'message{cooldown=10;m="&d&l¡NOVA GALACTICA!"} @PlayersInRadius{r=50}'
+    - state{mid=xylar;s=nova;li=2;lo=3} @self
     - effect:sound{s=entity.wither.shoot;v=0.6;p=0.7} @self
+    - effect:sound{s=dextra:xylar.nova;v=1;p=1} @self
+    - summon{type=XY_FX_Nova;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=REDSTONE;amount=45;hS=1.2;vS=0.25;speed=0.0;color=#b000b0;size=1.25} @self
     - effect:particles{particle=SOUL;amount=18;hS=1.0;vS=0.8;speed=0.02} @self
     - delay 8
@@ -241,12 +282,16 @@ XY_SummonSquires:
   Skills:
     - 'message{cooldown=12;m="&5Los &dSoldados Estelares &5caen desde la orbita..."} @PlayersInRadius{r=45}'
     - effect:particles{particle=SMOKE_LARGE;amount=30;hS=1.0;vS=0.7;speed=0.02} @self
+    - state{mid=xylar;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:xylar.summon;v=1;p=1} @self
+    - summon{type=XY_FX_Meteor;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Xylar_Soldado;amount=2;radius=8;noise=3} @self
 
 XY_Death:
   Skills:
     - 'message{m="&d&lXYLAR &fse apaga como una estrella moribunda. &7El cielo vuelve a la calma..."} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.wither.death;v=0.7;p=1.0} @self
+    - effect:sound{s=dextra:xylar.death;v=1;p=1} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 
 XY_PlayerKill:
@@ -255,34 +300,60 @@ XY_PlayerKill:
 
 XY_FS_SpawnFX:
   Skills:
+    - state{mid=xy_soldier;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:xylar.soldier_radio;v=0.8;p=1} @self
     - effect:particles{particle=SMOKE_LARGE;amount=10;hS=0.5;vS=0.5;speed=0.02} @self
     - effect:sound{s=entity.zombie.step;v=0.6;p=0.8} @self
 
 XY_FS_Attack:
   Skills:
+    - state{mid=xy_soldier;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:xylar.soldier_slash;v=0.8;p=1} @self
     - potion{type=SLOW;duration=25;level=0} @target
 
 XY_CK_SpawnFX:
   Skills:
+    - state{mid=xy_knight;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:xylar.knight_growl;v=0.8;p=1} @self
     - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.5;vS=0.5;speed=0.02} @self
     - effect:sound{s=entity.wither_skeleton.ambient;v=0.7;p=0.8} @self
 
 XY_CK_DarkShield:
   Skills:
+    - state{mid=xy_knight;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:xylar.knight_strike;v=0.8;p=1} @self
     - potion{type=DAMAGE_RESISTANCE;duration=30;level=1} @self
     - potion{type=WEAKNESS;duration=40;level=0} @target
 
 XY_CS_SpawnFX:
   Skills:
+    - state{mid=xy_shard;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:xylar.shard_chime;v=0.8;p=1} @self
     - effect:particles{particle=SOUL;amount=14;hS=0.5;vS=0.7;speed=0.03} @self
     - effect:sound{s=entity.vex.ambient;v=0.8;p=0.9} @self
 
 XY_CS_Weaken:
   Skills:
+    - state{mid=xy_shard;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:xylar.shard_hit;v=0.8;p=1} @self
     - potion{type=WEAKNESS;duration=60;level=0} @target
     - potion{type=CONFUSION;duration=40;level=0} @target
 
 # Item summon
+
+XY_FX_Remove:
+  Skills:
+    - remove @self
+
+XY_Melee:
+  Skills:
+    - state{mid=xylar;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:xylar.swing;v=0.8;p=1} @self
+
+XY_Hurt:
+  Skills:
+    - state{mid=xylar;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:xylar.hurt;v=0.8;p=1} @self
 
 # --- Fuego amigo ---
 XY_FuegoAmigo:

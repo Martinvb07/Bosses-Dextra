@@ -1,0 +1,15 @@
+# Marco de la bossbar de xylar (generado por tools/; no lo edites a mano).
+# En MythicMobs: BossBar.Title = "&f\uffa0<nombre>&f\uffa0"
+# Sin pack el caracter \uffa0 es un espacio en blanco; con pack es esta imagen.
+info:
+  namespace: dextra_bosses
+
+font_images:
+  xylar_bossbar:
+    path: font/xylar/bossbar.png
+    symbol: "\uffa0"
+    scale_ratio: 32
+    y_position: 12
+    show_in_gui: false
+    shadow:
+      enabled: false

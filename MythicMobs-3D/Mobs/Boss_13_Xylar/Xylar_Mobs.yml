@@ -20,7 +20,9 @@ Xylar:
 
   BossBar:
     Enabled: true
-    Title: "&d&lXYLAR"
+    # \uffa0 no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/xylar.yml)
+    # es la moldura de metal estelar a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&fﾠ&d&lXYLAR&fﾠ"
     Range: 50
     Color: RED
     Style: SOLID
@@ -83,7 +85,9 @@ Xylar:
     - Recompensas_llaves
     - Ragnarok_EstrellaInvocacion 1 1
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/xylar/xylar.bbmodel
   Skills:
+    - model{mid=xylar} @self ~onSpawn
     - skill{s=Xylar_Rank_Reset} @self ~onSpawn
     - skill{s=Xylar_Rank_Sumar} @self ~onDamaged
     - skill{s=Xylar_Rank_Muerte} @self ~onDeath
@@ -105,6 +109,8 @@ Xylar:
     - skill{s=XY_PlayerKill} @target ~onKill
     - skill{s=XY_Death} @self ~onDeath
     - skill{s=XY_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=XY_Melee} @self ~onAttack
+    - skill{s=XY_Hurt} @self ~onDamaged 0.35
 
 
 # --- Subditos de Xylar ---
@@ -136,7 +142,10 @@ Xylar_Soldado:
   Drops:
     #- Recompensas_FallenSquire
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/xy_soldier/xy_soldier.bbmodel
   Skills:
+    - model{mid=xy_soldier} @self ~onSpawn
+    - state{mid=xy_soldier;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=XY_FS_SpawnFX} @self ~onSpawn
     - skill{s=XY_FS_Attack} @target ~onAttack
     - skill{s=XY_FuegoAmigo;sync=true} @self ~onDamaged
@@ -169,7 +178,10 @@ Xylar_Caballero:
   Drops:
     #- Recompensas_CorruptKnight
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/xy_knight/xy_knight.bbmodel
   Skills:
+    - model{mid=xy_knight} @self ~onSpawn
+    - state{mid=xy_knight;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=XY_CK_SpawnFX} @self ~onSpawn
     - skill{s=XY_CK_DarkShield} @target ~onAttack
     - skill{s=XY_FuegoAmigo;sync=true} @self ~onDamaged
@@ -198,7 +210,10 @@ Xylar_Fragmento:
   Drops:
     #- Recompensas_CondemnedSoul
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/xy_shard/xy_shard.bbmodel
   Skills:
+    - model{mid=xy_shard} @self ~onSpawn
+    - state{mid=xy_shard;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=XY_CS_SpawnFX} @self ~onSpawn
     - skill{s=XY_CS_Weaken} @target ~onAttack
     - skill{s=XY_FuegoAmigo;sync=true} @self ~onDamaged
@@ -218,6 +233,156 @@ Xylar_PozoGravitatorio:
     PreventOtherDrops: true
     PreventRandomEquipment: true
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/xy_well/xy_well.bbmodel (disco negro que gira)
   Skills:
+    - model{mid=xy_well;hitbox=false} @self ~onSpawn
     - skill{s=XY_BloodPool_Spawn} @self ~onSpawn
     - skill{s=XY_BloodPool_Tick} @self ~onTimer:10
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde Xylar_Combate.yml con summon{type=XY_FX_...}.
+
+XY_FX_Combo:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=xy_fx_combo;hitbox=false} @self ~onSpawn
+    - state{mid=xy_fx_combo;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=XY_FX_Remove;delay=28} @self ~onSpawn
+
+XY_FX_Mark:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=xy_fx_mark;hitbox=false} @self ~onSpawn
+    - state{mid=xy_fx_mark;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=XY_FX_Remove;delay=64} @self ~onSpawn
+
+XY_FX_Dash:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=xy_fx_dash;hitbox=false} @self ~onSpawn
+    - state{mid=xy_fx_dash;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=XY_FX_Remove;delay=22} @self ~onSpawn
+
+XY_FX_Crush:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=xy_fx_crush;hitbox=false} @self ~onSpawn
+    - state{mid=xy_fx_crush;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=XY_FX_Remove;delay=28} @self ~onSpawn
+
+XY_FX_Nova:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=xy_fx_nova;hitbox=false} @self ~onSpawn
+    - state{mid=xy_fx_nova;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=XY_FX_Remove;delay=32} @self ~onSpawn
+
+XY_FX_Horizon:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=xy_fx_horizon;hitbox=false} @self ~onSpawn
+    - state{mid=xy_fx_horizon;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=XY_FX_Remove;delay=60} @self ~onSpawn
+
+XY_FX_Meteor:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=xy_fx_meteor;hitbox=false} @self ~onSpawn
+    - state{mid=xy_fx_meteor;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=XY_FX_Remove;delay=36} @self ~onSpawn
+
+XY_FX_Phase:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=xy_fx_phase;hitbox=false} @self ~onSpawn
+    - state{mid=xy_fx_phase;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=XY_FX_Remove;delay=52} @self ~onSpawn
