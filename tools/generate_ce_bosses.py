@@ -26,6 +26,8 @@ SIN_BOSS = {("Sun", 14): "MEGAKOTH"}          # turnos ocupados por otro evento
 DESFASE_UTC = 5                               # Peru/Colombia = UTC-5, sin horario de verano
 
 DIAS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+# Como devuelve el dia %server_time_E% en el servidor (la expansion Server lo da en español)
+DIA_PAPI = {"Mon": "lun", "Tue": "mar", "Wed": "mié", "Thu": "jue", "Fri": "vie", "Sat": "sáb", "Sun": "dom"}
 NOMBRE = {"Mon": "lunes", "Tue": "martes", "Wed": "miercoles", "Thu": "jueves",
           "Fri": "viernes", "Sat": "sabado", "Sun": "domingo"}
 
@@ -59,7 +61,7 @@ def main():
                 i += 1
             nombre = f"{NOMBRE[dia]}_{hora:02d}00"
             sdia, shora = a_utc(dia, hora)
-            condiciones.append(f"{HORA} == {sdia}-{shora:02d}:00 execute {nombre}")
+            condiciones.append(f"{HORA} == {DIA_PAPI[sdia]}-{shora:02d}:00 execute {nombre}")
             grupos[nombre] = turno(boss)
             filas.append(f"#   {NOMBRE[dia]:<9} {hora:02d}:00  ->  servidor {sdia} {shora:02d}:00  ->  "
                          + (boss or f"solo retira al anterior ({otro})"))
@@ -71,6 +73,7 @@ def main():
         "# Es un solo evento que mira la hora una vez por minuto con un unico placeholder. Con un evento\n"
         "# por turno, los 84 se comprobaban a la vez en hilos distintos y la expansion Server de PAPI\n"
         "# lanzaba ConcurrentModificationException (y ese turno podia no salir).\n"
+        "# El dia sale en español (lun, mar, mié, jue, vie, sáb, dom); la hora es la del servidor (UTC).\n"
         "#\n#   Peru/Colombia      ->  servidor (UTC)        ->  boss\n" + "\n".join(filas) + "\n\n"
     )
     grupos["default"] = []                    # ningun turno coincide: no hacer nada
