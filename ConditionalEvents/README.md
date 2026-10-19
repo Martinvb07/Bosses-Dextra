@@ -14,6 +14,10 @@ Requisitos: ConditionalEvents y PlaceholderAPI con la expansion **Server** (`/pa
   (la lista completa de turnos esta al principio del archivo).
 - **Donde:** mundo `Warps`, 60053.5 73 60059.5.
 - **Si nadie lo mata en 2 horas:** en cada turno se ejecuta `mm mobs kill` de los 8 bosses antes de sacar al siguiente.
+- **Como funciona:** es un solo evento (`bosses_rotacion`) que cada 60 s lee `%server_time_E-HH:mm%`
+  (por ejemplo `Mon-05:00`) y ejecuta el grupo de acciones del turno que coincide.
+  No lo partas en un evento por turno: muchos eventos leyendo `%server_time_...%` a la vez hacen que la
+  expansion Server de PAPI lance `ConcurrentModificationException` y el turno puede no salir.
 
 El archivo lo genera `tools/generate_ce_bosses.py`. Para cambiar el orden, las horas o el lugar, edita
 las variables del principio del script y ejecutalo: `python3 tools/generate_ce_bosses.py`.
@@ -46,9 +50,8 @@ El servidor (el Docker de Pterodactyl) esta en **UTC**, 5 horas por delante de P
 ## Comprobar y depurar
 
 ```
-papi parse --null %server_time_E%       -> dia del servidor (Sun, Mon...)
-papi parse --null %server_time_HH:mm%   -> hora del servidor (UTC)
-ce debug <evento>                       -> muestra en el chat que condiciones pasan
+papi parse --null %server_time_E-HH:mm%   -> dia y hora del servidor, p. ej. Mon-05:00 (UTC)
+ce debug bosses_rotacion                  -> muestra en el chat que condiciones pasan
 ```
 
 `%server_time_u%` **no** sirve para el dia: en la expansion Server devuelve el año.

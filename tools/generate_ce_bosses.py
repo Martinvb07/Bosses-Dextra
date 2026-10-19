@@ -39,34 +39,28 @@ def a_utc(dia, hora):
     return DIAS[d], h
 
 
-def evento(dia, hora, boss):
-    sdia, shora = a_utc(dia, hora)
+HORA = "%server_time_E-HH:mm%"              # un solo placeholder: ver la nota de la cabecera
+
+
+def turno(boss):
     acciones = [f"console_command: mm mobs kill {b}" for b in ROTACION]
     if boss:
         acciones.append(f"console_command: mm mobs spawn {boss} 1 {LUGAR}")
-    return {
-        "type": "repetitive_server",
-        "repetitive_time": 200,
-        "conditions": [
-            f"%server_time_E% == {sdia}",
-            f"%server_time_HH:mm% == {shora:02d}:00",
-            "%server_time_ss% < 10",
-        ],
-        "actions": {"default": acciones},
-    }
+    return acciones
 
 
 def main():
-    eventos, filas, i = {}, [], 0
+    condiciones, grupos, filas, i = [], {}, [], 0
     for dia in DIAS:
         for hora in HORAS:
             otro = SIN_BOSS.get((dia, hora))
             boss = None if otro else ROTACION[i % len(ROTACION)]
             if boss:
                 i += 1
-            nombre = f"bosses_{NOMBRE[dia]}_{hora:02d}00"
-            eventos[nombre] = evento(dia, hora, boss)
+            nombre = f"{NOMBRE[dia]}_{hora:02d}00"
             sdia, shora = a_utc(dia, hora)
+            condiciones.append(f"{HORA} == {sdia}-{shora:02d}:00 execute {nombre}")
+            grupos[nombre] = turno(boss)
             filas.append(f"#   {NOMBRE[dia]:<9} {hora:02d}:00  ->  servidor {sdia} {shora:02d}:00  ->  "
                          + (boss or f"solo retira al anterior ({otro})"))
 
@@ -74,13 +68,24 @@ def main():
         "# Rotacion de los bosses 10-17 (generado por tools/generate_ce_bosses.py; no lo edites a mano)\n"
         f"# Lugar: {LUGAR.replace(',', ' ')}\n"
         "# En cada turno se retira el boss anterior si sigue vivo y aparece el siguiente.\n"
+        "# Es un solo evento que mira la hora una vez por minuto con un unico placeholder. Con un evento\n"
+        "# por turno, los 84 se comprobaban a la vez en hilos distintos y la expansion Server de PAPI\n"
+        "# lanzaba ConcurrentModificationException (y ese turno podia no salir).\n"
         "#\n#   Peru/Colombia      ->  servidor (UTC)        ->  boss\n" + "\n".join(filas) + "\n\n"
     )
+    grupos["default"] = []                    # ningun turno coincide: no hacer nada
+    eventos = {"bosses_rotacion": {
+        "type": "repetitive_server",
+        "repetitive_time": 1200,              # cada 60 s: cada minuto HH:mm se comprueba una vez
+        "conditions": condiciones,
+        "actions": grupos,
+    }}
     texto = yaml.safe_dump({"Events": eventos}, sort_keys=False, allow_unicode=True, width=200)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(cabecera + texto, encoding="utf-8")
-    assert len(yaml.safe_load(OUT.read_text(encoding="utf-8"))["Events"]) == len(DIAS) * len(HORAS)
-    print(f"OK {OUT} ({len(eventos)} eventos, {i} apariciones)")
+    ev = yaml.safe_load(OUT.read_text(encoding="utf-8"))["Events"]["bosses_rotacion"]
+    assert len(ev["conditions"]) == len(DIAS) * len(HORAS) == len(ev["actions"]) - 1
+    print(f"OK {OUT} ({len(condiciones)} turnos, {i} apariciones)")
 
 
 if __name__ == "__main__":

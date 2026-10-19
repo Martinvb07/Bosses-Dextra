@@ -1,6 +1,9 @@
 # Rotacion de los bosses 10-17 (generado por tools/generate_ce_bosses.py; no lo edites a mano)
 # Lugar: Warps 60053.5 73 60059.5
 # En cada turno se retira el boss anterior si sigue vivo y aparece el siguiente.
+# Es un solo evento que mira la hora una vez por minuto con un unico placeholder. Con un evento
+# por turno, los 84 se comprobaban a la vez en hilos distintos y la expansion Server de PAPI
+# lanzaba ConcurrentModificationException (y ese turno podia no salir).
 #
 #   Peru/Colombia      ->  servidor (UTC)        ->  boss
 #   lunes     00:00  ->  servidor Mon 05:00  ->  Kronos
@@ -89,15 +92,96 @@
 #   domingo   22:00  ->  servidor Mon 03:00  ->  Leviatan
 
 Events:
-  bosses_lunes_0000:
+  bosses_rotacion:
     type: repetitive_server
-    repetitive_time: 200
+    repetitive_time: 1200
     conditions:
-    - '%server_time_E% == Mon'
-    - '%server_time_HH:mm% == 05:00'
-    - '%server_time_ss% < 10'
+    - '%server_time_E-HH:mm% == Mon-05:00 execute lunes_0000'
+    - '%server_time_E-HH:mm% == Mon-07:00 execute lunes_0200'
+    - '%server_time_E-HH:mm% == Mon-09:00 execute lunes_0400'
+    - '%server_time_E-HH:mm% == Mon-11:00 execute lunes_0600'
+    - '%server_time_E-HH:mm% == Mon-13:00 execute lunes_0800'
+    - '%server_time_E-HH:mm% == Mon-15:00 execute lunes_1000'
+    - '%server_time_E-HH:mm% == Mon-17:00 execute lunes_1200'
+    - '%server_time_E-HH:mm% == Mon-19:00 execute lunes_1400'
+    - '%server_time_E-HH:mm% == Mon-21:00 execute lunes_1600'
+    - '%server_time_E-HH:mm% == Mon-23:00 execute lunes_1800'
+    - '%server_time_E-HH:mm% == Tue-01:00 execute lunes_2000'
+    - '%server_time_E-HH:mm% == Tue-03:00 execute lunes_2200'
+    - '%server_time_E-HH:mm% == Tue-05:00 execute martes_0000'
+    - '%server_time_E-HH:mm% == Tue-07:00 execute martes_0200'
+    - '%server_time_E-HH:mm% == Tue-09:00 execute martes_0400'
+    - '%server_time_E-HH:mm% == Tue-11:00 execute martes_0600'
+    - '%server_time_E-HH:mm% == Tue-13:00 execute martes_0800'
+    - '%server_time_E-HH:mm% == Tue-15:00 execute martes_1000'
+    - '%server_time_E-HH:mm% == Tue-17:00 execute martes_1200'
+    - '%server_time_E-HH:mm% == Tue-19:00 execute martes_1400'
+    - '%server_time_E-HH:mm% == Tue-21:00 execute martes_1600'
+    - '%server_time_E-HH:mm% == Tue-23:00 execute martes_1800'
+    - '%server_time_E-HH:mm% == Wed-01:00 execute martes_2000'
+    - '%server_time_E-HH:mm% == Wed-03:00 execute martes_2200'
+    - '%server_time_E-HH:mm% == Wed-05:00 execute miercoles_0000'
+    - '%server_time_E-HH:mm% == Wed-07:00 execute miercoles_0200'
+    - '%server_time_E-HH:mm% == Wed-09:00 execute miercoles_0400'
+    - '%server_time_E-HH:mm% == Wed-11:00 execute miercoles_0600'
+    - '%server_time_E-HH:mm% == Wed-13:00 execute miercoles_0800'
+    - '%server_time_E-HH:mm% == Wed-15:00 execute miercoles_1000'
+    - '%server_time_E-HH:mm% == Wed-17:00 execute miercoles_1200'
+    - '%server_time_E-HH:mm% == Wed-19:00 execute miercoles_1400'
+    - '%server_time_E-HH:mm% == Wed-21:00 execute miercoles_1600'
+    - '%server_time_E-HH:mm% == Wed-23:00 execute miercoles_1800'
+    - '%server_time_E-HH:mm% == Thu-01:00 execute miercoles_2000'
+    - '%server_time_E-HH:mm% == Thu-03:00 execute miercoles_2200'
+    - '%server_time_E-HH:mm% == Thu-05:00 execute jueves_0000'
+    - '%server_time_E-HH:mm% == Thu-07:00 execute jueves_0200'
+    - '%server_time_E-HH:mm% == Thu-09:00 execute jueves_0400'
+    - '%server_time_E-HH:mm% == Thu-11:00 execute jueves_0600'
+    - '%server_time_E-HH:mm% == Thu-13:00 execute jueves_0800'
+    - '%server_time_E-HH:mm% == Thu-15:00 execute jueves_1000'
+    - '%server_time_E-HH:mm% == Thu-17:00 execute jueves_1200'
+    - '%server_time_E-HH:mm% == Thu-19:00 execute jueves_1400'
+    - '%server_time_E-HH:mm% == Thu-21:00 execute jueves_1600'
+    - '%server_time_E-HH:mm% == Thu-23:00 execute jueves_1800'
+    - '%server_time_E-HH:mm% == Fri-01:00 execute jueves_2000'
+    - '%server_time_E-HH:mm% == Fri-03:00 execute jueves_2200'
+    - '%server_time_E-HH:mm% == Fri-05:00 execute viernes_0000'
+    - '%server_time_E-HH:mm% == Fri-07:00 execute viernes_0200'
+    - '%server_time_E-HH:mm% == Fri-09:00 execute viernes_0400'
+    - '%server_time_E-HH:mm% == Fri-11:00 execute viernes_0600'
+    - '%server_time_E-HH:mm% == Fri-13:00 execute viernes_0800'
+    - '%server_time_E-HH:mm% == Fri-15:00 execute viernes_1000'
+    - '%server_time_E-HH:mm% == Fri-17:00 execute viernes_1200'
+    - '%server_time_E-HH:mm% == Fri-19:00 execute viernes_1400'
+    - '%server_time_E-HH:mm% == Fri-21:00 execute viernes_1600'
+    - '%server_time_E-HH:mm% == Fri-23:00 execute viernes_1800'
+    - '%server_time_E-HH:mm% == Sat-01:00 execute viernes_2000'
+    - '%server_time_E-HH:mm% == Sat-03:00 execute viernes_2200'
+    - '%server_time_E-HH:mm% == Sat-05:00 execute sabado_0000'
+    - '%server_time_E-HH:mm% == Sat-07:00 execute sabado_0200'
+    - '%server_time_E-HH:mm% == Sat-09:00 execute sabado_0400'
+    - '%server_time_E-HH:mm% == Sat-11:00 execute sabado_0600'
+    - '%server_time_E-HH:mm% == Sat-13:00 execute sabado_0800'
+    - '%server_time_E-HH:mm% == Sat-15:00 execute sabado_1000'
+    - '%server_time_E-HH:mm% == Sat-17:00 execute sabado_1200'
+    - '%server_time_E-HH:mm% == Sat-19:00 execute sabado_1400'
+    - '%server_time_E-HH:mm% == Sat-21:00 execute sabado_1600'
+    - '%server_time_E-HH:mm% == Sat-23:00 execute sabado_1800'
+    - '%server_time_E-HH:mm% == Sun-01:00 execute sabado_2000'
+    - '%server_time_E-HH:mm% == Sun-03:00 execute sabado_2200'
+    - '%server_time_E-HH:mm% == Sun-05:00 execute domingo_0000'
+    - '%server_time_E-HH:mm% == Sun-07:00 execute domingo_0200'
+    - '%server_time_E-HH:mm% == Sun-09:00 execute domingo_0400'
+    - '%server_time_E-HH:mm% == Sun-11:00 execute domingo_0600'
+    - '%server_time_E-HH:mm% == Sun-13:00 execute domingo_0800'
+    - '%server_time_E-HH:mm% == Sun-15:00 execute domingo_1000'
+    - '%server_time_E-HH:mm% == Sun-17:00 execute domingo_1200'
+    - '%server_time_E-HH:mm% == Sun-19:00 execute domingo_1400'
+    - '%server_time_E-HH:mm% == Sun-21:00 execute domingo_1600'
+    - '%server_time_E-HH:mm% == Sun-23:00 execute domingo_1800'
+    - '%server_time_E-HH:mm% == Mon-01:00 execute domingo_2000'
+    - '%server_time_E-HH:mm% == Mon-03:00 execute domingo_2200'
     actions:
-      default:
+      lunes_0000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -107,15 +191,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
-  bosses_lunes_0200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Mon'
-    - '%server_time_HH:mm% == 07:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      lunes_0200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -125,15 +201,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
-  bosses_lunes_0400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Mon'
-    - '%server_time_HH:mm% == 09:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      lunes_0400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -143,15 +211,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
-  bosses_lunes_0600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Mon'
-    - '%server_time_HH:mm% == 11:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      lunes_0600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -161,15 +221,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
-  bosses_lunes_0800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Mon'
-    - '%server_time_HH:mm% == 13:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      lunes_0800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -179,15 +231,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
-  bosses_lunes_1000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Mon'
-    - '%server_time_HH:mm% == 15:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      lunes_1000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -197,15 +241,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
-  bosses_lunes_1200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Mon'
-    - '%server_time_HH:mm% == 17:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      lunes_1200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -215,15 +251,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
-  bosses_lunes_1400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Mon'
-    - '%server_time_HH:mm% == 19:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      lunes_1400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -233,15 +261,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
-  bosses_lunes_1600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Mon'
-    - '%server_time_HH:mm% == 21:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      lunes_1600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -251,15 +271,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
-  bosses_lunes_1800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Mon'
-    - '%server_time_HH:mm% == 23:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      lunes_1800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -269,15 +281,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
-  bosses_lunes_2000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Tue'
-    - '%server_time_HH:mm% == 01:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      lunes_2000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -287,15 +291,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
-  bosses_lunes_2200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Tue'
-    - '%server_time_HH:mm% == 03:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      lunes_2200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -305,15 +301,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
-  bosses_martes_0000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Tue'
-    - '%server_time_HH:mm% == 05:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      martes_0000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -323,15 +311,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
-  bosses_martes_0200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Tue'
-    - '%server_time_HH:mm% == 07:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      martes_0200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -341,15 +321,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
-  bosses_martes_0400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Tue'
-    - '%server_time_HH:mm% == 09:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      martes_0400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -359,15 +331,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
-  bosses_martes_0600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Tue'
-    - '%server_time_HH:mm% == 11:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      martes_0600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -377,15 +341,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
-  bosses_martes_0800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Tue'
-    - '%server_time_HH:mm% == 13:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      martes_0800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -395,15 +351,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
-  bosses_martes_1000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Tue'
-    - '%server_time_HH:mm% == 15:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      martes_1000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -413,15 +361,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
-  bosses_martes_1200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Tue'
-    - '%server_time_HH:mm% == 17:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      martes_1200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -431,15 +371,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
-  bosses_martes_1400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Tue'
-    - '%server_time_HH:mm% == 19:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      martes_1400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -449,15 +381,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
-  bosses_martes_1600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Tue'
-    - '%server_time_HH:mm% == 21:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      martes_1600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -467,15 +391,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
-  bosses_martes_1800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Tue'
-    - '%server_time_HH:mm% == 23:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      martes_1800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -485,15 +401,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
-  bosses_martes_2000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Wed'
-    - '%server_time_HH:mm% == 01:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      martes_2000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -503,15 +411,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
-  bosses_martes_2200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Wed'
-    - '%server_time_HH:mm% == 03:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      martes_2200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -521,15 +421,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
-  bosses_miercoles_0000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Wed'
-    - '%server_time_HH:mm% == 05:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      miercoles_0000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -539,15 +431,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
-  bosses_miercoles_0200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Wed'
-    - '%server_time_HH:mm% == 07:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      miercoles_0200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -557,15 +441,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
-  bosses_miercoles_0400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Wed'
-    - '%server_time_HH:mm% == 09:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      miercoles_0400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -575,15 +451,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
-  bosses_miercoles_0600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Wed'
-    - '%server_time_HH:mm% == 11:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      miercoles_0600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -593,15 +461,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
-  bosses_miercoles_0800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Wed'
-    - '%server_time_HH:mm% == 13:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      miercoles_0800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -611,15 +471,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
-  bosses_miercoles_1000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Wed'
-    - '%server_time_HH:mm% == 15:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      miercoles_1000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -629,15 +481,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
-  bosses_miercoles_1200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Wed'
-    - '%server_time_HH:mm% == 17:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      miercoles_1200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -647,15 +491,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
-  bosses_miercoles_1400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Wed'
-    - '%server_time_HH:mm% == 19:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      miercoles_1400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -665,15 +501,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
-  bosses_miercoles_1600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Wed'
-    - '%server_time_HH:mm% == 21:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      miercoles_1600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -683,15 +511,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
-  bosses_miercoles_1800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Wed'
-    - '%server_time_HH:mm% == 23:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      miercoles_1800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -701,15 +521,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
-  bosses_miercoles_2000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Thu'
-    - '%server_time_HH:mm% == 01:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      miercoles_2000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -719,15 +531,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
-  bosses_miercoles_2200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Thu'
-    - '%server_time_HH:mm% == 03:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      miercoles_2200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -737,15 +541,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
-  bosses_jueves_0000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Thu'
-    - '%server_time_HH:mm% == 05:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      jueves_0000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -755,15 +551,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
-  bosses_jueves_0200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Thu'
-    - '%server_time_HH:mm% == 07:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      jueves_0200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -773,15 +561,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
-  bosses_jueves_0400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Thu'
-    - '%server_time_HH:mm% == 09:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      jueves_0400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -791,15 +571,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
-  bosses_jueves_0600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Thu'
-    - '%server_time_HH:mm% == 11:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      jueves_0600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -809,15 +581,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
-  bosses_jueves_0800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Thu'
-    - '%server_time_HH:mm% == 13:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      jueves_0800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -827,15 +591,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
-  bosses_jueves_1000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Thu'
-    - '%server_time_HH:mm% == 15:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      jueves_1000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -845,15 +601,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
-  bosses_jueves_1200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Thu'
-    - '%server_time_HH:mm% == 17:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      jueves_1200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -863,15 +611,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
-  bosses_jueves_1400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Thu'
-    - '%server_time_HH:mm% == 19:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      jueves_1400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -881,15 +621,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
-  bosses_jueves_1600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Thu'
-    - '%server_time_HH:mm% == 21:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      jueves_1600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -899,15 +631,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
-  bosses_jueves_1800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Thu'
-    - '%server_time_HH:mm% == 23:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      jueves_1800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -917,15 +641,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
-  bosses_jueves_2000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Fri'
-    - '%server_time_HH:mm% == 01:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      jueves_2000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -935,15 +651,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
-  bosses_jueves_2200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Fri'
-    - '%server_time_HH:mm% == 03:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      jueves_2200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -953,15 +661,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
-  bosses_viernes_0000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Fri'
-    - '%server_time_HH:mm% == 05:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      viernes_0000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -971,15 +671,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
-  bosses_viernes_0200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Fri'
-    - '%server_time_HH:mm% == 07:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      viernes_0200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -989,15 +681,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
-  bosses_viernes_0400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Fri'
-    - '%server_time_HH:mm% == 09:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      viernes_0400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1007,15 +691,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
-  bosses_viernes_0600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Fri'
-    - '%server_time_HH:mm% == 11:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      viernes_0600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1025,15 +701,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
-  bosses_viernes_0800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Fri'
-    - '%server_time_HH:mm% == 13:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      viernes_0800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1043,15 +711,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
-  bosses_viernes_1000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Fri'
-    - '%server_time_HH:mm% == 15:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      viernes_1000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1061,15 +721,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
-  bosses_viernes_1200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Fri'
-    - '%server_time_HH:mm% == 17:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      viernes_1200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1079,15 +731,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
-  bosses_viernes_1400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Fri'
-    - '%server_time_HH:mm% == 19:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      viernes_1400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1097,15 +741,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
-  bosses_viernes_1600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Fri'
-    - '%server_time_HH:mm% == 21:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      viernes_1600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1115,15 +751,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
-  bosses_viernes_1800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Fri'
-    - '%server_time_HH:mm% == 23:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      viernes_1800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1133,15 +761,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
-  bosses_viernes_2000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sat'
-    - '%server_time_HH:mm% == 01:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      viernes_2000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1151,15 +771,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
-  bosses_viernes_2200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sat'
-    - '%server_time_HH:mm% == 03:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      viernes_2200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1169,15 +781,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
-  bosses_sabado_0000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sat'
-    - '%server_time_HH:mm% == 05:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      sabado_0000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1187,15 +791,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
-  bosses_sabado_0200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sat'
-    - '%server_time_HH:mm% == 07:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      sabado_0200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1205,15 +801,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
-  bosses_sabado_0400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sat'
-    - '%server_time_HH:mm% == 09:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      sabado_0400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1223,15 +811,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
-  bosses_sabado_0600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sat'
-    - '%server_time_HH:mm% == 11:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      sabado_0600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1241,15 +821,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
-  bosses_sabado_0800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sat'
-    - '%server_time_HH:mm% == 13:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      sabado_0800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1259,15 +831,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
-  bosses_sabado_1000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sat'
-    - '%server_time_HH:mm% == 15:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      sabado_1000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1277,15 +841,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
-  bosses_sabado_1200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sat'
-    - '%server_time_HH:mm% == 17:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      sabado_1200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1295,15 +851,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
-  bosses_sabado_1400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sat'
-    - '%server_time_HH:mm% == 19:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      sabado_1400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1313,15 +861,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
-  bosses_sabado_1600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sat'
-    - '%server_time_HH:mm% == 21:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      sabado_1600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1331,15 +871,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
-  bosses_sabado_1800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sat'
-    - '%server_time_HH:mm% == 23:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      sabado_1800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1349,15 +881,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
-  bosses_sabado_2000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sun'
-    - '%server_time_HH:mm% == 01:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      sabado_2000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1367,15 +891,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
-  bosses_sabado_2200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sun'
-    - '%server_time_HH:mm% == 03:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      sabado_2200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1385,15 +901,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
-  bosses_domingo_0000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sun'
-    - '%server_time_HH:mm% == 05:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      domingo_0000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1403,15 +911,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
-  bosses_domingo_0200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sun'
-    - '%server_time_HH:mm% == 07:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      domingo_0200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1421,15 +921,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
-  bosses_domingo_0400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sun'
-    - '%server_time_HH:mm% == 09:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      domingo_0400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1439,15 +931,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
-  bosses_domingo_0600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sun'
-    - '%server_time_HH:mm% == 11:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      domingo_0600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1457,15 +941,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Xylar 1 Warps,60053.5,73,60059.5'
-  bosses_domingo_0800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sun'
-    - '%server_time_HH:mm% == 13:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      domingo_0800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1475,15 +951,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Samhain 1 Warps,60053.5,73,60059.5'
-  bosses_domingo_1000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sun'
-    - '%server_time_HH:mm% == 15:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      domingo_1000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1493,15 +961,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Thor 1 Warps,60053.5,73,60059.5'
-  bosses_domingo_1200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sun'
-    - '%server_time_HH:mm% == 17:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      domingo_1200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1511,15 +971,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kukulkan 1 Warps,60053.5,73,60059.5'
-  bosses_domingo_1400:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sun'
-    - '%server_time_HH:mm% == 19:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      domingo_1400:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1528,15 +980,7 @@ Events:
       - 'console_command: mm mobs kill Thor'
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
-  bosses_domingo_1600:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sun'
-    - '%server_time_HH:mm% == 21:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      domingo_1600:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1546,15 +990,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Nezareth 1 Warps,60053.5,73,60059.5'
-  bosses_domingo_1800:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Sun'
-    - '%server_time_HH:mm% == 23:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      domingo_1800:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1564,15 +1000,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Kronos 1 Warps,60053.5,73,60059.5'
-  bosses_domingo_2000:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Mon'
-    - '%server_time_HH:mm% == 01:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      domingo_2000:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1582,15 +1010,7 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Azathoth 1 Warps,60053.5,73,60059.5'
-  bosses_domingo_2200:
-    type: repetitive_server
-    repetitive_time: 200
-    conditions:
-    - '%server_time_E% == Mon'
-    - '%server_time_HH:mm% == 03:00'
-    - '%server_time_ss% < 10'
-    actions:
-      default:
+      domingo_2200:
       - 'console_command: mm mobs kill Kronos'
       - 'console_command: mm mobs kill Azathoth'
       - 'console_command: mm mobs kill Leviatan'
@@ -1600,3 +1020,4 @@ Events:
       - 'console_command: mm mobs kill Kukulkan'
       - 'console_command: mm mobs kill Nezareth'
       - 'console_command: mm mobs spawn Leviatan 1 Warps,60053.5,73,60059.5'
+      default: []
