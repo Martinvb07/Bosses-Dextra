@@ -6,9 +6,17 @@ Requisitos: ConditionalEvents y PlaceholderAPI con la expansion **Server** (`/pa
 
 ## Calendario
 
-| Boss | Dia y hora (Peru/Colombia) | En el servidor (UTC) | Lugar | Archivo |
-|---|---|---|---|---|
-| Heracles | Domingo 5:35 p. m. | `Sun` 22:35 | `world_test` 0.5 65 -0.5 | `events/heracles_domingo.yml` |
+`events/bosses_rotacion.yml`: rotacion de los bosses 10-17 segun el calendario de eventos.
+
+- **Cuando:** todos los dias a las horas pares (0:00, 2:00 ... 22:00, hora de Peru/Colombia).
+  El domingo a las 14:00 es MEGAKOTH: ese turno no saca boss, solo retira al anterior.
+- **Orden:** Kronos, Azathoth, Leviatan, Xylar, Samhain, Thor, Kukulkan y Nezareth, y vuelta a empezar
+  (la lista completa de turnos esta al principio del archivo).
+- **Donde:** mundo `Warps`, 60053.5 73 60059.5.
+- **Si nadie lo mata en 2 horas:** en cada turno se ejecuta `mm mobs kill` de los 8 bosses antes de sacar al siguiente.
+
+El archivo lo genera `tools/generate_ce_bosses.py`. Para cambiar el orden, las horas o el lugar, edita
+las variables del principio del script y ejecutalo: `python3 tools/generate_ce_bosses.py`.
 
 ## Como poner el dia y la hora
 
