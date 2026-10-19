@@ -15,7 +15,9 @@ Mushlord:
 
   BossBar:
     Enabled: true
-    Title: "&2&lMUSHLORD"
+    # \u2008 no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/mushlord.yml)
+    # es la moldura de setas a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f\u2008&2&lMUSHLORD&f\u2008"
     Range: 50
     Color: GREEN
     Style: SEGMENTED_10
@@ -43,7 +45,9 @@ Mushlord:
     - Recompensas_llaves
     - LL_EstrellaInvocacion 1 1
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/mushlord/mushlord.bbmodel
   Skills:
+    - model{mid=mushlord} @self ~onSpawn
     - skill{s=Mushlord_Spawn} @self ~onSpawn
     - skill{s=Mushlord_AcquireTarget} @self ~onTimer:10
     - skill{s=Mushlord_HP70_Check} @self ~onTimer:20
@@ -63,6 +67,8 @@ Mushlord:
     - skill{s=Mushlord_PlayerKill} @target ~onKill
     - skill{s=Mushlord_Death} @self ~onDeath
     - skill{s=Mushlord_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=Mushlord_Hurt} @self ~onDamaged 0.35
+    - skill{s=Mushlord_Melee} @self ~onAttack
 
 MushZombie:
   Type: ZOMBIE
@@ -91,7 +97,10 @@ MushZombie:
   Drops:
     #- Recompensas_MushZombie
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/mush_zombie/mush_zombie.bbmodel
   Skills:
+    - model{mid=mush_zombie} @self ~onSpawn
+    - state{mid=mush_zombie;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=MZ_SpawnFX} @self ~onSpawn
     - skill{s=MZ_ToxicHit} @target ~onAttack
     - skill{s=Mushlord_FuegoAmigo;sync=true} @self ~onDamaged
@@ -116,7 +125,10 @@ ToxicShroomCreeper:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/shroom_creeper/shroom_creeper.bbmodel
   Skills:
+    - model{mid=shroom_creeper} @self ~onSpawn
+    - state{mid=shroom_creeper;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=TSC_SpawnFX} @self ~onSpawn
     - skill{s=TSC_PrimeCheck} @target ~onTimer:15
     - skill{s=Mushlord_FuegoAmigo;sync=true} @self ~onDamaged
@@ -144,7 +156,10 @@ LivingSpore:
   Drops:
     #- Recompensas_LivingSpore
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/living_spore/living_spore.bbmodel
   Skills:
+    - model{mid=living_spore} @self ~onSpawn
+    - state{mid=living_spore;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=LS_SpawnFX} @self ~onSpawn
     - skill{s=LS_PoisonCloud} @self ~onTimer:40
     - skill{s=LS_DeathBurst} @self ~onDeath
@@ -165,7 +180,10 @@ Mushlord_ToxicZone:
     PreventOtherDrops: true
     PreventRandomEquipment: true
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/ms_toxic_zone/ms_toxic_zone.bbmodel
   Skills:
+    - model{mid=ms_toxic_zone;hitbox=false} @self ~onSpawn
+    - state{mid=ms_toxic_zone;s=spawn;li=0;lo=0} @self ~onSpawn
     - skill{s=MTZ_Spawn} @self ~onSpawn
     - skill{s=MTZ_Tick} @self ~onTimer:10
 
@@ -184,6 +202,157 @@ Mushlord_PersistentBreath:
     PreventOtherDrops: true
     PreventRandomEquipment: true
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/ms_breath/ms_breath.bbmodel
   Skills:
+    - model{mid=ms_breath;hitbox=false} @self ~onSpawn
+    - state{mid=ms_breath;s=spawn;li=0;lo=0} @self ~onSpawn
     - skill{s=MPB_Spawn} @self ~onSpawn
     - skill{s=MPB_Tick} @self ~onTimer:10
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde mushlord_skills.yml con summon{type=MS_FX_...}.
+
+MS_FX_Swipe:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ms_fx_swipe;hitbox=false} @self ~onSpawn
+    - state{mid=ms_fx_swipe;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Mushlord_FX_Remove;delay=10} @self ~onSpawn
+
+MS_FX_Bolt:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ms_fx_bolt;hitbox=false} @self ~onSpawn
+    - state{mid=ms_fx_bolt;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Mushlord_FX_Remove;delay=22} @self ~onSpawn
+
+MS_FX_Bloom:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ms_fx_bloom;hitbox=false} @self ~onSpawn
+    - state{mid=ms_fx_bloom;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Mushlord_FX_Remove;delay=28} @self ~onSpawn
+
+MS_FX_Nova:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ms_fx_nova;hitbox=false} @self ~onSpawn
+    - state{mid=ms_fx_nova;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Mushlord_FX_Remove;delay=22} @self ~onSpawn
+
+MS_FX_Roots:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ms_fx_roots;hitbox=false} @self ~onSpawn
+    - state{mid=ms_fx_roots;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Mushlord_FX_Remove;delay=28} @self ~onSpawn
+
+MS_FX_Sentence:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ms_fx_sentence;hitbox=false} @self ~onSpawn
+    - state{mid=ms_fx_sentence;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Mushlord_FX_Remove;delay=38} @self ~onSpawn
+
+MS_FX_Eruption:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ms_fx_eruption;hitbox=false} @self ~onSpawn
+    - state{mid=ms_fx_eruption;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Mushlord_FX_Remove;delay=36} @self ~onSpawn
+
+MS_FX_Cocoon:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ms_fx_cocoon;hitbox=false} @self ~onSpawn
+    - state{mid=ms_fx_cocoon;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Mushlord_FX_Remove;delay=24} @self ~onSpawn

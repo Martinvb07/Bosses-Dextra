@@ -1,9 +1,21 @@
 # Mushlord skills
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=mushlord;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:mushlord.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=MS_FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "MUSHLORD" como siempre; con pack se ve el logo.
 
 Mushlord_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&2&lMUSHLORD";subtitle="&aMushroom Island &8• &7Señor de las Espiras Corruptas";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=mushlord;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§aMushroom Island §8• §7Señor de las Espiras Corruptas''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.mushlord'',fallback:''§2§lMUSHLORD'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:mushlord.intro;v=1;p=1} @self
+    - summon{type=MS_FX_Bloom;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&2&lMUSHLORD &f: &7Bienvenidos… a mi jardín eterno…"} @Server'
     - effect:sound{s=entity.zombie_villager.converted;v=0.7;p=0.7} @self
     - effect:particles{particle=SLIME;amount=28;hS=1.0;vS=0.6;speed=0.02} @self
@@ -100,7 +112,10 @@ Mushlord_TransitionCocoon:
     - message{cooldown=3;m="&2El jardín corrupto responde al llamado de su señor..."} @PlayersInRadius{r=55}
     - potion{type=DAMAGE_RESISTANCE;duration=40;level=5} @self
     - potion{type=SLOW;duration=25;level=6} @self
+    - state{mid=mushlord;s=cocoon;li=2;lo=4} @self
     - effect:sound{s=block.respawn_anchor.charge;v=0.7;p=0.7} @self
+    - effect:sound{s=dextra:mushlord.cocoon;v=1;p=1} @self
+    - summon{type=MS_FX_Cocoon;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=28;hS=1.6;vS=1.0;speed=0.02} @self
     - effect:particles{particle=TOTEM;amount=14;hS=0.8;vS=1.0;speed=0.02} @self
     - delay 12
@@ -146,7 +161,11 @@ Mushlord_ToxicSwipe:
   Conditions:
     - targetwithin{d=5}
   Skills:
+    - state{mid=mushlord;s=swipe;li=1;lo=2} @self
     - effect:sound{s=entity.player.attack.sweep;v=0.8;p=0.8} @self
+    - effect:sound{s=dextra:mushlord.swipe;v=1;p=1} @self
+    - delay 4
+    - summon{type=MS_FX_Swipe;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SLIME;amount=14;hS=0.6;vS=0.3;speed=0.02} @target
     - damage{a=65;pk=true} @target
     - potion{type=POISON;duration=90;level=0} @target
@@ -157,7 +176,10 @@ Mushlord_SporeBolt:
     - targetwithin{d=22}
   Skills:
     - message{cooldown=10;m="&aEsporas venenosas &7surcan el aire..."} @PlayersInRadius{r=35}
+    - state{mid=mushlord;s=cast;li=2;lo=3} @self
     - effect:sound{s=entity.llama.spit;v=0.7;p=0.8} @self
+    - effect:sound{s=dextra:mushlord.bolt;v=1;p=1} @self
+    - summon{type=MS_FX_Bolt;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=REDSTONE;amount=20;hS=0.4;vS=0.8;speed=0.0;color=#76b852;size=1.2} @target
     - delay 8
     - damage{a=54;pk=true} @target
@@ -167,7 +189,10 @@ Mushlord_SporeBolt:
 Mushlord_SporeBurst:
   Cooldown: 16
   Skills:
+    - state{mid=mushlord;s=burst;li=2;lo=3} @self
     - effect:sound{s=block.fungus.break;v=0.9;p=0.7} @self
+    - effect:sound{s=dextra:mushlord.burst;v=1;p=1} @self
+    - summon{type=MS_FX_Bloom;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SLIME;amount=28;hS=1.4;vS=0.6;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=40;hS=1.8;vS=0.8;speed=0.0;color=#6faa4d;size=1.25} @self
     - damage{a=76;pk=true} @PlayersInRadius{r=7}
@@ -177,7 +202,10 @@ Mushlord_ToxicCloud:
   Cooldown: 18
   Skills:
     - message{cooldown=10;m="&2&lMUSHLORD &7extiende una &a&lnube tóxica&7..."} @PlayersInRadius{r=40}
+    - state{mid=mushlord;s=cloud;li=2;lo=3} @self
     - effect:sound{s=block.slime_block.break;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:mushlord.cloud;v=1;p=1} @self
+    - summon{type=MS_FX_Nova;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=CLOUD;amount=30;hS=1.5;vS=0.5;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=45;hS=1.8;vS=0.4;speed=0.0;color=#4f9a45;size=1.3} @self
     - damage{a=65;pk=true} @PlayersInRadius{r=6}
@@ -193,7 +221,9 @@ Mushlord_ToxicZoneCast:
     - message{cooldown=12;m="&a¡Evita las zonas verdes tóxicas!"} @PlayersInRadius{r=45}
     - effect:particles{particle=REDSTONE;amount=22;hS=0.8;vS=0.2;speed=0.0;color=#3c8a37;size=1.25} @target
     - effect:particles{particle=VILLAGER_ANGRY;amount=5;hS=0.6;vS=0.3;speed=0.01} @target
+    - state{mid=mushlord;s=cast;li=2;lo=3} @self
     - effect:sound{s=block.slime_block.place;v=0.7;p=0.5} @self
+    - effect:sound{s=dextra:mushlord.bolt;v=1;p=0.8} @self
     - delay 14
     - effect:particles{particle=FLASH;amount=1} @target
     - summon{type=Mushlord_ToxicZone;amount=2;radius=2;noise=1} @target
@@ -202,6 +232,9 @@ Mushlord_FungalBloom:
   Cooldown: 20
   Skills:
     - message{cooldown=12;m="&2&lMUSHLORD &7absorbe la podredumbre del jardín..."} @PlayersInRadius{r=35}
+    - state{mid=mushlord;s=burst;li=2;lo=3} @self
+    - effect:sound{s=dextra:mushlord.burst;v=1;p=1.1} @self
+    - summon{type=MS_FX_Bloom;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SLIME;amount=25;hS=1.1;vS=0.6;speed=0.02} @self
     - effect:particles{particle=VILLAGER_HAPPY;amount=14;hS=0.8;vS=0.6;speed=0.02} @self
     - potion{type=REGENERATION;duration=100;level=1} @self
@@ -212,10 +245,13 @@ Mushlord_MycotoxinNova:
   Cooldown: 22
   Skills:
     - message{cooldown=10;m="&2&l¡NOVA MICOTÓXICA!"} @PlayersInRadius{r=50}
+    - state{mid=mushlord;s=nova;li=2;lo=4} @self
     - effect:sound{s=entity.wither.shoot;v=0.6;p=0.9} @self
+    - effect:sound{s=dextra:mushlord.nova;v=1;p=1} @self
     - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=22;hS=1.0;vS=0.8;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=60;hS=1.5;vS=0.8;speed=0.0;color=#4f9a45;size=1.35} @self
     - delay 10
+    - summon{type=MS_FX_Nova;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=FLASH;amount=1} @self
     - damage{a=108;pk=true} @PlayersInRadius{r=8}
     - throw{velocity=1.0;velocityY=0.25} @PlayersInRadius{r=8}
@@ -227,7 +263,10 @@ Mushlord_PlagueSurge:
   Cooldown: 24
   Skills:
     - message{cooldown=10;m="&2&lMUSHLORD &7desata una &a&lmarejada de plaga&7..."} @PlayersInRadius{r=45}
+    - state{mid=mushlord;s=surge;li=2;lo=3} @self
     - effect:sound{s=entity.iron_golem.attack;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:mushlord.surge;v=1;p=1} @self
+    - summon{type=MS_FX_Roots;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SLIME;amount=30;hS=1.3;vS=0.4;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=40;hS=1.5;vS=0.5;speed=0.0;color=#3e8c36;size=1.3} @self
     - pull{velocity=1.3} @PlayersInRadius{r=10}
@@ -241,7 +280,10 @@ Mushlord_CorruptionEruption:
   Cooldown: 28
   Skills:
     - message{cooldown=12;m="&2&lERUPCIÓN CORRUPTA &8» &f¡El jardín explota!"} @PlayersInRadius{r=55}
+    - state{mid=mushlord;s=burst;li=2;lo=3} @self
     - effect:sound{s=entity.generic.explode;v=0.55;p=0.7} @self
+    - effect:sound{s=dextra:mushlord.eruption;v=1;p=1} @self
+    - summon{type=MS_FX_Eruption;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=FLASH;amount=1} @self
     - effect:particles{particle=CLOUD;amount=45;hS=2.1;vS=0.6;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=85;hS=2.4;vS=0.8;speed=0.0;color=#2d7429;size=1.45} @self
@@ -259,7 +301,10 @@ Mushlord_GardenSentence:
     - message{cooldown=10;m="&2&lSENTENCIA DEL JARDÍN &8» &f¡Sal del círculo!"} @PlayersInRadius{r=50}
     - potion{type=GLOWING;duration=40;level=0} @target
     - potion{type=SLOW;duration=30;level=1} @target
+    - state{mid=mushlord;s=sentence;li=2;lo=3} @self
     - effect:sound{s=block.respawn_anchor.set_spawn;v=0.8;p=0.8} @self
+    - effect:sound{s=dextra:mushlord.sentence;v=1;p=1} @self
+    - summon{type=MS_FX_Sentence;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=REDSTONE;amount=36;hS=1.2;vS=0.2;speed=0.0;color=#6cb356;size=1.35} @target
     - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=12;hS=1.1;vS=0.6;speed=0.02} @target
     - delay 24
@@ -318,10 +363,14 @@ Mushlord_PlagueApocalypse:
     - message{cooldown=40;m="&2&lAPOCALIPSIS FÚNGICO &8» &f¡Cubríos o morid!"} @PlayersInRadius{r=60}
     - potion{type=DAMAGE_RESISTANCE;duration=45;level=3} @self
     - potion{type=SLOW;duration=35;level=6} @self
+    - state{mid=mushlord;s=apocalypse;li=2;lo=4} @self
     - effect:sound{s=entity.warden.sonic_charge;v=0.75;p=0.7} @self
+    - effect:sound{s=dextra:mushlord.sentence;v=1;p=0.7} @self
     - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=55;hS=2.4;vS=1.2;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=110;hS=2.8;vS=1.3;speed=0.0;color=#2f7d2b;size=1.6} @self
     - delay 30
+    - summon{type=MS_FX_Eruption;amount=1;radius=0;noise=0} @selflocation
+    - effect:sound{s=dextra:mushlord.eruption;v=1;p=1} @self
     - effect:particles{particle=FLASH;amount=1} @self
     - effect:sound{s=entity.generic.explode;v=0.85;p=0.7} @self
     - damage{a=152;pk=true} @PlayersInRadius{r=10}
@@ -337,6 +386,9 @@ Mushlord_SummonMinions:
     - mobsinradius{type=MushZombie;amount=<3;radius=30}
   Skills:
     - message{cooldown=12;m="&2El jardín se levanta para defender a su señor..."} @PlayersInRadius{r=40}
+    - state{mid=mushlord;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:mushlord.summon;v=1;p=1} @self
+    - summon{type=MS_FX_Bloom;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=BLOCK_CRACK;material=MOSS_BLOCK;amount=25;hS=0.9;vS=0.5;speed=0.08} @self
     - summon{type=MushZombie;amount=2;radius=6;noise=2} @self
     - summon{type=ToxicShroomCreeper;amount=1;radius=6;noise=2} @self
@@ -346,6 +398,8 @@ Mushlord_SummonSpores:
   Conditions:
     - mobsinradius{type=LivingSpore;amount=<5;radius=30}
   Skills:
+    - state{mid=mushlord;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:mushlord.summon;v=1;p=1.15} @self
     - effect:particles{particle=REDSTONE;amount=28;hS=1.0;vS=0.7;speed=0.0;color=#77c65d;size=1.2} @self
     - summon{type=LivingSpore;amount=3;radius=5;noise=2} @self
 
@@ -364,6 +418,20 @@ Mushlord_PullIfFar:
     - effect:particles{particle=SLIME;amount=16;hS=0.5;vS=0.5;speed=0.02} @target
     - pull{velocity=1.4} @target
 
+Mushlord_FX_Remove:
+  Skills:
+    - remove @self
+
+Mushlord_Melee:
+  Skills:
+    - state{mid=mushlord;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:mushlord.swipe;v=0.8;p=0.9} @self
+
+Mushlord_Hurt:
+  Skills:
+    - state{mid=mushlord;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:mushlord.hurt;v=0.8;p=1} @self
+
 Mushlord_PlayerKill:
   Skills:
     - 'message{m="&2&lMUSHLORD &f: &7Ahora… eres parte del ciclo."} @PlayersInRadius{r=50}'
@@ -372,20 +440,27 @@ Mushlord_Death:
   Skills:
     - 'message{m="&2&lMUSHLORD &f: &7El ciclo… continúa…"} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.zombie_villager.cure;v=0.8;p=0.5} @self
+    - effect:sound{s=dextra:mushlord.death;v=1;p=1} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 
 MZ_SpawnFX:
   Skills:
+    - state{mid=mush_zombie;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:mushlord.zombie_groan;v=0.8;p=1} @self
     - effect:particles{particle=BLOCK_CRACK;material=MOSS_BLOCK;amount=14;hS=0.5;vS=0.3;speed=0.08} @self
     - effect:sound{s=entity.zombie.ambient;v=0.7;p=0.8} @self
 
 MZ_ToxicHit:
   Skills:
+    - state{mid=mush_zombie;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:mushlord.zombie_hit;v=0.8;p=1} @self
     - damage{a=27;pk=true} @target
     - potion{type=POISON;duration=80;level=0} @target
 
 TSC_SpawnFX:
   Skills:
+    - state{mid=shroom_creeper;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:mushlord.creeper_swell;v=0.8;p=1} @self
     - effect:particles{particle=SLIME;amount=12;hS=0.5;vS=0.3;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=14;hS=0.6;vS=0.5;speed=0.0;color=#69ba55;size=1.15} @self
     - effect:sound{s=entity.creeper.hurt;v=0.55;p=0.7} @self
@@ -400,13 +475,16 @@ TSC_PrimeCheck:
 TSC_PrimeExplode:
   Skills:
     - message{cooldown=8;m="&aUn creeper espora comienza a hincharse..."} @PlayersInRadius{r=22}
+    - state{mid=shroom_creeper;s=prime;li=1;lo=1} @self
     - effect:sound{s=entity.creeper.primed;v=0.9;p=0.8} @self
+    - effect:sound{s=dextra:mushlord.creeper_swell;v=0.9;p=1} @self
     - effect:particles{particle=REDSTONE;amount=22;hS=0.8;vS=0.6;speed=0.0;color=#7bd85f;size=1.2} @self
     - effect:particles{particle=SPORE_BLOSSOM_AIR;amount=8;hS=0.7;vS=0.7;speed=0.02} @self
     - potion{type=SLOW;duration=24;level=6} @self
     - delay 18
     - effect:particles{particle=FLASH;amount=1} @self
     - effect:sound{s=entity.generic.explode;v=0.75;p=0.85} @self
+    - effect:sound{s=dextra:mushlord.creeper_pop;v=1;p=1} @self
     - effect:particles{particle=CLOUD;amount=38;hS=1.5;vS=0.6;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=55;hS=1.7;vS=0.7;speed=0.0;color=#4ea541;size=1.35} @self
     - damage{a=65;pk=true} @PlayersInRadius{r=4}
@@ -432,11 +510,15 @@ MPB_Tick:
 
 LS_SpawnFX:
   Skills:
+    - state{mid=living_spore;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:mushlord.spore_squeak;v=0.8;p=1} @self
     - effect:particles{particle=REDSTONE;amount=12;hS=0.4;vS=0.5;speed=0.0;color=#78c85d;size=1.1} @self
     - effect:sound{s=entity.silverfish.ambient;v=0.5;p=1.2} @self
 
 LS_PoisonCloud:
   Skills:
+    - state{mid=living_spore;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:mushlord.spore_pop;v=0.8;p=1} @self
     - effect:particles{particle=CLOUD;amount=16;hS=0.8;vS=0.3;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=18;hS=0.9;vS=0.4;speed=0.0;color=#7bcf62;size=1.15} @self
     - damage{a=22;ia=true} @PlayersInRadius{r=3}
@@ -444,12 +526,14 @@ LS_PoisonCloud:
 
 LS_DeathBurst:
   Skills:
+    - effect:sound{s=dextra:mushlord.spore_pop;v=0.9;p=0.9} @self
     - effect:particles{particle=SLIME;amount=14;hS=0.7;vS=0.3;speed=0.03} @self
     - damage{a=32;ia=true} @PlayersInRadius{r=3}
     - potion{type=POISON;duration=90;level=0} @PlayersInRadius{r=3}
 
 MTZ_Spawn:
   Skills:
+    - effect:sound{s=dextra:mushlord.zone_bubble;v=0.7;p=1} @self
     - effect:particles{particle=REDSTONE;amount=45;hS=1.9;vS=0.1;speed=0.0;color=#2f7d2b;size=1.45} @self
     - effect:particles{particle=CLOUD;amount=12;hS=1.5;vS=0.2;speed=0.02} @self
     - delay 260
