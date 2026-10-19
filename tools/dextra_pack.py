@@ -38,7 +38,8 @@ IA = REPO / "Modelos/ItemsAdder/contents/dextra_bosses"
 NS = "dextra"
 
 # Un caracter por boss para la bossbar: espacios unicode que en vanilla se ven en blanco
-# (glifos vacios de unifont). Heracles ya usa \u200c y \u2001-\u2003.
+# (glifos vacios de unifont). Heracles usa \u200c y \u2001 en su bossbar; su titulo va con
+# texto traducible y los laureles en dextra:hud (tools/heracles_title.py).
 BOSSBAR_CHAR = {
     "old_ender": "\u2004", "baal": "\u2005", "red_hand": "\u2006", "ragnarok": "\u2007",
     "mushlord": "\u2008", "lady_of_laments": "\u2009", "yeti": "\u200a", "kronos": "\u2000",
@@ -52,6 +53,7 @@ TITLE_CHARS = {
     "yeti": ("\ue20d", "\ue20e"), "kronos": ("\ue20f", "\ue210"), "azathoth": ("\ue211", "\ue212"),
     "leviatan": ("\ue213", "\ue214"), "xylar": ("\ue215", "\ue216"), "samhain": ("\ue217", "\ue218"),
     "thor": ("\ue219", "\ue21a"), "kukulkan": ("\ue21b", "\ue21c"), "nezareth": ("\ue21d", "\ue21e"),
+    "heracles": ("\ue21f", "\ue220"),
 }
 
 

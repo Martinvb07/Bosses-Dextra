@@ -10,11 +10,12 @@ Genera el HUD olimpico de Heracles (pixel art a 1x):
 
 Funciona CON y SIN resource pack:
   Titulo de la bossbar:  "&f\u200c&6&lHERACLES&f\u2001"
-  Titulo en pantalla:    "&f\u2002&6⚔ &e&lHERACLES &6⚔&f\u2003"
-  \u200c (ancho cero) y \u2001/\u2002/\u2003 (espacios) no se ven en vanilla,
+  Titulo en pantalla:    /title con texto traducible; los laureles estan en la fuente dextra:hud
+                         del DextraBossesPack (tools/heracles_title.py)
+  \u200c (ancho cero) y \u2001 (espacio) no se ven en vanilla,
   asi que SIN pack el texto se ve exactamente igual que antes. CON pack,
   ItemsAdder convierte esos caracteres en imagenes: las dos mitades del marco
-  a los lados del nombre y los laureles a los lados del titulo.
+  a los lados del nombre.
 
 Como encaja el marco con la barra (Minecraft 1.21):
   la barra se dibuja en (centro - 91, y) y el titulo en y - 9, centrado
@@ -334,8 +335,11 @@ def main():
     prog, back = bar_sprites()
     left.save(FONT_DIR / "bossbar_left.png")
     right.save(FONT_DIR / "bossbar_right.png")
-    laurel_side(-1).save(FONT_DIR / "title_laurel_left.png")
-    laurel_side(1).save(FONT_DIR / "title_laurel_right.png")
+    # los laureles del titulo van en el DextraBossesPack (fuente dextra:hud): ver tools/heracles_title.py
+    laurel_dir = ROOT.parent / "DextraBossesPack/assets/dextra/textures/font/heracles"
+    laurel_dir.mkdir(parents=True, exist_ok=True)
+    laurel_side(-1).save(laurel_dir / "laurel_left.png")
+    laurel_side(1).save(laurel_dir / "laurel_right.png")
     prog.save(BAR_DIR / "yellow_progress.png")
     back.save(BAR_DIR / "yellow_background.png")
 

@@ -38,8 +38,10 @@ Heracles_Intro:
     - effect:sound{s=olympus:heracles.intro;v=1;p=1} @self
     - effect:sound{s=entity.warden.emerge;v=1;p=0.8} @self
     - effect:particles{particle=CAMPFIRE_COSY_SMOKE;amount=20;hS=1.2;vS=0.3;speed=0.02} @self
-    # sin pack: "⚔ HERACLES ⚔" de siempre; con pack: laureles a los lados (\u2002 y \u2003)
-    - 'title{title="&f &6⚔ &e&lHERACLES &6⚔&f ";subtitle="&8« &7Greek Village &8• &6El campeón del Olimpo ha despertado &8»";fadein=20;stay=300;fadeout=20} @Server'
+    # sin pack: "⚔ HERACLES ⚔" de siempre; con pack: laureles a los lados (fuente dextra:hud)
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§8« §7Greek Village §8• §6El campeón del Olimpo ha despertado §8»''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.heracles'',fallback:''§6⚔ §e§lHERACLES §6⚔'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc>,<&lc>text:''§6⚔ §e§lHERACLES §6⚔''<&rc>,<&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
     - 'message{m="&6&lHERACLES &fenfrenta a los &eDesafiantes&f..."} @Server'
     - potion{type=DAMAGE_RESISTANCE;duration=100;level=3} @self
     - setstance{stance=PHASE1} @self

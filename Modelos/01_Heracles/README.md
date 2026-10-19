@@ -14,7 +14,8 @@ Boss 01 del servidor. Es un modelo personalizado para **ModelEngine R4**, prepar
 | `ModelEngine/blueprints/hoplit/`, `spartan_warrior/`, `greek_archer/`, `minotaur/` | Modelos de los súbditos |
 | `../../MythicMobs-3D/Mobs/Boss_01_Heracles/Heracles_Mobs.yml` | Mob `Heracles`, ahora con `model{mid=heracles}` |
 | `../../MythicMobs-3D/Skills/heracles_skills.yml` | Skills con animaciones y sonidos sincronizados |
-| `ItemsAdder/contents/heracles_hud/` | Marco de la bossbar y laureles del título (font images de ItemsAdder) |
+| `ItemsAdder/contents/heracles_hud/` | Marco de la bossbar (font images de ItemsAdder) |
+| `../DextraBossesPack/assets/dextra/textures/font/heracles/` | Laureles del título (fuente `dextra:hud`, igual que los bosses 02-17) |
 | `ResourcePack/HeraclesPack/` | Textura de la barra y sonidos propios (se fusiona con el pack de ItemsAdder) |
 | `preview/*.gif` | Vista previa de cada animación |
 | `../../tools/generate_heracles.py` | Script que genera el `.bbmodel` (sirve para regenerarlo o hacer cambios) |
@@ -47,7 +48,7 @@ Funciona **con y sin** el resource pack:
 | Título al aparecer | `⚔ HERACLES ⚔` | El mismo texto con laureles a los lados |
 | Sonidos | Los sonidos vanilla | Los vanilla más los propios |
 
-El título de la bossbar es `&f\u200c&6&lHERACLES&f\u2001`: `\u200c` y `\u2001` no se ven en vanilla, y con el pack ItemsAdder los convierte en las dos mitades del marco. En el título de aparición, `\u2002` y `\u2003` son los laureles.
+El título de la bossbar es `&f\u200c&6&lHERACLES&f\u2001`: `\u200c` y `\u2001` no se ven en vanilla, y con el pack ItemsAdder los convierte en las dos mitades del marco. El título de aparición se manda con `/title` y un texto traducible: sin pack se ve `⚔ HERACLES ⚔` y con el DextraBossesPack salen los laureles a los lados (`tools/heracles_title.py`).
 
 Instalación con ItemsAdder:
 

@@ -1,9 +1,10 @@
 # HUD de Heracles: font images de ItemsAdder. Funciona CON y SIN resource pack.
 #
 #   Bossbar (Heracles_Mobs.yml -> BossBar.Title):   "&f‌&6&lHERACLES&f "
-#   Titulo  (heracles_skills.yml -> Heracles_Intro): "&f &6⚔ &e&lHERACLES &6⚔&f "
+#   Titulo: ya no va aqui; los laureles estan en Modelos/DextraBossesPack (fuente dextra:hud),
+#   ver tools/heracles_title.py.
 #
-# ‌ (ancho cero) y   /   /   (espacios) no se ven en
+# ‌ (ancho cero) y   (espacio) no se ven en
 # vanilla: SIN pack los titulos se ven exactamente como antes. CON pack se
 # convierten en las mitades del marco y en los laureles.
 # Las texturas se generan con tools/generate_hud.py (no las recortes: el
@@ -28,24 +29,6 @@ font_images:
     symbol: " "
     scale_ratio: 48
     y_position: 18
-    show_in_gui: false
-    shadow:
-      enabled: false
-
-  title_laurel_left:
-    path: font/title_laurel_left.png
-    symbol: " "
-    scale_ratio: 12
-    y_position: 9
-    show_in_gui: false
-    shadow:
-      enabled: false
-
-  title_laurel_right:
-    path: font/title_laurel_right.png
-    symbol: " "
-    scale_ratio: 12
-    y_position: 9
     show_in_gui: false
     shadow:
       enabled: false
