@@ -7,7 +7,7 @@ Hay una carpeta por boss, con el mismo numero que en `MythicMobs-3D/Mobs/Boss_XX
 |---|---|---|
 | 01 | [Heracles](01_Heracles/) | ✅ con modelos |
 | 02 | [OldEnder](02_OldEnder/) | ✅ con modelos |
-| 03 | [Baal](03_Baal/) | pendiente |
+| 03 | [Baal](03_Baal/) | ✅ con modelos |
 | 04 | [RedHand](04_RedHand/) | pendiente |
 | 05 | [Ragnarok](05_Ragnarok/) | pendiente |
 | 06 | [Mushlord](06_Mushlord/) | pendiente |

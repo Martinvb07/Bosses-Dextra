@@ -257,3 +257,10 @@ def title_preview(path, logo, logo_height, name, name_color, subtitle):
         ImageDraw.Draw(scene).text((ox + 6, 4), "CON PACK" if with_pack else "SIN PACK (vanilla)",
                                    fill=(255, 255, 255, 255))
     scene.resize((scene.width * 3, scene.height * 3), Image.NEAREST).save(path)
+
+
+def glyph_width(name, ext):
+    """Ancho W de la media moldura para que la copia izquierda deje 'ext' columnas fuera de la barra.
+    Ver la explicacion del principio: x0 = c - (2 (W + 1) + T) // 2 y la barra empieza en c - 91."""
+    T = text_width(name)
+    return ext + 91 - (2 + T) // 2

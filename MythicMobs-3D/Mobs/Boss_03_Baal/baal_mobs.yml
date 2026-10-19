@@ -14,7 +14,9 @@ Baal:
 
   BossBar:
     Enabled: true
-    Title: "&d&lBAAL"
+    # \u2005 no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/baal.yml)
+    # es la moldura japonesa a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f\u2005&d&lBAAL&f\u2005"
     Range: 50
     Color: PINK
     Style: SEGMENTED_10
@@ -42,7 +44,9 @@ Baal:
     - Recompensas_llaves
     - RH_EstrellaInvocacion 1 1
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/baal/baal.bbmodel
   Skills:
+    - model{mid=baal} @self ~onSpawn
     - skill{s=Baal_Spawn} @self ~onSpawn
     - skill{s=Baal_AcquireTarget} @self ~onTimer:10
     - skill{s=Baal_HP70_Check} @self ~onTimer:20
@@ -56,6 +60,8 @@ Baal:
     - skill{s=Baal_PlayerKill} @target ~onKill
     - skill{s=Baal_Death} @self ~onDeath
     - skill{s=Baal_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=Baal_Hurt} @self ~onDamaged 0.35
+    - skill{s=Baal_Melee} @self ~onAttack
 
 UndeadSamurai:
   Type: WITHER_SKELETON
@@ -83,7 +89,10 @@ UndeadSamurai:
   Drops:
     #- Recompensas_UndeadSamurai
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/undead_samurai/undead_samurai.bbmodel
   Skills:
+    - model{mid=undead_samurai} @self ~onSpawn
+    - state{mid=undead_samurai;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=US_SpawnFX} @self ~onSpawn
     - skill{s=US_KatanaBlock} @target ~onAttack
     - skill{s=Baal_FuegoAmigo;sync=true} @self ~onDamaged
@@ -111,7 +120,10 @@ Yokai:
   Drops:
     #- Recompensas_Yokai
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/yokai/yokai.bbmodel
   Skills:
+    - model{mid=yokai} @self ~onSpawn
+    - state{mid=yokai;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=Yokai_SpawnFX} @self ~onSpawn
     - skill{s=Yokai_Curse} @self ~onTimer:35
     - skill{s=Baal_FuegoAmigo;sync=true} @self ~onDamaged
@@ -139,8 +151,123 @@ ShadowNinja:
   Drops:
     #- Recompensas_ShadowNinja
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/shadow_ninja/shadow_ninja.bbmodel
   Skills:
+    - model{mid=shadow_ninja} @self ~onSpawn
+    - state{mid=shadow_ninja;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=SN_SpawnFX} @self ~onSpawn
     - skill{s=SN_Invisibility} @self ~onTimer:30
     - skill{s=SN_Assassinate} @target ~onAttack
     - skill{s=Baal_FuegoAmigo;sync=true} @self ~onDamaged
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde baal_skills.yml con summon{type=BL_FX_...}.
+
+BL_FX_Seal:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=bl_fx_seal;hitbox=false} @self ~onSpawn
+    - state{mid=bl_fx_seal;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Baal_FX_Remove;delay=24} @self ~onSpawn
+
+BL_FX_Slash:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=bl_fx_slash;hitbox=false} @self ~onSpawn
+    - state{mid=bl_fx_slash;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Baal_FX_Remove;delay=14} @self ~onSpawn
+
+BL_FX_Petals:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=bl_fx_petals;hitbox=false} @self ~onSpawn
+    - state{mid=bl_fx_petals;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Baal_FX_Remove;delay=34} @self ~onSpawn
+
+BL_FX_Nova:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=bl_fx_nova;hitbox=false} @self ~onSpawn
+    - state{mid=bl_fx_nova;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Baal_FX_Remove;delay=24} @self ~onSpawn
+
+BL_FX_Torii:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=bl_fx_torii;hitbox=false} @self ~onSpawn
+    - state{mid=bl_fx_torii;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Baal_FX_Remove;delay=46} @self ~onSpawn
+
+BL_FX_Smoke:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=bl_fx_smoke;hitbox=false} @self ~onSpawn
+    - state{mid=bl_fx_smoke;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Baal_FX_Remove;delay=30} @self ~onSpawn

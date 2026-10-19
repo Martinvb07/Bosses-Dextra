@@ -1,9 +1,21 @@
 # Baal skills
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=baal;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:baal.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=BL_FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "BAAL" como siempre; con pack se ve el logo.
 
 Baal_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&d&lBAAL";subtitle="&5Blossom Temple &8• &7Espiritu vengativo";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=baal;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§5Blossom Temple §8• §7Espiritu vengativo''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.baal'',fallback:''§d§lBAAL'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:baal.intro;v=1;p=1} @self
+    - summon{type=BL_FX_Torii;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&d&lBAAL &8ha despertado... &7el espiritu del templo no acepta intrusos."} @Server'
     - effect:sound{s=entity.skeleton.ambient;v=0.8;p=0.8} @self
     - effect:particles{particle=SOUL;amount=18;hS=1.0;vS=0.9;speed=0.02} @self
@@ -39,6 +51,7 @@ Baal_Phase2_Check:
   Skills:
     - skill{s=Baal_PhaseShield} @self
     - setstance{stance=PHASE2} @self
+    - effect:sound{s=dextra:baal.summon;v=1;p=1} @self
     - summon{type=UndeadSamurai;amount=2;radius=7;noise=2} @self
     - summon{type=Yokai;amount=1;radius=7;noise=2} @self
     - effect:sound{s=entity.evoker.prepare_summon;v=0.8;p=0.8} @self
@@ -57,6 +70,9 @@ Baal_Phase3_Check:
 Baal_PhaseShield:
   Skills:
     - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
+    - state{mid=baal;s=phase_change;li=3;lo=4} @self
+    - effect:sound{s=dextra:baal.phase;v=1;p=1} @self
+    - summon{type=BL_FX_Torii;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SPELL_MOB_AMBIENT;amount=18;hS=0.8;vS=0.7;speed=0.02} @self
 
 Baal_Aura:
@@ -75,6 +91,10 @@ Baal_SpiritCurse:
   Conditions:
     - targetwithin{d=22}
   Skills:
+    - state{mid=baal;s=curse;li=2;lo=3} @self
+    - effect:sound{s=dextra:baal.curse;v=1;p=1} @self
+    - summon{type=BL_FX_Seal;amount=1;radius=0;noise=0} @targetlocation
+    - delay 8
     - damage{a=50;pk=true} @target
     - potion{type=WEAKNESS;duration=80;level=0} @target
     - potion{type=CONFUSION;duration=50;level=0} @target
@@ -84,31 +104,47 @@ Baal_ShadowStep:
   Conditions:
     - targetwithin{d=24}
   Skills:
+    - state{mid=baal;s=dash_slash;li=2;lo=3} @self
     - effect:sound{s=entity.enderman.teleport;v=0.7;p=0.7} @self
+    - effect:sound{s=dextra:baal.step;v=1;p=1} @self
+    - summon{type=BL_FX_Smoke;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SMOKE_LARGE;amount=14;hS=0.5;vS=0.35;speed=0.02} @self
     - leap{velocity=180;noise=1} @target
     - delay 12
+    - effect:sound{s=dextra:baal.slash;v=1;p=1} @self
+    - summon{type=BL_FX_Slash;amount=1;radius=0;noise=0} @selflocation
     - damage{a=47;pk=true} @target ?distance{d=<3}
 
 Baal_SakuraHex:
   Cooldown: 18
   Skills:
     - message{cooldown=10;m="&dPetalos malditos llenan el templo..."} @PlayersInRadius{r=45}
+    - state{mid=baal;s=hex;li=2;lo=3} @self
+    - effect:sound{s=dextra:baal.hex;v=1;p=1} @self
+    - summon{type=BL_FX_Petals;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=CHERRY_LEAVES;amount=42;hS=1.7;vS=0.9;speed=0.03} @self
+    - delay 10
     - damage{a=60;pk=true} @PlayersInRadius{r=7}
     - potion{type=WEAKNESS;duration=100;level=0} @PlayersInRadius{r=7}
 
 Baal_ShadowVeil:
   Cooldown: 20
   Skills:
+    - state{mid=baal;s=veil;li=2;lo=3} @self
     - effect:sound{s=entity.illusioner.mirror_move;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:baal.veil;v=1;p=1} @self
+    - summon{type=BL_FX_Smoke;amount=1;radius=0;noise=0} @selflocation
     - potion{type=INVISIBILITY;duration=60;level=0} @self
     - effect:particles{particle=SMOKE_LARGE;amount=24;hS=1.0;vS=0.7;speed=0.03} @self
 
 Baal_SpiritNova:
   Cooldown: 22
   Skills:
+    - state{mid=baal;s=nova;li=2;lo=4} @self
     - effect:sound{s=entity.illusioner.cast_spell;v=0.8;p=0.8} @self
+    - effect:sound{s=dextra:baal.nova;v=1;p=1} @self
+    - delay 12
+    - summon{type=BL_FX_Nova;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SOUL;amount=36;hS=1.5;vS=0.8;speed=0.03} @self
     - damage{a=73;pk=true} @PlayersInRadius{r=8}
     - potion{type=BLINDNESS;duration=50;level=0} @PlayersInRadius{r=8}
@@ -118,6 +154,9 @@ Baal_SummonYokai:
   Conditions:
     - mobsinradius{type=Yokai;amount=<3;radius=30}
   Skills:
+    - state{mid=baal;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:baal.summon;v=1;p=1} @self
+    - summon{type=BL_FX_Torii;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Yokai;amount=1;radius=7;noise=2} @self
 
 Baal_SummonSamurai:
@@ -125,6 +164,9 @@ Baal_SummonSamurai:
   Conditions:
     - mobsinradius{type=UndeadSamurai;amount=<4;radius=30}
   Skills:
+    - state{mid=baal;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:baal.summon;v=1;p=1} @self
+    - summon{type=BL_FX_Torii;amount=1;radius=0;noise=0} @selflocation
     - summon{type=UndeadSamurai;amount=2;radius=7;noise=2} @self
 
 Baal_SummonNinjas:
@@ -132,6 +174,9 @@ Baal_SummonNinjas:
   Conditions:
     - mobsinradius{type=ShadowNinja;amount=<4;radius=30}
   Skills:
+    - state{mid=baal;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:baal.summon;v=1;p=1} @self
+    - summon{type=BL_FX_Torii;amount=1;radius=0;noise=0} @selflocation
     - summon{type=ShadowNinja;amount=2;radius=7;noise=2} @self
 
 Baal_SummonCycle:
@@ -153,6 +198,20 @@ Baal_PullIfFar:
     - pull{velocity=1.3} @target
     - potion{type=SLOW;duration=30;level=0} @target
 
+Baal_FX_Remove:
+  Skills:
+    - remove @self
+
+Baal_Melee:
+  Skills:
+    - state{mid=baal;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:baal.slash;v=0.8;p=1.1} @self
+
+Baal_Hurt:
+  Skills:
+    - state{mid=baal;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:baal.hurt;v=0.8;p=1} @self
+
 Baal_PlayerKill:
   Skills:
     - 'message{m="&d&lBAAL &f: &7Vuestras almas me pertenecen."} @PlayersInRadius{r=60}'
@@ -161,35 +220,49 @@ Baal_Death:
   Skills:
     - 'message{m="&d&lBAAL &f: &7El equilibrio... se rompe..."} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.skeleton.death;v=0.8;p=0.9} @self
+    - effect:sound{s=dextra:baal.death;v=1;p=1} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 
 US_SpawnFX:
   Skills:
+    - state{mid=undead_samurai;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:baal.samurai_rise;v=0.8;p=1} @self
     - effect:particles{particle=SMOKE_NORMAL;amount=12;hS=0.5;vS=0.5;speed=0.02} @self
 
 US_KatanaBlock:
   Skills:
+    - state{mid=undead_samurai;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:baal.samurai_hit;v=0.8;p=1} @self
     - potion{type=DAMAGE_RESISTANCE;duration=25;level=1} @self
     - potion{type=SLOW;duration=25;level=0} @target
 
 Yokai_SpawnFX:
   Skills:
+    - state{mid=yokai;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:baal.yokai_laugh;v=0.8;p=1} @self
     - effect:particles{particle=SOUL;amount=12;hS=0.5;vS=0.6;speed=0.02} @self
 
 Yokai_Curse:
   Skills:
+    - state{mid=yokai;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:baal.yokai_curse;v=0.8;p=1} @self
     - potion{type=WEAKNESS;duration=60;level=0} @PlayersInRadius{r=5}
 
 SN_SpawnFX:
   Skills:
+    - state{mid=shadow_ninja;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:baal.ninja_vanish;v=0.8;p=1} @self
     - effect:particles{particle=SMOKE_LARGE;amount=10;hS=0.5;vS=0.5;speed=0.02} @self
 
 SN_Invisibility:
   Skills:
+    - effect:sound{s=dextra:baal.ninja_vanish;v=0.6;p=1.1} @self
     - potion{type=INVISIBILITY;duration=40;level=0} @self
 
 SN_Assassinate:
   Skills:
+    - state{mid=shadow_ninja;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:baal.ninja_strike;v=0.8;p=1} @self
     - damage{a=30;pk=true} @target
     - potion{type=BLINDNESS;duration=30;level=0} @target
 

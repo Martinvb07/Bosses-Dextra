@@ -102,22 +102,24 @@ def build_petals():
     m = fx_model("bl_fx_petals", 403)
     root = m.root
     a = m.anim("play", 1.6, "once")
-    for j in range(3):
-        ring = m.bone(f"swirl{j}", (0, 0, 0), root)
-        n = 10 + 4 * j
-        for k in range(n):
-            th = 2 * math.pi * k / n + j
-            r = 10 + 4 * j
-            x, z = r * math.cos(th), r * math.sin(th)
-            y = 3 + j * 6 + (k % 3) * 2
-            mat = ("pink", "sakura", "white")[(k + j) % 3]
-            m.cube(ring, f"p{j}_{k}", (x - 1.3, y - 0.3, z - 0.9), (x + 1.3, y + 0.3, z + 0.9), mat)
-        spin(a, f"swirl{j}", 1.6, 1.6 - 0.3 * j)
-        grow = 112 / (10 + 4 * j)               # hasta 7 bloques
-        a.scl(f"swirl{j}", 0, 0.2, 1, 0.2)
-        a.scl(f"swirl{j}", 0.5, grow, 1.5, grow, i="linear")
-        a.scl(f"swirl{j}", 1.2, grow * 1.05, 2.2, grow * 1.05)
-        a.scl(f"swirl{j}", 1.6, grow * 1.1, 0.05, grow * 1.1)
+    n = 26
+    for k in range(n):
+        b = m.bone(f"petal{k}", (0, 0, 0), root)
+        mat = ("pink", "sakura", "white")[k % 3]
+        m.cube(b, f"p{k}", (-1.6, -0.3, -1.1), (1.6, 0.3, 1.1), mat)
+        m.cube(b, f"q{k}", (-1.1, -0.3, -1.6), (1.1, 0.3, 1.6), mat)
+        th0 = 2 * math.pi * k / n
+        h = 6 + (k % 4) * 7
+        steps = 8
+        for i in range(steps + 1):
+            t = 1.6 * i / steps
+            r = 8 + 104 * (i / steps) ** 0.8                      # espiral hasta 7 bloques
+            th = th0 + 2.2 * i / steps
+            y = h * math.sin(math.pi * min(1, i / steps * 1.2))
+            a.pos(f"petal{k}", t, -r * math.cos(th), y, r * math.sin(th), i="linear")
+            a.rot(f"petal{k}", t, 70 * i * ((k % 2) * 2 - 1), 90 * i, 0, i="linear")
+            sc = 1.6 + 2.6 * (i / steps) if i < steps else 0.05
+            a.scl(f"petal{k}", t, sc, i="linear")
     return m
 
 
@@ -133,7 +135,7 @@ def build_nova():
         m.cube(b, f"f{k}_base", (-2.2, 0, -2.2), (2.2, h * 0.5, 2.2), "soul_dark")
         m.cube(b, f"f{k}_mid", (-1.5, h * 0.5, -1.5), (1.5, h * 0.85, 1.5), "soul")
         m.cube(b, f"f{k}_tip", (-0.7, h * 0.85, -0.7), (0.7, h * 1.1, 0.7), "white")
-        for t, r, s in ((0, 10, 0.3), (0.2, 70, 1.4), (0.6, 124, 1.2), (1.1, 132, 0.05)):
+        for t, r, s in ((0, 10, 0.6), (0.2, 70, 2.2), (0.6, 124, 2.6), (1.1, 132, 0.05)):
             a.pos(f"flame{k}", t, -r * math.cos(th), 0, r * math.sin(th), i="linear" if t else "catmullrom")
             a.scl(f"flame{k}", t, s, s * (1.0 if t < 1.1 else 0.1), s)
     core = m.bone("core", (0, 0, 0), root)
@@ -198,7 +200,7 @@ SHOTS = {
     "bl_fx_petals": [0.1, 0.4, 0.9, 1.4], "bl_fx_nova": [0.1, 0.2, 0.5, 0.9],
     "bl_fx_torii": [0.3, 0.75, 1.5, 2.0], "bl_fx_smoke": [0.15, 0.4, 0.9, 1.2],
 }
-VIEW = {"bl_fx_seal": (6, 5.0, -20), "bl_fx_slash": (14, 4.0, -30), "bl_fx_petals": (8, 1.1, -20),
+VIEW = {"bl_fx_seal": (6, 5.0, -20), "bl_fx_slash": (14, 4.0, -30), "bl_fx_petals": (10, 1.1, -20),
         "bl_fx_nova": (8, 1.0, -20), "bl_fx_torii": (20, 4.0, 160), "bl_fx_smoke": (10, 4.0, -20)}
 
 

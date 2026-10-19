@@ -206,58 +206,100 @@ L = {"decor": {"all": "lamellar"}}
 # BAAL
 # ===========================================================================
 def baal_head(m, hd):
-    m.cube(hd, "skull", (-3.3, 25.2, -3.2), (3.3, 31.0, 3.4), "spirit")
-    m.cube(hd, "mask", (-3.4, 24.6, -3.9), (3.4, 30.2, -3.2), "red", decor={"north": "oni_face"})
-    m.cube(hd, "brow", (-3.2, 28.6, -4.4), (3.2, 29.4, -3.8), "red")
-    m.cube(hd, "nose", (-0.6, 26.8, -4.5), (0.6, 28.4, -3.8), "red")
-    m.cube(hd, "chin", (-2.6, 24.0, -4.3), (2.6, 25.2, -3.2), "lacquer")
+    m.cube(hd, "skull", (-3.2, 25.2, -3.0), (3.2, 30.8, 3.3), "spirit")
+    # mascara oni (menpo) con mejillas en angulo, cejas, nariz y mandibula con colmillos
+    m.cube(hd, "mask", (-2.9, 24.8, -3.9), (2.9, 30.0, -3.1), "red", decor={"north": "oni_face"})
+    m.cube_lr(hd, hd, "cheek", (2.4, 24.8, -3.7), (3.6, 29.2, -1.4), "red", rot=("y", -22.5), pivot=(2.6, 27, -3.2))
+    m.cube(hd, "brow", (-3.1, 28.6, -4.5), (3.1, 29.5, -3.7), "red", rot=("x", 22.5), pivot=(0, 29.5, -3.9))
+    m.cube_lr(hd, hd, "brow_horn", (2.2, 29.0, -4.4), (3.0, 31.4, -3.6), "white", rot=("z", -22.5), pivot=(2.6, 29.2, -4))
+    m.cube(hd, "nose", (-0.7, 26.8, -4.6), (0.7, 28.6, -3.8), "red")
+    m.cube(hd, "nostrils", (-1.2, 26.6, -4.5), (1.2, 27.4, -3.8), "red")
+    m.cube(hd, "chin", (-2.4, 23.8, -4.4), (2.4, 25.2, -3.0), "lacquer", rot=("x", -22.5), pivot=(0, 25, -3.4))
     for sx in (1, -1):
-        m.cube(hd, f"fang{sx}", (1.2 * sx - 0.35, 24.4, -4.6), (1.2 * sx + 0.35, 25.8, -4.2), "white")
-    # kabuto
-    m.cube(hd, "bowl", (-3.9, 30.2, -3.8), (3.9, 33.2, 3.9), "lacquer", decor={"all": "suji"})
-    m.cube(hd, "bowl_top", (-2.8, 33.2, -2.8), (2.8, 34.0, 2.9), "lacquer", decor={"all": "suji"})
-    m.cube(hd, "tehen", (-0.7, 34.0, -0.7), (0.7, 34.6, 0.7), "gold")
-    m.cube(hd, "visor", (-3.9, 29.8, -4.9), (3.9, 30.6, -3.6), "lacquer", decor={"north": "gold_band"})
-    m.cube(hd, "shikoro", (-4.4, 26.2, 3.2), (4.4, 30.6, 4.2), "lacquer", rot=("x", 22.5), pivot=(0, 30.6, 3.6), **L)
-    m.cube(hd, "shikoro2", (-4.9, 24.4, 4.6), (4.9, 27.0, 5.4), "lacquer", rot=("x", 22.5), pivot=(0, 27, 5), **L)
-    m.cube_lr(hd, hd, "shikoro_side", (3.6, 26.4, -2.6), (4.4, 30.6, 3.6), "lacquer", rot=("z", -22.5),
-              pivot=(4.0, 30.6, 0), **L)
-    m.cube_lr(hd, hd, "fukigaeshi", (3.8, 29.0, -4.4), (5.8, 31.2, -3.4), "lacquer", rot=("y", -22.5),
-              pivot=(3.8, 30, -3.9), decor={"all": "gold_band"})
-    # kuwagata: cuernos dorados en V
-    base = (1.0, 31.0, -4.3)
-    m.cube_lr(hd, hd, "horn", (0.6, 31.0, -4.6), (1.4, 38.0, -4.0), "gold", rot=("z", -22.5), pivot=base)
-    tip = (1.0 + 7 * math.sin(math.radians(22.5)), 31.0 + 7 * math.cos(math.radians(22.5)), -4.3)
-    m.cube_lr(hd, hd, "horn_tip", (tip[0] - 0.4, tip[1] - 0.2, -4.6), (tip[0] + 0.4, tip[1] + 3.6, -4.0), "gold",
-              rot=("z", -45), pivot=tip)
-    m.cube(hd, "mon", (-1.1, 30.8, -4.9), (1.1, 33.0, -4.3), "pink", decor={"north": "sakura"})
+        m.cube(hd, f"fang{sx}", (1.3 * sx - 0.35, 24.4, -4.7), (1.3 * sx + 0.35, 26.0, -4.2), "white")
+    m.cube(hd, "beard", (-1.6, 22.4, -4.2), (1.6, 24.2, -3.4), "white", rot=("x", -22.5), pivot=(0, 24.2, -3.8))
+    # kabuto: cupula en tres pisos y visera inclinada
+    m.cube(hd, "bowl", (-3.9, 30.0, -3.8), (3.9, 32.0, 3.9), "lacquer", decor={"all": "suji"})
+    m.cube(hd, "bowl_mid", (-3.4, 32.0, -3.3), (3.4, 33.2, 3.4), "lacquer", decor={"all": "suji"})
+    m.cube(hd, "bowl_top", (-2.5, 33.2, -2.4), (2.5, 34.0, 2.5), "lacquer", decor={"all": "suji"})
+    m.cube(hd, "tehen", (-0.8, 34.0, -0.8), (0.8, 34.7, 0.8), "gold")
+    m.cube(hd, "visor", (-4.0, 29.6, -5.2), (4.0, 30.4, -3.6), "lacquer", rot=("x", -22.5), pivot=(0, 30.2, -3.6),
+           decor={"north": "gold_band"})
+    # shikoro (cubrenuca) en dos laminas que se abren
+    m.cube(hd, "shikoro", (-4.4, 26.4, 3.0), (4.4, 30.4, 4.0), "lacquer", rot=("x", 22.5), pivot=(0, 30.4, 3.5), **L)
+    m.cube(hd, "shikoro2", (-5.0, 23.8, 4.4), (5.0, 27.0, 5.2), "lacquer", rot=("x", 45), pivot=(0, 27, 4.8), **L)
+    m.cube_lr(hd, hd, "shikoro_side", (3.5, 26.2, -2.4), (4.3, 30.4, 3.4), "lacquer", rot=("z", -22.5),
+              pivot=(3.9, 30.4, 0), **L)
+    m.cube_lr(hd, hd, "shikoro_side2", (4.5, 23.6, -2.0), (5.3, 27.0, 3.8), "lacquer", rot=("z", -45),
+              pivot=(4.9, 27, 0), **L)
+    m.cube_lr(hd, hd, "fukigaeshi", (3.7, 28.8, -4.4), (5.9, 31.2, -3.4), "lacquer", rot=("y", -45),
+              pivot=(3.7, 30, -3.9), decor={"all": "gold_band"})
+    # kuwagata: cuernos dorados que se curvan hacia fuera (tres tramos)
+    segs = [(0, 3.0), (-22.5, 3.4), (-45, 3.2)]
+    x, y = 1.1, 31.0
+    for i, (ang, ln) in enumerate(segs):
+        m.cube_lr(hd, hd, f"horn{i}", (x - 0.45, y - 0.2, -4.7), (x + 0.45, y + ln, -4.0), "gold",
+                  rot=("z", ang) if ang else None, pivot=(x, y, -4.35))
+        x += ln * math.sin(math.radians(-ang))
+        y += ln * math.cos(math.radians(-ang))
+    m.cube(hd, "mon", (-1.2, 30.6, -5.0), (1.2, 33.0, -4.4), "pink", decor={"north": "sakura"})
 
 
 def build_baal():
     m = _model("baal", 303)
-    H = AN.humanoid(m, k=1.1, mats={"skin": "spirit", "foot": "lacquer"}, head=baal_head)
+    H = AN.humanoid(m, k=1.1, mats={"skin": "purple", "hand": "spirit", "foot": "lacquer", "neck": "spirit"},
+                    head=baal_head)
     torso, waist, body = H["torso"], H["waist"], H["body"]
     (AR, AL) = H["arms"]["right"], H["arms"]["left"]
     RL, LL = H["legs"]["right"], H["legs"]["left"]
-    # hakama ancho y plisado
-    m.cube_lr(RL[0], LL[0], "hakama_up", (-0.1, 7.6, -2.9), (5.1, 13.8, 2.9), "purple", decor={"all": "pleats"})
-    m.cube_lr(RL[1], LL[1], "hakama_low", (-0.4, 1.0, -3.3), (5.4, 7.8, 3.1), "purple", decor={"all": "pleats"})
-    # do (coraza) y obi
-    m.cube(torso, "do", (-5.4, 17.0, -3.5), (5.4, 23.6, 3.3), "lacquer", **L)
-    m.cube(torso, "do_trim", (-5.5, 22.6, -3.6), (5.5, 23.9, 3.4), "gold", decor={"all": "gold_band"})
-    m.cube(torso, "do_mon", (-1.4, 18.6, -3.8), (1.4, 21.2, -3.4), "pink", decor={"all": "sakura"})
-    m.cube(waist, "obi", (-5.0, 13.4, -3.0), (5.0, 15.4, 3.0), "pink")
+    for c in m.CUBES:
+        if c.mat == "purple":
+            c.decor.setdefault("all", "pleats")
+    # hakama ancho que se abre hacia abajo
+    m.cube_lr(RL[0], LL[0], "hakama_up", (0.0, 7.6, -2.8), (5.0, 13.8, 2.8), "purple", decor={"all": "pleats"})
+    m.cube_lr(RL[1], LL[1], "hakama_low", (0.0, 1.2, -3.1), (5.0, 7.8, 2.9), "purple", decor={"all": "pleats"})
+    m.cube_lr(RL[1], LL[1], "hakama_flare", (4.6, 0.6, -3.2), (5.4, 7.6, 3.0), "purple", rot=("z", 22.5),
+              pivot=(5.0, 7.6, 0), decor={"all": "pleats"})
+    m.cube_lr(RL[1], LL[1], "hakama_front", (0.2, 0.8, -3.6), (4.8, 7.4, -3.0), "purple", rot=("x", -22.5),
+              pivot=(2.5, 7.4, -3.2), decor={"all": "pleats"})
+    m.cube_lr(RL[0], LL[0], "haidate", (0.4, 8.4, -3.4), (4.6, 12.4, -2.8), "lacquer", rot=("x", -22.5),
+              pivot=(2.5, 12.4, -3.1), **L)
+    # do (coraza) en V: ancha arriba, estrecha en la cintura, con esquinas biseladas
+    m.cube(torso, "do", (-5.2, 19.6, -3.5), (5.2, 23.6, 3.3), "lacquer", **L)
+    m.cube(torso, "do_low", (-4.4, 16.4, -3.2), (4.4, 19.8, 3.0), "lacquer", **L)
+    m.cube_lr(torso, torso, "do_bevel", (4.4, 19.6, -3.4), (5.8, 23.4, -1.2), "lacquer", rot=("y", -22.5),
+              pivot=(4.8, 21.5, -3.0), **L)
+    m.cube(torso, "do_trim", (-5.4, 22.7, -3.7), (5.4, 23.9, 3.5), "gold", decor={"all": "gold_band"})
+    m.cube(torso, "do_mon", (-1.4, 19.4, -3.9), (1.4, 22.0, -3.5), "pink", decor={"all": "sakura"})
+    m.cube_lr(torso, torso, "watagami", (1.0, 23.4, -2.8), (4.4, 24.4, 2.8), "lacquer", rot=("z", -22.5),
+              pivot=(1.0, 23.9, 0), decor={"all": "gold_band"})
+    m.cube(waist, "obi", (-4.6, 13.4, -2.9), (4.6, 15.4, 2.9), "pink")
     m.cube(waist, "obi_knot", (-1.2, 12.6, -3.5), (1.2, 15.0, -2.9), "pink", rot=("z", 22.5))
-    # kusazuri (faldones de placas)
-    m.cube(m.BONES["skirt_front"], "kusazuri_f", (-3.4, 7.2, -3.6), (3.4, 13.6, -3.0), "lacquer", **L)
-    m.cube(m.BONES["skirt_back"], "kusazuri_b", (-3.6, 7.2, 3.0), (3.6, 13.6, 3.6), "lacquer", **L)
-    m.cube_lr(waist, waist, "kusazuri_s", (4.2, 7.6, -2.8), (4.9, 13.6, 2.8), "lacquer", rot=("z", 22.5),
+    m.cube(waist, "obi_tail", (-0.6, 9.0, -3.4), (0.6, 12.8, -3.0), "pink", rot=("z", -22.5), pivot=(0, 12.8, -3.2))
+    # kusazuri: faldones de placas en dos pisos que se abren
+    for bone, z0, z1, zr in ((m.BONES["skirt_front"], -3.6, -3.0, -22.5), (m.BONES["skirt_back"], 3.0, 3.6, 22.5)):
+        nm = "f" if z0 < 0 else "b"
+        m.cube(bone, f"kusazuri_{nm}", (-3.4, 10.0, z0), (3.4, 13.6, z1), "lacquer", **L)
+        m.cube(bone, f"kusazuri_{nm}2", (-3.6, 6.6, z0), (3.6, 10.2, z1), "lacquer", rot=("x", zr / 1),
+               pivot=(0, 10.1, (z0 + z1) / 2), **L)
+    m.cube_lr(waist, waist, "kusazuri_s", (4.2, 9.6, -2.8), (4.9, 13.6, 2.8), "lacquer", rot=("z", 22.5),
               pivot=(4.5, 13.6, 0), **L)
-    # sode (hombreras grandes), kote y manos espectrales
-    m.cube_lr(AR[0], AL[0], "sode", (8.4, 17.0, -3.1), (9.3, 24.6, 3.1), "lacquer", rot=("z", 22.5),
-              pivot=(8.8, 24.6, 0), **L)
-    m.cube_lr(AR[0], AL[0], "sode_cap", (5.6, 23.8, -3.1), (9.2, 25.0, 3.1), "gold", decor={"all": "gold_band"})
+    m.cube_lr(waist, waist, "kusazuri_s2", (5.6, 6.6, -2.8), (6.3, 10.0, 2.8), "lacquer", rot=("z", 45),
+              pivot=(5.9, 10.0, 0), **L)
+    # sode curvas (dos laminas), kote y manos espectrales
+    m.cube_lr(AR[0], AL[0], "sode_cap", (5.4, 23.8, -3.2), (9.0, 25.0, 3.2), "gold", rot=("z", 22.5),
+              pivot=(5.4, 24.4, 0), decor={"all": "gold_band"})
+    m.cube_lr(AR[0], AL[0], "sode", (8.4, 19.6, -3.2), (9.3, 24.4, 3.2), "lacquer", rot=("z", 22.5),
+              pivot=(8.8, 24.4, 0), **L)
+    m.cube_lr(AR[0], AL[0], "sode_low", (10.1, 15.6, -3.0), (11.0, 20.4, 3.0), "lacquer", rot=("z", 45),
+              pivot=(10.5, 20.4, 0), **L)
     m.cube_lr(AR[1], AL[1], "kote", (4.9, 12.2, -1.9), (8.1, 16.8, 1.9), "lacquer", decor={"all": "suji"})
+    m.cube_lr(AR[1], AL[1], "kote_guard", (4.7, 15.8, -2.2), (8.3, 17.4, 2.2), "gold", decor={"all": "gold_band"})
+    # haori espectral (capa corta) que ondea
+    cp = m.bone("cape", (0, 23.6, 3.4), torso)
+    m.cube(cp, "cape", (-5.0, 15.0, 3.3), (5.0, 23.6, 3.9), "glow", decor={"all": "wisp"})
+    m.cube(cp, "cape_low", (-5.4, 8.2, 3.3), (5.4, 15.2, 3.9), "glow", rot=("x", 22.5), pivot=(0, 15.1, 3.6),
+           decor={"all": "wisp"})
     # cintas de espiritu a la espalda
     for side, sx in (("r", 1), ("l", -1)):
         rb = m.bone(f"ribbon_{side}", (2.2 * sx, 23, 3.2), torso)
@@ -279,9 +321,10 @@ def build_baal():
     m.cube(kt, "blade_glow", (6.25, 8.8, -27.0), (6.75, 9.1, -5.0), "glow")
     m.cube(waist, "saya", (-5.6, 11.4, -2.0), (-4.8, 12.6, 14.0), "lacquer", rot=("x", -22.5),
            pivot=(-5.2, 12, -1), decor={"all": "gold_band"})
-    m.ZERO_BONES += ["katana", "banner", "ribbon_r", "ribbon_l"]
+    m.ZERO_BONES += ["katana", "banner", "ribbon_r", "ribbon_l", "cape"]
 
     def sway(a, t, s):
+        a.rot("cape", t, 6 * s, 0, 0)
         a.rot("banner", t, 0, 3 * s - 1.5, 2 * s)
         a.rot("ribbon_r", t, 8 * s, 0, 4 * s)
         a.rot("ribbon_l", t, 4 + 6 * s, 0, -4 * s)
@@ -326,7 +369,7 @@ def build_baal():
 
     a = m.anim("nova", 1.4, "once")            # clava la nodachi en el suelo (impacto 0.6 s)
     a.rest(0)
-    a.pose(0.35, {"right_arm": (-165, 0, 15), "left_arm": (-165, 0, -15), "katana": (-60, 0, 0),
+    a.pose(0.35, {"right_arm": (-165, 0, 15), "left_arm": (-165, 0, -15), "katana": (70, 0, 0),
                   "h_head": (-20, 0, 0), "torso": (-8, 0, 0)})
     a.pose(0.6, {**GM.KNEEL, "right_arm": (-55, 0, -5), "left_arm": (-55, 0, 5), "katana": (-70, 0, 0),
                  "torso": (30, 0, 0), "h_head": (10, 0, 0)}, i="linear")
@@ -342,7 +385,7 @@ def build_baal():
 
     a = m.anim("summon", 1.4, "once")          # alza la nodachi al cielo
     a.rest(0)
-    pose = {"right_arm": (-178, 0, 0), "katana": (-80, 0, 0), "left_arm": (-30, 0, -60), "h_head": (-25, 0, 0),
+    pose = {"right_arm": (-178, 0, 0), "katana": (75, 0, 0), "left_arm": (-30, 0, -60), "h_head": (-25, 0, 0),
             "torso": (-10, 0, 0)}
     a.pose(0.4, pose)
     a.pose(1.0, pose)
@@ -361,7 +404,7 @@ def build_baal():
     a.rest(1.8)
 
     GM.human_hurt(m)
-    GM.human_spawn(m, {"right_arm": (-170, 0, 10), "katana": (-60, 0, 0), "h_head": (-20, 0, 0)}, length=2.0)
+    GM.human_spawn(m, {"right_arm": (-170, 0, 10), "katana": (70, 0, 0), "h_head": (-20, 0, 0)}, length=2.0)
     GM.human_death(m, 2.4)
     m.scale(1.45)
     return m

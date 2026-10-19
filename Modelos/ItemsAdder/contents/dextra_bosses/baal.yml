@@ -1,0 +1,15 @@
+# Marco de la bossbar de baal (generado por tools/; no lo edites a mano).
+# En MythicMobs: BossBar.Title = "&f\u2005<nombre>&f\u2005"
+# Sin pack el caracter \u2005 es un espacio en blanco; con pack es esta imagen.
+info:
+  namespace: dextra_bosses
+
+font_images:
+  baal_bossbar:
+    path: font/baal/bossbar.png
+    symbol: "\u2005"
+    scale_ratio: 32
+    y_position: 12
+    show_in_gui: false
+    shadow:
+      enabled: false
