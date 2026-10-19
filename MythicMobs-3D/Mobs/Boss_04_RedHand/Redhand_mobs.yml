@@ -17,7 +17,9 @@ RedHand:
 
   BossBar:
     Enabled: true
-    Title: "&4&lRED HAND"
+    # \u2006 no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/red_hand.yml)
+    # es la moldura gotica a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f\u2006&4&lRED HAND&f\u2006"
     Range: 50
     Color: RED
     Style: SOLID
@@ -45,7 +47,9 @@ RedHand:
     - Recompensas_llaves
     - Ragnarok_EstrellaInvocacion 1 1
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/red_hand/red_hand.bbmodel
   Skills:
+    - model{mid=red_hand} @self ~onSpawn
     - skill{s=RH_Spawn} @self ~onSpawn
     - skill{s=RH_AcquireTarget} @self ~onTimer:10
     - skill{s=RH_HP75_Check} @self ~onTimer:20
@@ -63,6 +67,8 @@ RedHand:
     - skill{s=RH_PlayerKill} @target ~onKill
     - skill{s=RH_Death} @self ~onDeath
     - skill{s=RH_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=RH_Hurt} @self ~onDamaged 0.35
+    - skill{s=RH_Melee} @self ~onAttack
 
 FallenSquire:
   Type: ZOMBIE
@@ -91,7 +97,10 @@ FallenSquire:
   Drops:
     #- Recompensas_FallenSquire
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/fallen_squire/fallen_squire.bbmodel
   Skills:
+    - model{mid=fallen_squire} @self ~onSpawn
+    - state{mid=fallen_squire;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=FS_SpawnFX} @self ~onSpawn
     - skill{s=FS_Attack} @target ~onAttack
     - skill{s=RH_FuegoAmigo;sync=true} @self ~onDamaged
@@ -123,7 +132,10 @@ CorruptKnight:
   Drops:
     #- Recompensas_CorruptKnight
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/corrupt_knight/corrupt_knight.bbmodel
   Skills:
+    - model{mid=corrupt_knight} @self ~onSpawn
+    - state{mid=corrupt_knight;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=CK_SpawnFX} @self ~onSpawn
     - skill{s=CK_DarkShield} @target ~onAttack
     - skill{s=RH_FuegoAmigo;sync=true} @self ~onDamaged
@@ -152,7 +164,10 @@ CondemnedSoul:
   Drops:
     #- Recompensas_CondemnedSoul
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/condemned_soul/condemned_soul.bbmodel
   Skills:
+    - model{mid=condemned_soul} @self ~onSpawn
+    - state{mid=condemned_soul;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=CS_SpawnFX} @self ~onSpawn
     - skill{s=CS_Weaken} @target ~onAttack
     - skill{s=RH_FuegoAmigo;sync=true} @self ~onDamaged
@@ -172,6 +187,139 @@ RH_BloodPool:
     PreventOtherDrops: true
     PreventRandomEquipment: true
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/rh_blood_pool/rh_blood_pool.bbmodel
   Skills:
+    - model{mid=rh_blood_pool;hitbox=false} @self ~onSpawn
+    - state{mid=rh_blood_pool;s=spawn;li=0;lo=0} @self ~onSpawn
     - skill{s=RH_BloodPool_Spawn} @self ~onSpawn
     - skill{s=RH_BloodPool_Tick} @self ~onTimer:10
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde redhand_skills.yml con summon{type=RH_FX_...}.
+
+RH_FX_Slash:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=rh_fx_slash;hitbox=false} @self ~onSpawn
+    - state{mid=rh_fx_slash;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=RH_FX_Remove;delay=10} @self ~onSpawn
+
+RH_FX_Mark:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=rh_fx_mark;hitbox=false} @self ~onSpawn
+    - state{mid=rh_fx_mark;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=RH_FX_Remove;delay=60} @self ~onSpawn
+
+RH_FX_Shadow:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=rh_fx_shadow;hitbox=false} @self ~onSpawn
+    - state{mid=rh_fx_shadow;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=RH_FX_Remove;delay=22} @self ~onSpawn
+
+RH_FX_Hand:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=rh_fx_hand;hitbox=false} @self ~onSpawn
+    - state{mid=rh_fx_hand;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=RH_FX_Remove;delay=30} @self ~onSpawn
+
+RH_FX_Nova:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=rh_fx_nova;hitbox=false} @self ~onSpawn
+    - state{mid=rh_fx_nova;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=RH_FX_Remove;delay=20} @self ~onSpawn
+
+RH_FX_Execution:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=rh_fx_execution;hitbox=false} @self ~onSpawn
+    - state{mid=rh_fx_execution;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=RH_FX_Remove;delay=56} @self ~onSpawn
+
+RH_FX_Pillar:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=rh_fx_pillar;hitbox=false} @self ~onSpawn
+    - state{mid=rh_fx_pillar;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=RH_FX_Remove;delay=26} @self ~onSpawn

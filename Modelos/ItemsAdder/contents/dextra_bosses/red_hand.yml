@@ -1,0 +1,15 @@
+# Marco de la bossbar de red_hand (generado por tools/; no lo edites a mano).
+# En MythicMobs: BossBar.Title = "&f\u2006<nombre>&f\u2006"
+# Sin pack el caracter \u2006 es un espacio en blanco; con pack es esta imagen.
+info:
+  namespace: dextra_bosses
+
+font_images:
+  red_hand_bossbar:
+    path: font/red_hand/bossbar.png
+    symbol: "\u2006"
+    scale_ratio: 32
+    y_position: 12
+    show_in_gui: false
+    shadow:
+      enabled: false

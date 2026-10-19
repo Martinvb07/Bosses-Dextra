@@ -1,9 +1,21 @@
 # RedHand skills
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=red_hand;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:red_hand.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=RH_FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "RED HAND" como siempre; con pack se ve el logo.
 
 RH_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&4&lRED HAND";subtitle="&4Red Castle &8• &7Un caballero caído busca sangre";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=red_hand;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§4Red Castle §8• §7Un caballero caído busca sangre''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.red_hand'',fallback:''§4§lRED HAND'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:red_hand.intro;v=1;p=1} @self
+    - summon{type=RH_FX_Pillar;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&4&lRED HAND &8• &7Un caballero caído busca sangre."} @Server'
     - effect:sound{s=entity.wither_skeleton.ambient;v=0.9;p=0.8} @self
     - effect:particles{particle=SMOKE_LARGE;amount=25;hS=0.7;vS=0.9;speed=0.03} @self
@@ -87,7 +99,10 @@ RH_CondemnedSouls_Check:
   Conditions:
     - health{h=<749}
   Skills:
+    - state{mid=red_hand;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.vex.ambient;v=0.8;p=0.8} @self
+    - effect:sound{s=dextra:red_hand.summon;v=1;p=1} @self
+    - summon{type=RH_FX_Shadow;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SOUL;amount=30;hS=1.2;vS=1.0;speed=0.03} @self
     - summon{type=CondemnedSoul;amount=2;radius=7;noise=2} @self
     - summon{type=CorruptKnight;amount=1;radius=6;noise=2} @self
@@ -104,6 +119,9 @@ RH_Aura:
 RH_PhaseShield:
   Skills:
     - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
+    - state{mid=red_hand;s=phase_change;li=3;lo=4} @self
+    - effect:sound{s=dextra:red_hand.phase;v=1;p=1} @self
+    - summon{type=RH_FX_Pillar;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SPELL_MOB_AMBIENT;amount=18;hS=0.8;vS=0.6;speed=0.02} @self
 
 RH_AntiKite:
@@ -131,11 +149,19 @@ RH_SlashCombo:
   Conditions:
     - targetwithin{d=6}
   Skills:
+    - state{mid=red_hand;s=slash_combo;li=1;lo=3} @self
     - effect:sound{s=entity.player.attack.sweep;v=0.8;p=0.7} @self
+    - delay 2
+    - effect:sound{s=dextra:red_hand.slash;v=1;p=1} @self
+    - summon{type=RH_FX_Slash;amount=1;radius=0;noise=0} @selflocation
     - damage{a=55;pk=true} @target
     - delay 6
+    - effect:sound{s=dextra:red_hand.slash;v=1;p=1.1} @self
+    - summon{type=RH_FX_Slash;amount=1;radius=0;noise=0} @selflocation
     - damage{a=55;pk=true} @target
     - delay 6
+    - effect:sound{s=dextra:red_hand.slash;v=1;p=0.9} @self
+    - summon{type=RH_FX_Slash;amount=1;radius=0;noise=0} @selflocation
     - damage{a=55;pk=true} @target
     - potion{type=WEAKNESS;duration=60;level=0} @target
 
@@ -144,6 +170,9 @@ RH_RedMark:
     - targetwithin{d=20}
   Skills:
     - message{cooldown=14;m="&4&lRED HAND &fmarca a &c<target.name>&f..."} @PlayersInRadius{r=45}
+    - state{mid=red_hand;s=mark;li=2;lo=3} @self
+    - effect:sound{s=dextra:red_hand.mark;v=1;p=1} @self
+    - summon{type=RH_FX_Mark;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=REDSTONE;amount=28;hS=0.45;vS=0.9;speed=0.0;color=#ff0000;size=1.4} @target
     - potion{type=GLOWING;duration=60;level=0} @target
     - potion{type=SLOW;duration=30;level=0} @target
@@ -154,9 +183,13 @@ RH_ShadowDash:
     - targetwithin{d=25}
   Skills:
     - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.6;vS=0.6;speed=0.02} @target
+    - state{mid=red_hand;s=dash;li=1;lo=1} @self
     - effect:sound{s=entity.enderman.teleport;v=0.7;p=0.6} @self
+    - effect:sound{s=dextra:red_hand.dash;v=1;p=1} @self
+    - summon{type=RH_FX_Shadow;amount=1;radius=0;noise=0} @selflocation
     - delay 8
     - teleport @target
+    - summon{type=RH_FX_Shadow;amount=1;radius=0;noise=0} @selflocation
     - delay 2
     - skill{s=RH_SlashCombo} @target
 
@@ -166,12 +199,15 @@ RH_BloodPools:
     - targetwithin{d=25}
   Skills:
     - message{cooldown=12;m="&4&lRED HAND &7deja charcos de &csangre&7... &f¡no los pises!"} @PlayersInRadius{r=45}
+    - state{mid=red_hand;s=pools;li=2;lo=3} @self
     - effect:sound{s=block.slime_block.place;v=0.65;p=0.75} @self
+    - effect:sound{s=dextra:red_hand.pools;v=1;p=1} @self
     - effect:particles{particle=REDSTONE;amount=18;hS=0.8;vS=0.2;speed=0.0;color=#8b0000;size=1.25} @target
     - summon{type=RH_BloodPool;amount=3;radius=4;noise=2} @target
 
 RH_BloodPool_Spawn:
   Skills:
+    - effect:sound{s=dextra:red_hand.pool_bubble;v=0.7;p=1} @self
     - effect:particles{particle=REDSTONE;amount=30;hS=1.3;vS=0.1;speed=0.0;color=#5a0000;size=1.35} @self
     - delay 140
     - remove @self
@@ -190,8 +226,11 @@ RH_Execution:
     - health{h=<268}
   Skills:
     - message{cooldown=9999;m="&4&lEJECUCIÓN &8» &f¡Aléjate del boss o te borra!"} @PlayersInRadius{r=60}
+    - state{mid=red_hand;s=execution;li=2;lo=4} @self
     - effect:sound{s=entity.warden.roar;v=0.6;p=0.8} @self
     - effect:sound{s=entity.wither.spawn;v=0.35;p=0.7} @self
+    - effect:sound{s=dextra:red_hand.execution;v=1;p=1} @self
+    - summon{type=RH_FX_Execution;amount=1;radius=0;noise=0} @selflocation
     - potion{type=DAMAGE_RESISTANCE;duration=60;level=3} @self
     - potion{type=SLOW;duration=50;level=6} @self
     - effect:particles{particle=REDSTONE;amount=55;hS=2.6;vS=0.25;speed=0.0;color=#b00000;size=1.35} @self
@@ -208,7 +247,10 @@ RH_HandCrush:
   Cooldown: 16
   Skills:
     - message{cooldown=8;m="&4&lRED HAND &faprieta el suelo..."} @PlayersInRadius{r=45}
+    - state{mid=red_hand;s=crush;li=2;lo=3} @self
     - effect:sound{s=entity.iron_golem.attack;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:red_hand.crush;v=1;p=1} @self
+    - summon{type=RH_FX_Hand;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=REDSTONE;amount=30;hS=1.4;vS=0.2;speed=0.0;color=#b00000;size=1.25} @self
     - effect:particles{particle=BLOCK_CRACK;material=RED_NETHER_BRICKS;amount=35;hS=1.2;vS=0.4;speed=0.10} @self
     - pull{velocity=1.4} @PlayersInRadius{r=10}
@@ -221,10 +263,13 @@ RH_BloodNova:
   Cooldown: 22
   Skills:
     - message{cooldown=10;m="&c&l¡NOVA SANGRIENTA!"} @PlayersInRadius{r=50}
+    - state{mid=red_hand;s=nova;li=2;lo=3} @self
     - effect:sound{s=entity.wither.shoot;v=0.6;p=0.7} @self
+    - effect:sound{s=dextra:red_hand.nova;v=1;p=1} @self
     - effect:particles{particle=REDSTONE;amount=45;hS=1.2;vS=0.25;speed=0.0;color=#b00000;size=1.25} @self
     - effect:particles{particle=SOUL;amount=18;hS=1.0;vS=0.8;speed=0.02} @self
     - delay 8
+    - summon{type=RH_FX_Nova;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=FLASH;amount=1} @self
     - effect:particles{particle=REDSTONE;amount=70;hS=2.2;vS=0.75;speed=0.0;color=#ff0000;size=1.4} @self
     - damage{a=55;pk=true} @PlayersInRadius{r=9}
@@ -237,6 +282,9 @@ RH_SummonSquires:
     - mobsinradius{type=FallenSquire;amount=<4;radius=30}
   Skills:
     - message{cooldown=12;m="&8Los &7Escuderos Caídos &8responden al llamado..."} @PlayersInRadius{r=45}
+    - state{mid=red_hand;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:red_hand.summon;v=1;p=1} @self
+    - summon{type=RH_FX_Shadow;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SMOKE_LARGE;amount=30;hS=1.0;vS=0.7;speed=0.02} @self
     - summon{type=FallenSquire;amount=2;radius=8;noise=3} @self
 
@@ -244,7 +292,22 @@ RH_Death:
   Skills:
     - message{m="&4&lRED HAND &fha caído. &7La maldición se debilita..."} @PlayersInRadius{r=70}
     - effect:sound{s=entity.wither.death;v=0.7;p=1.0} @self
+    - effect:sound{s=dextra:red_hand.death;v=1;p=1} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
+
+RH_FX_Remove:
+  Skills:
+    - remove @self
+
+RH_Melee:
+  Skills:
+    - state{mid=red_hand;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:red_hand.slash;v=0.8;p=1.1} @self
+
+RH_Hurt:
+  Skills:
+    - state{mid=red_hand;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:red_hand.hurt;v=0.8;p=1} @self
 
 RH_PlayerKill:
   Skills:
@@ -252,30 +315,42 @@ RH_PlayerKill:
 
 FS_SpawnFX:
   Skills:
+    - state{mid=fallen_squire;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:red_hand.squire_groan;v=0.8;p=1} @self
     - effect:particles{particle=SMOKE_LARGE;amount=10;hS=0.5;vS=0.5;speed=0.02} @self
     - effect:sound{s=entity.zombie.step;v=0.6;p=0.8} @self
 
 FS_Attack:
   Skills:
+    - state{mid=fallen_squire;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:red_hand.squire_hit;v=0.8;p=1} @self
     - potion{type=SLOW;duration=25;level=0} @target
 
 CK_SpawnFX:
   Skills:
+    - state{mid=corrupt_knight;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:red_hand.knight_clank;v=0.8;p=1} @self
     - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.5;vS=0.5;speed=0.02} @self
     - effect:sound{s=entity.wither_skeleton.ambient;v=0.7;p=0.8} @self
 
 CK_DarkShield:
   Skills:
+    - state{mid=corrupt_knight;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:red_hand.knight_bash;v=0.8;p=1} @self
     - potion{type=DAMAGE_RESISTANCE;duration=30;level=1} @self
     - potion{type=WEAKNESS;duration=40;level=0} @target
 
 CS_SpawnFX:
   Skills:
+    - state{mid=condemned_soul;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:red_hand.soul_wail;v=0.8;p=1} @self
     - effect:particles{particle=SOUL;amount=14;hS=0.5;vS=0.7;speed=0.03} @self
     - effect:sound{s=entity.vex.ambient;v=0.8;p=0.9} @self
 
 CS_Weaken:
   Skills:
+    - state{mid=condemned_soul;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:red_hand.soul_hit;v=0.8;p=1} @self
     - potion{type=WEAKNESS;duration=60;level=0} @target
     - potion{type=CONFUSION;duration=40;level=0} @target
 
