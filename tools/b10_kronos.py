@@ -490,10 +490,6 @@ def build_guardian():
     m.cube(m.BONES["skirt_back"], "tabard_b", (-3.6, 3.0, 3.0), (3.6, 13.4, 3.6), "robe", rot=("x", 22.5), pivot=(0, 13, 3.3),
            **RB)
     sh = m.bone("shield", (-8.6, 15.0, 0), AL[1])
-    gear(m, sh, "shield", -9.4, 14.0, -5.0, 5.0, 0.1, mat="iron", teeth=0)
-    for c in list(m.CUBES):
-        if c.name.startswith("shield"):
-            m.CUBES.remove(c)
     m.cube(sh, "shield_disc", (-9.8, 8.4, -5.0), (-8.8, 19.6, 5.0), "iron", decor={"all": "engraved"})
     m.cube(sh, "shield_disc45", (-9.7, 9.0, -4.4), (-8.9, 19.0, 4.4), "iron_hi", rot=("x", 45), pivot=(-9.3, 14, 0))
     for k in range(8):

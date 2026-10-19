@@ -18,7 +18,9 @@ Leviatan:
 
   BossBar:
     Enabled: true
-    Title: "&3&lLEVIATAN"
+    # \u3000 no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/leviatan.yml)
+    # es la moldura de olas y coral a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f　&3&lLEVIATAN&f　"
     Range: 50
     Color: PINK
     Style: SEGMENTED_10
@@ -82,7 +84,9 @@ Leviatan:
    # - Recompensas_llaves
    # - RH_EstrellaInvocacion 1 1
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/leviatan/leviatan.bbmodel
   Skills:
+    - model{mid=leviatan} @self ~onSpawn
     - skill{s=Leviatan_Rank_Reset} @self ~onSpawn
     - skill{s=Leviatan_Rank_Sumar} @self ~onDamaged
     - skill{s=Leviatan_Rank_Muerte} @self ~onDeath
@@ -100,6 +104,8 @@ Leviatan:
     - skill{s=LV_PlayerKill} @target ~onKill
     - skill{s=LV_Death} @self ~onDeath
     - skill{s=LV_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=LV_Melee} @self ~onAttack
+    - skill{s=LV_Hurt} @self ~onDamaged 0.35
 
 
 # --- Subditos de Leviatan ---
@@ -131,7 +137,10 @@ Leviatan_Ahogado:
   Drops:
     #- Recompensas_UndeadSamurai
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/lv_drowned/lv_drowned.bbmodel
   Skills:
+    - model{mid=lv_drowned} @self ~onSpawn
+    - state{mid=lv_drowned;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=LV_US_SpawnFX} @self ~onSpawn
     - skill{s=LV_US_KatanaBlock} @target ~onAttack
     - skill{s=LV_FuegoAmigo;sync=true} @self ~onDamaged
@@ -159,7 +168,10 @@ Leviatan_Marea:
   Drops:
     #- Recompensas_Yokai
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/lv_tide/lv_tide.bbmodel
   Skills:
+    - model{mid=lv_tide} @self ~onSpawn
+    - state{mid=lv_tide;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=LV_Yokai_SpawnFX} @self ~onSpawn
     - skill{s=LV_Yokai_Curse} @self ~onTimer:35
     - skill{s=LV_FuegoAmigo;sync=true} @self ~onDamaged
@@ -187,8 +199,141 @@ Leviatan_Anguila:
   Drops:
     #- Recompensas_ShadowNinja
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/lv_eel/lv_eel.bbmodel
   Skills:
+    - model{mid=lv_eel} @self ~onSpawn
+    - state{mid=lv_eel;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=LV_SN_SpawnFX} @self ~onSpawn
     - skill{s=LV_SN_Invisibility} @self ~onTimer:30
     - skill{s=LV_SN_Assassinate} @target ~onAttack
     - skill{s=LV_FuegoAmigo;sync=true} @self ~onDamaged
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde Leviatan_Combate.yml con summon{type=LV_FX_...}.
+
+LV_FX_Curse:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=lv_fx_curse;hitbox=false} @self ~onSpawn
+    - state{mid=lv_fx_curse;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LV_FX_Remove;delay=32} @self ~onSpawn
+
+LV_FX_Splash:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=lv_fx_splash;hitbox=false} @self ~onSpawn
+    - state{mid=lv_fx_splash;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LV_FX_Remove;delay=26} @self ~onSpawn
+
+LV_FX_Whirlpool:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=lv_fx_whirlpool;hitbox=false} @self ~onSpawn
+    - state{mid=lv_fx_whirlpool;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LV_FX_Remove;delay=36} @self ~onSpawn
+
+LV_FX_Ink:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=lv_fx_ink;hitbox=false} @self ~onSpawn
+    - state{mid=lv_fx_ink;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LV_FX_Remove;delay=36} @self ~onSpawn
+
+LV_FX_Tsunami:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=lv_fx_tsunami;hitbox=false} @self ~onSpawn
+    - state{mid=lv_fx_tsunami;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LV_FX_Remove;delay=30} @self ~onSpawn
+
+LV_FX_Coral:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=lv_fx_coral;hitbox=false} @self ~onSpawn
+    - state{mid=lv_fx_coral;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LV_FX_Remove;delay=40} @self ~onSpawn
+
+LV_FX_Phase:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=lv_fx_phase;hitbox=false} @self ~onSpawn
+    - state{mid=lv_fx_phase;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LV_FX_Remove;delay=52} @self ~onSpawn

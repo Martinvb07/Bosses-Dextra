@@ -15,7 +15,7 @@ Hay una carpeta por boss, con el mismo numero que en `MythicMobs-3D/Mobs/Boss_XX
 | 08 | [Yeti](08_Yeti/) | ✅ con modelos |
 | 10 | [Kronos](10_Kronos/) | ✅ con modelos |
 | 11 | [Azathoth](11_Azathoth/) | ✅ con modelos |
-| 12 | [Leviatan](12_Leviatan/) | pendiente |
+| 12 | [Leviatan](12_Leviatan/) | ✅ con modelos |
 | 13 | [Xylar](13_Xylar/) | pendiente |
 | 14 | [Samhain](14_Samhain/) | pendiente |
 | 15 | [Thor](15_Thor/) | pendiente |

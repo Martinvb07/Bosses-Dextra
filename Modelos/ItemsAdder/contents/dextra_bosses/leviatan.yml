@@ -1,0 +1,15 @@
+# Marco de la bossbar de leviatan (generado por tools/; no lo edites a mano).
+# En MythicMobs: BossBar.Title = "&f\u3000<nombre>&f\u3000"
+# Sin pack el caracter \u3000 es un espacio en blanco; con pack es esta imagen.
+info:
+  namespace: dextra_bosses
+
+font_images:
+  leviatan_bossbar:
+    path: font/leviatan/bossbar.png
+    symbol: "\u3000"
+    scale_ratio: 32
+    y_position: 12
+    show_in_gui: false
+    shadow:
+      enabled: false

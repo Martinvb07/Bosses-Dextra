@@ -2,11 +2,23 @@
 # Mecanicas basadas en Baal, con lore, subditos y particulas de Leviatan.
 # Daño de skills escalado x1.00 y umbrales de vida para 3800 HP (curva de dificultad 01->17).
 # Los sacos / ranking siguen en sus archivos de siempre.
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=leviatan;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:leviatan.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=..._FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "LEVIATAN" como siempre; con pack se ve el logo.
 
 LV_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&3&lLEVIATAN";subtitle="&bFosa Abisal &8• &7El Rey del Abismo emerge";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=leviatan;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§bFosa Abisal §8• §7El Rey del Abismo emerge''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.leviatan'',fallback:''§3§lLEVIATAN'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:leviatan.intro;v=1;p=1} @self
+    - summon{type=LV_FX_Phase;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&3&lLEVIATAN &f: &7Las profundidades os reclaman. Nadie respira en mi reino."} @Server'
     - effect:sound{s=entity.skeleton.ambient;v=0.8;p=0.8} @self
     - effect:particles{particle=SOUL;amount=18;hS=1.0;vS=0.9;speed=0.02} @self
@@ -59,6 +71,9 @@ LV_Phase3_Check:
 
 LV_PhaseShield:
   Skills:
+    - state{mid=leviatan;s=phase_change;li=3;lo=4} @self
+    - effect:sound{s=dextra:leviatan.phase;v=1;p=1} @self
+    - summon{type=LV_FX_Phase;amount=1;radius=0;noise=0} @selflocation
     - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
     - effect:particles{particle=SPELL_MOB_AMBIENT;amount=18;hS=0.8;vS=0.7;speed=0.02} @self
 
@@ -78,6 +93,9 @@ LV_SpiritCurse:
   Conditions:
     - targetwithin{d=22}
   Skills:
+    - state{mid=leviatan;s=curse;li=1;lo=2} @self
+    - effect:sound{s=dextra:leviatan.curse;v=1;p=1} @self
+    - summon{type=LV_FX_Curse;amount=1;radius=0;noise=0} @targetlocation
     - damage{a=90;pk=true} @target
     - potion{type=WEAKNESS;duration=80;level=0} @target
     - potion{type=CONFUSION;duration=50;level=0} @target
@@ -87,16 +105,23 @@ LV_ShadowStep:
   Conditions:
     - targetwithin{d=24}
   Skills:
+    - state{mid=leviatan;s=lunge;li=1;lo=2} @self
     - effect:sound{s=entity.enderman.teleport;v=0.7;p=0.7} @self
+    - effect:sound{s=dextra:leviatan.splash;v=1;p=1} @self
+    - summon{type=LV_FX_Splash;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SMOKE_LARGE;amount=14;hS=0.5;vS=0.35;speed=0.02} @self
     - leap{velocity=180;noise=1} @target
     - delay 12
+    - summon{type=LV_FX_Splash;amount=1;radius=0;noise=0} @targetlocation
     - damage{a=84;pk=true} @target ?distance{d=<3}
 
 LV_SakuraHex:
   Cooldown: 18
   Skills:
     - 'message{cooldown=10;m="&bUna corriente abisal os arrastra hacia el fondo..."} @PlayersInRadius{r=45}'
+    - state{mid=leviatan;s=whirlpool;li=2;lo=3} @self
+    - effect:sound{s=dextra:leviatan.whirlpool;v=1;p=1} @self
+    - summon{type=LV_FX_Whirlpool;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=BLOCK_CRACK;material=PRISMARINE;amount=42;hS=1.7;vS=0.9;speed=0.03} @self
     - damage{a=108;pk=true} @PlayersInRadius{r=7}
     - potion{type=WEAKNESS;duration=100;level=0} @PlayersInRadius{r=7}
@@ -104,14 +129,20 @@ LV_SakuraHex:
 LV_ShadowVeil:
   Cooldown: 20
   Skills:
+    - state{mid=leviatan;s=veil;li=1;lo=2} @self
     - effect:sound{s=entity.illusioner.mirror_move;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:leviatan.ink;v=1;p=1} @self
+    - summon{type=LV_FX_Ink;amount=1;radius=0;noise=0} @selflocation
     - potion{type=INVISIBILITY;duration=60;level=0} @self
     - effect:particles{particle=SMOKE_LARGE;amount=24;hS=1.0;vS=0.7;speed=0.03} @self
 
 LV_SpiritNova:
   Cooldown: 22
   Skills:
+    - state{mid=leviatan;s=nova;li=1;lo=3} @self
     - effect:sound{s=entity.illusioner.cast_spell;v=0.8;p=0.8} @self
+    - effect:sound{s=dextra:leviatan.tsunami;v=1;p=1} @self
+    - summon{type=LV_FX_Tsunami;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SOUL;amount=36;hS=1.5;vS=0.8;speed=0.03} @self
     - damage{a=132;pk=true} @PlayersInRadius{r=8}
     - potion{type=BLINDNESS;duration=50;level=0} @PlayersInRadius{r=8}
@@ -121,6 +152,9 @@ LV_SummonYokai:
   Conditions:
     - mobsinradius{type=Leviatan_Marea;amount=<3;radius=30}
   Skills:
+    - state{mid=leviatan;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:leviatan.summon;v=1;p=1} @self
+    - summon{type=LV_FX_Coral;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Leviatan_Marea;amount=1;radius=7;noise=2} @self
 
 LV_SummonSamurai:
@@ -128,6 +162,9 @@ LV_SummonSamurai:
   Conditions:
     - mobsinradius{type=Leviatan_Ahogado;amount=<4;radius=30}
   Skills:
+    - state{mid=leviatan;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:leviatan.summon;v=1;p=1} @self
+    - summon{type=LV_FX_Coral;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Leviatan_Ahogado;amount=2;radius=7;noise=2} @self
 
 LV_SummonNinjas:
@@ -135,6 +172,9 @@ LV_SummonNinjas:
   Conditions:
     - mobsinradius{type=Leviatan_Anguila;amount=<4;radius=30}
   Skills:
+    - state{mid=leviatan;s=summon;li=2;lo=4} @self
+    - effect:sound{s=dextra:leviatan.summon;v=1;p=1} @self
+    - summon{type=LV_FX_Coral;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Leviatan_Anguila;amount=2;radius=7;noise=2} @self
 
 LV_SummonCycle:
@@ -164,27 +204,38 @@ LV_Death:
   Skills:
     - 'message{m="&3&lLEVIATAN &f: &7El mar... siempre... regresa..."} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.skeleton.death;v=0.8;p=0.9} @self
+    - effect:sound{s=dextra:leviatan.death;v=1;p=1} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 
 LV_US_SpawnFX:
   Skills:
+    - state{mid=lv_drowned;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:leviatan.drowned_groan;v=0.8;p=1} @self
     - effect:particles{particle=SMOKE_NORMAL;amount=12;hS=0.5;vS=0.5;speed=0.02} @self
 
 LV_US_KatanaBlock:
   Skills:
+    - state{mid=lv_drowned;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:leviatan.drowned_slash;v=0.8;p=1} @self
     - potion{type=DAMAGE_RESISTANCE;duration=25;level=1} @self
     - potion{type=SLOW;duration=25;level=0} @target
 
 LV_Yokai_SpawnFX:
   Skills:
+    - state{mid=lv_tide;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:leviatan.tide_chime;v=0.8;p=1} @self
     - effect:particles{particle=SOUL;amount=12;hS=0.5;vS=0.6;speed=0.02} @self
 
 LV_Yokai_Curse:
   Skills:
+    - state{mid=lv_tide;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:leviatan.tide_pulse;v=0.8;p=1} @self
     - potion{type=WEAKNESS;duration=60;level=0} @PlayersInRadius{r=5}
 
 LV_SN_SpawnFX:
   Skills:
+    - state{mid=lv_eel;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:leviatan.eel_hiss;v=0.8;p=1} @self
     - effect:particles{particle=SMOKE_LARGE;amount=10;hS=0.5;vS=0.5;speed=0.02} @self
 
 LV_SN_Invisibility:
@@ -193,10 +244,26 @@ LV_SN_Invisibility:
 
 LV_SN_Assassinate:
   Skills:
+    - state{mid=lv_eel;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:leviatan.eel_bite;v=0.8;p=1} @self
     - damage{a=54;pk=true} @target
     - potion{type=BLINDNESS;duration=30;level=0} @target
 
 # Item summon
+
+LV_FX_Remove:
+  Skills:
+    - remove @self
+
+LV_Melee:
+  Skills:
+    - state{mid=leviatan;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:leviatan.stab;v=0.8;p=1} @self
+
+LV_Hurt:
+  Skills:
+    - state{mid=leviatan;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:leviatan.hurt;v=0.8;p=1} @self
 
 # --- Fuego amigo ---
 LV_FuegoAmigo:
