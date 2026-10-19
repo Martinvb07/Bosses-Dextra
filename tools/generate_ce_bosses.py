@@ -52,8 +52,11 @@ ARENA = "execute in minecraft:warps run forceload add 60032 60032 60079 60079"
 
 
 def turno(boss):
-    acciones = [f"console_command: {ARENA}"]
+    # Los mobs de un chunk recien cargado tardan un momento en aparecer: se espera antes de
+    # retirar a los anteriores, y otra vez antes de sacar al nuevo para que el kill ya haya pasado.
+    acciones = [f"console_command: {ARENA}", "wait: 5"]
     acciones += [f"console_command: mm mobs kill {b}" for b in ROTACION]
+    acciones.append("wait: 2")
     if boss:
         acciones.append(f"console_command: mm mobs spawn {boss} 1 {LUGAR}")
     return acciones
