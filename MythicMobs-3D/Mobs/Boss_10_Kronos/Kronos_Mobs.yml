@@ -20,7 +20,9 @@ Kronos:
 
   BossBar:
     Enabled: true
-    Title: "&5&lKronos &8• &r&fEl Tirano del Tiempo"
+    # \u2000 no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/kronos.yml)
+    # es la moldura de oro a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f &5&lKronos &8• &r&fEl Tirano del Tiempo&f "
     Range: 40
     Color: PURPLE
     Style: SEGMENTED_10
@@ -96,7 +98,9 @@ Kronos:
    # - OD_EstrellaInvocacion 1 1
    # - command{c="ae givercbook HEROICO <target.name> 3"} 1 1.0
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/kronos/kronos.bbmodel
   Skills:
+    - model{mid=kronos} @self ~onSpawn
     - skill{s=Kronos_Rank_Reset} @self ~onSpawn
     - skill{s=Kronos_Rank_Sumar} @self ~onDamaged
     - skill{s=Kronos_Rank_Muerte} @self ~onDeath
@@ -121,6 +125,8 @@ Kronos:
     - skill{s=KR_PlayerKill} @target ~onKill
     - skill{s=KR_Death} @self ~onDeath
     - skill{s=KR_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=KR_Melee} @self ~onAttack
+    - skill{s=KR_Hurt} @self ~onDamaged 0.35
 
 
 # --- Subditos de Kronos ---
@@ -150,7 +156,14 @@ Kronos_Centinela:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/kr_sentinel/kr_sentinel.bbmodel
   Skills:
+    - model{mid=kr_sentinel} @self ~onSpawn
+    - state{mid=kr_sentinel;s=spawn;li=0;lo=2} @self ~onSpawn
+    - effect:sound{s=dextra:kronos.sentinel_wind;v=0.8;p=1} @self ~onSpawn
+    - state{mid=kr_sentinel;s=attack;li=1;lo=2} @self ~onAttack
+    - effect:sound{s=dextra:kronos.sentinel_slash;v=0.8;p=1} @self ~onAttack
+    - state{mid=kr_sentinel;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=KR_FuegoAmigo;sync=true} @self ~onDamaged
 
 
@@ -180,7 +193,12 @@ Kronos_Guardian:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/kr_guardian/kr_guardian.bbmodel
   Skills:
+    - model{mid=kr_guardian} @self ~onSpawn
+    - state{mid=kr_guardian;s=attack;li=1;lo=2} @self ~onAttack
+    - state{mid=kr_guardian;s=block;li=1;lo=2} @self ~onDamaged 0.3
+    - effect:sound{s=dextra:kronos.guardian_block;v=0.7;p=1} @self ~onDamaged 0.3
     - skill{s=KR_Guardian_SpawnFX} @self ~onSpawn
     - skill{s=KR_Guardian_Block} @target ~onAttack
     - skill{s=KR_FuegoAmigo;sync=true} @self ~onDamaged
@@ -210,7 +228,11 @@ Kronos_Saetero:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/kr_archer/kr_archer.bbmodel
   Skills:
+    - model{mid=kr_archer} @self ~onSpawn
+    - state{mid=kr_archer;s=attack;li=1;lo=2} @self ~onShoot
+    - state{mid=kr_archer;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=KR_Saetero_SpawnFX} @self ~onSpawn
     - skill{s=KR_Saetero_RapidShots} @target ~onTimer:30
     - skill{s=KR_FuegoAmigo;sync=true} @self ~onDamaged
@@ -236,7 +258,160 @@ Kronos_Devorador:
     - clear
     - players
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/kr_devourer/kr_devourer.bbmodel
   Skills:
+    - model{mid=kr_devourer} @self ~onSpawn
+    - state{mid=kr_devourer;s=attack;li=1;lo=2} @self ~onAttack
+    - effect:sound{s=dextra:kronos.devourer_bite;v=0.8;p=1} @self ~onAttack
+    - state{mid=kr_devourer;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=KR_Devorador_SpawnFX} @self ~onSpawn
     - skill{s=KR_Devorador_Charge} @target ~onAttack
     - skill{s=KR_FuegoAmigo;sync=true} @self ~onDamaged
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde Kronos_Combate.yml con summon{type=KR_FX_...}.
+
+KR_FX_Slam:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kr_fx_slam;hitbox=false} @self ~onSpawn
+    - state{mid=kr_fx_slam;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KR_FX_Remove;delay=24} @self ~onSpawn
+
+KR_FX_Quake:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kr_fx_quake;hitbox=false} @self ~onSpawn
+    - state{mid=kr_fx_quake;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KR_FX_Remove;delay=32} @self ~onSpawn
+
+KR_FX_Roar:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kr_fx_roar;hitbox=false} @self ~onSpawn
+    - state{mid=kr_fx_roar;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KR_FX_Remove;delay=40} @self ~onSpawn
+
+KR_FX_Charge:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kr_fx_charge;hitbox=false} @self ~onSpawn
+    - state{mid=kr_fx_charge;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KR_FX_Remove;delay=16} @self ~onSpawn
+
+KR_FX_Hourglass:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kr_fx_hourglass;hitbox=false} @self ~onSpawn
+    - state{mid=kr_fx_hourglass;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KR_FX_Remove;delay=44} @self ~onSpawn
+
+KR_FX_Phase:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kr_fx_phase;hitbox=false} @self ~onSpawn
+    - state{mid=kr_fx_phase;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KR_FX_Remove;delay=48} @self ~onSpawn
+
+KR_FX_Rift:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kr_fx_rift;hitbox=false} @self ~onSpawn
+    - state{mid=kr_fx_rift;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KR_FX_Remove;delay=36} @self ~onSpawn
+
+KR_FX_Sand:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=kr_fx_sand;hitbox=false} @self ~onSpawn
+    - state{mid=kr_fx_sand;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=KR_FX_Remove;delay=36} @self ~onSpawn

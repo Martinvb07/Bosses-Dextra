@@ -13,7 +13,7 @@ Hay una carpeta por boss, con el mismo numero que en `MythicMobs-3D/Mobs/Boss_XX
 | 06 | [Mushlord](06_Mushlord/) | ✅ con modelos |
 | 07 | [LadyOfLaments](07_LadyOfLaments/) | ✅ con modelos |
 | 08 | [Yeti](08_Yeti/) | ✅ con modelos |
-| 10 | [Kronos](10_Kronos/) | pendiente |
+| 10 | [Kronos](10_Kronos/) | ✅ con modelos |
 | 11 | [Azathoth](11_Azathoth/) | pendiente |
 | 12 | [Leviatan](12_Leviatan/) | pendiente |
 | 13 | [Xylar](13_Xylar/) | pendiente |

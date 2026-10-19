@@ -1,6 +1,13 @@
 # Kronos - Skills de combate propias: lore, subditos y particulas de Kronos.
 # Daño de skills escalado x2.00 y umbrales de vida para 3400 HP (curva de dificultad 01->17).
 # Los sacos / ranking siguen en sus archivos de siempre.
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=kronos;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:kronos.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=..._FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "KRONOS" como siempre; con pack se ve el logo.
 
 KR_Strength_On:
   Skills:
@@ -14,7 +21,12 @@ KR_Strength_Off:
 
 KR_Intro:
   Skills:
-    - 'title{title="&5&lKRONOS";subtitle="&dSala del Reloj Roto &8• &7El Tirano del Tiempo despierta";fadein=20;stay=300;fadeout=20} @Server'
+    - state{mid=kronos;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§dSala del Reloj Roto §8• §7El Tirano del Tiempo despierta''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.kronos'',fallback:''§5§lKRONOS'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:kronos.intro;v=1;p=1} @self
+    - summon{type=KR_FX_Phase;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&5&lKRONOS &f: &7El tiempo se detiene... para vosotros."} @Server'
     - effect:sound{s=entity.wither.spawn;v=0.7;p=1.2} @self
     - effect:particles{particle=FLASH;amount=1} @self
@@ -73,7 +85,10 @@ KR_HP40_Lore:
 KR_Slam:
   Cooldown: 10
   Skills:
+    - state{mid=kronos;s=slam;li=1;lo=2} @self
     - effect:sound{s=entity.generic.explode;v=0.6;p=1.2} @self
+    - effect:sound{s=dextra:kronos.slam;v=1;p=1} @self
+    - summon{type=KR_FX_Slam;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=BLOCK_CRACK;material=CRYING_OBSIDIAN;amount=70;hS=1.3;vS=0.2;speed=0.15} @self
     - damage{a=80} @PlayersInRadius{r=5}
     - throw{velocity=6;velocityY=2} @PlayersInRadius{r=5}
@@ -84,8 +99,11 @@ KR_Charge:
   Conditions:
     - stance{stance=PHASE2} true
   Skills:
+    - state{mid=kronos;s=charge;li=1;lo=2} @self
     - effect:sound{s=entity.ravager.roar;v=0.7;p=1.0} @self
+    - effect:sound{s=dextra:kronos.charge;v=1;p=1} @self
     - leap{velocity=1.2;velocityY=0.2} @self
+    - summon{type=KR_FX_Charge;amount=1;radius=0;noise=0} @selflocation
     - delay 10
     - damage{a=120} @PlayersInRadius{r=4}
     - throw{velocity=7;velocityY=1.5} @PlayersInRadius{r=4}
@@ -96,7 +114,10 @@ KR_Quake:
   Conditions:
     - targetwithin{d=20} true
   Skills:
+    - state{mid=kronos;s=quake;li=2;lo=3} @self
     - effect:sound{s=entity.iron_golem.attack;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:kronos.quake;v=1;p=1} @self
+    - summon{type=KR_FX_Quake;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=BLOCK_CRACK;material=CRYING_OBSIDIAN;amount=120;hS=2.3;vS=0.2;speed=0.12} @self
     - delay 6
     - damage{a=80} @PlayersInRadius{r=8}
@@ -107,7 +128,10 @@ KR_RugidoDelTiempo:
   Cooldown: 25
   Skills:
     - 'message{m="&5&lKRONOS &8» &dEl tiempo se vuelve espeso a tu alrededor..."} @PlayersInRadius{r=20}'
+    - state{mid=kronos;s=roar;li=2;lo=3} @self
     - effect:sound{s=entity.ender_dragon.growl;v=0.7;p=0.9} @self
+    - effect:sound{s=dextra:kronos.time;v=1;p=1} @self
+    - summon{type=KR_FX_Roar;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=PORTAL;amount=35;hS=0.9;vS=1.1;speed=0.05} @self
     - potion{type=WEAKNESS;duration=120;level=1} @PlayersInRadius{r=20}
     - potion{type=SLOW;duration=80;level=1} @PlayersInRadius{r=20}
@@ -117,7 +141,10 @@ KR_RugidoDelTiempo:
 
 KR_PhaseShield:
   Skills:
+    - state{mid=kronos;s=phase_change;li=3;lo=4} @self
     - effect:sound{s=block.beacon.activate;v=0.8;p=1.2} @self
+    - effect:sound{s=dextra:kronos.phase;v=1;p=1} @self
+    - summon{type=KR_FX_Phase;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=END_ROD;amount=35;hS=0.8;vS=1.2;speed=0.02} @self
     - potion{type=DAMAGE_RESISTANCE;duration=80;level=3} @self
     - potion{type=SLOW;duration=40;level=2} @self
@@ -125,7 +152,10 @@ KR_PhaseShield:
 KR_AntiRun:
   Cooldown: 5
   Skills:
+    - state{mid=kronos;s=antirun;li=2;lo=3} @self
     - effect:sound{s=entity.evoker.prepare_attack;v=0.7;p=1.0} @self
+    - effect:sound{s=dextra:kronos.hourglass;v=1;p=1} @PlayersInRadius{r=60;rm=25}
+    - summon{type=KR_FX_Hourglass;amount=1;radius=0;noise=0} @PlayersInRadius{r=60;rm=25}
     - damage{a=80;ia=true} @PlayersInRadius{r=60;rm=25}
     - potion{type=SLOW;duration=60;level=2} @PlayersInRadius{r=60;rm=25}
 
@@ -153,6 +183,8 @@ KR_Phase3_Check:
     - potionclear @self
     - potion{type=INCREASE_DAMAGE;duration=9999;level=2} @self
     - potion{type=SPEED;duration=9999;level=2} @self
+    - effect:sound{s=dextra:kronos.summon;v=1;p=1} @self
+    - summon{type=KR_FX_Rift;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Kronos_Centinela;amount=5;radius=3;noise=2} @self
 
 # --- Invocaciones (Corregidas por HP real) ---
@@ -164,7 +196,10 @@ KR_GuardianCall_Check:
     - mobsinradius{type=Kronos_Guardian;amount=<2;radius=35}
     - mobsinradius{type=Kronos_Saetero;amount=<1;radius=35}
   Skills:
+    - state{mid=kronos;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.evoker.prepare_summon;v=0.7;p=1.0} @self
+    - effect:sound{s=dextra:kronos.summon;v=1;p=1} @self
+    - summon{type=KR_FX_Rift;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Kronos_Guardian;amount=2;radius=5} @self
     - summon{type=Kronos_Saetero;amount=1;radius=6} @self
 
@@ -174,7 +209,10 @@ KR_DevoradorCall_Check:
     - stance{stance=PHASE2} true
     - mobsinradius{type=Kronos_Devorador;amount=<1;radius=35}
   Skills:
+    - state{mid=kronos;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.ravager.roar;v=0.9;p=0.8} @self
+    - effect:sound{s=dextra:kronos.summon;v=1;p=1} @self
+    - summon{type=KR_FX_Rift;amount=1;radius=0;noise=0} @selflocation
     - summon{type=Kronos_Devorador;amount=1;radius=5} @self
 
 # --- Final ---
@@ -186,7 +224,10 @@ KR_LastBreath:
   Skills:
     - setstance{stance=LASTBREATH} @self
     - 'message{m="&5&lKRONOS &f: &7Me queda un segundo... y para mi, un segundo es eterno."} @PlayersInRadius{r=40}'
+    - state{mid=kronos;s=last_breath;li=2;lo=4} @self
     - effect:sound{s=entity.wither.ambient;v=0.7;p=0.8} @self
+    - effect:sound{s=dextra:kronos.last_breath;v=1;p=1} @self
+    - summon{type=KR_FX_Sand;amount=1;radius=0;noise=0} @selflocation
     - potion{type=REGENERATION;duration=200;level=2} @self
     - damage{a=100} @PlayersInRadius{r=6}
 
@@ -194,6 +235,7 @@ KR_Death:
   Skills:
     - 'message{m="&5&lKRONOS &f: &7El tiempo... me alcanzo... al fin. &8• &dEl reloj vuelve a correr."} @PlayersInRadius{r=60}'
     - effect:sound{s=entity.ender_dragon.death;v=0.7;p=1.0} @self
+    - effect:sound{s=dextra:kronos.death;v=1;p=1} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 
 # --- Mobs Secundarios ---
@@ -205,6 +247,8 @@ KR_Guardian_Block:
 KR_Saetero_RapidShots:
   Cooldown: 8
   Skills:
+    - state{mid=kr_archer;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:kronos.archer_shot;v=0.8;p=1} @self
     - shoot{type=ARROW;velocity=2.5;damage=30} @target
     - delay 5
     - shoot{type=ARROW;velocity=2.5;damage=30} @target
@@ -212,7 +256,9 @@ KR_Saetero_RapidShots:
 KR_Devorador_Charge:
   Cooldown: 10
   Skills:
+    - state{mid=kr_devourer;s=roar;li=1;lo=2} @self
     - effect:sound{s=entity.ravager.roar;v=0.8;p=0.9} @self
+    - effect:sound{s=dextra:kronos.devourer_roar;v=0.9;p=1} @self
     - leap{velocity=1.5;velocityY=0.2} @self
     - damage{a=100} @PlayersInRadius{r=3}
 
@@ -230,17 +276,37 @@ KR_PlayerKill:
 KR_Guardian_SpawnFX:
   Skills:
     - effect:particles{particle=REVERSE_PORTAL;amount=20;hS=0.5;vS=0.8;speed=0.05} @self
+    - state{mid=kr_guardian;s=spawn;li=0;lo=2} @self
     - effect:sound{s=block.respawn_anchor.charge;v=0.7;p=0.8} @self
+    - effect:sound{s=dextra:kronos.guardian_grunt;v=0.8;p=1} @self
 
 KR_Saetero_SpawnFX:
   Skills:
     - effect:particles{particle=PORTAL;amount=25;hS=0.5;vS=0.8;speed=0.3} @self
+    - state{mid=kr_archer;s=spawn;li=0;lo=2} @self
     - effect:sound{s=block.amethyst_block.chime;v=1.0;p=0.7} @self
+    - effect:sound{s=dextra:kronos.archer_chime;v=0.8;p=1} @self
 
 KR_Devorador_SpawnFX:
   Skills:
     - effect:particles{particle=SQUID_INK;amount=20;hS=0.7;vS=0.6;speed=0.05} @self
+    - state{mid=kr_devourer;s=spawn;li=0;lo=2} @self
     - effect:sound{s=entity.wither.ambient;v=0.7;p=0.6} @self
+    - effect:sound{s=dextra:kronos.devourer_roar;v=0.8;p=1} @self
+
+KR_FX_Remove:
+  Skills:
+    - remove @self
+
+KR_Melee:
+  Skills:
+    - state{mid=kronos;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:kronos.swing;v=0.8;p=1} @self
+
+KR_Hurt:
+  Skills:
+    - state{mid=kronos;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:kronos.hurt;v=0.8;p=1} @self
 
 # --- Fuego amigo ---
 KR_FuegoAmigo:

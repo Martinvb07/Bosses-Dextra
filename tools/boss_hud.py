@@ -53,11 +53,42 @@ F5 = {
     "'": ["1", "1", "0", "0", "0", "0", "0"],
     "-": ["000", "000", "000", "111", "000", "000", "000"],
     ".": ["0", "0", "0", "0", "0", "0", "1"],
+    # minusculas (anchos como la fuente de Minecraft) y el punto medio
+    "a": ["00000", "00000", "01110", "00001", "01111", "10001", "01111"],
+    "b": ["10000", "10000", "10110", "11001", "10001", "10001", "11110"],
+    "c": ["00000", "00000", "01110", "10001", "10000", "10001", "01110"],
+    "d": ["00001", "00001", "01101", "10011", "10001", "10001", "01111"],
+    "e": ["00000", "00000", "01110", "10001", "11111", "10000", "01111"],
+    "f": ["0011", "0100", "1111", "0100", "0100", "0100", "0100"],
+    "g": ["00000", "00000", "01111", "10001", "01111", "00001", "11110"],
+    "h": ["10000", "10000", "10110", "11001", "10001", "10001", "10001"],
+    "i": ["1", "0", "1", "1", "1", "1", "1"],
+    "j": ["00001", "00000", "00001", "00001", "00001", "10001", "01110"],
+    "k": ["1000", "1000", "1001", "1010", "1100", "1010", "1001"],
+    "l": ["10", "10", "10", "10", "10", "10", "01"],
+    "m": ["00000", "00000", "11010", "10101", "10101", "10001", "10001"],
+    "n": ["00000", "00000", "11110", "10001", "10001", "10001", "10001"],
+    "o": ["00000", "00000", "01110", "10001", "10001", "10001", "01110"],
+    "p": ["00000", "00000", "11110", "10001", "11110", "10000", "10000"],
+    "q": ["00000", "00000", "01111", "10001", "01111", "00001", "00001"],
+    "r": ["00000", "00000", "10110", "11001", "10000", "10000", "10000"],
+    "s": ["00000", "00000", "01111", "10000", "01110", "00001", "11110"],
+    "t": ["010", "010", "111", "010", "010", "010", "001"],
+    "u": ["00000", "00000", "10001", "10001", "10001", "10001", "01111"],
+    "v": ["00000", "00000", "10001", "10001", "10001", "01010", "00100"],
+    "w": ["00000", "00000", "10001", "10001", "10101", "10101", "01111"],
+    "x": ["00000", "00000", "10001", "01010", "00100", "01010", "10001"],
+    "y": ["00000", "00000", "10001", "10001", "01111", "00001", "11110"],
+    "z": ["00000", "00000", "11111", "00010", "00100", "01000", "11111"],
+    "\u2022": ["00", "00", "00", "11", "11", "00", "00"],
 }
 
 
 def text_width(text, bold=True):
-    """Ancho en px como lo mide Minecraft (letra + 1; espacio 4; negrita +1 cada uno)."""
+    """Ancho en px como lo mide Minecraft (letra + 1; espacio 4; negrita +1 cada uno).
+    text tambien puede ser una lista de tramos [(texto, color, negrita)]."""
+    if isinstance(text, list):
+        return sum(text_width(t, b) for t, _, b in text)
     w = 0
     for ch in text:
         w += (4 if ch == " " else len(F5[ch][0]) + 1) + (1 if bold else 0)
@@ -87,6 +118,13 @@ def draw_text(img, text, x, y, color, bold=True, shadow=True):
                         if bold:
                             put(cx + rx + 1 + off, y + ry + off, col)
             cx += len(rows[0]) + 1 + (1 if bold else 0)
+
+
+def draw_segments(img, name, x, y, color):
+    """name = texto en negrita o lista de tramos [(texto, color, negrita)]."""
+    for text, col, bold in (name if isinstance(name, list) else [(name, color, True)]):
+        draw_text(img, text, x, y, col, bold=bold)
+        x += text_width(text, bold)
 
 
 # --------------------------------------------------------------- pixel art
@@ -177,9 +215,9 @@ def preview(path, name, name_color, glyph, bar_y, bar_ext, prog, back, vanilla_b
             x0 = ox + c - total // 2
             scene.alpha_composite(glyph, (x0, by - bar_y))
             scene.alpha_composite(glyph, (x0 + W + 1 + T, by - bar_y))
-            draw_text(scene, name, x0 + W + 1, by - 9, name_color)
+            draw_segments(scene, name, x0 + W + 1, by - 9, name_color)
         else:
-            draw_text(scene, name, ox + c - T // 2, by - 9, name_color)
+            draw_segments(scene, name, ox + c - T // 2, by - 9, name_color)
         ImageDraw.Draw(scene).text((ox + 6, 2), "CON PACK" if with_pack else "SIN PACK (vanilla)",
                                    fill=(255, 255, 255, 255))
     scene.resize((scene.width * 3, scene.height * 3), Image.NEAREST).save(path)
