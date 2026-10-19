@@ -1,9 +1,21 @@
 # Lady of Laments skills
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=lady_of_laments;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:lady_of_laments.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=..._FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "LADY OF LAMENTS" como siempre; con pack se ve el logo.
 
 LL_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&5&lLADY OF LAMENTS";subtitle="&dPurple Castle &8• &7Reina del Lamento Eterno";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=lady_of_laments;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§dPurple Castle §8• §7Reina del Lamento Eterno''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.lady_of_laments'',fallback:''§5§lLADY OF LAMENTS'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:lady_of_laments.intro;v=1;p=1} @self
+    - summon{type=LL_FX_Mirror;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&5&lLADY OF LAMENTS &f: &7Vuestras almas... lloraran conmigo..."} @Server'
     - effect:sound{s=entity.ghast.ambient;v=0.8;p=0.7} @self
     - effect:sound{s=block.amethyst_block.resonate;v=0.9;p=0.9} @self
@@ -93,6 +105,9 @@ LL_Phase4_Check:
 
 LL_PhaseShield:
   Skills:
+    - state{mid=lady_of_laments;s=phase_change;li=3;lo=4} @self
+    - effect:sound{s=dextra:lady_of_laments.phase;v=1;p=1} @self
+    - summon{type=LL_FX_Mirror;amount=1;radius=0;noise=0} @selflocation
     - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
     - effect:particles{particle=SPELL_MOB_AMBIENT;amount=20;hS=0.8;vS=0.7;speed=0.02} @self
     - effect:particles{particle=TOTEM;amount=8;hS=0.6;vS=0.8;speed=0.02} @self
@@ -124,7 +139,10 @@ LL_Wail:
   Cooldown: 14
   Skills:
     - message{cooldown=10;m="&dUn grito espectral debilita a quienes permanecen juntos..."} @PlayersInRadius{r=40}
+    - state{mid=lady_of_laments;s=wail;li=2;lo=3} @self
     - effect:sound{s=entity.ghast.scream;v=0.7;p=1.1} @self
+    - effect:sound{s=dextra:lady_of_laments.wail;v=1;p=1} @self
+    - summon{type=LL_FX_Wail;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SOUL;amount=22;hS=1.3;vS=0.8;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=35;hS=1.5;vS=0.7;speed=0.0;color=#b28bff;size=1.25} @self
     - damage{a=82;pk=true} @PlayersInRadius{r=7}
@@ -137,7 +155,10 @@ LL_ShroudOfNight:
     - targetwithin{d=24}
   Skills:
     - message{cooldown=12;m="&5&lLADY OF LAMENTS &7extiende una &8oscuridad maldita&7..."} @PlayersInRadius{r=45}
+    - state{mid=lady_of_laments;s=shroud;li=2;lo=3} @self
     - effect:sound{s=entity.enderman.ambient;v=0.8;p=0.5} @self
+    - effect:sound{s=dextra:lady_of_laments.shroud;v=1;p=1} @self
+    - summon{type=LL_FX_Shroud;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SMOKE_LARGE;amount=22;hS=0.9;vS=0.5;speed=0.03} @target
     - effect:particles{particle=REDSTONE;amount=28;hS=0.8;vS=0.7;speed=0.0;color=#4f2d89;size=1.2} @target
     - delay 8
@@ -151,7 +172,10 @@ LL_SpiritSiphon:
     - targetwithin{d=22}
   Skills:
     - message{cooldown=10;m="&5&lLADY OF LAMENTS &farranca energia espiritual de &d<target.name>&f."} @PlayersInRadius{r=45}
+    - state{mid=lady_of_laments;s=siphon;li=2;lo=3} @self
     - effect:sound{s=block.amethyst_cluster.break;v=0.7;p=0.7} @self
+    - effect:sound{s=dextra:lady_of_laments.siphon;v=1;p=1} @self
+    - summon{type=LL_FX_Siphon;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=SOUL;amount=12;hS=0.4;vS=0.8;speed=0.03} @target
     - effect:particles{particle=REDSTONE;amount=18;hS=0.5;vS=0.8;speed=0.0;color=#d6c0ff;size=1.1} @target
     - delay 8
@@ -168,7 +192,10 @@ LL_GriefMark:
     - message{cooldown=12;m="&5&lPENA COMPARTIDA &8» &f<target.name> carga con el duelo de la reina."} @PlayersInRadius{r=50}
     - potion{type=GLOWING;duration=50;level=0} @target
     - potion{type=SLOW;duration=30;level=0} @target
+    - state{mid=lady_of_laments;s=mark;li=2;lo=3} @self
     - effect:sound{s=block.amethyst_block.hit;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:lady_of_laments.mark;v=1;p=1} @self
+    - summon{type=LL_FX_Mark;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=REDSTONE;amount=26;hS=0.7;vS=0.8;speed=0.0;color=#d7b9ff;size=1.25} @target
     - delay 24
     - effect:particles{particle=FLASH;amount=1} @target
@@ -182,7 +209,10 @@ LL_SharedSorrow:
     - targetwithin{d=24}
   Skills:
     - 'message{cooldown=10;m="&dNo os agrupéis: el lamento se comparte entre almas cercanas."} @PlayersInRadius{r=50}'
+    - state{mid=lady_of_laments;s=sorrow;li=2;lo=3} @self
     - effect:sound{s=entity.allay.hurt;v=0.8;p=0.5} @self
+    - effect:sound{s=dextra:lady_of_laments.sorrow;v=1;p=1} @self
+    - summon{type=LL_FX_Sorrow;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SOUL;amount=18;hS=0.8;vS=0.8;speed=0.03} @target
     - delay 10
     - damage{a=91;pk=true} @PlayersInRadius{r=5}
@@ -195,7 +225,9 @@ LL_ShadowHunt:
     - targetwithin{d=24}
   Skills:
     - message{cooldown=12;m="&8Las sombras saltan desde los muros del Purple Castle..."} @PlayersInRadius{r=45}
+    - state{mid=lady_of_laments;s=siphon;li=2;lo=3} @self
     - effect:sound{s=entity.enderman.teleport;v=0.7;p=0.6} @self
+    - effect:sound{s=dextra:lady_of_laments.shadow_growl;v=1;p=1} @self
     - effect:particles{particle=SMOKE_LARGE;amount=16;hS=0.7;vS=0.7;speed=0.02} @target
     - delay 6
     - summon{type=LamentShadow;amount=2;radius=2;noise=1} @target
@@ -207,7 +239,10 @@ LL_SummonBanshees:
     - mobsinradius{type=BansheeOfLaments;amount=<4;radius=30}
   Skills:
     - message{cooldown=12;m="&dLas banshees responden al lamento de su reina."} @PlayersInRadius{r=45}
+    - state{mid=lady_of_laments;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.allay.ambient_with_item;v=0.9;p=0.6} @self
+    - effect:sound{s=dextra:lady_of_laments.summon;v=1;p=1} @self
+    - summon{type=LL_FX_Mirror;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SOUL_FIRE_FLAME;amount=16;hS=0.8;vS=0.8;speed=0.03} @self
     - summon{type=BansheeOfLaments;amount=2;radius=7;noise=2} @self
 
@@ -218,6 +253,7 @@ LL_BansheeChorus:
   Skills:
     - message{cooldown=16;m="&dLas banshees amplifican el duelo de su reina..."} @PlayersInRadius{r=45}
     - effect:sound{s=entity.vex.ambient;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:lady_of_laments.banshee_scream;v=0.8;p=1} @self
     - effect:particles{particle=SOUL_FIRE_FLAME;amount=14;hS=0.8;vS=0.8;speed=0.03} @self
     - potion{type=DAMAGE_RESISTANCE;duration=45;level=0} @self
     - potion{type=WEAKNESS;duration=50;level=0} @PlayersInRadius{r=8}
@@ -226,7 +262,10 @@ LL_MassLament:
   Cooldown: 24
   Skills:
     - message{cooldown=10;m="&5&lLAMENTO MASIVO &8» &fSeparados resistireis mejor la pena eterna."} @PlayersInRadius{r=60}
+    - state{mid=lady_of_laments;s=lament;li=2;lo=4} @self
     - effect:sound{s=entity.ghast.scream;v=0.9;p=0.6} @self
+    - effect:sound{s=dextra:lady_of_laments.lament;v=1;p=1} @self
+    - summon{type=LL_FX_Lament;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SOUL;amount=26;hS=1.2;vS=1.0;speed=0.03} @self
     - effect:particles{particle=SMOKE_LARGE;amount=32;hS=1.6;vS=0.7;speed=0.03} @self
     - delay 12
@@ -240,7 +279,10 @@ LL_StormOfSorrow:
   Cooldown: 24
   Skills:
     - message{cooldown=10;m="&5&lTORMENTA DEL LAMENTO &8» &fLos rayos espirituales castigan a quien no se disperse."} @PlayersInRadius{r=60}
+    - state{mid=lady_of_laments;s=storm;li=2;lo=3} @self
     - effect:sound{s=entity.lightning_bolt.thunder;v=0.9;p=0.8} @self
+    - effect:sound{s=dextra:lady_of_laments.storm;v=1;p=1} @self
+    - summon{type=LL_FX_Storm;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=CLOUD;amount=34;hS=2.0;vS=1.4;speed=0.03;yOffset=1.5} @self
     - effect:particles{particle=ELECTRIC_SPARK;amount=26;hS=1.8;vS=1.3;speed=0.03} @self
     - delay 10
@@ -255,7 +297,10 @@ LL_TormentedProcession:
   Cooldown: 26
   Skills:
     - message{cooldown=12;m="&fLos espiritus atormentados marchan junto a su reina."} @PlayersInRadius{r=50}
+    - state{mid=lady_of_laments;s=summon;li=2;lo=4} @self
     - effect:sound{s=block.respawn_anchor.set_spawn;v=0.8;p=0.8} @self
+    - effect:sound{s=dextra:lady_of_laments.summon;v=1;p=1} @self
+    - summon{type=LL_FX_Mirror;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SOUL;amount=22;hS=1.1;vS=1.0;speed=0.03} @self
     - summon{type=TormentedSpirit;amount=2;radius=6;noise=2} @self
     - summon{type=LamentShadow;amount=1;radius=5;noise=2} @self
@@ -266,7 +311,10 @@ LL_SummonCastleVindicators:
     - mobsinradius{type=CastleVindicator_Laments;amount=<3;radius=30}
   Skills:
     - message{cooldown=12;m="&5&lLADY OF LAMENTS &finvoca a los &dverdugos del Purple Castle&f."} @PlayersInRadius{r=50}
+    - state{mid=lady_of_laments;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.vindicator.celebrate;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:lady_of_laments.summon;v=1;p=1} @self
+    - summon{type=LL_FX_Mirror;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=block.anvil.place;v=0.6;p=0.75} @self
     - effect:particles{particle=SOUL;amount=22;hS=1.0;vS=0.9;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=30;hS=1.2;vS=0.8;speed=0.0;color=#7040b3;size=1.2} @self
@@ -301,11 +349,23 @@ LL_EchoOfGrief:
   Conditions:
     - targetwithin{d=40}
   Skills:
+    - state{mid=lady_of_laments;s=wail;li=2;lo=3} @self
     - effect:sound{s=entity.ghast.warn;v=0.7;p=1.0} @self
+    - effect:sound{s=dextra:lady_of_laments.wail;v=1;p=1.2} @self
+    - summon{type=LL_FX_Wail;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=SOUL;amount=16;hS=0.6;vS=0.9;speed=0.03} @target
     - delay 8
     - damage{a=66;pk=true} @target
     - potion{type=BLINDNESS;duration=50;level=0} @target
+
+LL_FX_Remove:
+  Skills:
+    - remove @self
+
+LL_Hurt:
+  Skills:
+    - state{mid=lady_of_laments;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:lady_of_laments.hurt;v=0.8;p=1} @self
 
 LL_PlayerKill:
   Skills:
@@ -315,51 +375,68 @@ LL_Death:
   Skills:
     - 'message{m="&5&lLADY OF LAMENTS &f: &7El silencio... al fin..."} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.allay.death;v=1.0;p=0.6} @self
+    - effect:sound{s=dextra:lady_of_laments.death;v=1;p=1} @self
     - effect:sound{s=entity.ghast.death;v=0.5;p=1.2} @self
     - effect:particles{particle=SOUL;amount=40;hS=1.4;vS=1.2;speed=0.03} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
 
 BL_SpawnFX:
   Skills:
+    - state{mid=banshee;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:lady_of_laments.banshee_scream;v=0.8;p=1} @self
     - effect:particles{particle=SOUL_FIRE_FLAME;amount=10;hS=0.5;vS=0.7;speed=0.03} @self
     - effect:sound{s=entity.vex.ambient;v=0.7;p=0.8} @self
 
 BL_Wail:
   Skills:
+    - state{mid=banshee;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:lady_of_laments.banshee_hit;v=0.8;p=1} @self
     - effect:particles{particle=SOUL;amount=8;hS=0.4;vS=0.6;speed=0.02} @target
     - potion{type=WEAKNESS;duration=60;level=0} @target
     - potion{type=CONFUSION;duration=40;level=0} @target
 
 LSH_SpawnFX:
   Skills:
+    - state{mid=lament_shadow;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:lady_of_laments.shadow_growl;v=0.8;p=1} @self
     - effect:particles{particle=SMOKE_NORMAL;amount=10;hS=0.4;vS=0.3;speed=0.03} @self
     - effect:particles{particle=REDSTONE;amount=8;hS=0.4;vS=0.3;speed=0.0;color=#3c275f;size=1.0} @self
 
 LSH_ShadowCut:
   Skills:
+    - state{mid=lament_shadow;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:lady_of_laments.shadow_bite;v=0.8;p=1} @self
     - effect:particles{particle=SMOKE_LARGE;amount=8;hS=0.4;vS=0.4;speed=0.02} @target
     - potion{type=BLINDNESS;duration=40;level=0} @target
     - potion{type=SLOW;duration=30;level=0} @target
 
 TS_SpawnFX:
   Skills:
+    - state{mid=tormented_spirit;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:lady_of_laments.spirit_moan;v=0.8;p=1} @self
     - effect:particles{particle=SOUL;amount=10;hS=0.5;vS=0.8;speed=0.02} @self
     - effect:sound{s=entity.allay.ambient_without_item;v=0.8;p=0.6} @self
 
 TS_LifeDrain:
   Skills:
+    - state{mid=tormented_spirit;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:lady_of_laments.spirit_drain;v=0.8;p=1} @self
     - effect:particles{particle=SOUL;amount=8;hS=0.8;vS=0.8;speed=0.02} @self
     - damage{a=41;pk=true} @PlayersInRadius{r=5}
     - heal{a=4} @self
 
 CV_SpawnFX:
   Skills:
+    - state{mid=castle_vindicator;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:lady_of_laments.vindicator_grunt;v=0.8;p=1} @self
     - effect:sound{s=entity.vindicator.ambient;v=0.7;p=0.8} @self
     - effect:particles{particle=SMOKE_LARGE;amount=12;hS=0.5;vS=0.8;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=10;hS=0.45;vS=0.8;speed=0.0;color=#6f3dbb;size=1.1} @self
 
 CV_CrushingStrike:
   Skills:
+    - state{mid=castle_vindicator;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:lady_of_laments.vindicator_chop;v=0.8;p=1} @self
     - effect:sound{s=entity.vindicator.hurt;v=0.75;p=0.6} @self
     - effect:sound{s=entity.player.attack.crit;v=0.7;p=0.75} @self
     - effect:particles{particle=SWEEP_ATTACK;amount=1} @self

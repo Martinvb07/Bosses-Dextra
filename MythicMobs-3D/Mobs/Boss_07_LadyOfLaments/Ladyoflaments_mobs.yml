@@ -12,7 +12,9 @@ LadyOfLaments:
 
   BossBar:
     Enabled: true
-    Title: "&5&lLADY OF LAMENTS"
+    # \u2009 no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/lady_of_laments.yml)
+    # es la moldura gotica a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f\u2009&5&lLADY OF LAMENTS&f\u2009"
     Range: 50
     Color: PURPLE
     Style: SEGMENTED_10
@@ -40,7 +42,9 @@ LadyOfLaments:
     - Recompensas_llaves
     - YT_EstrellaInvocacion 1 1
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/lady_of_laments/lady_of_laments.bbmodel
   Skills:
+    - model{mid=lady_of_laments} @self ~onSpawn
     - skill{s=LL_Spawn} @self ~onSpawn
     - skill{s=LL_AcquireTarget} @self ~onTimer:10
     - skill{s=LL_HP70_Check} @self ~onTimer:20
@@ -57,6 +61,7 @@ LadyOfLaments:
     - skill{s=LL_Death} @self ~onDeath
     - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
     - skill{s=LL_InmuneColmillos;sync=true} @self ~onDamaged
+    - skill{s=LL_Hurt} @self ~onDamaged 0.35
 
 BansheeOfLaments:
   Type: VEX
@@ -81,7 +86,10 @@ BansheeOfLaments:
   Drops:
     #- Recompensas_BansheeOfLaments
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/banshee/banshee.bbmodel
   Skills:
+    - model{mid=banshee} @self ~onSpawn
+    - state{mid=banshee;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=BL_SpawnFX} @self ~onSpawn
     - skill{s=BL_Wail} @target ~onAttack
     - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
@@ -110,7 +118,10 @@ LamentShadow:
   Drops:
     #- Recompensas_LamentShadow
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/lament_shadow/lament_shadow.bbmodel
   Skills:
+    - model{mid=lament_shadow} @self ~onSpawn
+    - state{mid=lament_shadow;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=LSH_SpawnFX} @self ~onSpawn
     - skill{s=LSH_ShadowCut} @target ~onAttack
     - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
@@ -139,7 +150,10 @@ TormentedSpirit:
   Drops:
     #- Recompensas_TormentedSpirit
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/tormented_spirit/tormented_spirit.bbmodel
   Skills:
+    - model{mid=tormented_spirit} @self ~onSpawn
+    - state{mid=tormented_spirit;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=TS_SpawnFX} @self ~onSpawn
     - skill{s=TS_LifeDrain} @self ~onTimer:35
     - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
@@ -177,8 +191,159 @@ CastleVindicator_Laments:
   Drops:
     #- Recompensas_CastleVindicator_Laments
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/castle_vindicator/castle_vindicator.bbmodel
   Skills:
+    - model{mid=castle_vindicator} @self ~onSpawn
+    - state{mid=castle_vindicator;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=CV_SpawnFX} @self ~onSpawn
     - skill{s=CV_CrushingStrike} @target ~onAttack 0.45
     - skill{s=LL_FuegoAmigo;sync=true} @self ~onDamaged
     - skill{s=LL_InmuneColmillos;sync=true} @self ~onDamaged
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde lady_of_laments_skills.yml con summon{type=LL_FX_...}.
+
+LL_FX_Wail:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ll_fx_wail;hitbox=false} @self ~onSpawn
+    - state{mid=ll_fx_wail;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LL_FX_Remove;delay=26} @self ~onSpawn
+
+LL_FX_Shroud:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ll_fx_shroud;hitbox=false} @self ~onSpawn
+    - state{mid=ll_fx_shroud;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LL_FX_Remove;delay=28} @self ~onSpawn
+
+LL_FX_Siphon:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ll_fx_siphon;hitbox=false} @self ~onSpawn
+    - state{mid=ll_fx_siphon;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LL_FX_Remove;delay=28} @self ~onSpawn
+
+LL_FX_Mark:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ll_fx_mark;hitbox=false} @self ~onSpawn
+    - state{mid=ll_fx_mark;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LL_FX_Remove;delay=36} @self ~onSpawn
+
+LL_FX_Sorrow:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ll_fx_sorrow;hitbox=false} @self ~onSpawn
+    - state{mid=ll_fx_sorrow;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LL_FX_Remove;delay=20} @self ~onSpawn
+
+LL_FX_Lament:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ll_fx_lament;hitbox=false} @self ~onSpawn
+    - state{mid=ll_fx_lament;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LL_FX_Remove;delay=32} @self ~onSpawn
+
+LL_FX_Storm:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ll_fx_storm;hitbox=false} @self ~onSpawn
+    - state{mid=ll_fx_storm;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LL_FX_Remove;delay=36} @self ~onSpawn
+
+LL_FX_Mirror:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=ll_fx_mirror;hitbox=false} @self ~onSpawn
+    - state{mid=ll_fx_mirror;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=LL_FX_Remove;delay=32} @self ~onSpawn
