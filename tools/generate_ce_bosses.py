@@ -8,8 +8,10 @@ bosses 10-17 segun el calendario de eventos del servidor.
 - Los bosses rotan en orden (ROTACION) a lo largo de la semana.
 - En cada turno se retira el boss anterior si sigue vivo (nadie lo mato en 2 h)
   y aparece el siguiente.
-- El servidor esta en UTC: hora del servidor = hora Peru/Colombia + 5. Desde las
-  19:00 de Peru/Colombia, en el servidor ya es el dia siguiente.
+- El Docker esta en UTC (Peru/Colombia + 5), pero %server_time_...% de PAPI NO usa
+  esa hora: va 1 hora por delante de Peru/Colombia (UTC-4; medido el lunes 19/10/2026:
+  PAPI lun-14:33, Peru 13:33, consola 18:33). Desde las 23:00 de Peru/Colombia, en PAPI
+  ya es el dia siguiente. Si cambia la zona horaria de la expansion, cambia DESFASE.
 
 Uso: python3 tools/generate_ce_bosses.py
 """
@@ -23,7 +25,7 @@ ROTACION = ["Kronos", "Azathoth", "Leviatan", "Xylar", "Samhain", "Thor", "Kukul
 LUGAR = "Warps,60053.5,73,60059.5"
 HORAS = list(range(0, 24, 2))                 # turnos de BOSSES (hora Peru/Colombia)
 SIN_BOSS = {("Sun", 14): "MEGAKOTH"}          # turnos ocupados por otro evento
-DESFASE_UTC = 5                               # Peru/Colombia = UTC-5, sin horario de verano
+DESFASE = 1                                   # hora de PAPI = hora Peru/Colombia + DESFASE
 
 DIAS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 # Como devuelve el dia %server_time_E% en el servidor (la expansion Server lo da en español)
@@ -32,8 +34,8 @@ NOMBRE = {"Mon": "lunes", "Tue": "martes", "Wed": "miercoles", "Thu": "jueves",
           "Fri": "viernes", "Sat": "sabado", "Sun": "domingo"}
 
 
-def a_utc(dia, hora):
-    h = hora + DESFASE_UTC
+def a_papi(dia, hora):
+    h = hora + DESFASE
     d = DIAS.index(dia)
     if h >= 24:
         h -= 24
@@ -60,10 +62,10 @@ def main():
             if boss:
                 i += 1
             nombre = f"{NOMBRE[dia]}_{hora:02d}00"
-            sdia, shora = a_utc(dia, hora)
+            sdia, shora = a_papi(dia, hora)
             condiciones.append(f"{HORA} == {DIA_PAPI[sdia]}-{shora:02d}:00 execute {nombre}")
             grupos[nombre] = turno(boss)
-            filas.append(f"#   {NOMBRE[dia]:<9} {hora:02d}:00  ->  servidor {sdia} {shora:02d}:00  ->  "
+            filas.append(f"#   {NOMBRE[dia]:<9} {hora:02d}:00  ->  PAPI {sdia} {shora:02d}:00  ->  "
                          + (boss or f"solo retira al anterior ({otro})"))
 
     cabecera = (
@@ -73,8 +75,8 @@ def main():
         "# Es un solo evento que mira la hora una vez por minuto con un unico placeholder. Con un evento\n"
         "# por turno, los 84 se comprobaban a la vez en hilos distintos y la expansion Server de PAPI\n"
         "# lanzaba ConcurrentModificationException (y ese turno podia no salir).\n"
-        "# El dia sale en español (lun, mar, mié, jue, vie, sáb, dom); la hora es la del servidor (UTC).\n"
-        "#\n#   Peru/Colombia      ->  servidor (UTC)        ->  boss\n" + "\n".join(filas) + "\n\n"
+        "# El dia sale en español (lun, mar, mié, jue, vie, sáb, dom); la hora es la de PAPI (Peru/Colombia + 1, no la del Docker).\n"
+        "#\n#   Peru/Colombia      ->  PAPI (UTC-4)          ->  boss\n" + "\n".join(filas) + "\n\n"
     )
     grupos["default"] = []                    # ningun turno coincide: no hacer nada
     eventos = {"bosses_rotacion": {

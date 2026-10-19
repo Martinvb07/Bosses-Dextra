@@ -4,183 +4,183 @@
 # Es un solo evento que mira la hora una vez por minuto con un unico placeholder. Con un evento
 # por turno, los 84 se comprobaban a la vez en hilos distintos y la expansion Server de PAPI
 # lanzaba ConcurrentModificationException (y ese turno podia no salir).
-# El dia sale en español (lun, mar, mié, jue, vie, sáb, dom); la hora es la del servidor (UTC).
+# El dia sale en español (lun, mar, mié, jue, vie, sáb, dom); la hora es la de PAPI (Peru/Colombia + 1, no la del Docker).
 #
-#   Peru/Colombia      ->  servidor (UTC)        ->  boss
-#   lunes     00:00  ->  servidor Mon 05:00  ->  Kronos
-#   lunes     02:00  ->  servidor Mon 07:00  ->  Azathoth
-#   lunes     04:00  ->  servidor Mon 09:00  ->  Leviatan
-#   lunes     06:00  ->  servidor Mon 11:00  ->  Xylar
-#   lunes     08:00  ->  servidor Mon 13:00  ->  Samhain
-#   lunes     10:00  ->  servidor Mon 15:00  ->  Thor
-#   lunes     12:00  ->  servidor Mon 17:00  ->  Kukulkan
-#   lunes     14:00  ->  servidor Mon 19:00  ->  Nezareth
-#   lunes     16:00  ->  servidor Mon 21:00  ->  Kronos
-#   lunes     18:00  ->  servidor Mon 23:00  ->  Azathoth
-#   lunes     20:00  ->  servidor Tue 01:00  ->  Leviatan
-#   lunes     22:00  ->  servidor Tue 03:00  ->  Xylar
-#   martes    00:00  ->  servidor Tue 05:00  ->  Samhain
-#   martes    02:00  ->  servidor Tue 07:00  ->  Thor
-#   martes    04:00  ->  servidor Tue 09:00  ->  Kukulkan
-#   martes    06:00  ->  servidor Tue 11:00  ->  Nezareth
-#   martes    08:00  ->  servidor Tue 13:00  ->  Kronos
-#   martes    10:00  ->  servidor Tue 15:00  ->  Azathoth
-#   martes    12:00  ->  servidor Tue 17:00  ->  Leviatan
-#   martes    14:00  ->  servidor Tue 19:00  ->  Xylar
-#   martes    16:00  ->  servidor Tue 21:00  ->  Samhain
-#   martes    18:00  ->  servidor Tue 23:00  ->  Thor
-#   martes    20:00  ->  servidor Wed 01:00  ->  Kukulkan
-#   martes    22:00  ->  servidor Wed 03:00  ->  Nezareth
-#   miercoles 00:00  ->  servidor Wed 05:00  ->  Kronos
-#   miercoles 02:00  ->  servidor Wed 07:00  ->  Azathoth
-#   miercoles 04:00  ->  servidor Wed 09:00  ->  Leviatan
-#   miercoles 06:00  ->  servidor Wed 11:00  ->  Xylar
-#   miercoles 08:00  ->  servidor Wed 13:00  ->  Samhain
-#   miercoles 10:00  ->  servidor Wed 15:00  ->  Thor
-#   miercoles 12:00  ->  servidor Wed 17:00  ->  Kukulkan
-#   miercoles 14:00  ->  servidor Wed 19:00  ->  Nezareth
-#   miercoles 16:00  ->  servidor Wed 21:00  ->  Kronos
-#   miercoles 18:00  ->  servidor Wed 23:00  ->  Azathoth
-#   miercoles 20:00  ->  servidor Thu 01:00  ->  Leviatan
-#   miercoles 22:00  ->  servidor Thu 03:00  ->  Xylar
-#   jueves    00:00  ->  servidor Thu 05:00  ->  Samhain
-#   jueves    02:00  ->  servidor Thu 07:00  ->  Thor
-#   jueves    04:00  ->  servidor Thu 09:00  ->  Kukulkan
-#   jueves    06:00  ->  servidor Thu 11:00  ->  Nezareth
-#   jueves    08:00  ->  servidor Thu 13:00  ->  Kronos
-#   jueves    10:00  ->  servidor Thu 15:00  ->  Azathoth
-#   jueves    12:00  ->  servidor Thu 17:00  ->  Leviatan
-#   jueves    14:00  ->  servidor Thu 19:00  ->  Xylar
-#   jueves    16:00  ->  servidor Thu 21:00  ->  Samhain
-#   jueves    18:00  ->  servidor Thu 23:00  ->  Thor
-#   jueves    20:00  ->  servidor Fri 01:00  ->  Kukulkan
-#   jueves    22:00  ->  servidor Fri 03:00  ->  Nezareth
-#   viernes   00:00  ->  servidor Fri 05:00  ->  Kronos
-#   viernes   02:00  ->  servidor Fri 07:00  ->  Azathoth
-#   viernes   04:00  ->  servidor Fri 09:00  ->  Leviatan
-#   viernes   06:00  ->  servidor Fri 11:00  ->  Xylar
-#   viernes   08:00  ->  servidor Fri 13:00  ->  Samhain
-#   viernes   10:00  ->  servidor Fri 15:00  ->  Thor
-#   viernes   12:00  ->  servidor Fri 17:00  ->  Kukulkan
-#   viernes   14:00  ->  servidor Fri 19:00  ->  Nezareth
-#   viernes   16:00  ->  servidor Fri 21:00  ->  Kronos
-#   viernes   18:00  ->  servidor Fri 23:00  ->  Azathoth
-#   viernes   20:00  ->  servidor Sat 01:00  ->  Leviatan
-#   viernes   22:00  ->  servidor Sat 03:00  ->  Xylar
-#   sabado    00:00  ->  servidor Sat 05:00  ->  Samhain
-#   sabado    02:00  ->  servidor Sat 07:00  ->  Thor
-#   sabado    04:00  ->  servidor Sat 09:00  ->  Kukulkan
-#   sabado    06:00  ->  servidor Sat 11:00  ->  Nezareth
-#   sabado    08:00  ->  servidor Sat 13:00  ->  Kronos
-#   sabado    10:00  ->  servidor Sat 15:00  ->  Azathoth
-#   sabado    12:00  ->  servidor Sat 17:00  ->  Leviatan
-#   sabado    14:00  ->  servidor Sat 19:00  ->  Xylar
-#   sabado    16:00  ->  servidor Sat 21:00  ->  Samhain
-#   sabado    18:00  ->  servidor Sat 23:00  ->  Thor
-#   sabado    20:00  ->  servidor Sun 01:00  ->  Kukulkan
-#   sabado    22:00  ->  servidor Sun 03:00  ->  Nezareth
-#   domingo   00:00  ->  servidor Sun 05:00  ->  Kronos
-#   domingo   02:00  ->  servidor Sun 07:00  ->  Azathoth
-#   domingo   04:00  ->  servidor Sun 09:00  ->  Leviatan
-#   domingo   06:00  ->  servidor Sun 11:00  ->  Xylar
-#   domingo   08:00  ->  servidor Sun 13:00  ->  Samhain
-#   domingo   10:00  ->  servidor Sun 15:00  ->  Thor
-#   domingo   12:00  ->  servidor Sun 17:00  ->  Kukulkan
-#   domingo   14:00  ->  servidor Sun 19:00  ->  solo retira al anterior (MEGAKOTH)
-#   domingo   16:00  ->  servidor Sun 21:00  ->  Nezareth
-#   domingo   18:00  ->  servidor Sun 23:00  ->  Kronos
-#   domingo   20:00  ->  servidor Mon 01:00  ->  Azathoth
-#   domingo   22:00  ->  servidor Mon 03:00  ->  Leviatan
+#   Peru/Colombia      ->  PAPI (UTC-4)          ->  boss
+#   lunes     00:00  ->  PAPI Mon 01:00  ->  Kronos
+#   lunes     02:00  ->  PAPI Mon 03:00  ->  Azathoth
+#   lunes     04:00  ->  PAPI Mon 05:00  ->  Leviatan
+#   lunes     06:00  ->  PAPI Mon 07:00  ->  Xylar
+#   lunes     08:00  ->  PAPI Mon 09:00  ->  Samhain
+#   lunes     10:00  ->  PAPI Mon 11:00  ->  Thor
+#   lunes     12:00  ->  PAPI Mon 13:00  ->  Kukulkan
+#   lunes     14:00  ->  PAPI Mon 15:00  ->  Nezareth
+#   lunes     16:00  ->  PAPI Mon 17:00  ->  Kronos
+#   lunes     18:00  ->  PAPI Mon 19:00  ->  Azathoth
+#   lunes     20:00  ->  PAPI Mon 21:00  ->  Leviatan
+#   lunes     22:00  ->  PAPI Mon 23:00  ->  Xylar
+#   martes    00:00  ->  PAPI Tue 01:00  ->  Samhain
+#   martes    02:00  ->  PAPI Tue 03:00  ->  Thor
+#   martes    04:00  ->  PAPI Tue 05:00  ->  Kukulkan
+#   martes    06:00  ->  PAPI Tue 07:00  ->  Nezareth
+#   martes    08:00  ->  PAPI Tue 09:00  ->  Kronos
+#   martes    10:00  ->  PAPI Tue 11:00  ->  Azathoth
+#   martes    12:00  ->  PAPI Tue 13:00  ->  Leviatan
+#   martes    14:00  ->  PAPI Tue 15:00  ->  Xylar
+#   martes    16:00  ->  PAPI Tue 17:00  ->  Samhain
+#   martes    18:00  ->  PAPI Tue 19:00  ->  Thor
+#   martes    20:00  ->  PAPI Tue 21:00  ->  Kukulkan
+#   martes    22:00  ->  PAPI Tue 23:00  ->  Nezareth
+#   miercoles 00:00  ->  PAPI Wed 01:00  ->  Kronos
+#   miercoles 02:00  ->  PAPI Wed 03:00  ->  Azathoth
+#   miercoles 04:00  ->  PAPI Wed 05:00  ->  Leviatan
+#   miercoles 06:00  ->  PAPI Wed 07:00  ->  Xylar
+#   miercoles 08:00  ->  PAPI Wed 09:00  ->  Samhain
+#   miercoles 10:00  ->  PAPI Wed 11:00  ->  Thor
+#   miercoles 12:00  ->  PAPI Wed 13:00  ->  Kukulkan
+#   miercoles 14:00  ->  PAPI Wed 15:00  ->  Nezareth
+#   miercoles 16:00  ->  PAPI Wed 17:00  ->  Kronos
+#   miercoles 18:00  ->  PAPI Wed 19:00  ->  Azathoth
+#   miercoles 20:00  ->  PAPI Wed 21:00  ->  Leviatan
+#   miercoles 22:00  ->  PAPI Wed 23:00  ->  Xylar
+#   jueves    00:00  ->  PAPI Thu 01:00  ->  Samhain
+#   jueves    02:00  ->  PAPI Thu 03:00  ->  Thor
+#   jueves    04:00  ->  PAPI Thu 05:00  ->  Kukulkan
+#   jueves    06:00  ->  PAPI Thu 07:00  ->  Nezareth
+#   jueves    08:00  ->  PAPI Thu 09:00  ->  Kronos
+#   jueves    10:00  ->  PAPI Thu 11:00  ->  Azathoth
+#   jueves    12:00  ->  PAPI Thu 13:00  ->  Leviatan
+#   jueves    14:00  ->  PAPI Thu 15:00  ->  Xylar
+#   jueves    16:00  ->  PAPI Thu 17:00  ->  Samhain
+#   jueves    18:00  ->  PAPI Thu 19:00  ->  Thor
+#   jueves    20:00  ->  PAPI Thu 21:00  ->  Kukulkan
+#   jueves    22:00  ->  PAPI Thu 23:00  ->  Nezareth
+#   viernes   00:00  ->  PAPI Fri 01:00  ->  Kronos
+#   viernes   02:00  ->  PAPI Fri 03:00  ->  Azathoth
+#   viernes   04:00  ->  PAPI Fri 05:00  ->  Leviatan
+#   viernes   06:00  ->  PAPI Fri 07:00  ->  Xylar
+#   viernes   08:00  ->  PAPI Fri 09:00  ->  Samhain
+#   viernes   10:00  ->  PAPI Fri 11:00  ->  Thor
+#   viernes   12:00  ->  PAPI Fri 13:00  ->  Kukulkan
+#   viernes   14:00  ->  PAPI Fri 15:00  ->  Nezareth
+#   viernes   16:00  ->  PAPI Fri 17:00  ->  Kronos
+#   viernes   18:00  ->  PAPI Fri 19:00  ->  Azathoth
+#   viernes   20:00  ->  PAPI Fri 21:00  ->  Leviatan
+#   viernes   22:00  ->  PAPI Fri 23:00  ->  Xylar
+#   sabado    00:00  ->  PAPI Sat 01:00  ->  Samhain
+#   sabado    02:00  ->  PAPI Sat 03:00  ->  Thor
+#   sabado    04:00  ->  PAPI Sat 05:00  ->  Kukulkan
+#   sabado    06:00  ->  PAPI Sat 07:00  ->  Nezareth
+#   sabado    08:00  ->  PAPI Sat 09:00  ->  Kronos
+#   sabado    10:00  ->  PAPI Sat 11:00  ->  Azathoth
+#   sabado    12:00  ->  PAPI Sat 13:00  ->  Leviatan
+#   sabado    14:00  ->  PAPI Sat 15:00  ->  Xylar
+#   sabado    16:00  ->  PAPI Sat 17:00  ->  Samhain
+#   sabado    18:00  ->  PAPI Sat 19:00  ->  Thor
+#   sabado    20:00  ->  PAPI Sat 21:00  ->  Kukulkan
+#   sabado    22:00  ->  PAPI Sat 23:00  ->  Nezareth
+#   domingo   00:00  ->  PAPI Sun 01:00  ->  Kronos
+#   domingo   02:00  ->  PAPI Sun 03:00  ->  Azathoth
+#   domingo   04:00  ->  PAPI Sun 05:00  ->  Leviatan
+#   domingo   06:00  ->  PAPI Sun 07:00  ->  Xylar
+#   domingo   08:00  ->  PAPI Sun 09:00  ->  Samhain
+#   domingo   10:00  ->  PAPI Sun 11:00  ->  Thor
+#   domingo   12:00  ->  PAPI Sun 13:00  ->  Kukulkan
+#   domingo   14:00  ->  PAPI Sun 15:00  ->  solo retira al anterior (MEGAKOTH)
+#   domingo   16:00  ->  PAPI Sun 17:00  ->  Nezareth
+#   domingo   18:00  ->  PAPI Sun 19:00  ->  Kronos
+#   domingo   20:00  ->  PAPI Sun 21:00  ->  Azathoth
+#   domingo   22:00  ->  PAPI Sun 23:00  ->  Leviatan
 
 Events:
   bosses_rotacion:
     type: repetitive_server
     repetitive_time: 1200
     conditions:
-    - '%server_time_E-HH:mm% == lun-05:00 execute lunes_0000'
-    - '%server_time_E-HH:mm% == lun-07:00 execute lunes_0200'
-    - '%server_time_E-HH:mm% == lun-09:00 execute lunes_0400'
-    - '%server_time_E-HH:mm% == lun-11:00 execute lunes_0600'
-    - '%server_time_E-HH:mm% == lun-13:00 execute lunes_0800'
-    - '%server_time_E-HH:mm% == lun-15:00 execute lunes_1000'
-    - '%server_time_E-HH:mm% == lun-17:00 execute lunes_1200'
-    - '%server_time_E-HH:mm% == lun-19:00 execute lunes_1400'
-    - '%server_time_E-HH:mm% == lun-21:00 execute lunes_1600'
-    - '%server_time_E-HH:mm% == lun-23:00 execute lunes_1800'
-    - '%server_time_E-HH:mm% == mar-01:00 execute lunes_2000'
-    - '%server_time_E-HH:mm% == mar-03:00 execute lunes_2200'
-    - '%server_time_E-HH:mm% == mar-05:00 execute martes_0000'
-    - '%server_time_E-HH:mm% == mar-07:00 execute martes_0200'
-    - '%server_time_E-HH:mm% == mar-09:00 execute martes_0400'
-    - '%server_time_E-HH:mm% == mar-11:00 execute martes_0600'
-    - '%server_time_E-HH:mm% == mar-13:00 execute martes_0800'
-    - '%server_time_E-HH:mm% == mar-15:00 execute martes_1000'
-    - '%server_time_E-HH:mm% == mar-17:00 execute martes_1200'
-    - '%server_time_E-HH:mm% == mar-19:00 execute martes_1400'
-    - '%server_time_E-HH:mm% == mar-21:00 execute martes_1600'
-    - '%server_time_E-HH:mm% == mar-23:00 execute martes_1800'
-    - '%server_time_E-HH:mm% == mié-01:00 execute martes_2000'
-    - '%server_time_E-HH:mm% == mié-03:00 execute martes_2200'
-    - '%server_time_E-HH:mm% == mié-05:00 execute miercoles_0000'
-    - '%server_time_E-HH:mm% == mié-07:00 execute miercoles_0200'
-    - '%server_time_E-HH:mm% == mié-09:00 execute miercoles_0400'
-    - '%server_time_E-HH:mm% == mié-11:00 execute miercoles_0600'
-    - '%server_time_E-HH:mm% == mié-13:00 execute miercoles_0800'
-    - '%server_time_E-HH:mm% == mié-15:00 execute miercoles_1000'
-    - '%server_time_E-HH:mm% == mié-17:00 execute miercoles_1200'
-    - '%server_time_E-HH:mm% == mié-19:00 execute miercoles_1400'
-    - '%server_time_E-HH:mm% == mié-21:00 execute miercoles_1600'
-    - '%server_time_E-HH:mm% == mié-23:00 execute miercoles_1800'
-    - '%server_time_E-HH:mm% == jue-01:00 execute miercoles_2000'
-    - '%server_time_E-HH:mm% == jue-03:00 execute miercoles_2200'
-    - '%server_time_E-HH:mm% == jue-05:00 execute jueves_0000'
-    - '%server_time_E-HH:mm% == jue-07:00 execute jueves_0200'
-    - '%server_time_E-HH:mm% == jue-09:00 execute jueves_0400'
-    - '%server_time_E-HH:mm% == jue-11:00 execute jueves_0600'
-    - '%server_time_E-HH:mm% == jue-13:00 execute jueves_0800'
-    - '%server_time_E-HH:mm% == jue-15:00 execute jueves_1000'
-    - '%server_time_E-HH:mm% == jue-17:00 execute jueves_1200'
-    - '%server_time_E-HH:mm% == jue-19:00 execute jueves_1400'
-    - '%server_time_E-HH:mm% == jue-21:00 execute jueves_1600'
-    - '%server_time_E-HH:mm% == jue-23:00 execute jueves_1800'
-    - '%server_time_E-HH:mm% == vie-01:00 execute jueves_2000'
-    - '%server_time_E-HH:mm% == vie-03:00 execute jueves_2200'
-    - '%server_time_E-HH:mm% == vie-05:00 execute viernes_0000'
-    - '%server_time_E-HH:mm% == vie-07:00 execute viernes_0200'
-    - '%server_time_E-HH:mm% == vie-09:00 execute viernes_0400'
-    - '%server_time_E-HH:mm% == vie-11:00 execute viernes_0600'
-    - '%server_time_E-HH:mm% == vie-13:00 execute viernes_0800'
-    - '%server_time_E-HH:mm% == vie-15:00 execute viernes_1000'
-    - '%server_time_E-HH:mm% == vie-17:00 execute viernes_1200'
-    - '%server_time_E-HH:mm% == vie-19:00 execute viernes_1400'
-    - '%server_time_E-HH:mm% == vie-21:00 execute viernes_1600'
-    - '%server_time_E-HH:mm% == vie-23:00 execute viernes_1800'
-    - '%server_time_E-HH:mm% == sáb-01:00 execute viernes_2000'
-    - '%server_time_E-HH:mm% == sáb-03:00 execute viernes_2200'
-    - '%server_time_E-HH:mm% == sáb-05:00 execute sabado_0000'
-    - '%server_time_E-HH:mm% == sáb-07:00 execute sabado_0200'
-    - '%server_time_E-HH:mm% == sáb-09:00 execute sabado_0400'
-    - '%server_time_E-HH:mm% == sáb-11:00 execute sabado_0600'
-    - '%server_time_E-HH:mm% == sáb-13:00 execute sabado_0800'
-    - '%server_time_E-HH:mm% == sáb-15:00 execute sabado_1000'
-    - '%server_time_E-HH:mm% == sáb-17:00 execute sabado_1200'
-    - '%server_time_E-HH:mm% == sáb-19:00 execute sabado_1400'
-    - '%server_time_E-HH:mm% == sáb-21:00 execute sabado_1600'
-    - '%server_time_E-HH:mm% == sáb-23:00 execute sabado_1800'
-    - '%server_time_E-HH:mm% == dom-01:00 execute sabado_2000'
-    - '%server_time_E-HH:mm% == dom-03:00 execute sabado_2200'
-    - '%server_time_E-HH:mm% == dom-05:00 execute domingo_0000'
-    - '%server_time_E-HH:mm% == dom-07:00 execute domingo_0200'
-    - '%server_time_E-HH:mm% == dom-09:00 execute domingo_0400'
-    - '%server_time_E-HH:mm% == dom-11:00 execute domingo_0600'
-    - '%server_time_E-HH:mm% == dom-13:00 execute domingo_0800'
-    - '%server_time_E-HH:mm% == dom-15:00 execute domingo_1000'
-    - '%server_time_E-HH:mm% == dom-17:00 execute domingo_1200'
-    - '%server_time_E-HH:mm% == dom-19:00 execute domingo_1400'
-    - '%server_time_E-HH:mm% == dom-21:00 execute domingo_1600'
-    - '%server_time_E-HH:mm% == dom-23:00 execute domingo_1800'
-    - '%server_time_E-HH:mm% == lun-01:00 execute domingo_2000'
-    - '%server_time_E-HH:mm% == lun-03:00 execute domingo_2200'
+    - '%server_time_E-HH:mm% == lun-01:00 execute lunes_0000'
+    - '%server_time_E-HH:mm% == lun-03:00 execute lunes_0200'
+    - '%server_time_E-HH:mm% == lun-05:00 execute lunes_0400'
+    - '%server_time_E-HH:mm% == lun-07:00 execute lunes_0600'
+    - '%server_time_E-HH:mm% == lun-09:00 execute lunes_0800'
+    - '%server_time_E-HH:mm% == lun-11:00 execute lunes_1000'
+    - '%server_time_E-HH:mm% == lun-13:00 execute lunes_1200'
+    - '%server_time_E-HH:mm% == lun-15:00 execute lunes_1400'
+    - '%server_time_E-HH:mm% == lun-17:00 execute lunes_1600'
+    - '%server_time_E-HH:mm% == lun-19:00 execute lunes_1800'
+    - '%server_time_E-HH:mm% == lun-21:00 execute lunes_2000'
+    - '%server_time_E-HH:mm% == lun-23:00 execute lunes_2200'
+    - '%server_time_E-HH:mm% == mar-01:00 execute martes_0000'
+    - '%server_time_E-HH:mm% == mar-03:00 execute martes_0200'
+    - '%server_time_E-HH:mm% == mar-05:00 execute martes_0400'
+    - '%server_time_E-HH:mm% == mar-07:00 execute martes_0600'
+    - '%server_time_E-HH:mm% == mar-09:00 execute martes_0800'
+    - '%server_time_E-HH:mm% == mar-11:00 execute martes_1000'
+    - '%server_time_E-HH:mm% == mar-13:00 execute martes_1200'
+    - '%server_time_E-HH:mm% == mar-15:00 execute martes_1400'
+    - '%server_time_E-HH:mm% == mar-17:00 execute martes_1600'
+    - '%server_time_E-HH:mm% == mar-19:00 execute martes_1800'
+    - '%server_time_E-HH:mm% == mar-21:00 execute martes_2000'
+    - '%server_time_E-HH:mm% == mar-23:00 execute martes_2200'
+    - '%server_time_E-HH:mm% == mié-01:00 execute miercoles_0000'
+    - '%server_time_E-HH:mm% == mié-03:00 execute miercoles_0200'
+    - '%server_time_E-HH:mm% == mié-05:00 execute miercoles_0400'
+    - '%server_time_E-HH:mm% == mié-07:00 execute miercoles_0600'
+    - '%server_time_E-HH:mm% == mié-09:00 execute miercoles_0800'
+    - '%server_time_E-HH:mm% == mié-11:00 execute miercoles_1000'
+    - '%server_time_E-HH:mm% == mié-13:00 execute miercoles_1200'
+    - '%server_time_E-HH:mm% == mié-15:00 execute miercoles_1400'
+    - '%server_time_E-HH:mm% == mié-17:00 execute miercoles_1600'
+    - '%server_time_E-HH:mm% == mié-19:00 execute miercoles_1800'
+    - '%server_time_E-HH:mm% == mié-21:00 execute miercoles_2000'
+    - '%server_time_E-HH:mm% == mié-23:00 execute miercoles_2200'
+    - '%server_time_E-HH:mm% == jue-01:00 execute jueves_0000'
+    - '%server_time_E-HH:mm% == jue-03:00 execute jueves_0200'
+    - '%server_time_E-HH:mm% == jue-05:00 execute jueves_0400'
+    - '%server_time_E-HH:mm% == jue-07:00 execute jueves_0600'
+    - '%server_time_E-HH:mm% == jue-09:00 execute jueves_0800'
+    - '%server_time_E-HH:mm% == jue-11:00 execute jueves_1000'
+    - '%server_time_E-HH:mm% == jue-13:00 execute jueves_1200'
+    - '%server_time_E-HH:mm% == jue-15:00 execute jueves_1400'
+    - '%server_time_E-HH:mm% == jue-17:00 execute jueves_1600'
+    - '%server_time_E-HH:mm% == jue-19:00 execute jueves_1800'
+    - '%server_time_E-HH:mm% == jue-21:00 execute jueves_2000'
+    - '%server_time_E-HH:mm% == jue-23:00 execute jueves_2200'
+    - '%server_time_E-HH:mm% == vie-01:00 execute viernes_0000'
+    - '%server_time_E-HH:mm% == vie-03:00 execute viernes_0200'
+    - '%server_time_E-HH:mm% == vie-05:00 execute viernes_0400'
+    - '%server_time_E-HH:mm% == vie-07:00 execute viernes_0600'
+    - '%server_time_E-HH:mm% == vie-09:00 execute viernes_0800'
+    - '%server_time_E-HH:mm% == vie-11:00 execute viernes_1000'
+    - '%server_time_E-HH:mm% == vie-13:00 execute viernes_1200'
+    - '%server_time_E-HH:mm% == vie-15:00 execute viernes_1400'
+    - '%server_time_E-HH:mm% == vie-17:00 execute viernes_1600'
+    - '%server_time_E-HH:mm% == vie-19:00 execute viernes_1800'
+    - '%server_time_E-HH:mm% == vie-21:00 execute viernes_2000'
+    - '%server_time_E-HH:mm% == vie-23:00 execute viernes_2200'
+    - '%server_time_E-HH:mm% == sáb-01:00 execute sabado_0000'
+    - '%server_time_E-HH:mm% == sáb-03:00 execute sabado_0200'
+    - '%server_time_E-HH:mm% == sáb-05:00 execute sabado_0400'
+    - '%server_time_E-HH:mm% == sáb-07:00 execute sabado_0600'
+    - '%server_time_E-HH:mm% == sáb-09:00 execute sabado_0800'
+    - '%server_time_E-HH:mm% == sáb-11:00 execute sabado_1000'
+    - '%server_time_E-HH:mm% == sáb-13:00 execute sabado_1200'
+    - '%server_time_E-HH:mm% == sáb-15:00 execute sabado_1400'
+    - '%server_time_E-HH:mm% == sáb-17:00 execute sabado_1600'
+    - '%server_time_E-HH:mm% == sáb-19:00 execute sabado_1800'
+    - '%server_time_E-HH:mm% == sáb-21:00 execute sabado_2000'
+    - '%server_time_E-HH:mm% == sáb-23:00 execute sabado_2200'
+    - '%server_time_E-HH:mm% == dom-01:00 execute domingo_0000'
+    - '%server_time_E-HH:mm% == dom-03:00 execute domingo_0200'
+    - '%server_time_E-HH:mm% == dom-05:00 execute domingo_0400'
+    - '%server_time_E-HH:mm% == dom-07:00 execute domingo_0600'
+    - '%server_time_E-HH:mm% == dom-09:00 execute domingo_0800'
+    - '%server_time_E-HH:mm% == dom-11:00 execute domingo_1000'
+    - '%server_time_E-HH:mm% == dom-13:00 execute domingo_1200'
+    - '%server_time_E-HH:mm% == dom-15:00 execute domingo_1400'
+    - '%server_time_E-HH:mm% == dom-17:00 execute domingo_1600'
+    - '%server_time_E-HH:mm% == dom-19:00 execute domingo_1800'
+    - '%server_time_E-HH:mm% == dom-21:00 execute domingo_2000'
+    - '%server_time_E-HH:mm% == dom-23:00 execute domingo_2200'
     actions:
       lunes_0000:
       - 'console_command: mm mobs kill Kronos'
