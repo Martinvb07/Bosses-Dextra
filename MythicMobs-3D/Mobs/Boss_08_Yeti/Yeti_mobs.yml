@@ -12,7 +12,9 @@ Yeti:
 
   BossBar:
     Enabled: true
-    Title: "&b&lYETI"
+    # \u200a no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/yeti.yml)
+    # es la moldura de hielo a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f &b&lYETI&f "
     Range: 55
     Color: BLUE
     Style: SEGMENTED_10
@@ -38,7 +40,9 @@ Yeti:
     - Recompensas_dinero
     - Recompensas_llaves
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/yeti/yeti.bbmodel
   Skills:
+    - model{mid=yeti} @self ~onSpawn
     - skill{s=Yeti_Spawn} @self ~onSpawn
     - skill{s=Yeti_AcquireTarget} @self ~onTimer:10
     - skill{s=Yeti_HP70_Check} @self ~onTimer:20
@@ -55,6 +59,8 @@ Yeti:
     - skill{s=Yeti_PlayerKill} @target ~onKill
     - skill{s=Yeti_Death} @self ~onDeath
     - skill{s=Yeti_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=Yeti_Melee} @self ~onAttack
+    - skill{s=Yeti_Hurt} @self ~onDamaged 0.35
 
 FrostBrute_Yeti:
   Type: HUSK
@@ -83,7 +89,10 @@ FrostBrute_Yeti:
   Drops:
     #- Recompensas_FrostBrute_Yeti
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/frost_brute/frost_brute.bbmodel
   Skills:
+    - model{mid=frost_brute} @self ~onSpawn
+    - state{mid=frost_brute;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=FBY_SpawnFX} @self ~onSpawn
     - skill{s=FBY_FrozenMaul} @target ~onAttack
     - skill{s=Yeti_FuegoAmigo;sync=true} @self ~onDamaged
@@ -115,7 +124,10 @@ GlacierRaider_Yeti:
   Drops:
     #- Recompensas_GlacierRaider_Yeti
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/glacier_raider/glacier_raider.bbmodel
   Skills:
+    - model{mid=glacier_raider} @self ~onSpawn
+    - state{mid=glacier_raider;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=GRY_SpawnFX} @self ~onSpawn
     - skill{s=GRY_CrystalCleave} @target ~onAttack
     - skill{s=Yeti_FuegoAmigo;sync=true} @self ~onDamaged
@@ -143,7 +155,176 @@ BlizzardSpirit_Yeti:
   Drops:
     #- Recompensas_BlizzardSpirit_Yeti
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/blizzard_spirit/blizzard_spirit.bbmodel
   Skills:
+    - model{mid=blizzard_spirit} @self ~onSpawn
+    - state{mid=blizzard_spirit;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=BSY_SpawnFX} @self ~onSpawn
     - skill{s=BSY_FrostClaws} @target ~onAttack
     - skill{s=Yeti_FuegoAmigo;sync=true} @self ~onDamaged
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde yeti_skills.yml con summon{type=Yeti_FX_...}.
+
+Yeti_FX_Shatter:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=yt_fx_shatter;hitbox=false} @self ~onSpawn
+    - state{mid=yt_fx_shatter;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Yeti_FX_Remove;delay=32} @self ~onSpawn
+
+Yeti_FX_Smash:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=yt_fx_smash;hitbox=false} @self ~onSpawn
+    - state{mid=yt_fx_smash;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Yeti_FX_Remove;delay=26} @self ~onSpawn
+
+Yeti_FX_Rock:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=yt_fx_rock;hitbox=false} @self ~onSpawn
+    - state{mid=yt_fx_rock;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Yeti_FX_Remove;delay=32} @self ~onSpawn
+
+Yeti_FX_Barrage:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=yt_fx_barrage;hitbox=false} @self ~onSpawn
+    - state{mid=yt_fx_barrage;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Yeti_FX_Remove;delay=40} @self ~onSpawn
+
+Yeti_FX_Nova:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=yt_fx_nova;hitbox=false} @self ~onSpawn
+    - state{mid=yt_fx_nova;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Yeti_FX_Remove;delay=26} @self ~onSpawn
+
+Yeti_FX_Blizzard:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=yt_fx_blizzard;hitbox=false} @self ~onSpawn
+    - state{mid=yt_fx_blizzard;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Yeti_FX_Remove;delay=48} @self ~onSpawn
+
+Yeti_FX_Roar:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=yt_fx_roar;hitbox=false} @self ~onSpawn
+    - state{mid=yt_fx_roar;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Yeti_FX_Remove;delay=28} @self ~onSpawn
+
+Yeti_FX_Shield:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=yt_fx_shield;hitbox=false} @self ~onSpawn
+    - state{mid=yt_fx_shield;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Yeti_FX_Remove;delay=64} @self ~onSpawn
+
+Yeti_FX_Snow:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=yt_fx_snow;hitbox=false} @self ~onSpawn
+    - state{mid=yt_fx_snow;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=Yeti_FX_Remove;delay=28} @self ~onSpawn

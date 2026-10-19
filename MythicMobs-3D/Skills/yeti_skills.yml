@@ -1,7 +1,21 @@
+# Yeti skills
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=yeti;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:yeti.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=..._FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "YETI" como siempre; con pack se ve el logo.
+
 Yeti_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&b&lYETI";subtitle="&fIce Biome &8• &7Bestia del Invierno Eterno";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=yeti;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§fIce Biome §8• §7Bestia del Invierno Eterno''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.yeti'',fallback:''§b§lYETI'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:yeti.intro;v=1;p=1} @self
+    - summon{type=Yeti_FX_Snow;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&b&lYETI &f: &7Intrusos... en mi montana..."} @Server'
     - effect:sound{s=entity.iron_golem.damage;v=0.8;p=0.6} @self
     - effect:sound{s=entity.polar_bear.warning;v=0.9;p=0.6} @self
@@ -55,6 +69,8 @@ Yeti_Phase3_Check:
     - 'message{cooldown=9999;m="&b&lVENTISCA INTENSA &8» &fDerrota primero a sus subditos para romper el escudo."} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.blaze.shoot;v=0.5;p=0.5} @self
     - effect:sound{s=weather.rain.above;v=0.9;p=0.6} @self
+    - effect:sound{s=dextra:yeti.shield;v=1;p=1} @self
+    - summon{type=Yeti_FX_Shield;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=CLOUD;amount=70;hS=2.4;vS=1.1;speed=0.03} @self
     - effect:particles{particle=SNOWFLAKE;amount=90;hS=2.5;vS=1.2;speed=0.06} @self
     - skill{s=Yeti_IntenseBlizzard} @self
@@ -64,6 +80,8 @@ Yeti_Phase3_Check:
 
 Yeti_PhaseShield:
   Skills:
+    - state{mid=yeti;s=phase_change;li=3;lo=4} @self
+    - effect:sound{s=dextra:yeti.phase;v=1;p=1} @self
     - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
     - effect:particles{particle=END_ROD;amount=20;hS=0.9;vS=1.0;speed=0.02} @self
 
@@ -81,6 +99,7 @@ Yeti_SubjugationRelease:
     - mobsinradius{type=BlizzardSpirit_Yeti;amount=<1;radius=35}
   Skills:
     - setstance{stance=PHASE3} @self
+    - effect:sound{s=dextra:yeti.shield;v=1;p=1.3} @self
     - 'message{cooldown=9999;m="&b&lYETI &fqueda vulnerable al caer sus subditos."} @PlayersInRadius{r=70}'
     - effect:sound{s=block.glass.break;v=0.9;p=0.6} @self
     - effect:particles{particle=FLASH;amount=1} @self
@@ -95,7 +114,10 @@ Yeti_Roar:
   Conditions:
     - targetwithin{d=9999} true
   Skills:
+    - state{mid=yeti;s=roar;li=2;lo=3} @self
     - effect:sound{s=entity.polar_bear.warning;v=1.0;p=0.55} @self
+    - effect:sound{s=dextra:yeti.roar;v=1;p=1} @self
+    - summon{type=Yeti_FX_Roar;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=entity.iron_golem.damage;v=0.8;p=0.5} @self
     - effect:particles{particle=SNOWFLAKE;amount=24;hS=1.4;vS=1.0;speed=0.04} @self
 
@@ -116,7 +138,10 @@ Yeti_GroundShatter:
   Cooldown: 18
   Skills:
     - 'message{cooldown=10;m="&b&lGOLPE AL SUELO &8» &fApartaos del impacto."} @PlayersInRadius{r=45}'
+    - state{mid=yeti;s=shatter;li=2;lo=3} @self
     - effect:sound{s=entity.iron_golem.attack;v=1.0;p=0.5} @self
+    - effect:sound{s=dextra:yeti.shatter;v=1;p=1} @self
+    - summon{type=Yeti_FX_Shatter;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=entity.generic.explode;v=0.65;p=0.8} @self
     - effect:particles{particle=BLOCK_CRACK;material=PACKED_ICE;amount=85;hS=2.0;vS=0.5;speed=0.12} @self
     - delay 8
@@ -127,7 +152,10 @@ Yeti_IceSmash:
   Conditions:
     - targetwithin{d=6}
   Skills:
+    - state{mid=yeti;s=smash;li=1;lo=2} @self
     - effect:sound{s=entity.iron_golem.attack;v=0.9;p=0.6} @self
+    - effect:sound{s=dextra:yeti.smash;v=1;p=1} @self
+    - summon{type=Yeti_FX_Smash;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=BLOCK_CRACK;material=PACKED_ICE;amount=45;hS=1.1;vS=0.3;speed=0.10} @self
     - damage{a=126;pk=true} @target
     - throw{velocity=1.1;velocityY=0.3} @target
@@ -138,7 +166,10 @@ Yeti_IceRockThrow:
     - targetwithin{d=28}
   Skills:
     - 'message{cooldown=8;m="&bYeti &farranca una roca de hielo de la montana!"} @PlayersInRadius{r=40}'
+    - state{mid=yeti;s=throw;li=2;lo=3} @self
     - effect:sound{s=block.stone.break;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:yeti.throw;v=1;p=1} @self
+    - summon{type=Yeti_FX_Rock;amount=1;radius=0;noise=0} @targetlocation
     - effect:particles{particle=BLOCK_CRACK;material=BLUE_ICE;amount=36;hS=0.9;vS=0.5;speed=0.09} @self
     - delay 10
     - effect:particles{particle=FLASH;amount=1} @target
@@ -149,7 +180,10 @@ Yeti_IceRockBarrage:
   Cooldown: 20
   Skills:
     - 'message{cooldown=10;m="&bLluvia de rocas de hielo &fcae desde lo alto!"} @PlayersInRadius{r=50}'
+    - state{mid=yeti;s=throw;li=2;lo=3} @self
     - effect:sound{s=block.glass.break;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:yeti.barrage;v=1;p=1} @self
+    - summon{type=Yeti_FX_Barrage;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=BLOCK_CRACK;material=BLUE_ICE;amount=70;hS=2.2;vS=0.9;speed=0.10} @self
     - delay 12
     - damage{a=133;pk=true} @PlayersInRadius{r=9}
@@ -158,6 +192,9 @@ Yeti_IceRockBarrage:
 Yeti_FrostNova:
   Cooldown: 16
   Skills:
+    - state{mid=yeti;s=nova;li=1;lo=3} @self
+    - effect:sound{s=dextra:yeti.nova;v=1;p=1} @self
+    - summon{type=Yeti_FX_Nova;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=block.glass.break;v=0.9;p=0.6} @self
     - effect:particles{particle=SNOWFLAKE;amount=65;hS=2.0;vS=0.7;speed=0.05} @self
     - damage{a=83;pk=true} @PlayersInRadius{r=7}
@@ -167,7 +204,10 @@ Yeti_IntenseBlizzard:
   Cooldown: 22
   Skills:
     - 'message{cooldown=10;m="&fLa ventisca os ciega y os congela los huesos..."} @PlayersInRadius{r=60}'
+    - state{mid=yeti;s=nova;li=2;lo=3} @self
     - effect:sound{s=weather.rain.above;v=1.0;p=0.5} @self
+    - effect:sound{s=dextra:yeti.blizzard;v=1;p=1} @self
+    - summon{type=Yeti_FX_Blizzard;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=CLOUD;amount=85;hS=3.0;vS=1.2;speed=0.03} @self
     - effect:particles{particle=SNOWFLAKE;amount=130;hS=3.2;vS=1.3;speed=0.07} @self
     - potion{type=BLINDNESS;duration=70;level=0} @PlayersInRadius{r=14}
@@ -179,7 +219,10 @@ Yeti_SummonHunters:
   Conditions:
     - mobsinradius{type=FrostBrute_Yeti;amount=<3;radius=35}
   Skills:
+    - state{mid=yeti;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.zombie.ambient;v=0.8;p=0.8} @self
+    - effect:sound{s=dextra:yeti.summon;v=1;p=1} @self
+    - summon{type=Yeti_FX_Snow;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SNOWFLAKE;amount=30;hS=1.2;vS=0.7;speed=0.04} @self
     - summon{type=FrostBrute_Yeti;amount=2;radius=8;noise=2} @self
 
@@ -189,7 +232,10 @@ Yeti_SummonShieldMinions:
     - mobsinradius{type=GlacierRaider_Yeti;amount=<2;radius=35}
   Skills:
     - 'message{cooldown=12;m="&bEl Yeti invoca guerreros glaciales y espiritus de ventisca."} @PlayersInRadius{r=50}'
+    - state{mid=yeti;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.vindicator.celebrate;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:yeti.summon;v=1;p=1} @self
+    - summon{type=Yeti_FX_Snow;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SNOWFLAKE;amount=36;hS=1.4;vS=0.8;speed=0.05} @self
     - summon{type=GlacierRaider_Yeti;amount=2;radius=7;noise=2} @self
     - summon{type=BlizzardSpirit_Yeti;amount=2;radius=7;noise=2} @self
@@ -222,41 +268,68 @@ Yeti_Death:
   Skills:
     - 'message{m="&b&lYETI &f: &7El hielo... se derrite..."} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.iron_golem.death;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:yeti.death;v=1;p=1} @self
     - effect:sound{s=block.glass.break;v=0.9;p=0.5} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
     - effect:particles{particle=SNOWFLAKE;amount=120;hS=2.4;vS=1.1;speed=0.08} @self
 
 FBY_SpawnFX:
   Skills:
+    - state{mid=frost_brute;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:yeti.brute_grunt;v=0.8;p=1} @self
     - effect:sound{s=entity.zombie.ambient;v=0.8;p=1.0} @self
     - effect:particles{particle=SNOWFLAKE;amount=12;hS=0.5;vS=0.4;speed=0.03} @self
 
 FBY_FrozenMaul:
   Skills:
+    - state{mid=frost_brute;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:yeti.brute_maul;v=0.8;p=1} @self
     - damage{a=50;pk=true} @target
     - potion{type=SLOW;duration=60;level=1} @target
 
 GRY_SpawnFX:
   Skills:
+    - state{mid=glacier_raider;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:yeti.raider_shout;v=0.8;p=1} @self
     - effect:sound{s=entity.vindicator.ambient;v=0.8;p=0.8} @self
     - effect:particles{particle=SNOWFLAKE;amount=16;hS=0.6;vS=0.6;speed=0.03} @self
 
 GRY_CrystalCleave:
   Skills:
+    - state{mid=glacier_raider;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:yeti.raider_cleave;v=0.8;p=1} @self
     - effect:particles{particle=SWEEP_ATTACK;amount=1} @self
     - damage{a=59;pk=true} @target
     - potion{type=SLOW;duration=40;level=0} @target
 
 BSY_SpawnFX:
   Skills:
+    - state{mid=blizzard_spirit;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:yeti.spirit_howl;v=0.8;p=1} @self
     - effect:sound{s=entity.vex.ambient;v=0.8;p=0.8} @self
     - effect:particles{particle=SOUL;amount=10;hS=0.5;vS=0.7;speed=0.02} @self
 
 BSY_FrostClaws:
   Skills:
+    - state{mid=blizzard_spirit;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:yeti.spirit_claw;v=0.8;p=1} @self
     - effect:particles{particle=SNOWFLAKE;amount=12;hS=0.6;vS=0.6;speed=0.03} @target
     - damage{a=42;ia=true} @target
     - potion{type=SLOW;duration=50;level=1} @target
+
+Yeti_FX_Remove:
+  Skills:
+    - remove @self
+
+Yeti_Melee:
+  Skills:
+    - state{mid=yeti;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:yeti.smash;v=0.7;p=1.2} @self
+
+Yeti_Hurt:
+  Skills:
+    - state{mid=yeti;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:yeti.hurt;v=0.8;p=1} @self
 
 # Item summon
 Yeti_ItemSummon:

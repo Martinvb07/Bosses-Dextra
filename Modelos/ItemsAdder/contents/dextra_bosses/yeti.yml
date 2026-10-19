@@ -1,0 +1,15 @@
+# Marco de la bossbar de yeti (generado por tools/; no lo edites a mano).
+# En MythicMobs: BossBar.Title = "&f\u200a<nombre>&f\u200a"
+# Sin pack el caracter \u200a es un espacio en blanco; con pack es esta imagen.
+info:
+  namespace: dextra_bosses
+
+font_images:
+  yeti_bossbar:
+    path: font/yeti/bossbar.png
+    symbol: "\u200a"
+    scale_ratio: 32
+    y_position: 12
+    show_in_gui: false
+    shadow:
+      enabled: false
