@@ -1,0 +1,15 @@
+# Marco de la bossbar de samhain (generado por tools/; no lo edites a mano).
+# En MythicMobs: BossBar.Title = "&f\u202f<nombre>&f\u202f"
+# Sin pack el caracter \u202f es un espacio en blanco; con pack es esta imagen.
+info:
+  namespace: dextra_bosses
+
+font_images:
+  samhain_bossbar:
+    path: font/samhain/bossbar.png
+    symbol: "\u202f"
+    scale_ratio: 32
+    y_position: 12
+    show_in_gui: false
+    shadow:
+      enabled: false

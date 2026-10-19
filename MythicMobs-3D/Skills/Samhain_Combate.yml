@@ -2,11 +2,23 @@
 # Mecanicas basadas en Ragnarok, con lore, subditos y particulas de Samhain.
 # Daño de skills escalado x2.38 y umbrales de vida para 4200 HP (curva de dificultad 01->17).
 # Los sacos / ranking siguen en sus archivos de siempre.
+#
+# Version 3D (ModelEngine + DextraBossesPack):
+#  - state{mid=samhain;...} lanza la animacion; los "delay" coinciden con el golpe de cada una.
+#  - Sonidos "dextra:samhain.*" = sonidos propios del pack, siempre junto al vanilla de antes.
+#  - summon{type=..._FX_...} = efectos 3D de cada ataque (mobs invisibles que se borran solos).
+#  - El titulo de aparicion se manda con /title y un texto traducible: sin pack se ve
+#    "SAMHAIN" como siempre; con pack se ve el logo.
 
 SH_Spawn:
   Skills:
     - setstance{stance=PHASE1} @self
-    - 'title{title="&6&lSAMHAIN";subtitle="&eLa Noche de las Animas &8• &7El velo entre mundos se rompe";fadein=20;stay=300;duration=300;fadeout=20} @Server'
+    - state{mid=samhain;s=spawn;li=0;lo=4} @self
+    - 'command{c="minecraft:title @a times 20 300 20"} @self'
+    - 'command{c="minecraft:title @a subtitle <&lc>text:''§eLa Noche de las Animas §8• §7El velo entre mundos se rompe''<&rc>"} @self'
+    - 'command{c="minecraft:title @a title <&lc>translate:''dextra.title.samhain'',fallback:''§6§lSAMHAIN'',with:<&lb><&lc>text:'''',font:''dextra:hud'',color:''white''<&rc><&rb><&rc>"} @self'
+    - effect:sound{s=dextra:samhain.intro;v=1;p=1} @self
+    - summon{type=SH_FX_Phase;amount=1;radius=0;noise=0} @selflocation
     - 'message{m="&6&lSAMHAIN &f: &7Esta noche los muertos caminan... y vosotros os unireis a ellos."} @Server'
     - effect:sound{s=entity.wither.spawn;v=0.6;p=0.8} @self
     - effect:particles{particle=FLAME;amount=45;hS=1.2;vS=1.0;speed=0.03} @self
@@ -84,6 +96,9 @@ SH_Phase4_Check:
 
 SH_PhaseShield:
   Skills:
+    - state{mid=samhain;s=phase_change;li=3;lo=4} @self
+    - effect:sound{s=dextra:samhain.phase;v=1;p=1} @self
+    - summon{type=SH_FX_Phase;amount=1;radius=0;noise=0} @selflocation
     - potion{type=DAMAGE_RESISTANCE;duration=50;level=4} @self
     - effect:particles{particle=END_ROD;amount=25;hS=0.9;vS=1.0;speed=0.02} @self
 
@@ -98,7 +113,10 @@ SH_HeavyStrike:
   Conditions:
     - targetwithin{d=6}
   Skills:
+    - state{mid=samhain;s=reap;li=1;lo=2} @self
     - effect:sound{s=entity.player.attack.sweep;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:samhain.reap;v=1;p=1} @self
+    - summon{type=SH_FX_Reap;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SWEEP_ATTACK;amount=1} @self
     - damage{a=186;pk=true} @target
     - throw{velocity=1.0;velocityY=0.25} @target
@@ -108,7 +126,10 @@ SH_DevastatingBlow:
     - targetwithin{d=4}
   Skills:
     - 'message{cooldown=8;m="&6Guadaña de &eSamhain&f: ¡golpe de cosecha!"} @PlayersInRadius{r=40}'
+    - state{mid=samhain;s=harvest;li=1;lo=2} @self
     - effect:sound{s=entity.iron_golem.attack;v=0.9;p=0.5} @self
+    - effect:sound{s=dextra:samhain.harvest;v=1;p=1} @self
+    - summon{type=SH_FX_Harvest;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=BLOCK_CRACK;material=SOUL_SOIL;amount=45;hS=1.1;vS=0.3;speed=0.10} @self
     - delay 6
     - damage{a=229;pk=true} @PlayersInRadius{r=4}
@@ -123,7 +144,10 @@ SH_FreezeAura:
 SH_FreezeBurst:
   Cooldown: 12
   Skills:
+    - state{mid=samhain;s=burst;li=1;lo=2} @self
     - effect:sound{s=block.glass.break;v=0.8;p=0.7} @self
+    - effect:sound{s=dextra:samhain.burst;v=1;p=1} @self
+    - summon{type=SH_FX_Burst;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=FLAME;amount=60;hS=2.0;vS=0.8;speed=0.05} @self
     - damage{a=114;pk=true} @PlayersInRadius{r=7}
     - potion{type=SLOW;duration=70;level=3} @PlayersInRadius{r=7}
@@ -132,7 +156,10 @@ SH_IceStorm:
   Cooldown: 20
   Skills:
     - 'message{cooldown=10;m="&6Tormenta de animas &fen curso..."} @PlayersInRadius{r=50}'
+    - state{mid=samhain;s=storm;li=2;lo=3} @self
     - effect:sound{s=entity.snow_golem.shoot;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:samhain.souls;v=1;p=1} @self
+    - summon{type=SH_FX_Souls;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=CLOUD;amount=80;hS=3.2;vS=1.2;speed=0.02;yOffset=1.4} @self
     - effect:particles{particle=FLAME;amount=120;hS=3.0;vS=1.1;speed=0.08} @self
     - effect:particles{particle=BLOCK_CRACK;material=SOUL_SAND;amount=60;hS=2.8;vS=0.15;speed=0.08;yOffset=0.1} @self
@@ -144,7 +171,10 @@ SH_LightningStorm:
   Cooldown: 35
   Skills:
     - 'message{cooldown=10;m="&6Samhain invoca una &eTormenta de Fuegos Fatuos&6!"} @PlayersInRadius{r=50}'
+    - state{mid=samhain;s=call;li=2;lo=3} @self
     - effect:sound{s=entity.lightning_bolt.thunder;v=0.9;p=0.8} @self
+    - effect:sound{s=dextra:samhain.wisps;v=1;p=1} @self
+    - summon{type=SH_FX_Wisps;amount=1;radius=0;noise=0} @selflocation
     - potion{type=BLINDNESS;duration=100;level=0} @PlayersInRadius{r=12}
     - potion{type=CONFUSION;duration=100;level=0} @PlayersInRadius{r=12}
     - effect:particles{particle=CLOUD;amount=90;hS=3.0;vS=1.7;speed=0.02;yOffset=1.6} @self
@@ -168,7 +198,10 @@ SH_RunOrDie:
   Cooldown: 22
   Skills:
     - 'message{cooldown=8;m="&6&lSAMHAIN &fprepara la &c&lULTIMA COSECHA&f... &e¡CORRE!"} @PlayersInRadius{r=60}'
+    - state{mid=samhain;s=last_harvest;li=2;lo=4} @self
     - effect:sound{s=block.beacon.power_select;v=0.9;p=0.45} @self
+    - effect:sound{s=dextra:samhain.last_harvest;v=1;p=1} @self
+    - summon{type=SH_FX_Moon;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=entity.wither.ambient;v=0.5;p=0.6} @self
     - potion{type=SLOW;duration=40;level=6} @self
     - potion{type=DAMAGE_RESISTANCE;duration=40;level=3} @self
@@ -206,7 +239,10 @@ SH_SummonDraugr:
   Conditions:
     - mobsinradius{type=Samhain_Espantapajaros;amount=<5;radius=35}
   Skills:
+    - state{mid=samhain;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.zombie.ambient;v=0.8;p=0.6} @self
+    - effect:sound{s=dextra:samhain.summon;v=1;p=1} @self
+    - summon{type=SH_FX_Graves;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SOUL;amount=20;hS=1.0;vS=0.8;speed=0.02} @self
     - effect:particles{particle=SPELL_MOB_AMBIENT;amount=18;hS=0.9;vS=0.7;speed=0.02} @self
     - summon{type=Samhain_Espantapajaros;amount=2;radius=8;noise=3} @self
@@ -216,7 +252,10 @@ SH_SummonVex:
   Conditions:
     - mobsinradius{type=Samhain_FuegoFatuo;amount=<4;radius=35}
   Skills:
+    - state{mid=samhain;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.vex.ambient;v=0.9;p=1.1} @self
+    - effect:sound{s=dextra:samhain.summon;v=1;p=1} @self
+    - summon{type=SH_FX_Graves;amount=1;radius=0;noise=0} @selflocation
     - effect:particles{particle=SOUL;amount=20;hS=1.0;vS=0.6;speed=0.02} @self
     - effect:particles{particle=CLOUD;amount=16;hS=0.9;vS=0.4;speed=0.02;yOffset=0.6} @self
     - effect:particles{particle=ELECTRIC_SPARK;amount=10;hS=0.7;vS=0.7;speed=0.02} @self
@@ -227,7 +266,10 @@ SH_SummonVikings:
   Conditions:
     - mobsinradius{type=Samhain_Jinete;amount=<4;radius=35}
   Skills:
+    - state{mid=samhain;s=summon;li=2;lo=4} @self
     - effect:sound{s=entity.husk.ambient;v=0.8;p=0.8} @self
+    - effect:sound{s=dextra:samhain.summon;v=1;p=1} @self
+    - summon{type=SH_FX_Graves;amount=1;radius=0;noise=0} @selflocation
     - effect:sound{s=entity.player.attack.sweep;v=0.7;p=0.6} @self
     - effect:particles{particle=BLOCK_CRACK;material=PUMPKIN;amount=30;hS=1.2;vS=0.3;speed=0.08} @self
     - summon{type=Samhain_Jinete;amount=2;radius=8;noise=3} @self
@@ -240,6 +282,7 @@ SH_Death:
   Skills:
     - 'message{m="&6&lSAMHAIN &f: &7El velo... se cierra... hasta el proximo año..."} @PlayersInRadius{r=70}'
     - effect:sound{s=entity.wither.death;v=0.8;p=0.9} @self
+    - effect:sound{s=dextra:samhain.death;v=1;p=1} @self
     - effect:sound{s=block.glass.break;v=1.0;p=0.5} @self
     - effect:particles{particle=EXPLOSION_HUGE;amount=1} @self
     - effect:particles{particle=FLAME;amount=120;hS=2.5;vS=1.2;speed=0.08} @self
@@ -254,6 +297,8 @@ SH_Draugr_Resilience:
 
 SH_SpectralVex_SpawnFX:
   Skills:
+    - state{mid=sh_wisp;s=spawn;li=0;lo=2} @self
+    - effect:sound{s=dextra:samhain.wisp_giggle;v=0.8;p=1} @self
     - effect:particles{particle=SOUL;amount=14;hS=0.5;vS=0.5;speed=0.02} @self
     - effect:particles{particle=CLOUD;amount=8;hS=0.4;vS=0.4;speed=0.02} @self
     - effect:particles{particle=REDSTONE;amount=10;hS=0.35;vS=0.45;speed=0;color=#ff7a1a;size=1.15} @self
@@ -265,6 +310,8 @@ SH_SpectralVex_BlueAura:
 
 SH_SpectralVex_QuickStrike:
   Skills:
+    - state{mid=sh_wisp;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:samhain.wisp_strike;v=0.8;p=1} @self
     - potion{type=SPEED;duration=40;level=1} @self
     - effect:sound{s=entity.vex.charge;v=0.7;p=1.2} @self
     - damage{a=71;ia=true} @target
@@ -277,12 +324,28 @@ SH_SpectralVex_DeathFX:
 
 SH_VikingWarrior_DoubleAxe:
   Skills:
+    - state{mid=sh_rider;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:samhain.rider_slash;v=0.8;p=1} @self
     - effect:sound{s=entity.player.attack.sweep;v=0.7;p=0.7} @self
     - damage{a=86;pk=true} @target
     - delay 4
     - damage{a=86;pk=true} @target
 
 # Item summon
+
+SH_FX_Remove:
+  Skills:
+    - remove @self
+
+SH_Melee:
+  Skills:
+    - state{mid=samhain;s=attack;li=1;lo=2} @self
+    - effect:sound{s=dextra:samhain.reap;v=0.7;p=1.1} @self
+
+SH_Hurt:
+  Skills:
+    - state{mid=samhain;s=hurt;li=1;lo=2} @self
+    - effect:sound{s=dextra:samhain.hurt;v=0.8;p=1} @self
 
 # --- Fuego amigo ---
 SH_FuegoAmigo:

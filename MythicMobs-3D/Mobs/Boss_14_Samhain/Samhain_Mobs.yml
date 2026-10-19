@@ -19,7 +19,9 @@ Samhain:
 
   BossBar:
     Enabled: true
-    Title: "&6&lSAMHAIN"
+    # \u202f no se ve en vanilla; con el pack (ItemsAdder: dextra_bosses/samhain.yml)
+    # es la moldura de madera y calabazas a cada lado del nombre. No cambies el texto del nombre.
+    Title: "&f &6&lSAMHAIN&f "
     Range: 50
     Color: BLUE
     Style: SEGMENTED_10
@@ -84,7 +86,9 @@ Samhain:
    # - Recompensas_llaves
    # - MH_EstrellaInvocacion 1 1
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/samhain/samhain.bbmodel
   Skills:
+    - model{mid=samhain} @self ~onSpawn
     - skill{s=Samhain_Rank_Reset} @self ~onSpawn
     - skill{s=Samhain_Rank_Sumar} @self ~onDamaged
     - skill{s=Samhain_Rank_Muerte} @self ~onDeath
@@ -104,6 +108,8 @@ Samhain:
     - skill{s=SH_PlayerKill} @target ~onKill
     - skill{s=SH_Death} @self ~onDeath
     - skill{s=SH_FuegoAmigo;sync=true} @self ~onDamaged
+    - skill{s=SH_Melee} @self ~onAttack
+    - skill{s=SH_Hurt} @self ~onDamaged 0.35
 
 
 # --- Subditos de Samhain ---
@@ -137,7 +143,14 @@ Samhain_Espantapajaros:
   Drops:
     #- Recompensas_Draugr_Ragnarok
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/sh_scarecrow/sh_scarecrow.bbmodel
   Skills:
+    - model{mid=sh_scarecrow} @self ~onSpawn
+    - state{mid=sh_scarecrow;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
+    - state{mid=sh_scarecrow;s=spawn;li=0;lo=2} @self ~onSpawn
+    - effect:sound{s=dextra:samhain.scarecrow_rustle;v=0.8;p=1} @self ~onSpawn
+    - state{mid=sh_scarecrow;s=attack;li=1;lo=2} @self ~onAttack
+    - effect:sound{s=dextra:samhain.scarecrow_stab;v=0.8;p=1} @self ~onAttack
     - skill{s=SH_Draugr_Resilience} @self ~onSpawn
     - skill{s=SH_Draugr_Resilience} @self ~onTimer:80
     - skill{s=SH_FuegoAmigo;sync=true} @self ~onDamaged
@@ -163,7 +176,10 @@ Samhain_FuegoFatuo:
   Drops:
     #- Recompensas_SpectralVex_Ragnarok
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/sh_wisp/sh_wisp.bbmodel
   Skills:
+    - model{mid=sh_wisp} @self ~onSpawn
+    - state{mid=sh_wisp;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
     - skill{s=SH_SpectralVex_SpawnFX} @self ~onSpawn
     - skill{s=SH_SpectralVex_BlueAura} @self ~onTimer:10
     - skill{s=SH_SpectralVex_QuickStrike} @target ~onAttack
@@ -197,6 +213,159 @@ Samhain_Jinete:
   Drops:
     #- Recompensas_VikingWarrior_Ragnarok
 
+  # Modelo de ModelEngine: plugins/ModelEngine/blueprints/sh_rider/sh_rider.bbmodel
   Skills:
+    - model{mid=sh_rider} @self ~onSpawn
+    - state{mid=sh_rider;s=hurt;li=1;lo=2} @self ~onDamaged 0.3
+    - state{mid=sh_rider;s=spawn;li=0;lo=2} @self ~onSpawn
+    - effect:sound{s=dextra:samhain.rider_laugh;v=0.8;p=1} @self ~onSpawn
     - skill{s=SH_VikingWarrior_DoubleAxe} @target ~onAttack
     - skill{s=SH_FuegoAmigo;sync=true} @self ~onDamaged
+
+# --- Efectos de los ataques (solo version 3D) ---
+# Mobs invisibles que llevan un modelo de ModelEngine con su animacion "play" y se borran solos.
+# Se invocan desde Samhain_Combate.yml con summon{type=SH_FX_...}.
+
+SH_FX_Reap:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=sh_fx_reap;hitbox=false} @self ~onSpawn
+    - state{mid=sh_fx_reap;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=SH_FX_Remove;delay=16} @self ~onSpawn
+
+SH_FX_Harvest:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=sh_fx_harvest;hitbox=false} @self ~onSpawn
+    - state{mid=sh_fx_harvest;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=SH_FX_Remove;delay=28} @self ~onSpawn
+
+SH_FX_Burst:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=sh_fx_burst;hitbox=false} @self ~onSpawn
+    - state{mid=sh_fx_burst;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=SH_FX_Remove;delay=24} @self ~onSpawn
+
+SH_FX_Souls:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=sh_fx_souls;hitbox=false} @self ~onSpawn
+    - state{mid=sh_fx_souls;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=SH_FX_Remove;delay=36} @self ~onSpawn
+
+SH_FX_Wisps:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=sh_fx_wisps;hitbox=false} @self ~onSpawn
+    - state{mid=sh_fx_wisps;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=SH_FX_Remove;delay=40} @self ~onSpawn
+
+SH_FX_Moon:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=sh_fx_moon;hitbox=false} @self ~onSpawn
+    - state{mid=sh_fx_moon;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=SH_FX_Remove;delay=60} @self ~onSpawn
+
+SH_FX_Graves:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=sh_fx_graves;hitbox=false} @self ~onSpawn
+    - state{mid=sh_fx_graves;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=SH_FX_Remove;delay=40} @self ~onSpawn
+
+SH_FX_Phase:
+  Type: ARMOR_STAND
+  Display: " "
+  Health: 1
+  Options:
+    Invisible: true
+    Invincible: true
+    Marker: true
+    HasGravity: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    Collidable: false
+  Skills:
+    - model{mid=sh_fx_phase;hitbox=false} @self ~onSpawn
+    - state{mid=sh_fx_phase;s=play;li=0;lo=0} @self ~onSpawn
+    - skill{s=SH_FX_Remove;delay=48} @self ~onSpawn
