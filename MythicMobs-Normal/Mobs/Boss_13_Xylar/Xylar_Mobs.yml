@@ -77,13 +77,11 @@ Xylar:
       - "<#F2B600>===================================="
 
   Drops:
-    # Mismo sistema que los bosses 01-07 (hoja Warp_Bosses): xp, runas, dinero y llaves
-    # (tablas de DropTables/Recompensas_Bosses) + la estrella del siguiente boss.
+    # Mismo sistema que los bosses 01-07: xp, runas, dinero y llaves (DropTables/Recompensas_Bosses).
     - Recompensas_xp
     - Recompensas_runas
     - Recompensas_dinero
     - Recompensas_llaves
-    - Samhain_EstrellaInvocacion 1 1
 
   Skills:
     - skill{s=Xylar_Rank_Reset} @self ~onSpawn
@@ -136,7 +134,7 @@ Xylar_Soldado:
     - players
 
   Drops:
-    #- Recompensas_FallenSquire
+    - Recompensas_Xylar_Soldado
 
   Skills:
     - skill{s=XY_FS_SpawnFX} @self ~onSpawn
@@ -169,7 +167,7 @@ Xylar_Caballero:
     - players
 
   Drops:
-    #- Recompensas_CorruptKnight
+    - Recompensas_Xylar_Caballero
 
   Skills:
     - skill{s=XY_CK_SpawnFX} @self ~onSpawn
@@ -198,7 +196,7 @@ Xylar_Fragmento:
     - players
 
   Drops:
-    #- Recompensas_CondemnedSoul
+    - Recompensas_Xylar_Fragmento
 
   Skills:
     - skill{s=XY_CS_SpawnFX} @self ~onSpawn

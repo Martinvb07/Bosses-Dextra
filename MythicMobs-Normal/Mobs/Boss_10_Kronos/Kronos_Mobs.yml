@@ -84,13 +84,11 @@ Kronos:
       - "<#F2B600>===================================="
 
   Drops:
-    # Mismo sistema que los bosses 01-07 (hoja Warp_Bosses): xp, runas, dinero y llaves
-    # (tablas de DropTables/Recompensas_Bosses) + la estrella del siguiente boss.
+    # Mismo sistema que los bosses 01-07: xp, runas, dinero y llaves (DropTables/Recompensas_Bosses).
     - Recompensas_xp
     - Recompensas_runas
     - Recompensas_dinero
     - Recompensas_llaves
-    - Azathoth_EstrellaInvocacion 1 1
 
   Skills:
     - skill{s=Kronos_Rank_Reset} @self ~onSpawn
@@ -141,7 +139,8 @@ Kronos_Centinela:
     MovementSpeed: 0.26
     FollowRange: 25
 
-  #Drops:
+  Drops:
+    - Recompensas_Kronos_Centinela
   AITargetSelectors:
     - clear
     - players
@@ -170,7 +169,8 @@ Kronos_Guardian:
     MovementSpeed: 0.25
     FollowRange: 26
 
-  #Drops:
+  Drops:
+    - Recompensas_Kronos_Guardian
 
   AITargetSelectors:
     - clear
@@ -200,7 +200,8 @@ Kronos_Saetero:
     MovementSpeed: 0.27
     FollowRange: 30
 
-  # Drops:
+  Drops:
+    - Recompensas_Kronos_Saetero
 
   AITargetSelectors:
     - clear
@@ -226,7 +227,8 @@ Kronos_Devorador:
     MovementSpeed: 0.28
     FollowRange: 28
 
-  #Drops:
+  Drops:
+    - Recompensas_Kronos_Devorador
 
   AITargetSelectors:
     - clear

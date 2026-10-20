@@ -77,13 +77,11 @@ Samhain:
       - "<#F2B600>===================================="
 
   Drops:
-    # Mismo sistema que los bosses 01-07 (hoja Warp_Bosses): xp, runas, dinero y llaves
-    # (tablas de DropTables/Recompensas_Bosses) + la estrella del siguiente boss.
+    # Mismo sistema que los bosses 01-07: xp, runas, dinero y llaves (DropTables/Recompensas_Bosses).
     - Recompensas_xp
     - Recompensas_runas
     - Recompensas_dinero
     - Recompensas_llaves
-    - Thor_EstrellaInvocacion 1 1
 
   Skills:
     - skill{s=Samhain_Rank_Reset} @self ~onSpawn
@@ -136,7 +134,7 @@ Samhain_Espantapajaros:
     - players
 
   Drops:
-    #- Recompensas_Draugr_Ragnarok
+    - Recompensas_Samhain_Espantapajaros
 
   Skills:
     - skill{s=SH_Draugr_Resilience} @self ~onSpawn
@@ -162,7 +160,7 @@ Samhain_FuegoFatuo:
     - players
 
   Drops:
-    #- Recompensas_SpectralVex_Ragnarok
+    - Recompensas_Samhain_FuegoFatuo
 
   Skills:
     - skill{s=SH_SpectralVex_SpawnFX} @self ~onSpawn
@@ -196,7 +194,7 @@ Samhain_Jinete:
     - players
 
   Drops:
-    #- Recompensas_VikingWarrior_Ragnarok
+    - Recompensas_Samhain_Jinete
 
   Skills:
     - skill{s=SH_VikingWarrior_DoubleAxe} @target ~onAttack

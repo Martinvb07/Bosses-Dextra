@@ -80,13 +80,11 @@ Azathoth:
       - "<#F2B600>===================================="
 
   Drops:
-    # Mismo sistema que los bosses 01-07 (hoja Warp_Bosses): xp, runas, dinero y llaves
-    # (tablas de DropTables/Recompensas_Bosses) + la estrella del siguiente boss.
+    # Mismo sistema que los bosses 01-07: xp, runas, dinero y llaves (DropTables/Recompensas_Bosses).
     - Recompensas_xp
     - Recompensas_runas
     - Recompensas_dinero
     - Recompensas_llaves
-    - Leviatan_EstrellaInvocacion 1 1
 
   Modules:
     ThreatTable: true
@@ -139,7 +137,7 @@ Azathoth_Engendro:
     - players
 
   Drops:
-    #- Recompensas_SandWarden
+    - Recompensas_Azathoth_Engendro
 
   Skills:
     - skill{s=AZ_SW_SpawnFX} @self ~onSpawn
@@ -168,7 +166,7 @@ Azathoth_Flautista:
     - players
 
   Drops:
-    #- Recompensas_MummyGuardian
+    - Recompensas_Azathoth_Flautista
 
   Skills:
     - skill{s=AZ_MG_SpawnFX} @self ~onSpawn
@@ -197,7 +195,7 @@ Azathoth_Larva:
     - players
 
   Drops:
-    #- Recompensas_GiantScarab
+    - Recompensas_Azathoth_Larva
 
   Skills:
     - skill{s=AZ_GS_SpawnFX} @self ~onSpawn
@@ -225,7 +223,7 @@ Azathoth_Sacerdote:
     - players
 
   Drops:
-    #- Recompensas_DesertPriest
+    - Recompensas_Azathoth_Sacerdote
 
   Skills:
     - skill{s=AZ_DP_SpawnFX} @self ~onSpawn

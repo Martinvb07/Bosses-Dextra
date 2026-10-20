@@ -71,13 +71,11 @@ Nezareth:
       - "<#F2B600>===================================="
 
   Drops:
-    # Mismo sistema que los bosses 01-07 (hoja Warp_Bosses): xp, runas, dinero y llaves
-    # (tablas de DropTables/Recompensas_Bosses) + la estrella del siguiente boss.
+    # Mismo sistema que los bosses 01-07: xp, runas, dinero y llaves (DropTables/Recompensas_Bosses).
     - Recompensas_xp
     - Recompensas_runas
     - Recompensas_dinero
     - Recompensas_llaves
-    - Kronos_EstrellaInvocacion 1 1
 
   Skills:
     - skill{s=Nezareth_Rank_Reset} @self ~onSpawn
@@ -129,7 +127,7 @@ Nezareth_Marioneta:
     - players
 
   Drops:
-    #- Recompensas_FrostBrute_Yeti
+    - Recompensas_Nezareth_Marioneta
 
   Skills:
     - skill{s=NZ_FBY_SpawnFX} @self ~onSpawn
@@ -161,7 +159,7 @@ Nezareth_Hilandera:
     - players
 
   Drops:
-    #- Recompensas_GlacierRaider_Yeti
+    - Recompensas_Nezareth_Hilandera
 
   Skills:
     - skill{s=NZ_GRY_SpawnFX} @self ~onSpawn
@@ -189,7 +187,7 @@ Nezareth_Polilla:
     - players
 
   Drops:
-    #- Recompensas_BlizzardSpirit_Yeti
+    - Recompensas_Nezareth_Polilla
 
   Skills:
     - skill{s=NZ_BSY_SpawnFX} @self ~onSpawn

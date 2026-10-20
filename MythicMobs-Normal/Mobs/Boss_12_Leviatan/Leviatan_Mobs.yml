@@ -75,13 +75,11 @@ Leviatan:
       - "<#F2B600>===================================="
 
   Drops:
-    # Mismo sistema que los bosses 01-07 (hoja Warp_Bosses): xp, runas, dinero y llaves
-    # (tablas de DropTables/Recompensas_Bosses) + la estrella del siguiente boss.
+    # Mismo sistema que los bosses 01-07: xp, runas, dinero y llaves (DropTables/Recompensas_Bosses).
     - Recompensas_xp
     - Recompensas_runas
     - Recompensas_dinero
     - Recompensas_llaves
-    - Xylar_EstrellaInvocacion 1 1
 
   Skills:
     - skill{s=Leviatan_Rank_Reset} @self ~onSpawn
@@ -130,7 +128,7 @@ Leviatan_Ahogado:
     - players
 
   Drops:
-    #- Recompensas_UndeadSamurai
+    - Recompensas_Leviatan_Ahogado
 
   Skills:
     - skill{s=LV_US_SpawnFX} @self ~onSpawn
@@ -158,7 +156,7 @@ Leviatan_Marea:
     - players
 
   Drops:
-    #- Recompensas_Yokai
+    - Recompensas_Leviatan_Marea
 
   Skills:
     - skill{s=LV_Yokai_SpawnFX} @self ~onSpawn
@@ -186,7 +184,7 @@ Leviatan_Anguila:
     - players
 
   Drops:
-    #- Recompensas_ShadowNinja
+    - Recompensas_Leviatan_Anguila
 
   Skills:
     - skill{s=LV_SN_SpawnFX} @self ~onSpawn

@@ -77,13 +77,11 @@ Thor:
       - "<#F2B600>===================================="
 
   Drops:
-    # Mismo sistema que los bosses 01-07 (hoja Warp_Bosses): xp, runas, dinero y llaves
-    # (tablas de DropTables/Recompensas_Bosses) + la estrella del siguiente boss.
+    # Mismo sistema que los bosses 01-07: xp, runas, dinero y llaves (DropTables/Recompensas_Bosses).
     - Recompensas_xp
     - Recompensas_runas
     - Recompensas_dinero
     - Recompensas_llaves
-    - Kukulkan_EstrellaInvocacion 1 1
 
   Skills:
     - skill{s=Thor_Rank_Reset} @self ~onSpawn
@@ -139,7 +137,7 @@ Thor_Einherjar:
     - players
 
   Drops:
-    #- Recompensas_MushZombie
+    - Recompensas_Thor_Einherjar
 
   Skills:
     - skill{s=TH_MZ_SpawnFX} @self ~onSpawn
@@ -192,7 +190,7 @@ Thor_Chispa:
     - players
 
   Drops:
-    #- Recompensas_LivingSpore
+    - Recompensas_Thor_Chispa
 
   Skills:
     - skill{s=TH_LS_SpawnFX} @self ~onSpawn
