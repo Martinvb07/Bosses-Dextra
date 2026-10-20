@@ -71,11 +71,13 @@ Nezareth:
       - "<#F2B600>===================================="
 
   Drops:
-    - Nezareth_Nada 1 1
-   # - Recompensas_xp
-   # - Recompensas_runas
-   # - Recompensas_dinero
-   # - Recompensas_llaves
+    # Mismo sistema que los bosses 01-07 (hoja Warp_Bosses): xp, runas, dinero y llaves
+    # (tablas de DropTables/Recompensas_Bosses) + la estrella del siguiente boss.
+    - Recompensas_xp
+    - Recompensas_runas
+    - Recompensas_dinero
+    - Recompensas_llaves
+    - Kronos_EstrellaInvocacion 1 1
 
   Skills:
     - skill{s=Nezareth_Rank_Reset} @self ~onSpawn

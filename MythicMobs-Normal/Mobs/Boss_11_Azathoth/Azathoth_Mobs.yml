@@ -80,12 +80,13 @@ Azathoth:
       - "<#F2B600>===================================="
 
   Drops:
-    - Azathoth_Nada 1 1
-   # - Recompensas_xp
-   # - Recompensas_runas
-   # - Recompensas_dinero
-   # - Recompensas_llaves
-   # - Baal_EstrellaInvocacion 1 1
+    # Mismo sistema que los bosses 01-07 (hoja Warp_Bosses): xp, runas, dinero y llaves
+    # (tablas de DropTables/Recompensas_Bosses) + la estrella del siguiente boss.
+    - Recompensas_xp
+    - Recompensas_runas
+    - Recompensas_dinero
+    - Recompensas_llaves
+    - Leviatan_EstrellaInvocacion 1 1
 
   Modules:
     ThreatTable: true

@@ -77,11 +77,13 @@ Xylar:
       - "<#F2B600>===================================="
 
   Drops:
+    # Mismo sistema que los bosses 01-07 (hoja Warp_Bosses): xp, runas, dinero y llaves
+    # (tablas de DropTables/Recompensas_Bosses) + la estrella del siguiente boss.
     - Recompensas_xp
     - Recompensas_runas
     - Recompensas_dinero
     - Recompensas_llaves
-    - Ragnarok_EstrellaInvocacion 1 1
+    - Samhain_EstrellaInvocacion 1 1
 
   Skills:
     - skill{s=Xylar_Rank_Reset} @self ~onSpawn
