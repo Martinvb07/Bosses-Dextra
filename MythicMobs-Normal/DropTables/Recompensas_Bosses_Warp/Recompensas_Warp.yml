@@ -1,0 +1,33 @@
+# Recompensas de los bosses 10-17 (/warp bosses), segun la hoja Warp_Bosses del Excel Mazmorras_Earth.
+# Son tablas propias: las de los bosses 01-07 (Recompensas_Bosses/) no se tocan.
+
+Recompensas_Warp_runas:
+  TotalItems: 1
+  MaxItems: 1
+  Drops:
+    - command{c="ae givercbook EXALTED <trigger.name> 1"} 0.009
+    - command{c="ae givercbook EXALTED <trigger.name> 2"} 0.005
+    - command{c="ae givercbook EXALTED <trigger.name> 3"} 0.003
+
+Recompensas_Warp_llaves:
+  TotalItems: 1
+  MaxItems: 1
+  Drops:
+    - command{c="phoenixc giveKey Earth_Usuario <trigger.name> 3"} 0.003
+    - command{c="phoenixc giveKey Earth_DexParty <trigger.name> 1"} 0.005
+
+Recompensas_Warp_xp:
+  TotalItems: 1
+  MaxItems: 1
+  Drops:
+    - command{c="xp give <trigger.name> 20000"} 0.009
+    - command{c="xp give <trigger.name> 40000"} 0.005
+    - command{c="xp give <trigger.name> 60000"} 0.003
+
+Recompensas_Warp_dinero:
+  TotalItems: 1
+  MaxItems: 1
+  Drops:
+    - command{c="eco give <trigger.name> 20000"} 0.009
+    - command{c="eco give <trigger.name> 40000"} 0.005
+    - command{c="eco give <trigger.name> 60000"} 0.003

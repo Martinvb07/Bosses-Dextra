@@ -84,11 +84,11 @@ Kronos:
       - "<#F2B600>===================================="
 
   Drops:
-    # Mismo sistema que los bosses 01-07: xp, runas, dinero y llaves (DropTables/Recompensas_Bosses).
-    - Recompensas_xp
-    - Recompensas_runas
-    - Recompensas_dinero
-    - Recompensas_llaves
+    # Tablas propias de los bosses 10-17 (hoja Warp_Bosses): DropTables/Recompensas_Bosses_Warp/
+    - Recompensas_Warp_xp
+    - Recompensas_Warp_runas
+    - Recompensas_Warp_dinero
+    - Recompensas_Warp_llaves
 
   Skills:
     - skill{s=Kronos_Rank_Reset} @self ~onSpawn
